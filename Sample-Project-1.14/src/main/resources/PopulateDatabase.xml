@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * PopulateDatabase.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	<!-- User accounts -->
+
+	<bean id="UserAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="UserAccount2" class="security.UserAccount">
+		<property name="username" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="UserAccount3" class="security.UserAccount">
+		<property name="username" value="user1" />
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="UserAccount4" class="security.UserAccount">
+		<property name="username" value="user2" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Other domain beans come here -->	
+	
+	<!-- %%%% Administrators %%%% -->
+	<bean id="Admin1" class="domain.Administrator">
+		<property name="name" value="Super" />
+		<property name="surname" value="Super" />
+		<property name="email" value="super@mail.com" />
+		<property name="birthDate" value="1995/10/03" />
+		<property name="userAccount" ref="UserAccount1" />
+	</bean>
+	
+	<bean id="Admin2" class="domain.Administrator">
+		<property name="name" value="Administrator 1" />
+		<property name="surname" value="Administrator" />
+		<property name="email" value="administrator1@mail.com" />
+		<property name="birthDate" value="1987/04/11" />
+		<property name="userAccount" ref="UserAccount2" />
+	</bean>
+	
+	<!-- %%%% Users %%%%% -->
+	<bean id="User1" class="domain.User">
+		<property name="name" value="User 1" />
+		<property name="surname" value="User" />
+		<property name="email" value="user1@mail.com" />
+		<property name="birthDate" value="1987/04/11" />
+		<property name="phoneNumber" value="635587789"/>
+		<property name="postalAddress" value="San Antion Spurs Street"/>
+		<property name="userAccount" ref="UserAccount3" />
+	</bean>
+	
+	<bean id="User2" class="domain.User">
+		<property name="name" value="User 2" />
+		<property name="surname" value="User " />
+		<property name="email" value="user2@mail.com" />
+		<property name="phoneNumber" value="635582389"/>
+		<property name="postalAddress" value="Okklahoma Thunder Street"/>
+		<property name="birthDate" value="1992/07/15" />
+		<property name="userAccount" ref="UserAccount4" />
+	</bean>
+		
+	<!-- %%%% Configuration %%%% -->
+	
+	<bean id="Configuration" class="domain.Configuration">
+		<property name="cookies_eng" value="This page uses cookies for its internal operations, by continuing, we will assume that you accept these cookies." />
+		<property name="cookies_es" value="Esta pagina usa cookies para realizar su correcto funcionamiento, si continúa navegando, asumiremos que acepta estas cookies." />
+		<property name="pageSize" value="5" />
+	</bean>
+</beans>
