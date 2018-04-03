@@ -212,3 +212,7 @@ nav{
 .dropdown-content {
     overflow-y:auto !important;
 }
+
+.serviceImg{
+	width:15%;
+}

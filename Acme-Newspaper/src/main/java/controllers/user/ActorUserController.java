@@ -23,6 +23,7 @@ import services.ActorService;
 import services.UserService;
 import controllers.AbstractController;
 import domain.User;
+import forms.UserAdminForm;
 
 @Controller
 @RequestMapping("/actor/user")
@@ -52,10 +53,13 @@ public class ActorUserController extends AbstractController {
 	public ModelAndView editUser() {
 		ModelAndView result;
 		User user;
+		UserAdminForm actorForm;
 
 		user = (User) this.actorService.findActorByPrincipal();
 		Assert.notNull(user);
-		result = this.createEditModelAndView(user);
+		actorForm = this.actorService.deconstruct(user);
+
+		result = this.createEditModelAndView(actorForm);
 
 		return result;
 	}
@@ -69,20 +73,22 @@ public class ActorUserController extends AbstractController {
 	 * @author Luis
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView updateUser(@ModelAttribute("actor") User user, final BindingResult binding) {
+	public ModelAndView updateUser(@ModelAttribute("actor") final UserAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
+		User user = null;
+
 		try {
-			user = this.userService.reconstruct(user, binding);
+			user = this.userService.reconstruct(actor, binding);
 		} catch (final Throwable oops) {//Not delete
 		}
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(user, "user.params.error");
+			result = this.createEditModelAndView(actor, "user.params.error");
 		else
 			try {
-				this.actorService.save(user);
+				this.userService.save(user);
 				result = new ModelAndView("redirect:/user/display.do?anonymous=false");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(user, "user.commit.error");
+				result = this.createEditModelAndView(actor, "user.commit.error");
 			}
 
 		return result;
@@ -90,7 +96,7 @@ public class ActorUserController extends AbstractController {
 
 	// Ancillary methods --------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final User user) {
+	protected ModelAndView createEditModelAndView(final UserAdminForm user) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(user, null);
@@ -98,7 +104,7 @@ public class ActorUserController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final User user, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final UserAdminForm user, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/edit");

@@ -37,8 +37,29 @@
 		<bean class="converters.UserToStringConverter" />
 		<bean class="converters.StringToUserConverter" />
 		
-		<bean class="converters.AdministratorToStringConverter" />
-		<bean class="converters.StringToAdministratorConverter" />
+		<bean class="converters.AdminToStringConverter" />
+		<bean class="converters.StringToAdminConverter" />
+		
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToActorConverter" />
+		
+		<bean class="converters.ArticleToStringConverter" />
+		<bean class="converters.StringToArticleConverter" />
+		
+		<bean class="converters.ChirpToStringConverter" />
+		<bean class="converters.StringToChirpConverter" />
+		
+		<bean class="converters.CreditCardToStringConverter" />
+		<bean class="converters.StringToCreditCardConverter" />
+		
+		<bean class="converters.CustomerToStringConverter" />
+		<bean class="converters.StringToCustomerConverter" />
+		
+		<bean class="converters.FollowUpToStringConverter" />
+		<bean class="converters.StringToFollowUpConverter" />
+		
+		<bean class="converters.NewspaperToStringConverter" />
+		<bean class="converters.StringToNewspaperConverter" />
 	
 	</util:list>
 	

@@ -8,37 +8,27 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
-<%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
+<spring:message var="lang" code="language" />
 
 <div class="slider fullscreen">
-    <ul class="slides">
-      <li>
-        <img src="images/slider-1.jpg">
-        <div class="caption left-align">
-          <h3 class = "slider-text"><spring:message code = "welcome.slider1.title"/></h3>
-          <h5 class="light grey-text text-lighten-3 slider-text"><spring:message code = "welcome.slider1.desc"/></h5>
-        </div>
-      </li>
-      <li>
-        <img src="images/slider-2.jpg">
-        <div class="caption right-align">
-          <h3 class = "slider-text"><spring:message code = "welcome.slider2.title"/></h3>
-          <h5 class="light grey-text text-lighten-3 slider-text"><spring:message code = "welcome.slider2.desc"/></h5>
-        </div>
-      </li>
-      <li>
-        <img src="images/slider-3.jpg">
-        <div class="caption center-align">
-          <h3 class = "slider-text"><spring:message code = "welcome.slider3.title"/></h3>
-          <h5 class="light grey-text text-lighten-3 slider-text"><spring:message code = "welcome.slider3.desc"/></h5>
-        </div>
-      </li>
-    </ul>
-  </div>
+	<ul class="slides">
+		<jstl:forEach var="slide" items="${sliders}">
+			<acme:showSlide title_en="${slide.title_en}"
+				title_es="${slide.title_es}" text_en="${slide.text_en}"
+				text_es="${slide.text_es}" pictureUrl="${slide.pictureUrl}"
+				align="${slide.align}" lang="${lang}" />
+		</jstl:forEach>
+	</ul>
+</div>
 

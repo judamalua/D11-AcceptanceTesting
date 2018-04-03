@@ -18,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
@@ -26,6 +25,7 @@ import services.ActorService;
 import services.UserService;
 import domain.Actor;
 import domain.User;
+import forms.UserAdminForm;
 
 @Controller
 @RequestMapping("/actor")
@@ -44,29 +44,11 @@ public class ActorController extends AbstractController {
 		super();
 	}
 
-	//Saving --------------------------------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit() {
-		ModelAndView result;
-		Actor actor;
-
-		try {
-			actor = this.actorService.findActorByPrincipal();
-
-			result = new ModelAndView("actor/edit");
-			result.addObject("actor", actor);
-
-		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/misc/403");
-		}
-
-		return result;
-	}
-
 	// Displaying  ---------------------------------------------------------------		
 
 	/**
-	 * That method returns a model and view with the system users list
+	 * That method returns the profile of the actor logged
+	 * That method returns a model and view with personal info of an Actor(Not an user)
 	 * 
 	 * @param page
 	 * @return ModelandView
@@ -100,9 +82,9 @@ public class ActorController extends AbstractController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView registerExplorer() {
 		ModelAndView result;
-		final User user;
+		UserAdminForm user;
 
-		user = this.userService.create();
+		user = new UserAdminForm();
 
 		result = this.createEditModelAndViewRegister(user);
 
@@ -119,32 +101,34 @@ public class ActorController extends AbstractController {
 	 * @return ModelandView
 	 * @author Luis
 	 */
-	@RequestMapping(value = "/register", method = RequestMethod.POST, params = {
-		"save", "confirmPassword"
-	})
-	public ModelAndView registerUser(@ModelAttribute("user") User user, final BindingResult binding, @RequestParam("confirmPassword") final String confirmPassword) {
+	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
+	public ModelAndView registerUser(@ModelAttribute("actor") final UserAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
 		Authority auth;
+		User user = null;
 
-		user = this.userService.reconstruct(user, binding);
-
+		try {
+			user = this.userService.reconstruct(actor, binding);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		if (binding.hasErrors())
-			result = this.createEditModelAndViewRegister(user, "user.params.error");
+			result = this.createEditModelAndViewRegister(actor, "user.params.error");
 		else
 			try {
 				auth = new Authority();
 				auth.setAuthority(Authority.USER);
 				Assert.isTrue(user.getUserAccount().getAuthorities().contains(auth));
-				Assert.isTrue(confirmPassword.equals(user.getUserAccount().getPassword()), "Passwords do not match");
+				Assert.isTrue(actor.getConfirmPassword().equals(user.getUserAccount().getPassword()), "Passwords do not match");
 				this.actorService.registerActor(user);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final DataIntegrityViolationException oops) {
-				result = this.createEditModelAndViewRegister(user, "user.username.error");
+				result = this.createEditModelAndViewRegister(actor, "user.username.error");
 			} catch (final Throwable oops) {
 				if (oops.getMessage().contains("Passwords do not match"))
-					result = this.createEditModelAndViewRegister(user, "user.password.error");
+					result = this.createEditModelAndViewRegister(actor, "user.password.error");
 				else
-					result = this.createEditModelAndViewRegister(user, "user.commit.error");
+					result = this.createEditModelAndViewRegister(actor, "user.commit.error");
 			}
 
 		return result;
@@ -170,7 +154,7 @@ public class ActorController extends AbstractController {
 
 		return result;
 	}
-	protected ModelAndView createEditModelAndViewRegister(final User user) {
+	protected ModelAndView createEditModelAndViewRegister(final UserAdminForm user) {
 		ModelAndView result;
 
 		result = this.createEditModelAndViewRegister(user, null);
@@ -178,12 +162,12 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndViewRegister(final User user, final String messageCode) {
+	protected ModelAndView createEditModelAndViewRegister(final UserAdminForm user, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("user/register");
 		result.addObject("message", messageCode);
-		result.addObject("user", user);
+		result.addObject("actor", user);
 
 		return result;
 
