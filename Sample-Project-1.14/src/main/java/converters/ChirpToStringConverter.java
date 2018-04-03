@@ -5,20 +5,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.User;
+import domain.Chirp;
 
 @Component
 @Transactional
-public class UserToStringConverter implements Converter<User, String> {
+public class ChirpToStringConverter implements Converter<Chirp, String> {
 
 	@Override
-	public String convert(final User user) {
+	public String convert(final Chirp chirp) {
 		String result;
 
-		if (user == null)
+		if (chirp == null)
 			result = null;
 		else
-			result = String.valueOf(user.getId());
+			result = String.valueOf(chirp.getId());
 
 		return result;
 	}

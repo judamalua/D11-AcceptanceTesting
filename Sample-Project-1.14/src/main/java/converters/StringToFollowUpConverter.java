@@ -6,25 +6,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.ActorRepository;
-import domain.Actor;
+import repositories.FollowUpRepository;
+import domain.FollowUp;
 
 @Component
 @Transactional
-public class StringToActorConverter implements Converter<String, Actor> {
+public class StringToFollowUpConverter implements Converter<String, FollowUp> {
 
 	@Autowired
-	ActorRepository	actorRepository;
+	FollowUpRepository	followUpRepository;
 
 
 	@Override
-	public Actor convert(final String text) {
-		Actor result;
+	public FollowUp convert(final String text) {
+		FollowUp result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.actorRepository.findOne(id);
+			result = this.followUpRepository.findOne(id);
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
 		}
@@ -33,4 +33,3 @@ public class StringToActorConverter implements Converter<String, Actor> {
 	}
 
 }
-

@@ -5,20 +5,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.User;
+import domain.FollowUp;
 
 @Component
 @Transactional
-public class UserToStringConverter implements Converter<User, String> {
+public class FollowUpToStringConverter implements Converter<FollowUp, String> {
 
 	@Override
-	public String convert(final User user) {
+	public String convert(final FollowUp followUp) {
 		String result;
 
-		if (user == null)
+		if (followUp == null)
 			result = null;
 		else
-			result = String.valueOf(user.getId());
+			result = String.valueOf(followUp.getId());
 
 		return result;
 	}

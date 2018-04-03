@@ -7,24 +7,18 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import security.UserAccount;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Access(AccessType.PROPERTY)
 public abstract class Actor extends DomainEntity {
 
@@ -39,7 +33,6 @@ public abstract class Actor extends DomainEntity {
 	private Date	birthDate;
 
 
-	@SafeHtml
 	@NotBlank
 	public String getName() {
 		return this.name;
@@ -49,7 +42,6 @@ public abstract class Actor extends DomainEntity {
 		this.name = name;
 	}
 
-	@SafeHtml
 	@NotBlank
 	public String getSurname() {
 		return this.surname;
@@ -59,7 +51,6 @@ public abstract class Actor extends DomainEntity {
 		this.surname = surname;
 	}
 
-	@SafeHtml
 	public String getPostalAddress() {
 		return this.postalAddress;
 	}
@@ -68,7 +59,7 @@ public abstract class Actor extends DomainEntity {
 		this.postalAddress = postalAddress;
 	}
 
-	@SafeHtml
+	@Pattern(regexp = "^\\+?\\d+$")
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
@@ -77,7 +68,6 @@ public abstract class Actor extends DomainEntity {
 		this.phoneNumber = phoneNumber;
 	}
 
-	@SafeHtml
 	@NotBlank
 	@Email
 	public String getEmail() {
@@ -88,10 +78,8 @@ public abstract class Actor extends DomainEntity {
 		this.email = email;
 	}
 
-	@NotNull
 	@Past
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@NotNull
 	public Date getBirthDate() {
 		return this.birthDate;
 	}

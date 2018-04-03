@@ -6,25 +6,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.ActorRepository;
-import domain.Actor;
+import repositories.NewspaperRepository;
+import domain.Newspaper;
 
 @Component
 @Transactional
-public class StringToActorConverter implements Converter<String, Actor> {
+public class StringToNewspaperConverter implements Converter<String, Newspaper> {
 
 	@Autowired
-	ActorRepository	actorRepository;
+	NewspaperRepository	newspaperRepository;
 
 
 	@Override
-	public Actor convert(final String text) {
-		Actor result;
+	public Newspaper convert(final String text) {
+		Newspaper result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.actorRepository.findOne(id);
+			result = this.newspaperRepository.findOne(id);
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
 		}
@@ -33,4 +33,3 @@ public class StringToActorConverter implements Converter<String, Actor> {
 	}
 
 }
-

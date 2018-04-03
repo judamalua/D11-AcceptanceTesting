@@ -6,25 +6,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.ActorRepository;
-import domain.Actor;
+import repositories.CreditCardRepository;
+import domain.CreditCard;
 
 @Component
 @Transactional
-public class StringToActorConverter implements Converter<String, Actor> {
+public class StringToCreditCardConverter implements Converter<String, CreditCard> {
 
 	@Autowired
-	ActorRepository	actorRepository;
+	CreditCardRepository	creditCardRepository;
 
 
 	@Override
-	public Actor convert(final String text) {
-		Actor result;
+	public CreditCard convert(final String text) {
+		CreditCard result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.actorRepository.findOne(id);
+			result = this.creditCardRepository.findOne(id);
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
 		}
@@ -33,4 +33,3 @@ public class StringToActorConverter implements Converter<String, Actor> {
 	}
 
 }
-
