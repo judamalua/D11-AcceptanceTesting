@@ -32,13 +32,12 @@
 <script type="text/javascript" src="scripts/jquery-ui.js"></script>
 <script type="text/javascript" src="scripts/jmenu.js"></script>
 <script type="text/javascript" src="scripts/materialize.js"></script>
-
+<script src="scripts/main.js"></script>
 <script src="scripts/cookieAjax.js"></script>
 <script src="scripts/businessNameAjax.js"></script>
 <script type="text/javascript">
 window.onload = function() {
-	  checkCookie();
-	  getBusinessName();
+	  initialize();
 	};
 
 </script>
