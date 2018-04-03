@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -53,6 +54,8 @@ public class Article extends DomainEntity {
 		this.body = body;
 	}
 
+	@NotNull
+	@ElementCollection
 	@URL
 	public Collection<String> getPictureUrls() {
 		return this.pictureUrls;

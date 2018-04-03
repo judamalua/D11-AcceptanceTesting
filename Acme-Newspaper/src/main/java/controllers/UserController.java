@@ -11,9 +11,6 @@
 package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.ConfigurationService;
 import services.UserService;
-import domain.Configuration;
 import domain.User;
 
 @Controller
@@ -48,40 +44,40 @@ public class UserController extends AbstractController {
 
 	// Listing  ---------------------------------------------------------------		
 
-	/**
-	 * That method returns a model and view with the system users list
-	 * 
-	 * @param page
-	 * @param anonymous
-	 * 
-	 * @return ModelandView
-	 * @author MJ
-	 */
-	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam final boolean anonymous, @RequestParam(defaultValue = "0") final int page) {
-		ModelAndView result;
-		Page<User> users;
-		Pageable pageable;
-		Configuration configuration;
-
-		try {
-			if (!anonymous)
-				this.actorService.checkUserLogin();
-
-			result = new ModelAndView("user/list");
-			configuration = this.configurationService.findConfiguration();
-			pageable = new PageRequest(page, configuration.getPageSize());
-			users = this.userService.getUsers(pageable);
-
-			result.addObject("users", users.getContent());
-			result.addObject("page", page);
-			result.addObject("pageNum", users.getTotalPages());
-			result.addObject("anonymous", anonymous);
-		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/misc/403");
-		}
-		return result;
-	}
+	//	/**
+	//	 * That method returns a model and view with the system users list
+	//	 * 
+	//	 * @param page
+	//	 * @param anonymous
+	//	 * 
+	//	 * @return ModelandView
+	//	 * @author MJ
+	//	 */
+	//	@RequestMapping("/list")
+	//	public ModelAndView list(@RequestParam final boolean anonymous, @RequestParam(defaultValue = "0") final int page) {
+	//		ModelAndView result;
+	//		Page<User> users;
+	//		Pageable pageable;
+	//		Configuration configuration;
+	//
+	//		try {
+	//			if (!anonymous)
+	//				this.actorService.checkUserLogin();
+	//
+	//			result = new ModelAndView("user/list");
+	//			configuration = this.configurationService.findConfiguration();
+	//			pageable = new PageRequest(page, configuration.getPageSize());
+	//			users = this.userService.getUsers(pageable);
+	//
+	//			result.addObject("users", users.getContent());
+	//			result.addObject("page", page);
+	//			result.addObject("pageNum", users.getTotalPages());
+	//			result.addObject("anonymous", anonymous);
+	//		} catch (final Throwable oops) {
+	//			result = new ModelAndView("redirect:/misc/403");
+	//		}
+	//		return result;
+	//	}
 
 	// Displaying  ---------------------------------------------------------------		
 

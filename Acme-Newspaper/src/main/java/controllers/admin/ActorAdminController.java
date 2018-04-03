@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
 import services.ActorService;
-import services.AdministratorService;
+import services.AdminService;
 import controllers.AbstractController;
 import domain.Administrator;
 import forms.UserAdminForm;
@@ -34,7 +34,7 @@ public class ActorAdminController extends AbstractController {
 	@Autowired
 	private ActorService			actorService;
 	@Autowired
-	private AdministratorService	administratorService;
+	private AdminService	administratorService;
 
 
 	// Constructors -----------------------------------------------------------

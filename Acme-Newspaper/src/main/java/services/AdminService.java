@@ -1,15 +1,22 @@
+
 package services;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
-import repositories.AdminRepository;
-import domain.Admin;
+import repositories.AdministratorRepository;
+import security.Authority;
+import security.UserAccount;
+import domain.Administrator;
+import forms.UserAdminForm;
 
 @Service
 @Transactional
@@ -18,64 +25,103 @@ public class AdminService {
 	// Managed repository --------------------------------------------------
 
 	@Autowired
-	private AdminRepository	adminRepository;
-
+	private AdministratorRepository	administratorRepository;
 
 	// Supporting services --------------------------------------------------
 
+	@Autowired
+	private Validator				validator;
+
+
 	// Simple CRUD methods --------------------------------------------------
 
-	public Admin create() {
-		Admin result;
+	public Administrator create() {
+		Administrator result;
 
-		result = new Admin();
+		result = new Administrator();
 
 		return result;
 	}
 
-	public Collection<Admin> findAll() {
+	public Collection<Administrator> findAll() {
 
-		Collection<Admin> result;
+		Collection<Administrator> result;
 
-		Assert.notNull(this.adminRepository);
-		result = this.adminRepository.findAll();
+		Assert.notNull(this.administratorRepository);
+		result = this.administratorRepository.findAll();
 		Assert.notNull(result);
 
 		return result;
 
 	}
 
-	public Admin findOne(final int adminId) {
+	public Administrator findOne(final int administratorId) {
 
-		Admin result;
+		Administrator result;
 
-		result = this.adminRepository.findOne(adminId);
-
-		return result;
-
-	}
-
-	public Admin save(final Admin admin) {
-
-		assert admin != null;
-
-		Admin result;
-
-		result = this.adminRepository.save(admin);
+		result = this.administratorRepository.findOne(administratorId);
 
 		return result;
 
 	}
 
-	public void delete(final Admin admin) {
+	public Administrator save(final Administrator administrator) {
 
-		assert admin != null;
-		assert admin.getId() != 0;
+		assert administrator != null;
 
-		Assert.isTrue(this.adminRepository.exists(admin.getId()));
+		Administrator result;
 
-		this.adminRepository.delete(admin);
+		result = this.administratorRepository.save(administrator);
 
+		return result;
+
+	}
+
+	public void delete(final Administrator administrator) {
+
+		assert administrator != null;
+		assert administrator.getId() != 0;
+
+		Assert.isTrue(this.administratorRepository.exists(administrator.getId()));
+
+		this.administratorRepository.delete(administrator);
+
+	}
+
+	// Other business methods
+
+	public Administrator reconstruct(final UserAdminForm admin, final BindingResult binding) {
+		Administrator result;
+
+		if (admin.getId() == 0) {
+
+			UserAccount userAccount;
+			Collection<Authority> authorities;
+			Authority authority;
+
+			userAccount = admin.getUserAccount();
+			authorities = new HashSet<Authority>();
+			authority = new Authority();
+
+			result = this.create();
+			//Arreglar
+
+			authority.setAuthority(Authority.ADMIN);
+			authorities.add(authority);
+			userAccount.setAuthorities(authorities);
+
+		} else {
+			result = this.administratorRepository.findOne(admin.getId());
+
+			result.setName(admin.getName());
+			result.setSurname(admin.getSurname());
+			result.setPostalAddress(admin.getPostalAddress());
+			result.setPhoneNumber(admin.getPhoneNumber());
+			result.setEmail(admin.getEmail());
+			result.setBirthDate(admin.getBirthDate());
+		}
+		this.validator.validate(result, binding);
+
+		return result;
 	}
 }
-
