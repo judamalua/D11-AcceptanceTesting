@@ -19,6 +19,8 @@ public class Configuration extends DomainEntity {
 	// Attributes -------------------------------------------------------------
 	private String	cookies_eng;
 	private String	cookies_es;
+	private String	businessNameFirst;
+	private String	businessNameLast;
 	private Integer	pageSize;
 
 
@@ -40,6 +42,26 @@ public class Configuration extends DomainEntity {
 
 	public void setCookies_es(final String cookies_es) {
 		this.cookies_es = cookies_es;
+	}
+
+	@SafeHtml
+	@NotBlank
+	public String getBusinessNameFirst() {
+		return this.businessNameFirst;
+	}
+
+	public void setBusinessNameFirst(final String businessNameFirst) {
+		this.businessNameFirst = businessNameFirst;
+	}
+
+	@SafeHtml
+	@NotBlank
+	public String getBusinessNameLast() {
+		return this.businessNameLast;
+	}
+
+	public void setBusinessNameLast(final String businessNameLast) {
+		this.businessNameLast = businessNameLast;
 	}
 
 	@NotNull
