@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -27,6 +29,7 @@ public class Article extends DomainEntity {
 	private boolean				finalMode;
 
 
+	@SafeHtml
 	@NotBlank
 	public String getTitle() {
 		return this.title;
@@ -35,7 +38,7 @@ public class Article extends DomainEntity {
 	public void setTitle(final String title) {
 		this.title = title;
 	}
-
+	@SafeHtml
 	@NotBlank
 	public String getSummary() {
 		return this.summary;
@@ -44,7 +47,7 @@ public class Article extends DomainEntity {
 	public void setSummary(final String summary) {
 		this.summary = summary;
 	}
-
+	@SafeHtml(whitelistType = WhiteListType.BASIC_WITH_IMAGES)
 	@NotBlank
 	public String getBody() {
 		return this.body;
@@ -54,6 +57,7 @@ public class Article extends DomainEntity {
 		this.body = body;
 	}
 
+	@SafeHtml
 	@NotNull
 	@ElementCollection
 	@URL

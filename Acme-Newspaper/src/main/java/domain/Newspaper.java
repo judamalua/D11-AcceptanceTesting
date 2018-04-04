@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -33,6 +34,7 @@ public class Newspaper extends DomainEntity {
 	private boolean	publicNewspaper;
 
 
+	@SafeHtml
 	@NotBlank
 	public String getTitle() {
 		return this.title;
@@ -52,7 +54,7 @@ public class Newspaper extends DomainEntity {
 	public void setPublicationDate(final Date publicationDate) {
 		this.publicationDate = publicationDate;
 	}
-
+	@SafeHtml
 	@NotBlank
 	public String getDescription() {
 		return this.description;
@@ -61,7 +63,7 @@ public class Newspaper extends DomainEntity {
 	public void setDescription(final String description) {
 		this.description = description;
 	}
-
+	@SafeHtml
 	@NotBlank
 	public String getPictureUrl() {
 		return this.pictureUrl;
