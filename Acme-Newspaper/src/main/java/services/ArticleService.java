@@ -140,4 +140,13 @@ public class ArticleService {
 
 		return result;
 	}
+
+	/**
+	 * Returns the article witch the followUp belongs to
+	 * 
+	 * @author Luis
+	 **/
+	public Article getArticleByFollowUp(final FollowUp followUp) {
+		return this.articleRepository.getArticleByFollowUp(followUp);
+	}
 }
