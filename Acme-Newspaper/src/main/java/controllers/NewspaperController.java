@@ -10,8 +10,12 @@
 
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -21,13 +25,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.ConfigurationService;
+import services.NewspaperService;
 import services.UserService;
+import domain.Actor;
+import domain.Article;
 import domain.Configuration;
+import domain.CreditCard;
+import domain.Customer;
+import domain.Newspaper;
 import domain.User;
 
 @Controller
 @RequestMapping("/newspaper")
 public class NewspaperController extends AbstractController {
+
+	@Autowired
+	private NewspaperService		newspaperService;
 
 	@Autowired
 	private UserService				userService;
@@ -59,11 +72,32 @@ public class NewspaperController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) {
 		final ModelAndView result;
-		final Page<User> newspapers;
+		final Page<Newspaper> newspapers;
 		final Pageable pageable;
 		final Configuration configuration;
+		final Collection<Boolean> ownNewspapers;
+		Actor actor;
+		User publisher;
 
-		return null;
+		configuration = this.configurationService.findConfiguration();
+		pageable = new PageRequest(page, configuration.getPageSize());
+		ownNewspapers = new ArrayList<>();
+		result = new ModelAndView("newspaper/list");
+
+		newspapers = this.newspaperService.findPublicNewspapers(pageable);
+		if (this.actorService.getLogged()) {
+			actor = this.actorService.findActorByPrincipal();
+			for (final Newspaper newspaper : newspapers.getContent()) {
+				publisher = this.userService.findUserByNewspaper(newspaper.getId());
+				ownNewspapers.add(actor.equals(publisher));
+			}
+			result.addObject("ownNewspaper", ownNewspapers);
+		}
+		result.addObject("newspapers", newspapers.getContent());
+		result.addObject("page", page);
+		result.addObject("pageNum", newspapers.getTotalPages());
+
+		return result;
 	}
 	/**
 	 * That method returns a model and view with the display of an actor
@@ -77,23 +111,49 @@ public class NewspaperController extends AbstractController {
 	 * @author MJ
 	 */
 	@RequestMapping("/display")
-	public ModelAndView display(@RequestParam(required = false) final Integer actorId, @RequestParam(defaultValue = "true") final boolean anonymous) {
+	public ModelAndView display(@RequestParam final Integer newspaperId, @RequestParam final Integer pageArticle) {
 		ModelAndView result;
-		User user;
+		Newspaper newspaper;
+		Actor actor;
+		User writer;
+		final Collection<Boolean> ownArticles;
+		final Page<Article> articles;
+		Pageable pageable;
+		Configuration configuration;
+		Boolean subscriber;
 
 		try {
-			if (!anonymous)
-				this.actorService.checkUserLogin();
-			result = new ModelAndView("actor/display");
-			if (actorId != null)
-				user = this.userService.findOne(actorId);
-			else
-				user = (User) this.actorService.findActorByPrincipal();
 
-			Assert.notNull(user);
+			result = new ModelAndView("newspaper/display");
+			subscriber = false;
+			newspaper = this.newspaperService.findOne(newspaperId);
+			Assert.notNull(newspaper);
 
-			result.addObject("actor", user);
-			result.addObject("anonymous", anonymous);
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(pageArticle, configuration.getPageSize());
+
+			ownArticles = new ArrayList<>();
+			articles = this.newspaperService.findArticlesByNewspaper(newspaperId, pageable);
+
+			if (this.actorService.getLogged()) {
+				actor = this.actorService.findActorByPrincipal();
+				for (final Article article : articles.getContent()) {
+					writer = this.userService.findUserByArticle(article.getId());
+					ownArticles.add(writer.equals(actor));
+				}
+
+				if (actor instanceof Customer)
+					for (final CreditCard creditCard : newspaper.getCreditCards()) {
+						subscriber = creditCard.getCustomer().equals(actor);
+						if (subscriber)
+							break;
+					}
+				result.addObject("ownArticle", ownArticles);
+			}
+
+			result.addObject("subscriber", subscriber);
+			result.addObject("newspaper", newspaper);
+			result.addObject("articles", articles.getContent());
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

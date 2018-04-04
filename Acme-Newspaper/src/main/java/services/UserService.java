@@ -7,6 +7,8 @@ import java.util.HashSet;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -103,6 +105,16 @@ public class UserService {
 		Assert.isTrue(articleId != 0);
 
 		result = this.userRepository.findUserByArticle(articleId);
+
+		return result;
+	}
+
+	private Page<Newspaper> findNewspapersByUser(final int userId, final Pageable pageable) {
+		Page<Newspaper> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findNewspapersByUser(userId, pageable);
 
 		return result;
 	}

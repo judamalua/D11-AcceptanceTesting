@@ -63,3 +63,6 @@
 <h4>
 	<spring:message code="article.writer" />
 </h4>
+<p>
+	<a href="user/display.do?userId=${writer.id}" ><jstl:out value="${writer.name}" /></a>
+</p>

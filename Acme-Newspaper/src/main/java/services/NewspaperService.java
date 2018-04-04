@@ -7,6 +7,8 @@ import java.util.HashSet;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -109,6 +111,38 @@ public class NewspaperService {
 		Assert.isTrue(articleId != 0);
 
 		result = this.newspaperRepository.findNewspaperByArticle(articleId);
+
+		return result;
+	}
+
+	public Page<Newspaper> findSubscribeNewspapers(final int customerId, final Pageable pageable) {
+		Page<Newspaper> result;
+
+		Assert.isTrue(customerId != 0);
+		Assert.notNull(pageable);
+
+		result = this.newspaperRepository.findSubscribeNewspapers(customerId, pageable);
+
+		return result;
+	}
+
+	public Page<Article> findArticlesByNewspaper(final int newspaperId, final Pageable pageable) {
+		Assert.isTrue(newspaperId != 0);
+		Assert.notNull(pageable);
+
+		Page<Article> result;
+
+		result = this.newspaperRepository.findArticlesByNewspaper(newspaperId, pageable);
+
+		return result;
+	}
+
+	public Page<Newspaper> findPublicNewspapers(final Pageable pageable) {
+		Page<Newspaper> result;
+
+		Assert.notNull(pageable);
+
+		result = this.newspaperRepository.findPublicNewspapers(pageable);
 
 		return result;
 	}

@@ -68,7 +68,7 @@
 </p>
 
 <!-- Button for joining the newspaper -->
-<security:authorize access="hasRole('USER')">
+<security:authorize access="hasRole('CUSTOMER')">
 	<jstl:if test="${!subscriber and newspaper.publicationDate==null}">
 		<a href="newspaper/customer/subscribe.do?newspaperId=${newspaper.id}">
 			<button class="btn">

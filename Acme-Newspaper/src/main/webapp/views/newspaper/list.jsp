@@ -30,33 +30,35 @@
 	pattern="yyyy-MM-dd HH:mm" />
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestURI}page="
-	pageNum="${pageNum}" page="${page}" />
+<acme:pagination requestURI="${requestURI}page=" pageNum="${pageNum}"
+	page="${page}" />
 
 <!-- Table -->
 
 <display:table name="newspapers" id="newspaper"
 	requestURI="${requestURI}page=${page}">
-	
-	<display:column >
-		<img src="${newspaper.pictureUrl}" class="newspaperImg"/>
+
+	<display:column>
+		<img src="${newspaper.pictureUrl}" class="newspaperImg" />
 	</display:column>
 	<display:column property="title" title="${titleName}" sortable="true" />
-	<display:column property="publicationDate" title="${titlePubliation}" format="${formatMoment}" sortable="true"/>
+	<display:column property="publicationDate" title="${titlePubliation}"
+		format="${formatMoment}" sortable="true" />
 	<display:column>
-		<acme:button
-			url="newspaper/display.do?newspaperId=${rendezvous.id}"
+		<acme:button url="newspaper/display.do?newspaperId=${rendezvous.id}"
 			code="newspaper.details" />
 	</display:column>
 
 
 	<display:column>
-		<jstl:if
-			test="${ownNewspaper[newspaper_rowNum-1] and newspaper.publicationDate==null}">
+		<security:authorize access="hasRole('USER')">
+			<jstl:if
+				test="${ownNewspaper[newspaper_rowNum-1] and newspaper.publicationDate==null}">
 				<acme:button
 					url="newspaper/user/edit.do?newspaperId=${newspaper.id}"
 					code="newspaper.edit" />
-		</jstl:if>
+			</jstl:if>
+		</security:authorize>
 	</display:column>
 
 	<display:column>
