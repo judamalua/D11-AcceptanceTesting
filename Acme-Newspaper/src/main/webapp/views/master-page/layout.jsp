@@ -42,6 +42,11 @@ window.onload = function() {
 
 </script>
 
+
+<!-- Text editor -->
+<link rel="stylesheet" href="styles/widgEditor.css" />
+<script src="scripts/widgEditor.js"></script>
+
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/css/bootstrap.min.css"> --> <!-- BOOTSTRAP 2.0.4 -->
