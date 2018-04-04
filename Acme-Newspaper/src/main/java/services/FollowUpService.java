@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.FollowUpRepository;
+import domain.Actor;
 import domain.Article;
 import domain.FollowUp;
 import domain.User;
@@ -120,16 +121,30 @@ public class FollowUpService {
 	 * @author Luis
 	 **/
 	public void delete(final FollowUp followUp) {
-
 		assert followUp != null;
 		assert followUp.getId() != 0;
-
 		Assert.isTrue(this.followUpRepository.exists(followUp.getId()));
+		final Actor principal = this.actorService.findActorByPrincipal();
+		;
+
+		if (principal instanceof User)
+			Assert.isTrue(principal == this.findFollowUpCreator(followUp) && followUp.getPublicationDate().after(new Date()));
+
+		Article article;
+		final Article savedArticle;
+		User user;
+		article = this.articleService.getArticleByFollowUp(followUp);
+		user = this.findFollowUpCreator(followUp);
+
+		article.getFollowUps().remove(followUp);
+		savedArticle = this.articleService.save(article);
+		user.getArticles().remove(article);
+		user.getArticles().add(savedArticle);
+		this.userService.save(user);
 
 		this.followUpRepository.delete(followUp);
 
 	}
-
 	/**
 	 * Returns the creator of a followUp
 	 * 
