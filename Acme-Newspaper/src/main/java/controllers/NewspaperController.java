@@ -26,7 +26,7 @@ import domain.Configuration;
 import domain.User;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/newspaper")
 public class NewspaperController extends AbstractController {
 
 	@Autowired
@@ -57,17 +57,14 @@ public class NewspaperController extends AbstractController {
 	 * @author MJ
 	 */
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam final boolean anonymous, @RequestParam(defaultValue = "0") final int page) {
+	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) {
 		final ModelAndView result;
-		final Page<User> users;
+		final Page<User> newspapers;
 		final Pageable pageable;
 		final Configuration configuration;
 
 		return null;
 	}
-
-	// Displaying  ---------------------------------------------------------------		
-
 	/**
 	 * That method returns a model and view with the display of an actor
 	 * 
