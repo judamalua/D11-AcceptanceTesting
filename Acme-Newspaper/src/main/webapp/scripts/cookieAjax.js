@@ -38,7 +38,7 @@ function showCookieMessage() {
 	if (language == "es") {
 		xhttp.open("GET", getMainDomain() + "cookie/ajax/es.do", true);
 	} else {
-		xhttp.open("GET", getMainDomain() + "/Sample-Project-1.14/cookie/ajax/en.do", true);
+		xhttp.open("GET", getMainDomain() + "cookie/ajax/en.do", true);
 	}
 	xhttp.send();
 
