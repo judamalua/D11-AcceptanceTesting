@@ -73,7 +73,9 @@
                             code="master.page.login" /></a></li>
                 <li><a class="fNiv" href="actor/register.do"> <spring:message
                             code="master.page.registerUser" /></a></li>
-                <li><a class="fNiv" href="#">TEMPLATE</a></li>
+                <li><a class="fNiv" href="user/list.do">
+						<spring:message code="master.page.userList" />
+				</a></li>
                 <li><a class="fNiv" href="#">TEMPLATE</a></li>
         </ul>
         </security:authorize>

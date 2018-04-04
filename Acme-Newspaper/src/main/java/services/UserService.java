@@ -7,6 +7,8 @@ import java.util.HashSet;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -132,7 +134,8 @@ public class UserService {
 
 		return result;
 	}
-	// Other business methods
+
+	// Other business methods ------------------------------------------------------------------------------------
 
 	public User reconstruct(final UserAdminForm userAdminForm, final BindingResult binding) {
 		User result;
@@ -176,5 +179,21 @@ public class UserService {
 		this.validator.validate(result, binding);
 
 		return result;
+	}
+
+	/**
+	 * That method returns a collections of users of the system with pageable
+	 * 
+	 * @param pageable
+	 * @return Page<Users>
+	 * @author Luis
+	 */
+	public Page<User> getUsers(final Pageable pageable) {
+		Page<User> result;
+
+		result = this.userRepository.findAll(pageable);
+
+		return result;
+
 	}
 }
