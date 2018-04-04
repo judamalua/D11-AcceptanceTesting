@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.UserRepository;
+import security.Authority;
+import security.UserAccount;
 import domain.Article;
 import domain.Chirp;
 import domain.Newspaper;
@@ -39,7 +41,31 @@ public class UserService {
 	public User create() {
 		User result;
 
+		final UserAccount userAccount;
+		final Collection<Authority> auth;
+		final Authority authority;
+		Collection<Article> articles;
+		Collection<Chirp> chirps;
+		Collection<Newspaper> newspapers;
+
+		articles = new HashSet<Article>();
+		chirps = new HashSet<Chirp>();
+		newspapers = new HashSet<Newspaper>();
+
 		result = new User();
+
+		userAccount = new UserAccount();
+		auth = new HashSet<Authority>();
+		authority = new Authority();
+		authority.setAuthority(Authority.USER);
+		auth.add(authority);
+		userAccount.setAuthorities(auth);
+
+		result.setUserAccount(userAccount);
+
+		result.setArticles(articles);
+		result.setChirps(chirps);
+		result.setNewspapers(newspapers);
 
 		return result;
 	}
@@ -110,15 +136,16 @@ public class UserService {
 
 	public User reconstruct(final UserAdminForm userAdminForm, final BindingResult binding) {
 		User result;
-		Collection<Article> articles;
-		Collection<Chirp> chirps;
-		Collection<Newspaper> newspapers;
 
 		if (userAdminForm.getId() == 0) {
 
-			articles = new HashSet<>();
-			chirps = new HashSet<>();
-			newspapers = new HashSet<>();
+			Collection<Article> articles;
+			Collection<Chirp> chirps;
+			Collection<Newspaper> newspapers;
+
+			articles = new HashSet<Article>();
+			chirps = new HashSet<Chirp>();
+			newspapers = new HashSet<Newspaper>();
 
 			result = this.create();
 

@@ -12,6 +12,7 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -64,6 +65,7 @@ public class UserAdminForm extends DomainEntity {
 	}
 
 	@SafeHtml
+	@Pattern(regexp = "^(\\+?\\d+)?$")
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
