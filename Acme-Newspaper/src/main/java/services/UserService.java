@@ -206,4 +206,14 @@ public class UserService {
 
 		return result;
 	}
+
+	public Page<Article> findUserPublishedArticles(final int userId, final Pageable pageable) {
+		Page<Article> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findUserPublishedArticles(userId, pageable);
+
+		return result;
+	}
 }
