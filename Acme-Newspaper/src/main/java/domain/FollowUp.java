@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,6 +35,7 @@ public class FollowUp extends DomainEntity {
 	private Collection<String>	pictureUrls;
 
 
+	@SafeHtml
 	@NotBlank
 	public String getTitle() {
 		return this.title;
@@ -53,7 +56,7 @@ public class FollowUp extends DomainEntity {
 	public void setPublicationDate(final Date publicationDate) {
 		this.publicationDate = publicationDate;
 	}
-
+	@SafeHtml
 	@NotBlank
 	public String getSummary() {
 		return this.summary;
@@ -62,7 +65,7 @@ public class FollowUp extends DomainEntity {
 	public void setSummary(final String summary) {
 		this.summary = summary;
 	}
-
+	@SafeHtml(whitelistType = WhiteListType.BASIC_WITH_IMAGES)
 	@NotBlank
 	public String getText() {
 		return this.text;
@@ -71,7 +74,7 @@ public class FollowUp extends DomainEntity {
 	public void setText(final String text) {
 		this.text = text;
 	}
-
+	@SafeHtml
 	@NotNull
 	@ElementCollection
 	@URL
