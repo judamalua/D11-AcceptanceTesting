@@ -254,6 +254,9 @@ public class UserService {
 
 		principal = (User) this.actorService.findActorByPrincipal();
 
+		// Checking that a user cannot follow or unfollow him or herself
+		Assert.isTrue(principal.getId() != user.getId());
+
 		// If the principal already follows the user given, it will be deleted from the list
 		if (principal.getUsers().contains(user))
 			principal.getUsers().remove(user);
