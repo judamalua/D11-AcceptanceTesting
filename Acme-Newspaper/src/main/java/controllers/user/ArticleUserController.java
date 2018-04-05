@@ -1,12 +1,11 @@
 
 package controllers.user;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +23,7 @@ import domain.User;
 
 @Controller
 @RequestMapping("/article/user")
-public class ArticleUserController extends AbstractController {//TODO: ALL
+public class ArticleUserController extends AbstractController {
 
 	// Services -------------------------------------------------------
 
@@ -64,27 +63,49 @@ public class ArticleUserController extends AbstractController {//TODO: ALL
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final Integer newspaperId) {
+		ModelAndView result;
+		Article article;
+
+		try {
+			this.actorService.checkUserLogin();
+			article = this.articleService.create();
+
+			result = this.createEditModelAndView(article);
+			result.addObject("newspaperId", newspaperId);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("rediect:/misc/403");
+		}
+		return result;
+	}
+
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Article article, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("article") Article article, @ModelAttribute("newspaperId") final Integer newspaperId, final BindingResult binding) {
 		ModelAndView result;
-		Actor actor;
+		User actor;
 		User writer;
 		Article savedArticle;
 		Newspaper newspaper;
 
+		article = this.articleService.reconstruct(article, binding);
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(article, "article.params.error");
 		else
 			try {
-				actor = this.actorService.findActorByPrincipal();
-				writer = this.userService.findUserByArticle(article.getId());
+				actor = (User) this.actorService.findActorByPrincipal();
+				newspaper = this.newspaperService.findOne(newspaperId);
+				Assert.isTrue(actor.getNewspapers().contains(newspaper));
+				Assert.isTrue(newspaper.getPublicationDate() == null);
+
+				savedArticle = this.articleService.save(article, newspaper);
+				writer = this.userService.findUserByArticle(savedArticle.getId());
 
 				Assert.isTrue(actor.equals(writer));
 
-				savedArticle = this.articleService.save(article);
-				newspaper = this.newspaperService.findNewspaperByArticle(savedArticle.getId());
 				result = new ModelAndView("redirect:/newspaper/display.do?newspaperId=" + newspaper.getId());
 
 			} catch (final Throwable oops) {
@@ -93,7 +114,6 @@ public class ArticleUserController extends AbstractController {//TODO: ALL
 
 		return result;
 	}
-
 	// Ancillary methods --------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Article article) {
@@ -107,9 +127,8 @@ public class ArticleUserController extends AbstractController {//TODO: ALL
 	protected ModelAndView createEditModelAndView(final Article article, final String messageCode) {
 		ModelAndView result;
 
-		result = new ModelAndView("newspaper/edit");
+		result = new ModelAndView("article/edit");
 		result.addObject("article", article);
-
 		result.addObject("message", messageCode);
 
 		return result;

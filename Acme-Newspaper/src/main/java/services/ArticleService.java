@@ -66,15 +66,13 @@ public class ArticleService {
 
 	}
 
-	public Article save(final Article article) {
+	public Article save(final Article article, final Newspaper newspaper) {
 
 		Assert.notNull(article);
 
 		Article result;
-		Newspaper newspaper;
 
 		result = this.articleRepository.save(article);
-		newspaper = this.newspaperService.findNewspaperByArticle(article.getId());
 
 		newspaper.getArticles().remove(article);
 		newspaper.getArticles().add(result);
@@ -143,4 +141,18 @@ public class ArticleService {
 
 		return result;
 	}
+	/**
+	 * 
+	 * 
+	 * 
+	 * @author Luis
+	 */
+	public Article getArticleByFollowUp(final FollowUp followUp) {
+		Article result;
+
+		result = this.articleRepository.getArticleByFollowUp(followUp);
+
+		return result;
+	}
+
 }

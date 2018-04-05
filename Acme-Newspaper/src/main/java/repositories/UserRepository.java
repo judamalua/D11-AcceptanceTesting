@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Article;
+import domain.Chirp;
 import domain.Newspaper;
 import domain.User;
 
@@ -28,6 +31,18 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate=null or n.publicationDate='')")
 	Page<Newspaper> findNotPublishedNewspapersByUser(int userId, Pageable pageable);
+
+	@Query("select u1 from User u join u.users u1 where u.id = ?1")
+	Page<User> findFollowedUsers(int userId, Pageable pageable);
+
+	@Query("select u from User u join u.users u1 where u1.id = ?1")
+	Page<User> findFollowers(int userId, Pageable pageable);
+
+	@Query("select c from User u join u.users u1 join u1.chirps c where u.id = ?1")
+	Page<Chirp> findFollowedUsersChirps(int userId, Pageable pageable);
+
+	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate=null or n.publicationDate='')")
+	Collection<Newspaper> findNotPublishedNewspapersByUser(int userId);
 
 	/**
 	 * Level C query 1

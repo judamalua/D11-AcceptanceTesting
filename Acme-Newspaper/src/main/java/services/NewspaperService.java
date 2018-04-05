@@ -81,7 +81,11 @@ public class NewspaperService {
 		User publisher;
 
 		result = this.newspaperRepository.save(newspaper);
-		publisher = this.userService.findUserByNewspaper(newspaper.getId());
+
+		if (newspaper.getId() != 0)
+			publisher = this.userService.findUserByNewspaper(result.getId());
+		else
+			publisher = (User) this.actorService.findActorByPrincipal();
 
 		publisher.getNewspapers().remove(result);
 		publisher.getNewspapers().add(result);
@@ -137,12 +141,12 @@ public class NewspaperService {
 		return result;
 	}
 
-	public Page<Newspaper> findPublicNewspapers(final Pageable pageable) {
+	public Page<Newspaper> findPublicPublicatedNewspapers(final Pageable pageable) {
 		Page<Newspaper> result;
 
 		Assert.notNull(pageable);
 
-		result = this.newspaperRepository.findPublicNewspapers(pageable);
+		result = this.newspaperRepository.findPublicPublicatedNewspapers(pageable);
 
 		return result;
 	}
@@ -169,6 +173,7 @@ public class NewspaperService {
 			result.setPublicNewspaper(newspaper.getPublicNewspaper());
 			result.setTitle(newspaper.getTitle());
 		}
+
 		this.validator.validate(result, binding);
 
 		return result;

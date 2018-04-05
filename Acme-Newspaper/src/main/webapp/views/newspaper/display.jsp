@@ -23,7 +23,6 @@
 
 <!-- Variable declaration -->
 <spring:message code="master.page.moment.format" var="formatMoment" />
-<spring:message code="newspaper.name" var="titleName" />
 <spring:message code="newspaper.description" var="titleDescription" />
 <spring:message code="newspaper.publicationDate" var="titlePublication" />
 
@@ -36,7 +35,7 @@
 <fmt:formatDate var="currentDate" value="${now}"
 	pattern="yyyy-MM-dd HH:mm" />
 <spring:message var="format" code="master.page.moment.format.out" />
-<fmt:formatDate var="formatMomentnewspaper" value="${newspaper.moment}"
+<fmt:formatDate var="formatMomentnewspaper" value="${newspaper.publicationDate}"
 	pattern="${format}" />
 
 
@@ -87,10 +86,13 @@
 	<br />
 </security:authorize>
 
+
 <!-- Displaying articles -->
 <h4>
 	<spring:message code="newspaper.articles.list" />
 </h4>
+<acme:pagination page="${page}" pageNum="${pageNum}"
+	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&page=" />
 <display:table name="${newspaper.articles}" id="article"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleArticle}" sortable="true">
@@ -105,7 +107,7 @@
 		</display:column>
 	</security:authorize>
 	<security:authorize access="hasRole('USER')">
-		<jstl:if test="${ownArticle[article_rowNum-1]}">
+		<jstl:if test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1]}">
 			<display:column>
 				<acme:button url="article/user/edit.do?articleId=${article.id}"
 					code="article.edit" />
@@ -114,6 +116,6 @@
 	</security:authorize>
 </display:table>
 
-<acme:button url="article/user/create.do" code="article.create"/>
+<acme:button url="article/user/create.do?newspaperId=${newspaper.id}" code="article.create" />
 <br />
 

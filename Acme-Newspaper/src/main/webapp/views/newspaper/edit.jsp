@@ -37,7 +37,7 @@
 		<acme:textbox code="newspaper.title" path="title" required="true" />
 		<acme:textarea code="newspaper.description" path="description"
 			required="true" />
-		<acme:textbox code="newspaper.pictureUrl" path="pictureUrl" required="true" />
+		<acme:textbox code="newspaper.pictureUrl" path="pictureUrl"  />
 		
 		<div class="cleared-div">
 			<acme:checkbox code="newspaper.publicNewspaper"
