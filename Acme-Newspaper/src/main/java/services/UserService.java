@@ -203,6 +203,16 @@ public class UserService {
 		return result;
 	}
 
+	public Page<Newspaper> findNewspapersByUser(final int userId, final Boolean published, final Pageable pageable) {
+		Page<Newspaper> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findNewspapersByUser(userId, published, pageable);
+
+		return result;
+	}
+
 	public Page<Article> findUserPublishedArticles(final int userId, final Pageable pageable) {
 		Page<Article> result;
 		Assert.isTrue(userId != 0);

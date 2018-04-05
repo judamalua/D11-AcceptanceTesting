@@ -26,4 +26,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select n from User u join u.newspapers n where u.id=?1")
 	Page<Newspaper> findNewspapersByUser(int userId, Pageable pageable);
 
+	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate!=null)=?2")
+	Page<Newspaper> findNewspapersByUser(int userId, Boolean published, Pageable pageable);
+
 }
