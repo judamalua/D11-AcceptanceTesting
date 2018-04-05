@@ -63,7 +63,7 @@
 	<!-- Other domain beans come here -->
 
 	<!-- %%%% Administrators %%%% -->
-	<bean id="Admin1" class="domain.Administrator">
+	<bean id="Admin1" class="domain.Admin">
 		<property name="name" value="Super" />
 		<property name="surname" value="Super" />
 		<property name="email" value="super@mail.com" />
@@ -71,7 +71,7 @@
 		<property name="userAccount" ref="UserAccount1" />
 	</bean>
 
-	<bean id="Admin2" class="domain.Administrator">
+	<bean id="Admin2" class="domain.Admin">
 		<property name="name" value="Administrator 1" />
 		<property name="surname" value="Administrator" />
 		<property name="email" value="administrator1@mail.com" />
