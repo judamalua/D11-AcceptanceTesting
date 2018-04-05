@@ -60,15 +60,6 @@ public class NewspaperController extends AbstractController {
 
 	// Listing  ---------------------------------------------------------------		
 
-	/**
-	 * That method returns a model and view with the system users list
-	 * 
-	 * @param page
-	 * @param anonymous
-	 * 
-	 * @return ModelandView
-	 * @author MJ
-	 */
 	@RequestMapping("/list")
 	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) {
 		final ModelAndView result;
@@ -99,17 +90,7 @@ public class NewspaperController extends AbstractController {
 
 		return result;
 	}
-	/**
-	 * That method returns a model and view with the display of an actor
-	 * 
-	 * @param actorId
-	 * @param anonymous
-	 * @param rsvPage
-	 * @param createdRendezvousPage
-	 * 
-	 * @return ModelandView
-	 * @author MJ
-	 */
+
 	@RequestMapping("/display")
 	public ModelAndView display(@RequestParam final Integer newspaperId, @RequestParam final Integer pageArticle) {
 		ModelAndView result;

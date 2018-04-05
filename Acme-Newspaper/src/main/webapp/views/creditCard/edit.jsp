@@ -28,16 +28,6 @@
 <spring:message code="request.creditcard.info" var="creditCardInfo" />
 <spring:message code="request.select.error" var="selectError" />
 
-<script>
-	$(document).ready(function() {
-		document.getElementById("rendezvousId").addEventListener("invalid", myFunction);
-
-		function myFunction() {
-			alert('${selectError}');
-		}
-	});
-</script>
-
 
 <p>
 	<em><spring:message code="form.required.params" /></em>
@@ -45,33 +35,13 @@
 
 <div class="row">
 
-	<form:form id="form" action="request/user/edit.do"
-		modelAttribute="request">
+	<form:form id="form" action="newspaper/user/subscribe.do"
+		modelAttribute="creditCard">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
-		<form:hidden path="service" />
-
-		<acme:textarea code="request.comment" path="comment" />
-
-<jstl:if test="${fn:length(rendezvouses) != 0}">
-		<div class="input-field col s3">
-			<select id="rendezvousId" name="rendezvousId" required="required">
-  				<jstl:forEach var="i" items="${rendezvouses}">
-  					<option value="${i.id}"><jstl:out value="${i.name}"/></option>
-  				</jstl:forEach>
-			</select>
-			<label for = "rendezvous"><spring:message code="request.rendezvous.select" />*</label> 
-		</div>
-	</jstl:if>
-
-		<jstl:if test="${fn:length(rendezvouses) == 0}">
-			<div class="error">
-				<spring:message code="request.rendezvouses.empty" />
-			</div>
-		</jstl:if>
-
-
-		<div class="cleared-div"></div>
+		<form:hidden path="newspaper" />
+		
+		<h2>Subscribe to ${creditCard.newspaper.title}</h2>
 
 		<div class="cleared-div">
 			<h4>
@@ -83,47 +53,39 @@
 		<p class="creditCardCookieTokenNew" hidden="true"></p>
 		<div class="cardForm">
 
-			<form:hidden path="creditCard.id" />
-			<form:hidden path="creditCard.version" />
-			<form:hidden path="creditCard.cookieToken"
+			<form:hidden path="id" />
+			<form:hidden path="version" />
+			<form:hidden path="cookieToken"
 				class="creditCardCookieToken" />
 
 			<acme:textbox code="request.creditcard.holderName"
-				path="creditCard.holderName" required="true" />
+				path="holderName" required="true" />
 
 			<acme:textbox code="request.creditcard.brandName"
-				path="creditCard.brandName" required="true" />
+				path="brandName" required="true" />
 
 			<acme:textbox code="request.creditcard.number"
-				path="creditCard.number" required="true" />
+				path="number" required="true" />
 
 			<acme:textbox code="request.creditcard.expirationMonth"
-				path="creditCard.expirationMonth" required="true" placeholder="MM" />
+				path="expirationMonth" required="true" placeholder="MM" />
 
 			<acme:textbox code="request.creditcard.expirationYear"
-				path="creditCard.expirationYear" required="true"
+				path="expirationYear" required="true"
 				placeholder="${expirationYearPlaceholder}" />
 
-			<acme:textbox code="request.creditcard.cvv" path="creditCard.cvv"
+			<acme:textbox code="creditcard.cvv" path="creditCard.cvv"
 				required="true" />
 
 		</div>
 
-		<jstl:if test="${fn:length(rendezvouses) != 0}">
+	
 			<button type="submit" name="save" class="btn"
 				onclick="saveCreditCardCookie()">
 				<spring:message code="request.save" />
 			</button>
-		</jstl:if>
 
-		<jstl:if test="${fn:length(rendezvouses) == 0}">
-			<button type="submit" name="save" class="btn"
-				onclick="saveCreditCardCookie()" disabled>
-				<spring:message code="request.save" />
-			</button>
-		</jstl:if>
-
-		<acme:cancel url="service/list.do?anonymous=false"
+		<acme:cancel url="newspaper/list.do?anonymous=false"
 			code="request.cancel" />
 	</form:form>
 
@@ -132,7 +94,6 @@
 <script type="text/javascript">
 	window.onload = function() {
 		checkCreditCard();
-		getBusinessName();
-		checkCookie();
+		initialize();
 	};
 </script>

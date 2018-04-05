@@ -1,6 +1,7 @@
 function initialize() {
 	checkCookie();
 	getBusinessName();
+	widgInit();
 }
 
 function getMainDomain() {

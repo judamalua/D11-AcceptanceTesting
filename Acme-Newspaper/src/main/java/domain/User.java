@@ -23,7 +23,6 @@ public class User extends Actor {
 	// Relationships ----------------------------------------------------------
 	private Collection<User>		users;
 	private Collection<Newspaper>	newspapers;
-	private Collection<Article>		articles;
 	private Collection<Chirp>		chirps;
 
 
@@ -46,16 +45,6 @@ public class User extends Actor {
 
 	public void setNewspapers(final Collection<Newspaper> newspapers) {
 		this.newspapers = newspapers;
-	}
-
-	@NotNull
-	@OneToMany
-	public Collection<Article> getArticles() {
-		return this.articles;
-	}
-
-	public void setArticles(final Collection<Article> articles) {
-		this.articles = articles;
 	}
 
 	@NotNull
