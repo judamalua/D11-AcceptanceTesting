@@ -66,16 +66,39 @@ public class NewspaperUserController extends AbstractController {//TODO: ALL
 		result = this.createEditModelAndView(newspaper);
 		return result;
 	}
+	// Editing ---------------------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Newspaper newspaper;
+
+		this.actorService.checkUserLogin();
+
+		newspaper = this.newspaperService.create();
+
+		result = this.createEditModelAndView(newspaper);
+
+		return result;
+	}
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Newspaper newspaper, final BindingResult binding) {
 		ModelAndView result;
+		final User publisher;
+		final Actor actor;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(newspaper, "newspaper.params.error");
 		else
 			try {
+
+				publisher = this.userService.findUserByNewspaper(newspaper.getId());
+				actor = this.actorService.findActorByPrincipal();
+
+				Assert.isTrue(actor.equals(publisher));
+
 				this.newspaperService.save(newspaper);
 				result = new ModelAndView("redirect:/newspaper/user/list.do");
 
@@ -101,7 +124,6 @@ public class NewspaperUserController extends AbstractController {//TODO: ALL
 
 		result = new ModelAndView("newspaper/edit");
 		result.addObject("newspaper", newspaper);
-
 		result.addObject("message", messageCode);
 
 		return result;

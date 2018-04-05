@@ -24,7 +24,7 @@ import security.Authority;
 import services.ActorService;
 import services.AdminService;
 import controllers.AbstractController;
-import domain.Administrator;
+import domain.Admin;
 import forms.UserAdminForm;
 
 @Controller
@@ -32,7 +32,7 @@ import forms.UserAdminForm;
 public class ActorAdminController extends AbstractController {
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService	actorService;
 	@Autowired
 	private AdminService	administratorService;
 
@@ -76,10 +76,10 @@ public class ActorAdminController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView editUser() {
 		ModelAndView result;
-		Administrator admin;
+		Admin admin;
 		final UserAdminForm adminForm;
 
-		admin = (Administrator) this.actorService.findActorByPrincipal();
+		admin = (Admin) this.actorService.findActorByPrincipal();
 		Assert.notNull(admin);
 		adminForm = this.actorService.deconstruct(admin);
 		result = this.createEditModelAndView(adminForm);
@@ -99,7 +99,7 @@ public class ActorAdminController extends AbstractController {
 	public ModelAndView registerAdministrator(@ModelAttribute("admin") final UserAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
 		Authority auth;
-		Administrator admin = null;
+		Admin admin = null;
 		try {
 			admin = this.administratorService.reconstruct(actor, binding);
 		} catch (final Throwable oops) {
@@ -140,7 +140,7 @@ public class ActorAdminController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView updateAdministrator(@ModelAttribute("actor") final UserAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
-		Administrator admin = null;
+		Admin admin = null;
 
 		try {
 			admin = this.administratorService.reconstruct(actor, binding);

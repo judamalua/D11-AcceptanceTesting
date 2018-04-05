@@ -141,11 +141,9 @@ public class UserService {
 
 		if (userAdminForm.getId() == 0) {
 
-			Collection<Article> articles;
 			Collection<Chirp> chirps;
 			Collection<Newspaper> newspapers;
 
-			articles = new HashSet<Article>();
 			chirps = new HashSet<Chirp>();
 			newspapers = new HashSet<Newspaper>();
 
@@ -195,7 +193,7 @@ public class UserService {
 
 	}
 
-	private Page<Newspaper> findNewspapersByUser(final int userId, final Pageable pageable) {
+	public Page<Newspaper> findNewspapersByUser(final int userId, final Pageable pageable) {
 		Page<Newspaper> result;
 		Assert.isTrue(userId != 0);
 		Assert.notNull(pageable);

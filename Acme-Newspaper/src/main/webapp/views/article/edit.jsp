@@ -43,10 +43,10 @@
 					<label for="pictureUrls"> <spring:message
 							code="article.pictureUrls" />*
 					</label>
-					<textarea name="pictureUrls" id="pictureUrls"
+					<textarea name="pictureUrl" id="pictureUrl"
 						class="materialize-textarea">
 			</textarea>
-					<form:errors path="pictureUrls" cssClass="error" />
+					<form:errors path="pictureUrl" cssClass="error" />
 				</div>
 			</div>
 		</div>
