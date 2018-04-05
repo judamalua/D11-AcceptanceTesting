@@ -184,7 +184,7 @@ public class UserService {
 
 	}
 
-	private Page<Newspaper> findNewspapersByUser(final int userId, final Pageable pageable) {
+	public Page<Newspaper> findNewspapersByUser(final int userId, final Pageable pageable) {
 		Page<Newspaper> result;
 		Assert.isTrue(userId != 0);
 		Assert.notNull(pageable);
