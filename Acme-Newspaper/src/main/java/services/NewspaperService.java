@@ -173,4 +173,91 @@ public class NewspaperService {
 
 		return result;
 	}
+
+	//Dashboard queries ------------------------
+	/**
+	 * Level C query 3
+	 * 
+	 * @return The average and the standard deviation of articles per newspaper.
+	 * @author Antonio
+	 */
+	public String getArticlesInfoFromNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getArticlesInfoFromNewspapers();
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	/**
+	 * Level C query 4
+	 * 
+	 * @return The newspapers that have at least 10% more articles than the average.
+	 * @author Antonio
+	 */
+	public Collection<Newspaper> getNewspaperWith10PercentMoreArticlesThanAverage() {
+		Collection<Newspaper> result;
+
+		result = this.newspaperRepository.getNewspaperWith10PercentMoreArticlesThanAverage();
+
+		return result;
+	}
+
+	/**
+	 * Level C query 5
+	 * 
+	 * @return The newspapers that have at least 10% fewer articles than the average.
+	 * @author Antonio
+	 */
+	public Collection<Newspaper> getNewspaperWith10PercentLessArticlesThanAverage() {
+		Collection<Newspaper> result;
+
+		result = this.newspaperRepository.getNewspaperWith10PercentLessArticlesThanAverage();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 1
+	 * 
+	 * @return The newspapers that have at least 10% fewer articles than the average.
+	 * @author Antonio
+	 */
+	public String getRatioPublicNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getRatioPublicNewspapers();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 2
+	 * 
+	 * @return The average number of articles per private newspapers.
+	 * @author Antonio
+	 */
+	public String getAverageArticlesPerPrivateNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getAverageArticlesPerPrivateNewspapers();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 3
+	 * 
+	 * @return The average number of articles per public newspapers.
+	 * @author Antonio
+	 */
+	public String getAverageArticlesPerPublicNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getAverageArticlesPerPublicNewspapers();
+
+		return result;
+	}
 }

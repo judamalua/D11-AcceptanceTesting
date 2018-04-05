@@ -226,4 +226,109 @@ public class UserService {
 	public void flush() {
 		this.userRepository.flush();
 	}
+
+	//Dashboard queries ------------------------
+
+	/**
+	 * Level C query 1
+	 * 
+	 * @return The average and the standard deviation of newspapers created per user.
+	 * @author Antonio
+	 */
+	public String getNewspapersInfoFromUsers() {
+		String result;
+
+		result = this.userRepository.getNewspapersInfoFromUsers();
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	/**
+	 * Level C query 2
+	 * 
+	 * @return The average and the standard deviation of articles created per user.
+	 * @author Antonio
+	 */
+	public String getArticlesInfoFromUsers() {
+		String result;
+
+		result = this.userRepository.getArticlesInfoFromUsers();
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	/**
+	 * Level C query 6
+	 * 
+	 * @return The ratio of users who have ever created a newspaper.
+	 * @author Antonio
+	 */
+	public String getRatioCreatedNewspapers() {
+		String result;
+
+		result = this.userRepository.getRatioCreatedNewspapers();
+
+		return result;
+	}
+
+	/**
+	 * Level C query 7
+	 * 
+	 * @return The ratio of users who have ever written an article.
+	 * @author Antonio
+	 */
+	public String getRatioCreatedArticles() {
+		String result;
+
+		result = this.userRepository.getRatioCreatedArticles();
+
+		return result;
+	}
+
+	/**
+	 * Level B query 4
+	 * 
+	 * @return The average and the standard deviation of the number of chirps per user.
+	 * @author Antonio
+	 */
+	public String getChirpsInfoFromUsers() {
+		String result;
+
+		result = this.userRepository.getChirpsInfoFromUsers();
+
+		return result;
+	}
+
+	/**
+	 * Level B query 5
+	 * 
+	 * @return The ratio of users who have posted above 75% the average number of chirps per user.
+	 * @author Antonio
+	 */
+	public String getRatioUsersPostedAbove75PercentAverageChirpsPerUser() {
+		String result;
+
+		result = this.userRepository.getRatioUsersPostedAbove75PercentAverageChirpsPerUser();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 5
+	 * 
+	 * @return The average ratio of private versus public newspapers per publisher.
+	 * @author Antonio
+	 */
+	public String getAverageRatioPrivateNewspaperPerPublisher() {
+		String result;
+
+		result = this.userRepository.getAverageRatioPrivateNewspaperPerPublisher();
+
+		return result;
+	}
+
 }
