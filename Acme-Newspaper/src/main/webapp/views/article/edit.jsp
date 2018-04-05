@@ -37,20 +37,6 @@
 		<acme:textbox code="article.title" path="title" required="true" />
 		<acme:textarea code="article.summary" path="summary" required="true" />
 
-		<div class="form-group">
-			<div class="row">
-				<div class="input-field col s3">
-					<label for="pictureUrls"> <spring:message
-							code="article.pictureUrls" />*
-					</label>
-					<textarea name="pictureUrl" id="pictureUrl"
-						class="materialize-textarea">
-			</textarea>
-					<form:errors path="pictureUrl" cssClass="error" />
-				</div>
-			</div>
-		</div>
-
 		<div class="cleared-div">
 			<acme:checkbox code="article.finalMode" path="finalMode"
 				id="finalMode" />

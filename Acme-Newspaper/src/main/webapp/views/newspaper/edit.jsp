@@ -37,23 +37,11 @@
 		<acme:textbox code="newspaper.title" path="title" required="true" />
 		<acme:textarea code="newspaper.description" path="description"
 			required="true" />
-		<div class="form-group">
-			<div class="row">
-				<div class="input-field col s3">
-					<label for="pictureUrls"> <spring:message
-							code="article.pictureUrls" />*
-					</label>
-					<textarea name="pictureUrl" id="pictureUrl"
-						class="materialize-textarea">
-			</textarea>
-					<form:errors path="pictureUrl" cssClass="error" />
-				</div>
-			</div>
-		</div>
-
+		<acme:textbox code="newspaper.pictureUrl" path="pictureUrl" required="true" />
+		
 		<div class="cleared-div">
 			<acme:checkbox code="newspaper.publicNewspaper"
-				path="publicNewspaper" id="finalMode" />
+				path="publicNewspaper" id="publicNewspaper" />
 		</div>
 		<acme:submit name="save" code="newspaper.save" />
 		<jstl:if test="${newspaper.id!=0}">

@@ -27,7 +27,7 @@ import domain.User;
 
 @Controller
 @RequestMapping("/newspaper/user")
-public class NewspaperUserController extends AbstractController {//TODO: ALL
+public class NewspaperUserController extends AbstractController {
 
 	// Services -------------------------------------------------------
 
@@ -47,24 +47,29 @@ public class NewspaperUserController extends AbstractController {//TODO: ALL
 	// Listing ---------------------------------------------------------------		
 
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam(required = false, defaultValue = "false") final Boolean published, @RequestParam(required = false, defaultValue = "0") final Integer page) {
+	public ModelAndView list(@RequestParam final Boolean published, @RequestParam(required = false, defaultValue = "0") final Integer page) {
 		ModelAndView result;
 		Page<Newspaper> newspapers;
 		final Pageable pageable;
 		Configuration configuration;
 		Actor actor;
+		try {
+			result = new ModelAndView("newspaper/list");
+			actor = this.actorService.findActorByPrincipal();
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
 
-		result = new ModelAndView("newspaper/list");
-		actor = this.actorService.findActorByPrincipal();
-		configuration = this.configurationService.findConfiguration();
-		pageable = new PageRequest(page, configuration.getPageSize());
+			if (published)
+				newspapers = this.userService.findPublishedNewspapersByUser(actor.getId(), pageable);
+			else
+				newspapers = this.userService.findNotPublishedNewspapersByUser(actor.getId(), pageable);
 
-		newspapers = this.userService.findNewspapersByUser(actor.getId(), published, pageable);
-
-		result.addObject("newspapers", newspapers.getContent());
-		result.addObject("page", page);
-		result.addObject("pageNum", newspapers.getTotalPages());
-
+			result.addObject("newspapers", newspapers.getContent());
+			result.addObject("page", page);
+			result.addObject("pageNum", newspapers.getTotalPages());
+		} catch (final Throwable oops) {
+			result = new ModelAndView("rediect:/misc/403");
+		}
 		return result;
 	}
 	// Editing ---------------------------------------------------------
@@ -75,15 +80,18 @@ public class NewspaperUserController extends AbstractController {//TODO: ALL
 		Newspaper newspaper;
 		final User publisher;
 		Actor actor;
+		try {
+			actor = this.actorService.findActorByPrincipal();
 
-		actor = this.actorService.findActorByPrincipal();
+			newspaper = this.newspaperService.findOne(newspaperId);
+			publisher = this.userService.findUserByNewspaper(newspaper.getId());
 
-		newspaper = this.newspaperService.findOne(newspaperId);
-		publisher = this.userService.findUserByNewspaper(newspaper.getId());
+			Assert.isTrue(actor.equals(publisher));
 
-		Assert.isTrue(actor.equals(publisher));
-
-		result = this.createEditModelAndView(newspaper);
+			result = this.createEditModelAndView(newspaper);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("rediect:/misc/403");
+		}
 		return result;
 	}
 	// Editing ---------------------------------------------------------
@@ -98,6 +106,26 @@ public class NewspaperUserController extends AbstractController {//TODO: ALL
 		newspaper = this.newspaperService.create();
 
 		result = this.createEditModelAndView(newspaper);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/publish", method = RequestMethod.GET)
+	public ModelAndView publish(@RequestParam final Integer newspaperId) {
+		final ModelAndView result;
+		Newspaper newspaper;
+		Actor actor;
+		User publisher;
+
+		actor = this.actorService.findActorByPrincipal();
+
+		newspaper = this.newspaperService.findOne(newspaperId);
+		publisher = this.userService.findUserByNewspaper(newspaperId);
+
+		Assert.isTrue(actor.equals(publisher));
+		Assert.isTrue(newspaper.getPublicationDate() == null);
+
+		result = new ModelAndView("redirect:/newspaper/user/list.do?published=true");
 
 		return result;
 	}
@@ -120,7 +148,7 @@ public class NewspaperUserController extends AbstractController {//TODO: ALL
 				Assert.isTrue(actor.equals(publisher));
 
 				this.newspaperService.save(newspaper);
-				result = new ModelAndView("redirect:/newspaper/user/list.do");
+				result = new ModelAndView("redirect:/newspaper/list.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(newspaper, "newspaper.commit.error");

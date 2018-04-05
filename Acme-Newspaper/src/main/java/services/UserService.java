@@ -193,22 +193,22 @@ public class UserService {
 
 	}
 
-	public Page<Newspaper> findNewspapersByUser(final int userId, final Pageable pageable) {
+	public Page<Newspaper> findPublishedNewspapersByUser(final int userId, final Pageable pageable) {
 		Page<Newspaper> result;
 		Assert.isTrue(userId != 0);
 		Assert.notNull(pageable);
 
-		result = this.userRepository.findNewspapersByUser(userId, pageable);
+		result = this.userRepository.findPublishedNewspapersByUser(userId, pageable);
 
 		return result;
 	}
 
-	public Page<Newspaper> findNewspapersByUser(final int userId, final Boolean published, final Pageable pageable) {
+	public Page<Newspaper> findNotPublishedNewspapersByUser(final int userId, final Pageable pageable) {
 		Page<Newspaper> result;
 		Assert.isTrue(userId != 0);
 		Assert.notNull(pageable);
 
-		result = this.userRepository.findNewspapersByUser(userId, published, pageable);
+		result = this.userRepository.findNotPublishedNewspapersByUser(userId, pageable);
 
 		return result;
 	}
@@ -221,5 +221,9 @@ public class UserService {
 		result = this.userRepository.findUserPublishedArticles(userId, pageable);
 
 		return result;
+	}
+
+	public void flush() {
+		this.userRepository.flush();
 	}
 }

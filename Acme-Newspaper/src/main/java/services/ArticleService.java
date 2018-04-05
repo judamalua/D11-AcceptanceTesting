@@ -105,20 +105,23 @@ public class ArticleService {
 	public Article reconstruct(final Article article, final BindingResult binding) {
 		Article result;
 		final Collection<FollowUp> followUps;
+		Collection<String> pictureUrls;
 
 		if (article.getId() == 0) {
 
 			result = article;
 			followUps = new HashSet<>();
+			pictureUrls = new HashSet<>();
 
 			result.setFollowUps(followUps);
+			result.setPictureUrls(pictureUrls);
+
 		} else {
 			result = this.articleRepository.findOne(article.getId());
 
 			result.setSummary(article.getSummary());
 			result.setTitle(article.getTitle());
 			result.setBody(article.getBody());
-			result.setPictureUrls(article.getPictureUrls());
 			result.setFinalMode(article.getFinalMode());
 		}
 		this.validator.validate(result, binding);

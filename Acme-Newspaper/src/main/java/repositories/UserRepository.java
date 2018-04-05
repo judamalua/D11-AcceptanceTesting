@@ -17,13 +17,16 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select u from User u join u.newspapers n where n.id=?1")
 	User findUserByNewspaper(int newspaperId);
 
+	@Query("select u from User u join u.newspapers n join n.articles a where a.id=?1")
+	User findUserByArticle(int articleId);
+
 	@Query("select a from User u join u.newspapers n join n.articles a where u.id = ?1 and n.publicationDate != null")
 	Page<Article> findUserPublishedArticles(int userId, Pageable pageable);
 
-	@Query("select n from User u join u.newspapers n where u.id=?1")
-	Page<Newspaper> findNewspapersByUser(int userId, Pageable pageable);
+	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate!=null or n.publicationDate!='')")
+	Page<Newspaper> findPublishedNewspapersByUser(int userId, Pageable pageable);
 
-	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate!=null)=?2")
-	Page<Newspaper> findNewspapersByUser(int userId, Boolean published, Pageable pageable);
+	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate=null or n.publicationDate='')")
+	Page<Newspaper> findNotPublishedNewspapersByUser(int userId, Pageable pageable);
 
 }
