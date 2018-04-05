@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.FollowUpRepository;
 import domain.Actor;
@@ -37,6 +39,9 @@ public class FollowUpService {
 
 	@Autowired
 	public NewspaperService		newsPaperService;
+
+	@Autowired
+	private Validator			validator;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -145,6 +150,33 @@ public class FollowUpService {
 		this.followUpRepository.delete(followUp);
 
 	}
+
+	//Other Busssiness Methods 
+
+	/**
+	 * 
+	 * @author Luis
+	 **/
+	public FollowUp reconstruct(final FollowUp followUp, final BindingResult binding) {
+		FollowUp result;
+		User user;
+
+		if (followUp.getId() == 0) {
+			user = (User) this.actorService.findActorByPrincipal();
+			followUp.setUser(user);
+			result = followUp;
+		} else {
+			result = this.followUpRepository.findOne(followUp.getId());
+			result.setUser(followUp.getUser());
+			result.setText(followUp.getText());
+			result.setPictureUrls(followUp.getPictureUrls());
+			result.setPublicationDate(followUp.getPublicationDate());
+			result.setTitle(followUp.getTitle());
+			result.setSummary(followUp.getSummary());
+		}
+		this.validator.validate(result, binding);
+		return result;
+	}
 	/**
 	 * Returns the creator of a followUp
 	 * 
@@ -154,5 +186,15 @@ public class FollowUpService {
 		User result;
 		result = (this.userService.findUserByArticle(this.articleService.getArticleByFollowUp(followUp).getId()));
 		return result;
+	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 * @author Luis
+	 */
+	public void flush() {
+		this.followUpRepository.flush();
 	}
 }
