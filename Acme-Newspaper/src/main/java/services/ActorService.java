@@ -18,7 +18,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
-import domain.Administrator;
+import domain.Admin;
 import forms.UserAdminForm;
 
 @Service
@@ -78,14 +78,14 @@ public class ActorService {
 	 * @return User
 	 * @author Luis
 	 */
-	public Administrator createAdmin() {
-		Administrator result;
+	public Admin createAdmin() {
+		Admin result;
 
 		UserAccount userAccount;
 		Collection<Authority> authorities;
 		Authority authority;
 
-		result = new Administrator();
+		result = new Admin();
 
 		userAccount = new UserAccount();
 		authorities = new HashSet<Authority>();

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,9 @@ import org.springframework.validation.Validator;
 import repositories.UserRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Article;
+import domain.Chirp;
+import domain.Newspaper;
 import domain.User;
 import forms.UserAdminForm;
 
@@ -38,7 +43,30 @@ public class UserService {
 	public User create() {
 		User result;
 
+		final UserAccount userAccount;
+		final Collection<Authority> auth;
+		final Authority authority;
+		Collection<Article> articles;
+		Collection<Chirp> chirps;
+		Collection<Newspaper> newspapers;
+
+		articles = new HashSet<Article>();
+		chirps = new HashSet<Chirp>();
+		newspapers = new HashSet<Newspaper>();
+
 		result = new User();
+
+		userAccount = new UserAccount();
+		auth = new HashSet<Authority>();
+		authority = new Authority();
+		authority.setAuthority(Authority.USER);
+		auth.add(authority);
+		userAccount.setAuthorities(auth);
+
+		result.setUserAccount(userAccount);
+
+		result.setChirps(chirps);
+		result.setNewspapers(newspapers);
 
 		return result;
 	}
@@ -97,48 +125,101 @@ public class UserService {
 		return result;
 	}
 
-	public User findUserByArticle(final int articleId) {
-		User result;
-		Assert.isTrue(articleId != 0);
+	// Other business methods ------------------------------------------------------------------------------------
 
-		result = this.userRepository.findUserByArticle(articleId);
-
-		return result;
-	}
-	// Other business methods
-
-	public User reconstruct(final UserAdminForm user, final BindingResult binding) {
+	public User reconstruct(final UserAdminForm userAdminForm, final BindingResult binding) {
 		User result;
 
-		if (user.getId() == 0) {
+		if (userAdminForm.getId() == 0) {
 
-			UserAccount userAccount;
-			Collection<Authority> authorities;
-			Authority authority;
+			Collection<Chirp> chirps;
+			Collection<Newspaper> newspapers;
 
-			userAccount = user.getUserAccount();
-			authorities = new HashSet<Authority>();
-			authority = new Authority();
+			chirps = new HashSet<Chirp>();
+			newspapers = new HashSet<Newspaper>();
 
 			result = this.create();
-			//Arreglar
 
-			authority.setAuthority(Authority.ADMIN);
-			authorities.add(authority);
-			userAccount.setAuthorities(authorities);
+			result.getUserAccount().setUsername(userAdminForm.getUserAccount().getUsername());
+			result.getUserAccount().setPassword(userAdminForm.getUserAccount().getPassword());
+			result.setName(userAdminForm.getName());
+			result.setSurname(userAdminForm.getSurname());
+			result.setPostalAddress(userAdminForm.getPostalAddress());
+			result.setPhoneNumber(userAdminForm.getPhoneNumber());
+			result.setEmail(userAdminForm.getEmail());
+			result.setBirthDate(userAdminForm.getBirthDate());
+
+			result.setChirps(chirps);
+			result.setNewspapers(newspapers);
 
 		} else {
-			result = this.userRepository.findOne(user.getId());
+			result = this.userRepository.findOne(userAdminForm.getId());
 
-			result.setName(user.getName());
-			result.setSurname(user.getSurname());
-			result.setPostalAddress(user.getPostalAddress());
-			result.setPhoneNumber(user.getPhoneNumber());
-			result.setEmail(user.getEmail());
-			result.setBirthDate(user.getBirthDate());
+			result.setName(userAdminForm.getName());
+			result.setSurname(userAdminForm.getSurname());
+			result.setPostalAddress(userAdminForm.getPostalAddress());
+			result.setPhoneNumber(userAdminForm.getPhoneNumber());
+			result.setEmail(userAdminForm.getEmail());
+			result.setBirthDate(userAdminForm.getBirthDate());
+
 		}
 		this.validator.validate(result, binding);
 
 		return result;
+	}
+
+	/**
+	 * That method returns a collections of users of the system with pageable
+	 * 
+	 * @param pageable
+	 * @return Page<Users>
+	 * @author Luis
+	 */
+	public Page<User> getUsers(final Pageable pageable) {
+		Page<User> result;
+
+		result = this.userRepository.findAll(pageable);
+
+		return result;
+
+	}
+
+	public Page<Newspaper> findNewspapersByUser(final int userId, final Pageable pageable) {
+		Page<Newspaper> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findNewspapersByUser(userId, pageable);
+
+		return result;
+	}
+
+	/**
+	 * This method returns the list of published articles of the user with the given id
+	 * 
+	 * @param userId
+	 * @param pageable
+	 * @return a page of articles
+	 * 
+	 * @author Juanmi
+	 */
+	public Page<Article> findUserPublishedArticles(final int userId, final Pageable pageable) {
+		Page<Article> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findUserPublishedArticles(userId, pageable);
+
+		return result;
+	}
+
+	/**
+	 * This method flushes the repository, this forces the cache to be saved to the database, which then forces the test data to be validated. This is only used
+	 * in tests
+	 * 
+	 * @author Juanmi
+	 */
+	public void flush() {
+		this.userRepository.flush();
 	}
 }

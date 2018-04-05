@@ -30,6 +30,8 @@
 		<value>/views/law/messages</value>
 		<value>/views/cookie/messages</value>
 		<value>/views/slider/messages</value>
+		<value>/views/article/messages</value>
+		<value>/views/newspaper/messages</value>
 	</util:list>
 
 </beans>

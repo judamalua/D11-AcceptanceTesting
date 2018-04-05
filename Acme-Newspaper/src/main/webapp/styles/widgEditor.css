@@ -34,7 +34,8 @@
 
 .widgToolbar a:hover
 {
-	background-position: 0 -30px;
+	/* background-position: 0 -30px; */
+	background-color: rgba(0,0,0,0.1);
 }
 
 .widgToolbar a:active
@@ -51,9 +52,9 @@
 
 .widgToolbar li.widgEditButton
 {
-	background-image: url(../images/widgeditor_button_shadow.gif);
+	/* background-image: url(../images/widgeditor_button_shadow.gif);
 	background-repeat: no-repeat;
-	background-position: bottom right;
+	background-position: bottom right; */
 }
 
 .widgButtonBold
@@ -124,9 +125,11 @@
 	height: 48px;
 	margin: 0;
 	padding: 0 0 0 2px;
+	background-color: #b71c1c;
+	/* 
 	border: 1px solid #CCCCCC;
 	background-image: url(../images/widgeditor_toolbar_bg.gif);
-	background-repeat: repeat-x;
+	background-repeat: repeat-x; */
 }
 
 * html .widgToolbar
@@ -165,6 +168,8 @@
 	height: 200px;
 	border-top-width: 1px;
 	padding: 0;
+	
+		font-family: 'Raleway';
 }
 
 
