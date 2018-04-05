@@ -96,10 +96,6 @@
 			<list> 
 			</list> 
 		</property>
-		<property name="articles" > 
-			<list> 
-			</list> 
-		</property>
 	</bean>
 
 	<bean id="User2" class="domain.User">
@@ -115,10 +111,6 @@
 			</list> 
 		</property> 
 		<property name="chirps" > 
-			<list> 
-			</list> 
-		</property>
-		<property name="articles" > 
 			<list> 
 			</list> 
 		</property>
