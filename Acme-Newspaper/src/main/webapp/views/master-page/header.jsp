@@ -81,7 +81,9 @@
         </security:authorize>
 
         <security:authorize access="isAuthenticated()">
-            <li><a class="fNiv" href="#">TEMPLATE</a></li>
+            <li><a class="fNiv" href="user/list.do">
+						<spring:message code="master.page.userList" />
+			</a></li>
             <li><a class="fNiv" href="#">TEMPLATE</a></li>
 
 
@@ -113,7 +115,7 @@
                     <li><a href="actor/user/edit.do"><spring:message
                                 code="master.page.actorEdit" /></a></li>
                     <li class="divider"></li>
-                    <li><a href="user/display.do?anonymous=false"><spring:message
+                    <li><a href="user/display.do"><spring:message
                                 code="master.page.actorProfile" /></a></li>
                     <li class="divider"></li>
                     <li><a href="j_spring_security_logout"><spring:message

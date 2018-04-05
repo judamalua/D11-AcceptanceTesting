@@ -37,3 +37,22 @@
 <fmt:formatDate value="${actor.birthDate}" pattern="${birthDateFormat}" />
 <br />
 <br />
+
+<!-- Display created Rendezvouses-->
+<jstl:if test="${isUserProfile}">
+	<h4>
+		<spring:message code="actor.published.articles" />
+	</h4>
+
+	
+	<!-- Pagination -->
+	<acme:pagination pageNum="${pageNum}" requestURI="user/display.do?actorId=${actor.id}&page=${page}" page = "${page}"/>
+
+	<display:table name="${articles}" id="article"
+		requestURI="user/display.do">
+
+		<display:column property="title" title="article.title" sortable="true" />
+		<display:column property="summary" title="article.summary" />
+		
+	</display:table>
+ </jstl:if>

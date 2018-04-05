@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.ConfigurationService;
 import services.UserService;
+import domain.Article;
 import domain.Configuration;
 import domain.User;
 
@@ -87,31 +88,37 @@ public class UserController extends AbstractController {
 	 * That method returns a model and view with the display of an actor
 	 * 
 	 * @param actorId
-	 * @param anonymous
-	 * @param rsvPage
-	 * @param createdRendezvousPage
 	 * 
 	 * @return ModelandView
 	 * @author MJ
 	 */
 	@RequestMapping("/display")
-	public ModelAndView display(@RequestParam(required = false) final Integer actorId, @RequestParam(defaultValue = "true") final boolean anonymous) {
+	public ModelAndView display(@RequestParam(required = false) Integer actorId, @RequestParam(defaultValue = "0") final int page) {
 		ModelAndView result;
 		User user;
+		Page<Article> articles;
+		Pageable pageable;
+		Configuration configuration;
 
 		try {
-			if (!anonymous)
-				this.actorService.checkUserLogin();
 			result = new ModelAndView("actor/display");
 			if (actorId != null)
 				user = this.userService.findOne(actorId);
-			else
+			else {
 				user = (User) this.actorService.findActorByPrincipal();
+				actorId = user.getId();
+			}
 
 			Assert.notNull(user);
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
+			articles = this.userService.findUserPublishedArticles(actorId, pageable);
 
 			result.addObject("actor", user);
-			result.addObject("anonymous", anonymous);
+			result.addObject("articles", articles.getContent());
+			result.addObject("page", page);
+			result.addObject("pageNum", articles.getTotalPages());
+			result.addObject("isUserProfile", true);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

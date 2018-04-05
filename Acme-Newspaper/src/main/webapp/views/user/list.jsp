@@ -27,7 +27,7 @@
  --%>
 <!-- Pagination -->
 
-<acme:pagination requestURI = "user/list.do?anonymous=${anonymous}&page=" pageNum = "${pageNum}" page = "${page}"/>
+<acme:pagination requestURI = "user/list.do?page=" pageNum = "${pageNum}" page = "${page}"/>
 
 <display:table name="users" id="row" requestURI="user/list.do"
 	class="displaytag">
@@ -54,7 +54,7 @@
 		sortable="true" format="${formatBirthDate}" />
 
 	<display:column>
-		<a href="user/display.do?actorId=${row.id}&anonymous=${anonymous}">
+		<a href="user/display.do?actorId=${row.id}">
 			<button class="btn">
 				<spring:message code="user.display" />
 			</button>
