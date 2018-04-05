@@ -125,4 +125,19 @@ public class ArticleService {
 
 		return result;
 	}
+
+	//Dashboard queries ----------------------------------
+	/**
+	 * Level B query 1
+	 * 
+	 * @return The average number of follow-ups per article.
+	 * @author Antonio
+	 */
+	public Double getAverageFollowUpsPerArticle() {
+		Double result;
+
+		result = this.articleRepository.getAverageFollowUpsPerArticle();
+
+		return result;
+	}
 }
