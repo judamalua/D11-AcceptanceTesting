@@ -75,7 +75,8 @@ public class NewspaperController extends AbstractController {
 		ownNewspapers = new ArrayList<>();
 		result = new ModelAndView("newspaper/list");
 
-		newspapers = this.newspaperService.findPublicNewspapers(pageable);
+		newspapers = this.newspaperService.findPublicPublicatedNewspapers(pageable);
+
 		if (this.actorService.getLogged()) {
 			actor = this.actorService.findActorByPrincipal();
 			for (final Newspaper newspaper : newspapers.getContent()) {
@@ -87,12 +88,12 @@ public class NewspaperController extends AbstractController {
 		result.addObject("newspapers", newspapers.getContent());
 		result.addObject("page", page);
 		result.addObject("pageNum", newspapers.getTotalPages());
-
+		result.addObject("requestUri", "newspaper/user/list.do?");
 		return result;
 	}
 
 	@RequestMapping("/display")
-	public ModelAndView display(@RequestParam final Integer newspaperId, @RequestParam final Integer pageArticle) {
+	public ModelAndView display(@RequestParam final Integer newspaperId, @RequestParam(required = true, defaultValue = "0") final Integer pageArticle) {
 		ModelAndView result;
 		Newspaper newspaper;
 		Actor actor;
@@ -135,6 +136,8 @@ public class NewspaperController extends AbstractController {
 			result.addObject("subscriber", subscriber);
 			result.addObject("newspaper", newspaper);
 			result.addObject("articles", articles.getContent());
+			result.addObject("page", pageArticle);
+			result.addObject("pageNum", articles.getTotalPages());
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

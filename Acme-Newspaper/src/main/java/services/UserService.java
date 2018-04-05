@@ -220,6 +220,15 @@ public class UserService {
 		return result;
 	}
 
+	public Collection<Newspaper> findNotPublishedNewspapersByUser(final int userId) {
+		Collection<Newspaper> result;
+		Assert.isTrue(userId != 0);
+
+		result = this.userRepository.findNotPublishedNewspapersByUser(userId);
+
+		return result;
+	}
+
 	public Page<Article> findUserPublishedArticles(final int userId, final Pageable pageable) {
 		Page<Article> result;
 		Assert.isTrue(userId != 0);

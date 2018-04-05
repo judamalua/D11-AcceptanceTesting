@@ -1,8 +1,6 @@
 
 package controllers.user;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,6 +66,8 @@ public class NewspaperUserController extends AbstractController {
 			result.addObject("newspapers", newspapers.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", newspapers.getTotalPages());
+			result.addObject("requestUri", "newspaper/user/list.do?published=" + published + "&");
+
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
 		}
@@ -132,22 +133,25 @@ public class NewspaperUserController extends AbstractController {
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Newspaper newspaper, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("newspaper") Newspaper newspaper, final BindingResult binding) {
 		ModelAndView result;
 		final User publisher;
 		final Actor actor;
+		Newspaper savedNewspaper;
+
+		newspaper = this.newspaperService.reconstruct(newspaper, binding);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(newspaper, "newspaper.params.error");
 		else
 			try {
 
-				publisher = this.userService.findUserByNewspaper(newspaper.getId());
+				savedNewspaper = this.newspaperService.save(newspaper);
+
+				publisher = this.userService.findUserByNewspaper(savedNewspaper.getId());
 				actor = this.actorService.findActorByPrincipal();
 
 				Assert.isTrue(actor.equals(publisher));
-
-				this.newspaperService.save(newspaper);
 				result = new ModelAndView("redirect:/newspaper/list.do");
 
 			} catch (final Throwable oops) {
