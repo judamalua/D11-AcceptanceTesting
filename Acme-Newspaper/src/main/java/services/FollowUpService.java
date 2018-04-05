@@ -108,14 +108,14 @@ public class FollowUpService {
 		user = (User) this.actorService.findActorByPrincipal();
 
 		if (followUp.getId() != 0) {
-			Assert.isTrue(user == this.findFollowUpCreator(followUp));
+			Assert.isTrue(user == followUp.getUser());
 			article.getFollowUps().remove(followUp);
 		}
 
 		article.getFollowUps().add(followUp);
 		savedArticle = this.articleService.save(article);
-		user.getArticles().remove(article);
-		user.getArticles().add(savedArticle);
+		//		user.getArticles().remove(article);
+		//		user.getArticles().add(savedArticle);
 		this.userService.save(user);
 
 		return result;
@@ -133,18 +133,18 @@ public class FollowUpService {
 		;
 
 		if (principal instanceof User)
-			Assert.isTrue(principal == this.findFollowUpCreator(followUp) && followUp.getPublicationDate().after(new Date()));
+			Assert.isTrue(principal == followUp.getUser() && followUp.getPublicationDate().after(new Date()));
 
 		Article article;
-		final Article savedArticle;
+		//final Article savedArticle;
 		User user;
 		article = this.articleService.getArticleByFollowUp(followUp);
-		user = this.findFollowUpCreator(followUp);
+		user = followUp.getUser();
 
 		article.getFollowUps().remove(followUp);
-		savedArticle = this.articleService.save(article);
-		user.getArticles().remove(article);
-		user.getArticles().add(savedArticle);
+		this.articleService.save(article);
+		//		user.getArticles().remove(article);
+		//		user.getArticles().add(savedArticle);
 		this.userService.save(user);
 
 		this.followUpRepository.delete(followUp);
@@ -175,16 +175,6 @@ public class FollowUpService {
 			result.setSummary(followUp.getSummary());
 		}
 		this.validator.validate(result, binding);
-		return result;
-	}
-	/**
-	 * Returns the creator of a followUp
-	 * 
-	 * @author Luis
-	 **/
-	private User findFollowUpCreator(final FollowUp followUp) {
-		User result;
-		result = (this.userService.findUserByArticle(this.articleService.getArticleByFollowUp(followUp).getId()));
 		return result;
 	}
 
