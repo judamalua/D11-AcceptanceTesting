@@ -96,7 +96,7 @@ public class NewspaperController extends AbstractController {
 		ModelAndView result;
 		Newspaper newspaper;
 		Actor actor;
-		User writer;
+		final User writer;
 		final Collection<Boolean> ownArticles;
 		final Page<Article> articles;
 		Pageable pageable;
@@ -119,8 +119,9 @@ public class NewspaperController extends AbstractController {
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
 				for (final Article article : articles.getContent()) {
-					writer = this.userService.findUserByArticle(article.getId());
-					ownArticles.add(writer.equals(actor));
+					//					writer = this.userService.findUserByArticle(article.getId());
+					//					ownArticles.add(writer.equals(actor));
+					//TODO manu haz esto
 				}
 
 				if (actor instanceof Customer)
