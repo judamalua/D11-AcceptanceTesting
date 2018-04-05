@@ -20,9 +20,6 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<!-- Variables -->
-<spring:message code="article.moment.placeholder"
-	var="momentPlaceholder" />
 
 <!-- Form -->
 <p>
@@ -33,10 +30,11 @@
 
 		<form:hidden path="id" />
 		<form:hidden path="version" />
+		<input type="hidden" name="newspaperId" value="${newspaperId}"  />
 
 		<acme:textbox code="article.title" path="title" required="true" />
 		<acme:textarea code="article.summary" path="summary" required="true" />
-
+		
 		<div class="cleared-div">
 			<acme:checkbox code="article.finalMode" path="finalMode"
 				id="finalMode" />

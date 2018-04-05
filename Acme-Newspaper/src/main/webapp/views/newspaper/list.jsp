@@ -36,7 +36,7 @@
 <!-- Table -->
 
 <display:table name="newspapers" id="newspaper"
-	requestURI="${requestURI}page=${page}">
+	requestURI="${requestUri}">
 
 	<display:column>
 		<img src="${newspaper.pictureUrl}" class="newspaperImg" />
@@ -45,7 +45,7 @@
 	<display:column property="publicationDate" title="${titlePublication}"
 		format="${formatMoment}" sortable="true" />
 	<display:column>
-		<acme:button url="newspaper/display.do?newspaperId=${rendezvous.id}"
+		<acme:button url="newspaper/display.do?newspaperId=${newspaper.id}"
 			code="newspaper.details" />
 	</display:column>
 

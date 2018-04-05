@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,6 +30,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate=null or n.publicationDate='')")
 	Page<Newspaper> findNotPublishedNewspapersByUser(int userId, Pageable pageable);
+
+	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate=null or n.publicationDate='')")
+	Collection<Newspaper> findNotPublishedNewspapersByUser(int userId);
 
 	/**
 	 * Level C query 1
