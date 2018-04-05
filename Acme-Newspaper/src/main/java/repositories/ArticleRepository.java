@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Article;
+import domain.FollowUp;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
@@ -18,4 +19,12 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	 */
 	@Query("select avg(a.followUps.size) from Article a")
 	Double getAverageFollowUpsPerArticle();
+
+	/**
+	 * 
+	 * 
+	 * @author Luis
+	 */
+	@Query("select  a from article a join a.followUps fs where fs =?1")
+	Article getArticleByFollowUp(FollowUp followUp);
 }
