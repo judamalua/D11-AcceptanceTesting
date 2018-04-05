@@ -60,7 +60,7 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	 * @return The ratio of public versus private newspapers.
 	 * @author Antonio
 	 */
-	@Query("select (select count(n1) from Newspapers n1 where n1.publicNewspaper = TRUE)/(count(n)*1.0) from Newspaper n")
+	@Query("select (select count(n1) from Newspaper n1 where n1.publicNewspaper = TRUE)/(count(n)*1.0) from Newspaper n")
 	String getRatioPublicNewspapers();
 
 	/**

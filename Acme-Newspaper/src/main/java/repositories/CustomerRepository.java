@@ -2,7 +2,6 @@
 package repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Customer;
@@ -17,6 +16,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	 * @author Antonio
 	 */
 	//TODO
-	@Query("")
-	String getRatioSubscribersPrivateNewspaperVSTotalCustomers();
+	//@Query("")
+	//String getRatioSubscribersPrivateNewspaperVSTotalCustomers();
 }
