@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.NewspaperService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Newspaper;
 
 @Controller
@@ -23,6 +25,9 @@ public class NewspaperUserController extends AbstractController {//TODO: ALL
 
 	@Autowired
 	NewspaperService	newspaperService;
+
+	@Autowired
+	ActorService		actorService;
 
 
 	// Listing ---------------------------------------------------------------		
@@ -42,8 +47,10 @@ public class NewspaperUserController extends AbstractController {//TODO: ALL
 	public ModelAndView edit(@RequestParam final Integer newspaperId) {
 		ModelAndView result;
 		Newspaper newspaper;
+		final User publisher;
+		Actor actor;
 
-		newspaper = this.newspaperService.findOne(newspaperId);
+		actor = newspaper = this.newspaperService.findOne(newspaperId);
 
 		result = this.createEditModelAndView(newspaper);
 		return result;

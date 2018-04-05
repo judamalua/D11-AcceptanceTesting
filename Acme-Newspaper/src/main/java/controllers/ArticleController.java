@@ -43,7 +43,8 @@ public class ArticleController extends AbstractController {
 	public ModelAndView display(@RequestParam final Integer articleId) {
 		ModelAndView result;
 		Article article;
-		final User writer;
+		User writer;
+
 		try {
 
 			result = new ModelAndView("article/display");

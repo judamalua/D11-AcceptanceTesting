@@ -2,23 +2,18 @@
 package domain;
 
 import java.util.Collection;
-import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -29,7 +24,6 @@ public class Article extends DomainEntity {
 	// Attributes -------------------------------------------------------------
 	private String				title;
 	private String				summary;
-	private Date				publicationDate;
 	private String				body;
 	private Collection<String>	pictureUrls;
 	private boolean				finalMode;
@@ -81,17 +75,6 @@ public class Article extends DomainEntity {
 
 	public void setFinalMode(final boolean finalMode) {
 		this.finalMode = finalMode;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Past
-	public Date getPublicationDate() {
-		return this.publicationDate;
-	}
-
-	public void setPublicationDate(final Date publicationDate) {
-		this.publicationDate = publicationDate;
 	}
 
 
