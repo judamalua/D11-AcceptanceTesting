@@ -72,8 +72,8 @@
 	</bean>
 
 	<bean id="Admin2" class="domain.Admin">
-		<property name="name" value="Admin 1" />
-		<property name="surname" value="Admin" />
+		<property name="name" value="Administrator 1" />
+		<property name="surname" value="Administrator" />
 		<property name="email" value="administrator1@mail.com" />
 		<property name="birthDate" value="1987/04/11" />
 		<property name="userAccount" ref="UserAccount2" />
