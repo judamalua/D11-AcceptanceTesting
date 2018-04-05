@@ -25,6 +25,6 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	 * 
 	 * @author Luis
 	 */
-	@Query("select  a from article a join a.followUps fs where fs =?1")
+	@Query("select a from Article a join a.followUps fs where fs =?1")
 	Article getArticleByFollowUp(FollowUp followUp);
 }

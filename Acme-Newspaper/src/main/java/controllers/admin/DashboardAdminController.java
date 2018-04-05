@@ -39,7 +39,8 @@ public class DashboardAdminController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView result;
-		String newspapersInfoFromUsers, articlesInfoFromUsers, articlesInfoFromNewspapers, ratioCreatedNewspapers, ratioCreatedArticles, averageFollowUpsPerArticle, chirpsInfoFromUsers, ratioUsersPostedAbove75PercentAverageChirpsPerUser, ratioPublicNewspapers, averageArticlesPerPrivateNewspapers, averageArticlesPerPublicNewspapers, averageRatioPrivateVSPublicNewspaperPublisher;
+		String newspapersInfoFromUsers, articlesInfoFromUsers, articlesInfoFromNewspapers, ratioCreatedNewspapers, ratioCreatedArticles, averageFollowUpsPerArticle, chirpsInfoFromUsers, ratioUsersPostedAbove75PercentAverageChirpsPerUser, ratioPublicNewspapers, averageArticlesPerPrivateNewspapers, averageArticlesPerPublicNewspapers;
+		String averageRatioPrivateVSPublicNewspaperPublisher;
 		Collection<Newspaper> newspaperWith10PercentMoreArticlesThanAverage, newspaperWith10PercentLessArticlesThanAverage;
 
 		//C queries
@@ -62,6 +63,7 @@ public class DashboardAdminController extends AbstractController {
 		ratioPublicNewspapers = this.newspaperService.getRatioPublicNewspapers();
 		averageArticlesPerPrivateNewspapers = this.newspaperService.getAverageArticlesPerPrivateNewspapers();
 		averageArticlesPerPublicNewspapers = this.newspaperService.getAverageArticlesPerPublicNewspapers();
+
 		//TODO A4 query
 		averageRatioPrivateVSPublicNewspaperPublisher = this.newspaperService.getAverageRatioPrivateVSPublicNewspaperPublisher();
 

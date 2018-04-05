@@ -67,7 +67,7 @@
 	<display:table id = "newspaper" name = "newspaperWith10PercentLessArticlesThanAverage" requestURI="dashboard/admin/list.do" pagesize="${pagesize}">
 		<spring:message var = "titleNewspaper" code = "dashboard.newspaper.title"/>
 		<display:column title = "${titleNewspaper}">${newspaper.title}</display:column>
-		<spring:message var = "titleNumArticles" code = "dashboard.rendezvous.numArticles"/>
+		<spring:message var = "titleNumArticles" code = "dashboard.newspaper.numArticles"/>
 		<display:column title = "${titleNumArticles}">${fn:length(newspaper.articles)}</display:column>
 	
 	</display:table>
