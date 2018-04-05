@@ -66,15 +66,13 @@ public class ArticleService {
 
 	}
 
-	public Article save(final Article article) {
+	public Article save(final Article article, final Newspaper newspaper) {
 
 		Assert.notNull(article);
 
 		Article result;
-		Newspaper newspaper;
 
 		result = this.articleRepository.save(article);
-		newspaper = this.newspaperService.findNewspaperByArticle(article.getId());
 
 		newspaper.getArticles().remove(article);
 		newspaper.getArticles().add(result);
@@ -105,20 +103,23 @@ public class ArticleService {
 	public Article reconstruct(final Article article, final BindingResult binding) {
 		Article result;
 		final Collection<FollowUp> followUps;
+		Collection<String> pictureUrls;
 
 		if (article.getId() == 0) {
 
 			result = article;
 			followUps = new HashSet<>();
+			pictureUrls = new HashSet<>();
 
 			result.setFollowUps(followUps);
+			result.setPictureUrls(pictureUrls);
+
 		} else {
 			result = this.articleRepository.findOne(article.getId());
 
 			result.setSummary(article.getSummary());
 			result.setTitle(article.getTitle());
 			result.setBody(article.getBody());
-			result.setPictureUrls(article.getPictureUrls());
 			result.setFinalMode(article.getFinalMode());
 		}
 		this.validator.validate(result, binding);
@@ -126,12 +127,18 @@ public class ArticleService {
 		return result;
 	}
 
+	//Dashboard queries ----------------------------------
 	/**
-	 * Returns the article witch the followUp belongs to
+	 * Level B query 1
 	 * 
-	 * @author Luis
-	 **/
-	public Article getArticleByFollowUp(final FollowUp followUp) {
-		return this.articleRepository.getArticleByFollowUp(followUp);
+	 * @return The average number of follow-ups per article.
+	 * @author Antonio
+	 */
+	public Double getAverageFollowUpsPerArticle() {
+		Double result;
+
+		result = this.articleRepository.getAverageFollowUpsPerArticle();
+
+		return result;
 	}
 }

@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -77,5 +78,19 @@ public class CustomerService {
 		this.customerRepository.delete(customer);
 
 	}
-}
 
+	//Dashboard queries ----------------------------------
+	/**
+	 * Level A query 4
+	 * 
+	 * @return The ratio of subscribers per private newspaper versus the total number of customers.
+	 * @author Antonio
+	 */
+	//	public String getRatioSubscribersPrivateNewspaperVSTotalCustomers() {
+	//		String result;
+	//
+	//		result = this.customerRepository.getRatioSubscribersPrivateNewspaperVSTotalCustomers();
+	//
+	//		return result;
+	//	}
+}

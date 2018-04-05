@@ -12,12 +12,11 @@ import domain.FollowUp;
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
 	/**
-	 * Returns the article witch the followUp belongs to
+	 * Level B query 1
 	 * 
-	 * @author Luis
-	 **/
-
-	@Query("select a from Article a join a.followUps f where f = ?1")
-	public Article getArticleByFollowUp(FollowUp followUp);
-
+	 * @return The average number of follow-ups per article.
+	 * @author Antonio
+	 */
+	@Query("select avg(a.followUps.size) from Article a")
+	Double getAverageFollowUpsPerArticle();
 }

@@ -36,9 +36,17 @@
 
                 <!-- Dropdown Structure -->
                 <ul id="dropdownUserFunctions" class="dropdown-content">
-                    <li><a href="#">TEMPLATE</a></li>
+					<li><a href="newspaper/user/list.do?published=true"><spring:message
+                                code="master.page.publishedNewspapers" /></a></li>
                     <li class="divider"></li>
-                    <li><a href="#">TEMPLATE</a></li>
+                    <li><a href="newspaper/user/list.do?published=false"><spring:message
+                                code="master.page.notPublishedNewspapers" /></a></li>
+                    <li class="divider"></li>
+                    <li><a href="actor/user/list-followed.do"><spring:message
+                                code="master.page.list.followed" /></a></li>
+					<li class="divider"></li>
+                    <li><a href="actor/user/list-followers.do"><spring:message
+                                code="master.page.list.followers" /></a></li>
                 </ul>
 
                 <!-- Dropdown Trigger -->
@@ -46,8 +54,6 @@
                     data-activates="dropdownUserFunctions"><spring:message
                             code="master.page.user" /><i class="material-icons right">arrow_drop_down</i></a></li>
                             
-                <li><a href="#">TEMPLATE</a></li>
-
             </security:authorize>
 
             <security:authorize access="hasRole('ADMIN')">
@@ -76,15 +82,17 @@
                 <li><a class="fNiv" href="user/list.do">
 						<spring:message code="master.page.userList" />
 				</a></li>
-                <li><a class="fNiv" href="#">TEMPLATE</a></li>
+				<li><a href="newspaper/list.do"><spring:message
+                                code="master.page.newspaperList" /></a></li>
         </ul>
         </security:authorize>
 
         <security:authorize access="isAuthenticated()">
             <li><a class="fNiv" href="user/list.do">
 						<spring:message code="master.page.userList" />
+			<li><a href="newspaper/list.do"><spring:message
+                                code="master.page.newspaperList" /></a></li>
 			</a></li>
-            <li><a class="fNiv" href="#">TEMPLATE</a></li>
 
 
             <security:authorize access="hasRole('ADMIN')">
@@ -108,8 +116,7 @@
             </security:authorize>
 
             <security:authorize access="hasRole('USER')">
-
-
+				
                 <!-- Dropdown Structure -->
                 <ul id="dropdownUserProfile" class="dropdown-content">
                     <li><a href="actor/user/edit.do"><spring:message

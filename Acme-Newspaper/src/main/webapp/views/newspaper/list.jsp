@@ -21,9 +21,9 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <!-- Variable declaration -->
-<spring:message code="rendezvous.name" var="titleName" />
-<spring:message code="rendezvous.description" var="titleDescription" />
-<spring:message code="rendezvous.moment" var="titleMoment" />
+<spring:message code="newspaper.title" var="titleName" />
+<spring:message code="newspaper.description" var="titleDescription" />
+<spring:message code="newspaper.publicationDate" var="titlePublication" />
 <spring:message code="master.page.moment.format" var="formatMoment" />
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="currentDate" value="${now}"
@@ -36,16 +36,16 @@
 <!-- Table -->
 
 <display:table name="newspapers" id="newspaper"
-	requestURI="${requestURI}page=${page}">
+	requestURI="${requestUri}">
 
 	<display:column>
 		<img src="${newspaper.pictureUrl}" class="newspaperImg" />
 	</display:column>
 	<display:column property="title" title="${titleName}" sortable="true" />
-	<display:column property="publicationDate" title="${titlePubliation}"
+	<display:column property="publicationDate" title="${titlePublication}"
 		format="${formatMoment}" sortable="true" />
 	<display:column>
-		<acme:button url="newspaper/display.do?newspaperId=${rendezvous.id}"
+		<acme:button url="newspaper/display.do?newspaperId=${newspaper.id}"
 			code="newspaper.details" />
 	</display:column>
 
@@ -64,7 +64,7 @@
 	<display:column>
 		<security:authorize access="hasRole('ADMIN')">
 			<acme:button
-				url="newspaper/admin/delete.do?rendezvousId=${newspaper.id}"
+				url="newspaper/admin/delete.do?newspaperId=${newspaper.id}"
 				code="newspaper.delete" />
 		</security:authorize>
 	</display:column>

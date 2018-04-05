@@ -81,7 +81,11 @@ public class NewspaperService {
 		User publisher;
 
 		result = this.newspaperRepository.save(newspaper);
-		publisher = this.userService.findUserByNewspaper(newspaper.getId());
+
+		if (newspaper.getId() != 0)
+			publisher = this.userService.findUserByNewspaper(result.getId());
+		else
+			publisher = (User) this.actorService.findActorByPrincipal();
 
 		publisher.getNewspapers().remove(result);
 		publisher.getNewspapers().add(result);
@@ -137,12 +141,12 @@ public class NewspaperService {
 		return result;
 	}
 
-	public Page<Newspaper> findPublicNewspapers(final Pageable pageable) {
+	public Page<Newspaper> findPublicPublicatedNewspapers(final Pageable pageable) {
 		Page<Newspaper> result;
 
 		Assert.notNull(pageable);
 
-		result = this.newspaperRepository.findPublicNewspapers(pageable);
+		result = this.newspaperRepository.findPublicPublicatedNewspapers(pageable);
 
 		return result;
 	}
@@ -169,7 +173,95 @@ public class NewspaperService {
 			result.setPublicNewspaper(newspaper.getPublicNewspaper());
 			result.setTitle(newspaper.getTitle());
 		}
+
 		this.validator.validate(result, binding);
+
+		return result;
+	}
+
+	//Dashboard queries ------------------------
+	/**
+	 * Level C query 3
+	 * 
+	 * @return The average and the standard deviation of articles per newspaper.
+	 * @author Antonio
+	 */
+	public String getArticlesInfoFromNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getArticlesInfoFromNewspapers();
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	/**
+	 * Level C query 4
+	 * 
+	 * @return The newspapers that have at least 10% more articles than the average.
+	 * @author Antonio
+	 */
+	public Collection<Newspaper> getNewspaperWith10PercentMoreArticlesThanAverage() {
+		Collection<Newspaper> result;
+
+		result = this.newspaperRepository.getNewspaperWith10PercentMoreArticlesThanAverage();
+
+		return result;
+	}
+
+	/**
+	 * Level C query 5
+	 * 
+	 * @return The newspapers that have at least 10% fewer articles than the average.
+	 * @author Antonio
+	 */
+	public Collection<Newspaper> getNewspaperWith10PercentLessArticlesThanAverage() {
+		Collection<Newspaper> result;
+
+		result = this.newspaperRepository.getNewspaperWith10PercentLessArticlesThanAverage();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 1
+	 * 
+	 * @return The newspapers that have at least 10% fewer articles than the average.
+	 * @author Antonio
+	 */
+	public String getRatioPublicNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getRatioPublicNewspapers();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 2
+	 * 
+	 * @return The average number of articles per private newspapers.
+	 * @author Antonio
+	 */
+	public String getAverageArticlesPerPrivateNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getAverageArticlesPerPrivateNewspapers();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 3
+	 * 
+	 * @return The average number of articles per public newspapers.
+	 * @author Antonio
+	 */
+	public String getAverageArticlesPerPublicNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getAverageArticlesPerPublicNewspapers();
 
 		return result;
 	}

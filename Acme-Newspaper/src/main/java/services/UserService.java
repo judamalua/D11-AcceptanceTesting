@@ -17,6 +17,7 @@ import org.springframework.validation.Validator;
 import repositories.UserRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Actor;
 import domain.Article;
 import domain.Chirp;
 import domain.Newspaper;
@@ -36,6 +37,8 @@ public class UserService {
 
 	@Autowired
 	private Validator		validator;
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -46,11 +49,9 @@ public class UserService {
 		final UserAccount userAccount;
 		final Collection<Authority> auth;
 		final Authority authority;
-		Collection<Article> articles;
 		Collection<Chirp> chirps;
 		Collection<Newspaper> newspapers;
 
-		articles = new HashSet<Article>();
 		chirps = new HashSet<Chirp>();
 		newspapers = new HashSet<Newspaper>();
 
@@ -94,8 +95,14 @@ public class UserService {
 	}
 
 	public User save(final User user) {
-
 		assert user != null;
+		Actor actor = null;
+
+		if (user.getId() != 0)
+			actor = this.actorService.findActorByPrincipal();
+
+		if (actor instanceof User && user.getId() != 0)
+			Assert.isTrue(user.equals(actor));
 
 		User result;
 
@@ -121,6 +128,15 @@ public class UserService {
 		Assert.isTrue(newspaperId != 0);
 
 		result = this.userRepository.findUserByNewspaper(newspaperId);
+
+		return result;
+	}
+
+	public User findUserByArticle(final int articleId) {
+		User result;
+		Assert.isTrue(articleId != 0);
+
+		result = this.userRepository.findUserByArticle(articleId);
 
 		return result;
 	}
@@ -184,25 +200,35 @@ public class UserService {
 
 	}
 
-	public Page<Newspaper> findNewspapersByUser(final int userId, final Pageable pageable) {
+	public Page<Newspaper> findPublishedNewspapersByUser(final int userId, final Pageable pageable) {
 		Page<Newspaper> result;
 		Assert.isTrue(userId != 0);
 		Assert.notNull(pageable);
 
-		result = this.userRepository.findNewspapersByUser(userId, pageable);
+		result = this.userRepository.findPublishedNewspapersByUser(userId, pageable);
 
 		return result;
 	}
 
-	/**
-	 * This method returns the list of published articles of the user with the given id
-	 * 
-	 * @param userId
-	 * @param pageable
-	 * @return a page of articles
-	 * 
-	 * @author Juanmi
-	 */
+	public Page<Newspaper> findNotPublishedNewspapersByUser(final int userId, final Pageable pageable) {
+		Page<Newspaper> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findNotPublishedNewspapersByUser(userId, pageable);
+
+		return result;
+	}
+
+	public Collection<Newspaper> findNotPublishedNewspapersByUser(final int userId) {
+		Collection<Newspaper> result;
+		Assert.isTrue(userId != 0);
+
+		result = this.userRepository.findNotPublishedNewspapersByUser(userId);
+
+		return result;
+	}
+
 	public Page<Article> findUserPublishedArticles(final int userId, final Pageable pageable) {
 		Page<Article> result;
 		Assert.isTrue(userId != 0);
@@ -213,13 +239,167 @@ public class UserService {
 		return result;
 	}
 
-	/**
-	 * This method flushes the repository, this forces the cache to be saved to the database, which then forces the test data to be validated. This is only used
-	 * in tests
-	 * 
-	 * @author Juanmi
-	 */
 	public void flush() {
 		this.userRepository.flush();
 	}
+
+	/**
+	 * This method add the user given by parameters to the followed users of the principal or deletes it if was already followed
+	 * 
+	 * @param user
+	 * @author Juanmi
+	 */
+	public void followOrUnfollowUser(final User user) {
+		User principal;
+
+		principal = (User) this.actorService.findActorByPrincipal();
+
+		// If the principal already follows the user given, it will be deleted from the list
+		if (principal.getUsers().contains(user))
+			principal.getUsers().remove(user);
+		else
+			// If the principal does not follow the user given, it will be added to the list
+			principal.getUsers().add(user);
+
+		this.save(principal);
+	}
+
+	/**
+	 * This method returns the list of followed users of the user with the id given
+	 * 
+	 * @param userId
+	 * @param pageable
+	 * @return a page of users
+	 */
+	public Page<User> findFollowedUsers(final int userId, final Pageable pageable) {
+		Page<User> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findFollowedUsers(userId, pageable);
+
+		return result;
+	}
+
+	/**
+	 * This method returns the list of followed users of the user with the id given
+	 * 
+	 * @param userId
+	 * @param pageable
+	 * @return a page of users
+	 */
+	public Page<User> findFollowers(final int userId, final Pageable pageable) {
+		Page<User> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findFollowers(userId, pageable);
+
+		return result;
+	}
+
+	//Dashboard queries ------------------------
+
+	/**
+	 * Level C query 1
+	 * 
+	 * @return The average and the standard deviation of newspapers created per user.
+	 * @author Antonio
+	 */
+	public String getNewspapersInfoFromUsers() {
+		String result;
+
+		result = this.userRepository.getNewspapersInfoFromUsers();
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	/**
+	 * Level C query 2
+	 * 
+	 * @return The average and the standard deviation of articles created per user.
+	 * @author Antonio
+	 */
+	public String getArticlesInfoFromUsers() {
+		String result;
+
+		result = this.userRepository.getArticlesInfoFromUsers();
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	/**
+	 * Level C query 6
+	 * 
+	 * @return The ratio of users who have ever created a newspaper.
+	 * @author Antonio
+	 */
+	public String getRatioCreatedNewspapers() {
+		String result;
+
+		result = this.userRepository.getRatioCreatedNewspapers();
+
+		return result;
+	}
+
+	/**
+	 * Level C query 7
+	 * 
+	 * @return The ratio of users who have ever written an article.
+	 * @author Antonio
+	 */
+	public String getRatioCreatedArticles() {
+		String result;
+
+		result = this.userRepository.getRatioCreatedArticles();
+
+		return result;
+	}
+
+	/**
+	 * Level B query 4
+	 * 
+	 * @return The average and the standard deviation of the number of chirps per user.
+	 * @author Antonio
+	 */
+	public String getChirpsInfoFromUsers() {
+		String result;
+
+		result = this.userRepository.getChirpsInfoFromUsers();
+
+		return result;
+	}
+
+	/**
+	 * Level B query 5
+	 * 
+	 * @return The ratio of users who have posted above 75% the average number of chirps per user.
+	 * @author Antonio
+	 */
+	public String getRatioUsersPostedAbove75PercentAverageChirpsPerUser() {
+		String result;
+
+		result = this.userRepository.getRatioUsersPostedAbove75PercentAverageChirpsPerUser();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 5
+	 * 
+	 * @return The average ratio of private versus public newspapers per publisher.
+	 * @author Antonio
+	 */
+	public String getAverageRatioPrivateNewspaperPerPublisher() {
+		String result;
+
+		result = this.userRepository.getAverageRatioPrivateNewspaperPerPublisher();
+
+		return result;
+	}
+
 }
