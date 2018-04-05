@@ -27,6 +27,7 @@ import services.ActorService;
 import services.ConfigurationService;
 import services.UserService;
 import controllers.AbstractController;
+import domain.Chirp;
 import domain.Configuration;
 import domain.User;
 import forms.UserAdminForm;
@@ -106,7 +107,7 @@ public class ActorUserController extends AbstractController {
 		return result;
 	}
 
-	// Listing followed users ---------------------------------------------------------
+	// Listing followers ---------------------------------------------------------
 	/**
 	 * This method returns a model and view with list of the followers of the principal
 	 * 
@@ -177,6 +178,43 @@ public class ActorUserController extends AbstractController {
 			result.addObject("requestURI", "user/list-followed.do");
 			result.addObject("principal", principal);
 			result.addObject("followedView", true);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
+		return result;
+	}
+
+	// Listing chirps of followed users ---------------------------------------------------------
+	/**
+	 * This method returns a model and view with list of the followed users of the principal
+	 * 
+	 * @param page
+	 * 
+	 * @return ModelandView
+	 * @author Juanmi
+	 */
+	@RequestMapping("/list-chirps-followed")
+	public ModelAndView listChirpsFollowed(@RequestParam(defaultValue = "0") final int page) {
+		ModelAndView result;
+		Page<Chirp> chirps;
+		Pageable pageable;
+		Configuration configuration;
+		User principal;
+
+		try {
+
+			principal = (User) this.actorService.findActorByPrincipal();
+
+			result = new ModelAndView("chirp/list");
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
+			chirps = this.userService.findFollowedUsersChirps(principal.getId(), pageable);
+
+			result.addObject("users", chirps.getContent());
+			result.addObject("page", page);
+			result.addObject("pageNum", chirps.getTotalPages());
+			result.addObject("requestURI", "user/list-chirps-followed.do");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

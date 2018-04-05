@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Article;
+import domain.Chirp;
 import domain.Newspaper;
 import domain.User;
 
@@ -36,6 +37,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("select u from User u join u.users u1 where u1.id = ?1")
 	Page<User> findFollowers(int userId, Pageable pageable);
+
+	@Query("select c from User u join u.users u1 join u1.chirps c where u.id = ?1")
+	Page<Chirp> findFollowedUsersChirps(int userId, Pageable pageable);
 
 	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate=null or n.publicationDate='')")
 	Collection<Newspaper> findNotPublishedNewspapersByUser(int userId);

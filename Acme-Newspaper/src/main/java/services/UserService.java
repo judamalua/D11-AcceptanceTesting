@@ -298,6 +298,23 @@ public class UserService {
 		return result;
 	}
 
+	/**
+	 * This method returns the list of chirps of the users who the user with the id given follows
+	 * 
+	 * @param userId
+	 * @param pageable
+	 * @return a page of chirps
+	 */
+	public Page<Chirp> findFollowedUsersChirps(final int userId, final Pageable pageable) {
+		Page<Chirp> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findFollowedUsersChirps(userId, pageable);
+
+		return result;
+	}
+
 	//Dashboard queries ------------------------
 
 	/**
