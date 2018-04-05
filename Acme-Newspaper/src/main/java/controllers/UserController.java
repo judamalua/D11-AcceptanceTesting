@@ -64,8 +64,12 @@ public class UserController extends AbstractController {
 		Page<User> users;
 		Pageable pageable;
 		Configuration configuration;
+		User principal = null;
 
 		try {
+
+			if (this.actorService.getLogged())
+				principal = (User) this.actorService.findActorByPrincipal();
 
 			result = new ModelAndView("user/list");
 			configuration = this.configurationService.findConfiguration();
@@ -75,6 +79,9 @@ public class UserController extends AbstractController {
 			result.addObject("users", users.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", users.getTotalPages());
+			result.addObject("requestURI", "user/list.do");
+			if (this.actorService.getLogged())
+				result.addObject("principal", principal);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

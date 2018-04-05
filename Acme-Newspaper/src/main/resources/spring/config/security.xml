@@ -53,6 +53,9 @@
 		
 		<security:intercept-url pattern="/actor/display.do" access="isAuthenticated()" requires-channel="https"  />
 		<security:intercept-url pattern="/actor/user/register.do" access="permitAll" requires-channel="https" /> 
+		<security:intercept-url pattern="/actor/user/follow.do" access="hasRole('USER')" requires-channel="https" /> 
+		<security:intercept-url pattern="/actor/user/list-followed.do" access="hasRole('USER')" requires-channel="https" /> 
+		<security:intercept-url pattern="/actor/user/list-followers.do" access="hasRole('USER')" requires-channel="https" /> 
 		
 		<security:intercept-url pattern="/actor/user/edit.do" access="hasRole('USER')" requires-channel="https" /> 
 		<security:intercept-url pattern="/actor/register.do" access="isAnonymous()" requires-channel="https" /> 

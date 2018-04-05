@@ -27,9 +27,9 @@
  --%>
 <!-- Pagination -->
 
-<acme:pagination requestURI = "user/list.do?page=" pageNum = "${pageNum}" page = "${page}"/>
+<acme:pagination requestURI = "${requestURI}?page=" pageNum = "${pageNum}" page = "${page}"/>
 
-<display:table name="users" id="row" requestURI="user/list.do"
+<display:table name="users" id="user" requestURI="${requestURI}"
 	class="displaytag">
 
 	<spring:message code="user.name" var="name" />
@@ -52,9 +52,44 @@
 	<spring:message code="user.birthDate" var="birthDate" />
 	<display:column property="birthDate" title="${birthDate}"
 		sortable="true" format="${formatBirthDate}" />
+		
+	<display:column>
+		<security:authorize access="hasRole('USER')">
+		<jstl:if test="${!principal.users.contains(user) && principal.id != user.id && followersView}">
+			<acme:button
+				url="actor/user/follow.do?userId=${user.id}&followersView=true"
+				code="user.follow" />
+		</jstl:if>
+		<jstl:if test="${!principal.users.contains(user) && principal.id != user.id && !followedView && !followersView}">
+			<acme:button
+				url="actor/user/follow.do?userId=${user.id}"
+				code="user.follow" />
+		</jstl:if>
+		</security:authorize>
+	</display:column>
+	
+	<display:column>
+		<security:authorize access="hasRole('USER')">
+		<jstl:if test="${principal.users.contains(user) && principal.id != user.id && followedView}">
+			<acme:button
+				url="actor/user/follow.do?userId=${user.id}&followedView=true"
+				code="user.unfollow" />
+		</jstl:if>
+		<jstl:if test="${principal.users.contains(user) && principal.id != user.id && followersView}">
+			<acme:button
+				url="actor/user/follow.do?userId=${user.id}&followersView=true"
+				code="user.unfollow" />
+		</jstl:if>
+		<jstl:if test="${principal.users.contains(user) && principal.id != user.id && !followedView && !followersView}">
+			<acme:button
+				url="actor/user/follow.do?userId=${user.id}"
+				code="user.unfollow" />
+		</jstl:if>
+		</security:authorize>
+	</display:column>
 
 	<display:column>
-		<a href="user/display.do?actorId=${row.id}">
+		<a href="user/display.do?actorId=${user.id}">
 			<button class="btn">
 				<spring:message code="user.display" />
 			</button>
