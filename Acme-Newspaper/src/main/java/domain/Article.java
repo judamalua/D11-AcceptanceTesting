@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
-import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -57,10 +56,8 @@ public class Article extends DomainEntity {
 		this.body = body;
 	}
 
-	@SafeHtml
 	@NotNull
 	@ElementCollection
-	@URL
 	public Collection<String> getPictureUrls() {
 		return this.pictureUrls;
 	}
