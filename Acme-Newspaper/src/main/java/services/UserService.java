@@ -125,15 +125,6 @@ public class UserService {
 		return result;
 	}
 
-	public User findUserByArticle(final int articleId) {
-		User result;
-		Assert.isTrue(articleId != 0);
-
-		result = this.userRepository.findUserByArticle(articleId);
-
-		return result;
-	}
-
 	// Other business methods ------------------------------------------------------------------------------------
 
 	public User reconstruct(final UserAdminForm userAdminForm, final BindingResult binding) {
@@ -141,11 +132,9 @@ public class UserService {
 
 		if (userAdminForm.getId() == 0) {
 
-			Collection<Article> articles;
 			Collection<Chirp> chirps;
 			Collection<Newspaper> newspapers;
 
-			articles = new HashSet<Article>();
 			chirps = new HashSet<Chirp>();
 			newspapers = new HashSet<Newspaper>();
 
@@ -205,6 +194,15 @@ public class UserService {
 		return result;
 	}
 
+	/**
+	 * This method returns the list of published articles of the user with the given id
+	 * 
+	 * @param userId
+	 * @param pageable
+	 * @return a page of articles
+	 * 
+	 * @author Juanmi
+	 */
 	public Page<Article> findUserPublishedArticles(final int userId, final Pageable pageable) {
 		Page<Article> result;
 		Assert.isTrue(userId != 0);
@@ -213,5 +211,15 @@ public class UserService {
 		result = this.userRepository.findUserPublishedArticles(userId, pageable);
 
 		return result;
+	}
+
+	/**
+	 * This method flushes the repository, this forces the cache to be saved to the database, which then forces the test data to be validated. This is only used
+	 * in tests
+	 * 
+	 * @author Juanmi
+	 */
+	public void flush() {
+		this.userRepository.flush();
 	}
 }
