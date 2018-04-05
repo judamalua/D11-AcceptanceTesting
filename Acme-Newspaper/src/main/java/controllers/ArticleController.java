@@ -50,10 +50,9 @@ public class ArticleController extends AbstractController {
 			result = new ModelAndView("article/display");
 			article = this.articleService.findOne(articleId);
 			Assert.notNull(article);
-			//writer = this.userService.findUserByArticle(articleId);
-			//TODO manu haz esto
+			writer = this.userService.findUserByArticle(articleId);
 
-			//result.addObject("writer", writer);
+			result.addObject("writer", writer);
 			result.addObject("article", article);
 
 		} catch (final Throwable oops) {

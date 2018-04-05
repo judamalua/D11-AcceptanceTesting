@@ -64,7 +64,6 @@ public class Newspaper extends DomainEntity {
 		this.description = description;
 	}
 	@SafeHtml
-	@NotBlank
 	public String getPictureUrl() {
 		return this.pictureUrl;
 	}
