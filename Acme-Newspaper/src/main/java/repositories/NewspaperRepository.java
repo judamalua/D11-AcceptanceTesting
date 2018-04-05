@@ -80,4 +80,13 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	 */
 	@Query("select avg(n.articles.size) from Newspaper n where n.publicNewspaper = TRUE")
 	String getAverageArticlesPerPublicNewspapers();
+
+	/**
+	 * Level A query 5
+	 * 
+	 * @return The average ratio of private versus public newspapers per publisher
+	 * @author Antonio
+	 */
+	@Query("select avg(sum(case when(n.publicNewspaper = FALSE) then 1.0 else 0.0 end)/count(n)) from User u join u.newspapers n")
+	String getAverageRatioPrivateVSPublicNewspaperPublisher();
 }

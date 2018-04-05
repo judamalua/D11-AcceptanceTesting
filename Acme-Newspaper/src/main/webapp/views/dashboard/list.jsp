@@ -10,130 +10,182 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<h1>Not yet implemented</h1>
+<ul class="collapsible popout" data-collapsible="accordion">
 
-<%-- <ul class="collapsible popout" data-collapsible="accordion">
 
 <li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.rendezvous.user"/></div>
+<div class="collapsible-header"><spring:message code="dashboard.newspaper.user"/></div>
 
 <div class="collapsible-body"><span>
-<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${rendezvousUserAverage == \"null\" ? 0 : rendezvousUserAverage}"></jstl:out></p>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${newspapersInfoFromUsersAverage == \"null\" ? 0 : newspapersInfoFromUsersAverage}"></jstl:out></p>
 
-<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${rendezvousUserStandardDeviation == \"null\" ? 0 : rendezvousUserStandardDeviation}"></jstl:out></p>
+<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${newspapersInfoFromUsersDeviation == \"null\" ? 0 : newspapersInfoFromUsersDeviation}"></jstl:out></p>
+</span></div>
+</li>
+
+
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.article.user"/></div>
+
+<div class="collapsible-body"><span>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${articlesInfoFromUsersAverage == \"null\" ? 0 : articlesInfoFromUsersAverage}"></jstl:out></p>
+
+<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${articlesInfoFromUsersDeviation == \"null\" ? 0 : articlesInfoFromUsersDeviation}"></jstl:out></p>
+</span></div>
+</li>
+
+
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.article.newspaper"/></div>
+
+<div class="collapsible-body"><span>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${articlesInfoFromNewspapersAverage == \"null\" ? 0 : articlesInfoFromNewspapersAverage}"></jstl:out></p>
+
+<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${articlesInfoFromNewspapersDeviation == \"null\" ? 0 : articlesInfoFromNewspapersDeviation}"></jstl:out></p>
 </span></div>
 </li>
 
 <li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.users.create.ratio"/></div>
+<div class="collapsible-header"><spring:message code="dashboard.newspapers.tenPercentMoreArticles"/></div>
+
+<div class="collapsible-body"><span>	
+	<display:table id = "newspaper" name = "newspaperWith10PercentMoreArticlesThanAverage" requestURI="dashboard/admin/list.do" pagesize="${pagesize}">
+		<spring:message var = "titleNewspaper" code = "dashboard.newspaper.title"/>
+		<display:column title = "${titleNewspaper}">${newspaper.title}</display:column>
+		<spring:message var = "titleNumArticles" code = "dashboard.newspaper.numArticles"/>
+		<display:column title = "${titleNumArticles}">${fn:length(newspaper.articles)}</display:column>
+	
+	</display:table>
+</span></div>
+</li>
+
+
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.newspapers.tenPercentLessArticles"/></div>
+
+<div class="collapsible-body"><span>	
+	<display:table id = "newspaper" name = "newspaperWith10PercentLessArticlesThanAverage" requestURI="dashboard/admin/list.do" pagesize="${pagesize}">
+		<spring:message var = "titleNewspaper" code = "dashboard.newspaper.title"/>
+		<display:column title = "${titleNewspaper}">${newspaper.title}</display:column>
+		<spring:message var = "titleNumArticles" code = "dashboard.rendezvous.numArticles"/>
+		<display:column title = "${titleNumArticles}">${fn:length(newspaper.articles)}</display:column>
+	
+	</display:table>
+</span></div>
+</li>
+
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.users.newspaper.create.ratio"/></div>
 
 <div class="collapsible-body"><span>
-<p class = "element"><b><spring:message code="dashboard.ratio"/>:</b> <jstl:out value="${ratioCreatedRendezvouses == \"null\" ? 0 : ratioCreatedRendezvouses}"></jstl:out></p>
+<p class = "element"><b><spring:message code="dashboard.ratio"/>:</b> <jstl:out value="${ratioCreatedNewspapers == \"null\" ? 0 : ratioCreatedNewspapers}"></jstl:out></p>
 <div class = "ratio element">
 <div class="progress progress-striped
      active" aria-valuemin="0">
   <div class="bar"
-       style="width: ${ratioCreatedRendezvouses*100}%;"><jstl:out value="${ratioCreatedRendezvouses*100}%" /></div>
+       style="width: ${ratioCreatedNewspapers*100}%;"><jstl:out value="${ratioCreatedNewspapers*100}%" /></div>
+</div>
+</div>
+</span></div>
+</li>
+
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.users.article.create.ratio"/></div>
+
+<div class="collapsible-body"><span>
+<p class = "element"><b><spring:message code="dashboard.ratio"/>:</b> <jstl:out value="${ratioCreatedArticles == \"null\" ? 0 : ratioCreatedArticles}"></jstl:out></p>
+<div class = "ratio element">
+<div class="progress progress-striped
+     active" aria-valuemin="0">
+  <div class="bar"
+       style="width: ${ratioCreatedArticles*100}%;"><jstl:out value="${ratioCreatedArticles*100}%" /></div>
+</div>
+</div>
+</span></div>
+</li>
+
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.article.followUp"/></div>
+
+<div class="collapsible-body"><span>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${averageFollowUpsPerArticle == \"null\" ? 0 : averageFollowUpsPerArticle}"></jstl:out></p>
+
+</span></div>
+</li>
+
+<!--TODO B2 QUERY -->
+<!--TODO B3 QUERY -->
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.chirp.user"/></div>
+
+<div class="collapsible-body"><span>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${chirpsInfoFromUsersAverage == \"null\" ? 0 : chirpsInfoFromUsersAverage}"></jstl:out></p>
+
+<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${chirpsInfoFromUsersDeviation == \"null\" ? 0 : chirpsInfoFromUsersDeviation}"></jstl:out></p>
+</span></div>
+</li>
+
+
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.chirp.user.ratio"/></div>
+
+<div class="collapsible-body"><span>
+<p class = "element"><b><spring:message code="dashboard.ratio"/>:</b> <jstl:out value="${ratioUsersPostedAbove75PercentAverageChirpsPerUser == \"null\" ? 0 : ratioUsersPostedAbove75PercentAverageChirpsPerUser}"></jstl:out></p>
+<div class = "ratio element">
+<div class="progress progress-striped
+     active" aria-valuemin="0">
+  <div class="bar"
+       style="width: ${ratioUsersPostedAbove75PercentAverageChirpsPerUser*100}%;"><jstl:out value="${ratioUsersPostedAbove75PercentAverageChirpsPerUser*100}%" /></div>
 </div>
 </div>
 </span></div>
 </li>
 
 
-
 <li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.user.rendezvous.info"/></div>
+<div class="collapsible-header"><spring:message code="dashboard.newspapers.public.ratio"/></div>
 
 <div class="collapsible-body"><span>
-<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${userRendezvousAverage == \"null\" ? 0 : userRendezvousAverage}"></jstl:out></p>
-
-<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${userRendezvousStandardDeviation == \"null\" ? 0 : userRendezvousStandardDeviation}"></jstl:out></p>
+<p class = "element"><b><spring:message code="dashboard.ratio"/>:</b> <jstl:out value="${ratioPublicNewspapers == \"null\" ? 0 : ratioPublicNewspapers}"></jstl:out></p>
+<div class = "ratio element">
+<div class="progress progress-striped
+     active" aria-valuemin="0">
+  <div class="bar"
+       style="width: ${ratioPublicNewspapers*100}%;"><jstl:out value="${ratioPublicNewspapers*100}%" /></div>
+</div>
+</div>
 </span></div>
 </li>
 
+
 <li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.RSVP.user"/></div>
+<div class="collapsible-header"><spring:message code="dashboard.article.newspaper.private.average"/></div>
+
 <div class="collapsible-body"><span>
-<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${averageRSVPedPerUser == \"null\" ? 0 : averageRSVPedPerUser}"></jstl:out></p>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${averageArticlesPerPrivateNewspapers == \"null\" ? 0 : averageArticlesPerPrivateNewspapers}"></jstl:out></p>
 
-<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${standardDeviationRSVPedPerUser == \"null\" ? 0 : standardDeviationRSVPedPerUser}"></jstl:out></p>
 </span></div>
 </li>
 
 <li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.top.ten.rendezvouses"/></div>
-	
-<div class="collapsible-body"><span>	
-	<display:table id = "rendezvous" name = "topTenRendezvouses" requestURI="dashboard/admin/list.do" pagesize="${pagesize}">
-		<spring:message var = "titleRendezvous" code = "dashboard.rendezvous.title"/>
-		<display:column title = "${titleRendezvous}">${rendezvous.name}</display:column>
-		<spring:message var = "titleNumRSVP" code = "dashboard.rendezvous.numRSVP"/>
-		<display:column title = "${titleNumRSVP}">${fn:length(rendezvous.users)}</display:column>
-	
-	</display:table>
-</span></div>
-</li>
+<div class="collapsible-header"><spring:message code="dashboard.article.newspaper.public.average"/></div>
 
-<li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.announcements.rendezvous"/></div>
-<div class="collapsible-body"><span>	
-<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${announcementsRendezvousAverage == \"null\" ? 0 : announcementsRendezvousAverage}"></jstl:out></p>
-
-<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${announcementsRendezvousStandardDeviation == \"null\" ? 0 : announcementsRendezvousStandardDeviation}"></jstl:out></p>
-</span></div>
-</li>
-
-<li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.rendezvouses.above.seventyfive"/></div>
-	<div class="collapsible-body"><span>
-	<display:table id = "row" name = "rendezvousesWithAnnouncementAboveSeventyFivePercent" requestURI="dashboard/admin/list.do" pagesize="${pagesize}">
-		
-		<spring:message var = "titleRendezvous" code = "dashboard.rendezvous.title"/>
-		<display:column title = "${titleRendezvous}">${row.name}</display:column>
-	
-	</display:table>
-</span></div>
-</li>
-
-<li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.rendezvous.most.linked"/></div>
-	
-	<div class="collapsible-body"><span>
-	<display:table id = "row" name = "rendezvousesMostLinked" requestURI="dashboard/admin/list.do" pagesize="${pagesize}">
-		
-		<spring:message var = "titleRendezvous" code = "dashboard.rendezvous.title"/>
-		<display:column title = "${titleRendezvous}">${row.name}</display:column>
-	
-	</display:table>
-</span></div>
-</li>
-
-<li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.questions.rendezvous"/></div>
 <div class="collapsible-body"><span>
-<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${questionsRendezvousAverage == \"null\" ? 0 : questionsRendezvousAverage}"></jstl:out></p>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${averageArticlesPerPublicNewspapers == \"null\" ? 0 : averageArticlesPerPublicNewspapers}"></jstl:out></p>
 
-<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${questionsRendezvousStandardDeviation == \"null\" ? 0 : questionsRendezvousStandardDeviation}"></jstl:out></p>
 </span></div>
 </li>
 
-<li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.answers.rendezvous"/></div>
-<div class="collapsible-body"><span>
-<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${averageAnswersPerRendezvous == \"null\" ? 0 : averageAnswersPerRendezvous}"></jstl:out></p>
-
-<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${standardDeviationAnswersPerRendezvous == \"null\" ? 0 : standardDeviationAnswersPerRendezvous}"></jstl:out></p>
-</span></div>
-</li>
+<!--TODO A4 QUERY -->
 
 <li class = "dashboard-expander">
-<div class="collapsible-header"><spring:message code="dashboard.replies.comment"/></div>
-<div class="collapsible-body"><span>
-<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${repliesCommentAverage == \"null\" ? 0 : repliesCommentAverage}"></jstl:out></p>
+<div class="collapsible-header"><spring:message code="dashboard.newspaper.public.private.average.ratio"/></div>
 
-<p class = "element"><b><spring:message code="dashboard.standardDeviation"/>:</b> <jstl:out value="${repliesCommentStandardDeviation == \"null\" ? 0 : repliesCommentStandardDeviation}"></jstl:out></p>
+<div class="collapsible-body"><span>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${averageRatioPrivateVSPublicNewspaperPublisher == \"null\" ? 0 : averageRatioPrivateVSPublicNewspaperPublisher}"></jstl:out></p>
+
 </span></div>
 </li>
 
 </ul>
- --%>
+ 
