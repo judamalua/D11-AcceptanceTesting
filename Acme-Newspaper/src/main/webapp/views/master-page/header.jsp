@@ -36,11 +36,17 @@
 
                 <!-- Dropdown Structure -->
                 <ul id="dropdownUserFunctions" class="dropdown-content">
-					 <li><a href="newspaper/user/list.do?published=true"><spring:message
+					<li><a href="newspaper/user/list.do?published=true"><spring:message
                                 code="master.page.publishedNewspapers" /></a></li>
                     <li class="divider"></li>
-                    	 <li><a href="newspaper/user/list.do?published=false"><spring:message
+                    <li><a href="newspaper/user/list.do?published=false"><spring:message
                                 code="master.page.notPublishedNewspapers" /></a></li>
+                    <li class="divider"></li>
+                    <li><a href="actor/user/list-followed.do"><spring:message
+                                code="master.page.list.followed" /></a></li>
+					<li class="divider"></li>
+                    <li><a href="actor/user/list-followers.do"><spring:message
+                                code="master.page.list.followers" /></a></li>
                 </ul>
 
                 <!-- Dropdown Trigger -->
