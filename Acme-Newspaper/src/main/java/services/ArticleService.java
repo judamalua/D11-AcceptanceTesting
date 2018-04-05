@@ -141,4 +141,18 @@ public class ArticleService {
 
 		return result;
 	}
+	/**
+	 * 
+	 * 
+	 * 
+	 * @author Luis
+	 */
+	public Article getArticleByFollowUp(final FollowUp followUp) {
+		Article result;
+
+		result = this.articleRepository.getArticleByFollowUp(followUp);
+
+		return result;
+	}
+
 }

@@ -16,6 +16,7 @@ import repositories.FollowUpRepository;
 import domain.Actor;
 import domain.Article;
 import domain.FollowUp;
+import domain.Newspaper;
 import domain.User;
 
 @Service
@@ -100,12 +101,13 @@ public class FollowUpService {
 
 		FollowUp result;
 		Article article;
-		Article savedArticle;
 		User user;
+		Newspaper newspaper;
 
 		result = this.followUpRepository.save(followUp);
 		article = this.articleService.getArticleByFollowUp(followUp);
 		user = (User) this.actorService.findActorByPrincipal();
+		newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
 
 		if (followUp.getId() != 0) {
 			Assert.isTrue(user == followUp.getUser());
@@ -113,9 +115,7 @@ public class FollowUpService {
 		}
 
 		article.getFollowUps().add(followUp);
-		savedArticle = this.articleService.save(article);
-		//		user.getArticles().remove(article);
-		//		user.getArticles().add(savedArticle);
+		this.articleService.save(article, newspaper);
 		this.userService.save(user);
 
 		return result;
@@ -136,15 +136,14 @@ public class FollowUpService {
 			Assert.isTrue(principal == followUp.getUser() && followUp.getPublicationDate().after(new Date()));
 
 		Article article;
-		//final Article savedArticle;
+		Newspaper newspaper;
 		User user;
 		article = this.articleService.getArticleByFollowUp(followUp);
+		newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
 		user = followUp.getUser();
 
 		article.getFollowUps().remove(followUp);
-		this.articleService.save(article);
-		//		user.getArticles().remove(article);
-		//		user.getArticles().add(savedArticle);
+		this.articleService.save(article, newspaper);
 		this.userService.save(user);
 
 		this.followUpRepository.delete(followUp);
