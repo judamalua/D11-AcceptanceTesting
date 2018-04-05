@@ -218,4 +218,46 @@ public class NewspaperService {
 
 		return result;
 	}
+
+	/**
+	 * Level A query 1
+	 * 
+	 * @return The newspapers that have at least 10% fewer articles than the average.
+	 * @author Antonio
+	 */
+	public String getRatioPublicNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getRatioPublicNewspapers();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 2
+	 * 
+	 * @return The average number of articles per private newspapers.
+	 * @author Antonio
+	 */
+	public String getAverageArticlesPerPrivateNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getAverageArticlesPerPrivateNewspapers();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 3
+	 * 
+	 * @return The average number of articles per public newspapers.
+	 * @author Antonio
+	 */
+	public String getAverageArticlesPerPublicNewspapers() {
+		String result;
+
+		result = this.newspaperRepository.getAverageArticlesPerPublicNewspapers();
+
+		return result;
+	}
 }

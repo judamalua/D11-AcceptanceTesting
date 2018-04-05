@@ -58,4 +58,31 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	 */
 	@Query("select (select count(u1) from User u1 join u1.newspapers n where n.articles.size>0)/(count(u)*1.0) from User u")
 	String getRatioCreatedArticles();
+
+	/**
+	 * Level B query 4
+	 * 
+	 * @return The average and the standard deviation of the number of chirps per user.
+	 * @author Antonio
+	 */
+	@Query("select avg(u.chirps.size), sqrt(sum(u.chirps.size * u.chirps.size) / count(u.chirps.size) - (avg(u.chirps.size) * avg(u.chirps.size))) from User u")
+	String getChirpsInfoFromUsers();
+
+	/**
+	 * Level B query 5
+	 * 
+	 * @return The ratio of users who have posted above 75% the average number of chirps per user.
+	 * @author Antonio
+	 */
+	@Query("select sum(case when(u.chirps.size>(select (avg(us.chirps.size)*0.75) from User us)) then 1.0 else 0.0 end)/count(u) from User u")
+	String getRatioUsersPostedAbove75PercentAverageChirpsPerUser();
+
+	/**
+	 * Level A query 5
+	 * 
+	 * @return The average ratio of private versus public newspapers per publisher.
+	 * @author Antonio
+	 */
+	@Query("select avg(sum(case when(n.publicNewspaper = FALSE) then 1.0 else 0.0 end)/count(n)) from User u join u.newspapers n ")
+	String getAverageRatioPrivateNewspaperPerPublisher();
 }

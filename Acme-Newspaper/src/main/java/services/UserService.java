@@ -285,4 +285,46 @@ public class UserService {
 		return result;
 	}
 
+	/**
+	 * Level B query 4
+	 * 
+	 * @return The average and the standard deviation of the number of chirps per user.
+	 * @author Antonio
+	 */
+	public String getChirpsInfoFromUsers() {
+		String result;
+
+		result = this.userRepository.getChirpsInfoFromUsers();
+
+		return result;
+	}
+
+	/**
+	 * Level B query 5
+	 * 
+	 * @return The ratio of users who have posted above 75% the average number of chirps per user.
+	 * @author Antonio
+	 */
+	public String getRatioUsersPostedAbove75PercentAverageChirpsPerUser() {
+		String result;
+
+		result = this.userRepository.getRatioUsersPostedAbove75PercentAverageChirpsPerUser();
+
+		return result;
+	}
+
+	/**
+	 * Level A query 5
+	 * 
+	 * @return The average ratio of private versus public newspapers per publisher.
+	 * @author Antonio
+	 */
+	public String getAverageRatioPrivateNewspaperPerPublisher() {
+		String result;
+
+		result = this.userRepository.getAverageRatioPrivateNewspaperPerPublisher();
+
+		return result;
+	}
+
 }

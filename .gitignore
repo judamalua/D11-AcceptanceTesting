@@ -24,3 +24,5 @@ hs_err_pid*
 */pom.properties
 
 Acme-Newspaper/src/main/resources/Entities.map
+
+Acme-Newspaper/target/
