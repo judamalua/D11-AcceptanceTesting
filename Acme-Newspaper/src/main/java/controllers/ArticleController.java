@@ -43,16 +43,17 @@ public class ArticleController extends AbstractController {
 	public ModelAndView display(@RequestParam final Integer articleId) {
 		ModelAndView result;
 		Article article;
-		User writer;
+		final User writer;
 
 		try {
 
 			result = new ModelAndView("article/display");
 			article = this.articleService.findOne(articleId);
 			Assert.notNull(article);
-			writer = this.userService.findUserByArticle(articleId);
+			//writer = this.userService.findUserByArticle(articleId);
+			//TODO manu haz esto
 
-			result.addObject("writer", writer);
+			//result.addObject("writer", writer);
 			result.addObject("article", article);
 
 		} catch (final Throwable oops) {
