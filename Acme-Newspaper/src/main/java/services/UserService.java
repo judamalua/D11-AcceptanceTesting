@@ -65,7 +65,6 @@ public class UserService {
 
 		result.setUserAccount(userAccount);
 
-		result.setArticles(articles);
 		result.setChirps(chirps);
 		result.setNewspapers(newspapers);
 
@@ -161,7 +160,6 @@ public class UserService {
 			result.setEmail(userAdminForm.getEmail());
 			result.setBirthDate(userAdminForm.getBirthDate());
 
-			result.setArticles(articles);
 			result.setChirps(chirps);
 			result.setNewspapers(newspapers);
 

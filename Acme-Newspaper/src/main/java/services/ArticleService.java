@@ -82,10 +82,6 @@ public class ArticleService {
 		user = this.userService.findUserByArticle(article.getId());
 		newspaper = this.newspaperService.findNewspaperByArticle(article.getId());
 
-		user.getArticles().remove(article);
-		user.getArticles().add(result);
-		this.userService.save(user);
-
 		newspaper.getArticles().remove(article);
 		newspaper.getArticles().add(result);
 		this.newspaperService.save(newspaper);
@@ -106,9 +102,6 @@ public class ArticleService {
 
 		user = this.userService.findUserByArticle(article.getId());
 		newspaper = this.newspaperService.findNewspaperByArticle(article.getId());
-
-		user.getArticles().remove(article);
-		this.userService.save(user);
 
 		newspaper.getArticles().remove(article);
 		this.newspaperService.save(newspaper);

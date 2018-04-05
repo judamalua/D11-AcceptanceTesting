@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.NewspaperService;
+import services.UserService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Newspaper;
+import domain.User;
 
 @Controller
 @RequestMapping("/newspaper/user")
@@ -28,6 +31,9 @@ public class NewspaperUserController extends AbstractController {//TODO: ALL
 
 	@Autowired
 	ActorService		actorService;
+
+	@Autowired
+	UserService			userService;
 
 
 	// Listing ---------------------------------------------------------------		
@@ -50,12 +56,16 @@ public class NewspaperUserController extends AbstractController {//TODO: ALL
 		final User publisher;
 		Actor actor;
 
-		actor = newspaper = this.newspaperService.findOne(newspaperId);
+		actor = this.actorService.findActorByPrincipal();
+
+		newspaper = this.newspaperService.findOne(newspaperId);
+		publisher = this.userService.findUserByNewspaper(newspaper.getId());
+
+		Assert.isTrue(actor.equals(publisher));
 
 		result = this.createEditModelAndView(newspaper);
 		return result;
 	}
-
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
