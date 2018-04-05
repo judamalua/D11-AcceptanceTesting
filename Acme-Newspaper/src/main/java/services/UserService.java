@@ -212,4 +212,67 @@ public class UserService {
 
 		return result;
 	}
+
+	//Dashboard queries ------------------------
+
+	/**
+	 * Level C query 1
+	 * 
+	 * @return The average and the standard deviation of newspapers created per user.
+	 * @author Antonio
+	 */
+	public String getNewspapersInfoFromUsers() {
+		String result;
+
+		result = this.userRepository.getNewspapersInfoFromUsers();
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	/**
+	 * Level C query 2
+	 * 
+	 * @return The average and the standard deviation of articles created per user.
+	 * @author Antonio
+	 */
+	public String getArticlesInfoFromUsers() {
+		String result;
+
+		result = this.userRepository.getArticlesInfoFromUsers();
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	/**
+	 * Level C query 6
+	 * 
+	 * @return The ratio of users who have ever created a newspaper.
+	 * @author Antonio
+	 */
+	public String getRatioCreatedNewspapers() {
+		String result;
+
+		result = this.userRepository.getRatioCreatedNewspapers();
+
+		return result;
+	}
+
+	/**
+	 * Level C query 7
+	 * 
+	 * @return The ratio of users who have ever written an article.
+	 * @author Antonio
+	 */
+	public String getRatioCreatedArticles() {
+		String result;
+
+		result = this.userRepository.getRatioCreatedArticles();
+
+		return result;
+	}
+
 }
