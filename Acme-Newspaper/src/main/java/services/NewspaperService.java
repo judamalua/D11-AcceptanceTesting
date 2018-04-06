@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.NewspaperRepository;
+import domain.Actor;
 import domain.Article;
 import domain.CreditCard;
 import domain.Newspaper;
@@ -99,10 +100,15 @@ public class NewspaperService {
 		Assert.notNull(newspaper);
 		Assert.isTrue(newspaper.getId() != 0);
 		User publisher;
+		Actor actor;
 
+		actor = this.actorService.findActorByPrincipal();
+		if (actor instanceof User)
+			Assert.isTrue(newspaper.getPublicationDate() == null);
 		Assert.isTrue(this.newspaperRepository.exists(newspaper.getId()));
 
 		publisher = this.userService.findUserByNewspaper(newspaper.getId());
+
 		publisher.getNewspapers().remove(newspaper);
 		this.userService.save(publisher);
 
@@ -164,6 +170,7 @@ public class NewspaperService {
 
 			result.setArticles(articles);
 			result.setCreditCards(creditCards);
+			result.setTaboo(false);
 
 		} else {
 			result = this.newspaperRepository.findOne(newspaper.getId());

@@ -23,22 +23,18 @@
 
 <!-- Variable declaration -->
 <spring:message code="master.page.moment.format" var="formatMoment" />
-<spring:message code="article.name" var="titleName" />
-<spring:message code="article.description" var="titleDescription" />
-<spring:message code="article.publicationDate" var="titlePublication" />
 
-<spring:message code="article.title" var="titleArticle" />
-<spring:message code="article.summary" var="titleSummaryArticle" />
-<spring:message code="article.body" var="titleBodyArticle" />
+
+<spring:message code="followUp.title" var="titleFollowUp" />
+<spring:message code="followUp.summary" var="titleSummaryFollowUp" />
+<spring:message code="followUp.text" var="titleTextFollowUp" />
+<spring:message code="followUp.publicationDate" var="titlePublicationFollowUp" />
 
 
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="currentDate" value="${now}"
 	pattern="yyyy-MM-dd HH:mm" />
 <spring:message var="format" code="master.page.moment.format.out" />
-<fmt:formatDate var="formatMomentarticle" value="${article.moment}"
-	pattern="${format}" />
-
 
 <!-- Display -->
 
@@ -66,3 +62,27 @@
 <p>
 	<a href="user/display.do?userId=${writer.id}" ><jstl:out value="${writer.name}" /></a>
 </p>
+
+<!-- Displaying followUps -->
+<h4>
+	<spring:message code="article.followUp.list" />
+</h4>
+<acme:pagination page="${page}" pageNum="${pageNum}"
+	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&page=" />
+	
+<display:table name="${followUps}" id="article"
+	requestURI="newspaper/display.do" pagesize="${pagesize}">
+	<display:column title="${titleFollowUp}" property="title" sortable="true"/>
+	<display:column property="publicationDate" format="${formatMoment}" title="${titlePublicationFollowUp}" />
+	<display:column property="summary" title="${titleSummaryFollowUp}" />
+	<display:column property="text" title="${titleTextFollowUp}" />
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<acme:button url="followUp/admin/delete.do?followUpId=${followUp.id}"
+				code="followUp.delete" />
+		</display:column>
+	</security:authorize>
+</display:table>
+
+<acme:button url="followUp/user/create.do?articleId=${article.id}" code="followUp.create" />
+<br />

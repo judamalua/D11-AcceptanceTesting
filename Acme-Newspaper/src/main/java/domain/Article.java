@@ -26,6 +26,7 @@ public class Article extends DomainEntity {
 	private String				body;
 	private Collection<String>	pictureUrls;
 	private boolean				finalMode;
+	private boolean				taboo;
 
 
 	@SafeHtml
@@ -72,6 +73,14 @@ public class Article extends DomainEntity {
 
 	public void setFinalMode(final boolean finalMode) {
 		this.finalMode = finalMode;
+	}
+
+	public boolean isTaboo() {
+		return this.taboo;
+	}
+
+	public void setTaboo(final boolean taboo) {
+		this.taboo = taboo;
 	}
 
 

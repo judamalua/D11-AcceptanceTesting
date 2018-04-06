@@ -53,7 +53,7 @@
 	<display:column>
 		<security:authorize access="hasRole('USER')">
 			<jstl:if
-				test="${ownNewspaper[newspaper_rowNum-1] and newspaper.publicationDate==null}">
+				test="${(owner or ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null}">
 				<acme:button
 					url="newspaper/user/edit.do?newspaperId=${newspaper.id}"
 					code="newspaper.edit" />

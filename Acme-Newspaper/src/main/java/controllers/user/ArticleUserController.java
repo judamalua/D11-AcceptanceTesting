@@ -48,15 +48,19 @@ public class ArticleUserController extends AbstractController {
 		Article article;
 		Actor actor;
 		User writer;
+		Newspaper newspaper;
 
 		try {
 			actor = this.actorService.findActorByPrincipal();
 			article = this.articleService.findOne(articleId);
 			writer = this.userService.findUserByArticle(article.getId());
+			newspaper = this.newspaperService.findNewspaperByArticle(article.getId());
 
 			Assert.isTrue(actor.equals(writer));
+			Assert.isTrue(!article.getFinalMode());
 
 			result = this.createEditModelAndView(article);
+			result.addObject("newspaperId", newspaper.getId());
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
 		}

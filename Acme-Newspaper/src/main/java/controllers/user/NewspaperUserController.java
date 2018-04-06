@@ -63,6 +63,7 @@ public class NewspaperUserController extends AbstractController {
 			else
 				newspapers = this.userService.findNotPublishedNewspapersByUser(actor.getId(), pageable);
 
+			result.addObject("owner", true);
 			result.addObject("newspapers", newspapers.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", newspapers.getTotalPages());
@@ -88,6 +89,7 @@ public class NewspaperUserController extends AbstractController {
 			publisher = this.userService.findUserByNewspaper(newspaper.getId());
 
 			Assert.isTrue(actor.equals(publisher));
+			Assert.isTrue(newspaper.getPublicationDate() == null);
 
 			result = this.createEditModelAndView(newspaper);
 		} catch (final Throwable oops) {

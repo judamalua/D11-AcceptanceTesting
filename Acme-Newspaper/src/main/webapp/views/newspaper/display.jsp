@@ -93,7 +93,7 @@
 </h4>
 <acme:pagination page="${page}" pageNum="${pageNum}"
 	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&page=" />
-<display:table name="${newspaper.articles}" id="article"
+<display:table name="${articles}" id="article"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleArticle}" sortable="true">
 		<a href="article/display.do?articleId=${article.id}">${article.title}</a>

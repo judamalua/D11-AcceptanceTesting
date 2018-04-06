@@ -11,6 +11,9 @@
 package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ArticleService;
+import services.ConfigurationService;
 import services.UserService;
 import domain.Article;
+import domain.Configuration;
+import domain.FollowUp;
 import domain.User;
 
 @Controller
@@ -27,10 +33,13 @@ import domain.User;
 public class ArticleController extends AbstractController {
 
 	@Autowired
-	private ArticleService	articleService;
+	private ArticleService			articleService;
 
 	@Autowired
-	private UserService		userService;
+	private UserService				userService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -40,10 +49,13 @@ public class ArticleController extends AbstractController {
 	}
 
 	@RequestMapping("/display")
-	public ModelAndView display(@RequestParam final Integer articleId) {
+	public ModelAndView display(@RequestParam final Integer articleId, @RequestParam(required = false, defaultValue = "0") final Integer page) {
 		ModelAndView result;
 		Article article;
 		final User writer;
+		Page<FollowUp> followUps;
+		final Pageable pageable;
+		final Configuration configuration;
 
 		try {
 
@@ -51,9 +63,15 @@ public class ArticleController extends AbstractController {
 			article = this.articleService.findOne(articleId);
 			Assert.notNull(article);
 			writer = this.userService.findUserByArticle(articleId);
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
+
+			followUps = this.articleService.findFollowUpsByArticle(pageable);
 
 			result.addObject("writer", writer);
 			result.addObject("article", article);
+			result.addObject("followUps", article);
+			result.addObject("pageNum", article);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
