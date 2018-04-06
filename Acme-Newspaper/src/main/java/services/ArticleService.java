@@ -78,7 +78,13 @@ public class ArticleService {
 		Assert.notNull(article);
 
 		Article result;
+		boolean taboo;
 
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof User) {
+			taboo = this.actorService.checkSpamWords(article.getTitle() + " " + article.getSummary() + " " + article.getBody());
+			article.setTaboo(taboo);
+		}
 		result = this.articleRepository.save(article);
 
 		newspaper.getArticles().remove(article);

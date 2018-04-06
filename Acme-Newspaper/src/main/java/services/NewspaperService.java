@@ -82,6 +82,13 @@ public class NewspaperService {
 		User publisher;
 
 		result = this.newspaperRepository.save(newspaper);
+		boolean taboo;
+
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof User) {
+			taboo = this.actorService.checkSpamWords(newspaper.getTitle() + " " + newspaper.getDescription());
+			newspaper.setTaboo(taboo);
+		}
 
 		if (newspaper.getId() != 0)
 			publisher = this.userService.findUserByNewspaper(result.getId());

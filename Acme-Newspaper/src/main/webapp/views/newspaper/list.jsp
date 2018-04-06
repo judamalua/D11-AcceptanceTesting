@@ -30,11 +30,10 @@
 	pattern="yyyy-MM-dd HH:mm" />
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestURI}page=" pageNum="${pageNum}"
+<acme:pagination requestURI="${requestUri}page=" pageNum="${pageNum}"
 	page="${page}" />
 
 <!-- Table -->
-
 <display:table name="newspapers" id="newspaper"
 	requestURI="${requestUri}">
 

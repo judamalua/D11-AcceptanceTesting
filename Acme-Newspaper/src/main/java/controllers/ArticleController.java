@@ -70,8 +70,9 @@ public class ArticleController extends AbstractController {
 
 			result.addObject("writer", writer);
 			result.addObject("article", article);
-			result.addObject("followUps", article);
-			result.addObject("pageNum", article);
+			result.addObject("followUps", followUps);
+			result.addObject("page", page);
+			result.addObject("pageNum", followUps.getTotalPages());
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
