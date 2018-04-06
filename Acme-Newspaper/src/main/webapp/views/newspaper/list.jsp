@@ -59,6 +59,17 @@
 			</jstl:if>
 		</security:authorize>
 	</display:column>
+	
+		<display:column>
+		<security:authorize access="hasRole('USER')">
+			<jstl:if
+				test="${(owner or ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null}">
+				<acme:button
+					url="newspaper/user/publish.do?newspaperId=${newspaper.id}"
+					code="newspaper.publish" />
+			</jstl:if>
+		</security:authorize>
+	</display:column>
 
 	<display:column>
 		<security:authorize access="hasRole('ADMIN')">

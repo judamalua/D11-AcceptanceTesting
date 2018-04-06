@@ -3,6 +3,7 @@
 //
 // import java.text.SimpleDateFormat;
 // import java.util.Date;
+// import java.util.HashSet;
 //
 // import org.junit.Test;
 // import org.junit.runner.RunWith;
@@ -11,8 +12,11 @@
 // import org.springframework.test.context.ContextConfiguration;
 // import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 // import org.springframework.transaction.annotation.Transactional;
+// import org.springframework.util.Assert;
 //
 // import utilities.AbstractTest;
+// import domain.Article;
+// import domain.CreditCard;
 // import domain.Newspaper;
 //
 // @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,19 +44,58 @@
 // @Test
 // public void testCreateANewUser() {
 // Newspaper newspaper;
-// final Date birthDate = new Date();
+// Newspaper savedNewspaper;
 //
 // newspaper = this.newspaperService.create();
 //
 // newspaper.setTitle("Title");
-// newspaper.setArticles("");
-// newspaper.setBirthDate(birthDate);
-// newspaper.setEmail("ferguti90@gmail.com");
-// newspaper.setPhoneNumber("606587789");
-// newspaper.setPostalAddress("Calle Picadero 9");
+// newspaper.setArticles(new HashSet<Article>());
+// newspaper.setCreditCards(new HashSet<CreditCard>());
+// newspaper.setDescription("New description");
+// newspaper.setPictureUrl("");
+// newspaper.setTaboo(false);
 //
 // this.newspaperService.save(newspaper);
+// savedNewspaper = this.newspaperService.findOne(newspaper.getId());
+// Assert.notNull(savedNewspaper);
+// }
 //
+// @Test(expected = javax.validation.ConstraintViolationException.class)
+// public void testCreateANewUserNegative() {
+// Newspaper newspaper;
+// Newspaper savedNewspaper;
+//
+// newspaper = this.newspaperService.create();
+//
+// newspaper.setTitle("");
+// newspaper.setArticles(new HashSet<Article>());
+// newspaper.setCreditCards(new HashSet<CreditCard>());
+// newspaper.setDescription("");
+// newspaper.setPictureUrl("");
+// newspaper.setTaboo(false);
+//
+// this.newspaperService.save(newspaper);
+// savedNewspaper = this.newspaperService.findOne(newspaper.getId());
+// Assert.notNull(savedNewspaper);
+// }
+//
+// @Test(expected = javax.validation.ConstraintViolationException.class)
+// public void testEditANewUserPositive() {
+// Newspaper newspaper;
+// Newspaper savedNewspaper;
+//
+// newspaper = this.newspaperService.create();
+//
+// newspaper.setTitle("");
+// newspaper.setArticles(new HashSet<Article>());
+// newspaper.setCreditCards(new HashSet<CreditCard>());
+// newspaper.setDescription("");
+// newspaper.setPictureUrl("");
+// newspaper.setTaboo(false);
+//
+// this.newspaperService.save(newspaper);
+// savedNewspaper = this.newspaperService.findOne(newspaper.getId());
+// Assert.notNull(savedNewspaper);
 // }
 //
 // /**

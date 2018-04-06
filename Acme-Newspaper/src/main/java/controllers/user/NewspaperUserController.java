@@ -1,6 +1,8 @@
 
 package controllers.user;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -97,6 +99,7 @@ public class NewspaperUserController extends AbstractController {
 		}
 		return result;
 	}
+
 	// Editing ---------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -127,6 +130,10 @@ public class NewspaperUserController extends AbstractController {
 
 		Assert.isTrue(actor.equals(publisher));
 		Assert.isTrue(newspaper.getPublicationDate() == null);
+
+		newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
+
+		this.newspaperService.save(newspaper);
 
 		result = new ModelAndView("redirect:/newspaper/user/list.do?published=true");
 
