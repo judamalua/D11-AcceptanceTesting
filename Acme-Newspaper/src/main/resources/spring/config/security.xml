@@ -70,6 +70,8 @@
 		
 		<security:intercept-url pattern="/newspaper/admin/delete.do" access="hasRole('ADMIN')" /> 
   		<security:intercept-url pattern="/article/admin/delete.do" access="hasRole('ADMIN')" />
+  		<security:intercept-url pattern="/chirp/admin/delete.do" access="hasRole('ADMIN')" />
+  		
 		<security:intercept-url pattern="/dashboard/admin/**" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/configuration/admin/**" access="hasRole('ADMIN')" />

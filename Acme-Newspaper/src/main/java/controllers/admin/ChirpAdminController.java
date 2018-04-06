@@ -8,46 +8,43 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ArticleService;
-import services.NewspaperService;
+import services.ChirpService;
+import services.UserService;
 import controllers.AbstractController;
-import domain.Article;
-import domain.Newspaper;
+import domain.Chirp;
+import domain.User;
 
 @Controller
-@RequestMapping("/article/admin")
-public class ArticleAdminController extends AbstractController {
+@RequestMapping("/chirp/admin")
+public class ChirpAdminController extends AbstractController {
 
 	// Services -------------------------------------------------------
+	@Autowired
+	ChirpService	chirpService;
 
 	@Autowired
-	ArticleService		articleService;
-
-	@Autowired
-	NewspaperService	newspaperService;
+	UserService		userService;
 
 
 	// Delete ---------------------------------------------------------
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int articleId) {
+	public ModelAndView edit(@RequestParam final int chirpId) {
 		ModelAndView result;
-		Article article;
-		Newspaper newspaper;
+		Chirp chirp;
+		final User user;
 
 		try {
-			article = this.articleService.findOne(articleId);
-			newspaper = this.newspaperService.findNewspaperByArticle(articleId);
+			chirp = this.chirpService.findOne(chirpId);
+			//TODO user = this.userService.findUserByChirp(chirpId);
+			this.chirpService.delete(chirp);
 
-			this.articleService.delete(article);
-
-			result = new ModelAndView("redirect:/newspaper/display.do?newspaperId=" + newspaper.getId());
+			result = new ModelAndView("redirect:/");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
 		}
 
 		return result;
-
 	}
 
 }
