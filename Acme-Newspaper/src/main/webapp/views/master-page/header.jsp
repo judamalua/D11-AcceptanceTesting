@@ -44,6 +44,9 @@
                     <li class="divider"></li>
                     <li><a href="actor/user/list-followed.do"><spring:message
                                 code="master.page.list.followed" /></a></li>
+                    <li class="divider"></li>
+                    <li><a href="followUp/user/list-created.do"><spring:message
+                                code="master.page.followUp.list-created" /></a></li>
 					<li class="divider"></li>
                     <li><a href="actor/user/list-followers.do"><spring:message
                                 code="master.page.list.followers" /></a></li>
