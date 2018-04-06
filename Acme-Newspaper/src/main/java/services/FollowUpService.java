@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -176,9 +178,21 @@ public class FollowUpService {
 		this.validator.validate(result, binding);
 		return result;
 	}
-
 	/**
 	 * 
+	 * @author Luis
+	 */
+	public Page<FollowUp> findCreatedFollowUps(final int UserId, final Pageable pageable) {
+		Page<FollowUp> result;
+
+		Assert.isTrue(UserId != 0);
+		Assert.notNull(pageable);
+
+		result = this.followUpRepository.findCreatedFollowUps(UserId, pageable);
+
+		return result;
+	}
+	/**
 	 * 
 	 * 
 	 * @author Luis
