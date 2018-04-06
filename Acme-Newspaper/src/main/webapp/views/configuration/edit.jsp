@@ -35,6 +35,8 @@
 	
 	<acme:textbox code="configuration.pagesize" path="pageSize"/>
 	
+	<acme:textarea code="configuration.tabooWords" path="tabooWords"/>	
+	
 	
     <div class="row">
     <div class="col s6">
@@ -51,11 +53,6 @@
     </div>
   </div>
   
-		<form:errors path="businessNameFirst" cssClass="error" />
-		<br/>
-		<form:errors path="businessNameLast" cssClass="error" />
-		<br/>
-		<br/>
 	
 	<acme:submit name="save" code="configuration.save"/>
 

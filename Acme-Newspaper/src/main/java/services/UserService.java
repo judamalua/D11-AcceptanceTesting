@@ -17,6 +17,7 @@ import org.springframework.validation.Validator;
 import repositories.UserRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Actor;
 import domain.Article;
 import domain.Chirp;
 import domain.Newspaper;
@@ -36,6 +37,8 @@ public class UserService {
 
 	@Autowired
 	private Validator		validator;
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -46,11 +49,9 @@ public class UserService {
 		final UserAccount userAccount;
 		final Collection<Authority> auth;
 		final Authority authority;
-		Collection<Article> articles;
 		Collection<Chirp> chirps;
 		Collection<Newspaper> newspapers;
 
-		articles = new HashSet<Article>();
 		chirps = new HashSet<Chirp>();
 		newspapers = new HashSet<Newspaper>();
 
@@ -94,8 +95,14 @@ public class UserService {
 	}
 
 	public User save(final User user) {
-
 		assert user != null;
+		Actor actor = null;
+
+		if (user.getId() != 0)
+			actor = this.actorService.findActorByPrincipal();
+
+		if (actor instanceof User && user.getId() != 0)
+			Assert.isTrue(user.equals(actor));
 
 		User result;
 
@@ -234,6 +241,81 @@ public class UserService {
 
 	public void flush() {
 		this.userRepository.flush();
+	}
+
+	/**
+	 * This method add the user given by parameters to the followed users of the principal or deletes it if was already followed
+	 * 
+	 * @param user
+	 * @author Juanmi
+	 */
+	public void followOrUnfollowUser(final User user) {
+		User principal;
+
+		principal = (User) this.actorService.findActorByPrincipal();
+
+		// Checking that a user cannot follow or unfollow him or herself
+		Assert.isTrue(principal.getId() != user.getId());
+
+		// If the principal already follows the user given, it will be deleted from the list
+		if (principal.getUsers().contains(user))
+			principal.getUsers().remove(user);
+		else
+			// If the principal does not follow the user given, it will be added to the list
+			principal.getUsers().add(user);
+
+		this.save(principal);
+	}
+
+	/**
+	 * This method returns the list of followed users of the user with the id given
+	 * 
+	 * @param userId
+	 * @param pageable
+	 * @return a page of users
+	 */
+	public Page<User> findFollowedUsers(final int userId, final Pageable pageable) {
+		Page<User> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findFollowedUsers(userId, pageable);
+
+		return result;
+	}
+
+	/**
+	 * This method returns the list of followed users of the user with the id given
+	 * 
+	 * @param userId
+	 * @param pageable
+	 * @return a page of users
+	 */
+	public Page<User> findFollowers(final int userId, final Pageable pageable) {
+		Page<User> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findFollowers(userId, pageable);
+
+		return result;
+	}
+
+	/**
+	 * This method returns the list of chirps of the users who the user with the id given follows
+	 * 
+	 * @param userId
+	 * @param pageable
+	 * @return a page of chirps
+	 */
+	public Page<Chirp> findFollowedUsersChirps(final int userId, final Pageable pageable) {
+		Page<Chirp> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findFollowedUsersChirps(userId, pageable);
+
+		return result;
 	}
 
 	//Dashboard queries ------------------------

@@ -86,3 +86,6 @@
 
 <acme:button url="followUp/user/create.do?articleId=${article.id}" code="followUp.create" />
 <br />
+<security:authorize access="hasRole('ADMIN')">
+	<acme:button url="newspaper/admin/delete.do" code="newspaper.delete" />
+</security:authorize>

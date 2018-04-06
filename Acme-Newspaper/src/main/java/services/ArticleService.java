@@ -146,8 +146,8 @@ public class ArticleService {
 	 * @return The average number of follow-ups per article.
 	 * @author Antonio
 	 */
-	public Double getAverageFollowUpsPerArticle() {
-		Double result;
+	public String getAverageFollowUpsPerArticle() {
+		String result;
 
 		result = this.articleRepository.getAverageFollowUpsPerArticle();
 
@@ -162,4 +162,18 @@ public class ArticleService {
 
 		return result;
 	}
+	/**
+	 * 
+	 * 
+	 * 
+	 * @author Luis
+	 */
+	public Article getArticleByFollowUp(final FollowUp followUp) {
+		Article result;
+
+		result = this.articleRepository.getArticleByFollowUp(followUp);
+
+		return result;
+	}
+
 }
