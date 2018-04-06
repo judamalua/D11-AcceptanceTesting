@@ -18,13 +18,13 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	 * @author Antonio
 	 */
 	@Query("select avg(a.followUps.size) from Article a")
-	Double getAverageFollowUpsPerArticle();
+	String getAverageFollowUpsPerArticle();
 
 	/**
 	 * 
 	 * 
 	 * @author Luis
 	 */
-	@Query("select  a from article a join a.followUps fs where fs =?1")
+	@Query("select a from Article a join a.followUps fs where fs =?1")
 	Article getArticleByFollowUp(FollowUp followUp);
 }

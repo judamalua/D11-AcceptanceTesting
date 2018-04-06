@@ -1,8 +1,11 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
@@ -17,11 +20,12 @@ public class Configuration extends DomainEntity {
 	// Constructors -----------------------------------------------------------
 
 	// Attributes -------------------------------------------------------------
-	private String	cookies_eng;
-	private String	cookies_es;
-	private String	businessNameFirst;
-	private String	businessNameLast;
-	private Integer	pageSize;
+	private String				cookies_eng;
+	private String				cookies_es;
+	private String				businessNameFirst;
+	private String				businessNameLast;
+	private Integer				pageSize;
+	private Collection<String>	tabooWords;
 
 
 	@SafeHtml
@@ -72,6 +76,16 @@ public class Configuration extends DomainEntity {
 
 	public void setPageSize(final Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	@NotNull
+	@ElementCollection
+	public Collection<String> getTabooWords() {
+		return this.tabooWords;
+	}
+
+	public void setTabooWords(final Collection<String> tabooWords) {
+		this.tabooWords = tabooWords;
 	}
 
 	// Relationships ----------------------------------------------------------

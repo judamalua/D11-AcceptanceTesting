@@ -254,6 +254,9 @@ public class UserService {
 
 		principal = (User) this.actorService.findActorByPrincipal();
 
+		// Checking that a user cannot follow or unfollow him or herself
+		Assert.isTrue(principal.getId() != user.getId());
+
 		// If the principal already follows the user given, it will be deleted from the list
 		if (principal.getUsers().contains(user))
 			principal.getUsers().remove(user);
@@ -294,6 +297,23 @@ public class UserService {
 		Assert.notNull(pageable);
 
 		result = this.userRepository.findFollowers(userId, pageable);
+
+		return result;
+	}
+
+	/**
+	 * This method returns the list of chirps of the users who the user with the id given follows
+	 * 
+	 * @param userId
+	 * @param pageable
+	 * @return a page of chirps
+	 */
+	public Page<Chirp> findFollowedUsersChirps(final int userId, final Pageable pageable) {
+		Page<Chirp> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findFollowedUsersChirps(userId, pageable);
 
 		return result;
 	}

@@ -265,4 +265,18 @@ public class NewspaperService {
 
 		return result;
 	}
+
+	/**
+	 * Level A query 5
+	 * 
+	 * @return The average ratio of private versus public newspapers per publisher
+	 * @author Antonio
+	 */
+	public String getAverageRatioPrivateVSPublicNewspaperPublisher() {
+		String result;
+
+		result = this.newspaperRepository.getAverageRatioPrivateVSPublicNewspaperPublisher();
+
+		return result;
+	}
 }

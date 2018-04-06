@@ -157,13 +157,5 @@
 		<property name="businessNameFirst" value="Acme" />
 		<property name="businessNameLast" value="Newspaper" />
 		<property name="pageSize" value="5" />
-		<property name="tabooWords">
-			<list>
-				<value>viagra</value>
-				<value>cialis</value>
-				<value>sex</value>
-				<value>sexo</value>
-			</list>
-		</property>
 	</bean>
 </beans>

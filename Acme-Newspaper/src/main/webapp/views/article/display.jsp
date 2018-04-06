@@ -66,3 +66,7 @@
 <p>
 	<a href="user/display.do?userId=${writer.id}" ><jstl:out value="${writer.name}" /></a>
 </p>
+
+<security:authorize access="hasRole('ADMIN')">
+	<acme:button url="newspaper/admin/delete.do" code="newspaper.delete" />
+</security:authorize>
