@@ -32,6 +32,7 @@
 		<value>/views/slider/messages</value>
 		<value>/views/article/messages</value>
 		<value>/views/newspaper/messages</value>
+		<value>/views/followUp/messages</value>
 	</util:list>
 
 </beans>
