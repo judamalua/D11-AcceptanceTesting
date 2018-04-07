@@ -84,7 +84,7 @@ public class FollowUpUserController extends AbstractController {
 		configuration = this.configurationService.findConfiguration();
 		pageable = new PageRequest(page, configuration.getPageSize());
 		ownFollowUps = new ArrayList<>();
-		result = new ModelAndView("followUps/list");
+		result = new ModelAndView("followUp/list");
 		creator = (User) this.actorService.findActorByPrincipal();
 
 		followUps = this.followUpService.findCreatedFollowUps(creator.getId(), pageable);

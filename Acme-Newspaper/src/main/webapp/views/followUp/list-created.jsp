@@ -20,14 +20,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<!-- Variable declaration -->
-<spring:message code="newspaper.title" var="titleName" />
-<spring:message code="newspaper.description" var="titleDescription" />
-<spring:message code="newspaper.publicationDate" var="titlePublication" />
-<spring:message code="master.page.moment.format" var="formatMoment" />
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate var="currentDate" value="${now}"
-	pattern="yyyy-MM-dd HH:mm" />
 
 <!-- Pagination -->
 <acme:pagination requestURI="${requestURI}page=" pageNum="${pageNum}"
@@ -39,7 +31,6 @@
 	requestURI="${requestUri}">
 
 	<display:column property="title" title="${titleName}" sortable="true" />
-	<display:column property="text" title="${titleName}" sortable="true" />
 	<display:column property="publicationDate" title="${titlePublication}"
 		format="${formatMoment}" sortable="true" />
 	<display:column>

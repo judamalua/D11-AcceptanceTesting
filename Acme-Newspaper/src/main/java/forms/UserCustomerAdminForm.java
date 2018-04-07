@@ -23,7 +23,7 @@ import security.UserAccount;
 import domain.DomainEntity;
 
 @Access(AccessType.PROPERTY)
-public class UserAdminForm extends DomainEntity {
+public class UserCustomerAdminForm extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 	private String	name;
