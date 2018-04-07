@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package controllers.admin;
+package controllers.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,86 +22,84 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
 import services.ActorService;
-import services.AdminService;
+import services.CustomerService;
 import controllers.AbstractController;
-import domain.Admin;
+import domain.Customer;
 import forms.UserCustomerAdminForm;
 
 @Controller
-@RequestMapping("/actor/admin")
-public class ActorAdminController extends AbstractController {
+@RequestMapping("/actor/customer")
+public class ActorCustomerController extends AbstractController {
 
 	@Autowired
 	private ActorService	actorService;
 	@Autowired
-	private AdminService	administratorService;
+	private CustomerService	customerService;
 
 
 	// Constructors -----------------------------------------------------------
 
-	public ActorAdminController() {
+	public ActorCustomerController() {
 		super();
 	}
 
-	// Registering admin ------------------------------------------------------------
+	// Registering customer ------------------------------------------------------------
 	/**
-	 * That method registers an admin in the system and saves it.
+	 * That method registers a customer in the system and saves it.
 	 * 
 	 * @param
 	 * @return ModelandView
 	 * @author Luis
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView registerAdmin() {
+	public ModelAndView registerCustomer() {
 		ModelAndView result;
-		UserCustomerAdminForm admin;
+		UserCustomerAdminForm customer;
 
-		admin = new UserCustomerAdminForm();
+		customer = new UserCustomerAdminForm();
 
-		result = this.createEditModelAndViewRegister(admin);
-
-		result.addObject("actionURL", "admin/register.do");
+		result = this.createEditModelAndViewRegister(customer);
 
 		return result;
 	}
 
-	//Edit an admin
+	//Edit a customer
 	/**
-	 * That method edits the profile of a admin
+	 * That method edits the profile of a customer
 	 * 
 	 * @param
 	 * @return ModelandView
 	 * @author Luis
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView editUser() {
+	public ModelAndView editCustomer() {
 		ModelAndView result;
-		Admin admin;
-		final UserCustomerAdminForm adminForm;
+		Customer customer;
+		final UserCustomerAdminForm customerForm;
 
-		admin = (Admin) this.actorService.findActorByPrincipal();
-		Assert.notNull(admin);
-		adminForm = this.actorService.deconstruct(admin);
-		result = this.createEditModelAndView(adminForm);
+		customer = (Customer) this.actorService.findActorByPrincipal();
+		Assert.notNull(customer);
+		customerForm = this.actorService.deconstruct(customer);
+		result = this.createEditModelAndView(customerForm);
 
 		return result;
 	}
 
-	//Saving admin ---------------------------------------------------------------------
+	//Saving customer ---------------------------------------------------------------------
 	/**
-	 * That method saves an admin in the system
+	 * That method saves a customer in the system
 	 * 
 	 * @param save
 	 * @return ModelandView
 	 * @author Luis
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerAdministrator(@ModelAttribute("admin") final UserCustomerAdminForm actor, final BindingResult binding) {
+	public ModelAndView registerAdministrator(@ModelAttribute("customer") final UserCustomerAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
 		Authority auth;
-		Admin admin = null;
+		Customer customer = null;
 		try {
-			admin = this.administratorService.reconstruct(actor, binding);
+			customer = this.customerService.reconstruct(actor, binding);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
 		}
@@ -110,28 +108,26 @@ public class ActorAdminController extends AbstractController {
 		else
 			try {
 				auth = new Authority();
-				auth.setAuthority(Authority.ADMIN);
-				Assert.isTrue(admin.getUserAccount().getAuthorities().contains(auth));
-				Assert.isTrue(actor.getConfirmPassword().equals(admin.getUserAccount().getPassword()), "Passwords do not match");
-				this.actorService.registerActor(admin);
+				auth.setAuthority(Authority.CUSTOMER);
+				Assert.isTrue(customer.getUserAccount().getAuthorities().contains(auth));
+				Assert.isTrue(actor.getConfirmPassword().equals(customer.getUserAccount().getPassword()), "Passwords do not match");
+				this.actorService.registerActor(customer);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final DataIntegrityViolationException oops) {
-				result = this.createEditModelAndViewRegister(actor, "admin.username.error");
+				result = this.createEditModelAndViewRegister(actor, "customer.username.error");
 			} catch (final Throwable oops) {
 				if (oops.getMessage().contains("Passwords do not match"))
-					result = this.createEditModelAndViewRegister(actor, "admin.password.error");
+					result = this.createEditModelAndViewRegister(actor, "customer.password.error");
 				else
-					result = this.createEditModelAndViewRegister(actor, "admin.commit.error");
+					result = this.createEditModelAndViewRegister(actor, "customer.commit.error");
 			}
 
 		return result;
 	}
 
-	//Updating profile of a admin ---------------------------------------------------------------------
+	//Updating profile of a customer ---------------------------------------------------------------------
 	/**
-	 * 
-	 * 
-	 * That method update the profile of a administrator.
+	 * This method update the profile of a customer.
 	 * 
 	 * @param save
 	 * @return ModelandView
@@ -140,17 +136,17 @@ public class ActorAdminController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView updateAdministrator(@ModelAttribute("actor") final UserCustomerAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
-		Admin admin = null;
+		Customer customer = null;
 
 		try {
-			admin = this.administratorService.reconstruct(actor, binding);
+			customer = this.customerService.reconstruct(actor, binding);
 		} catch (final Throwable oops) { //Not delete
 		}
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(actor, "actor.params.error");
 		else
 			try {
-				this.actorService.save(admin);
+				this.actorService.save(customer);
 				result = new ModelAndView("redirect:/actor/display.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actor, "actor.commit.error");
@@ -175,23 +171,23 @@ public class ActorAdminController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final UserCustomerAdminForm admin, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final UserCustomerAdminForm customer, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/edit");
 		result.addObject("message", messageCode);
-		result.addObject("actor", admin);
+		result.addObject("actor", customer);
 
 		return result;
 
 	}
 
-	protected ModelAndView createEditModelAndViewRegister(final UserCustomerAdminForm admin, final String messageCode) {
+	protected ModelAndView createEditModelAndViewRegister(final UserCustomerAdminForm customer, final String messageCode) {
 		ModelAndView result;
 
-		result = new ModelAndView("admin/register");
+		result = new ModelAndView("customer/register");
 		result.addObject("message", messageCode);
-		result.addObject("admin", admin);
+		result.addObject("customer", customer);
 
 		return result;
 

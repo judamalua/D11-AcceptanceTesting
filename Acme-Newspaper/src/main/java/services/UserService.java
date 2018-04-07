@@ -22,7 +22,7 @@ import domain.Article;
 import domain.Chirp;
 import domain.Newspaper;
 import domain.User;
-import forms.UserAdminForm;
+import forms.UserCustomerAdminForm;
 
 @Service
 @Transactional
@@ -146,7 +146,7 @@ public class UserService {
 
 	// Other business methods ------------------------------------------------------------------------------------
 
-	public User reconstruct(final UserAdminForm userAdminForm, final BindingResult binding) {
+	public User reconstruct(final UserCustomerAdminForm userAdminForm, final BindingResult binding) {
 		User result;
 
 		if (userAdminForm.getId() == 0) {

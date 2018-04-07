@@ -61,12 +61,15 @@
 		<security:intercept-url pattern="/actor/register.do" access="isAnonymous()" requires-channel="https" /> 
 		<security:intercept-url pattern="/actor/admin/register.do" access="hasRole('ADMIN')" requires-channel="https"  />
 		<security:intercept-url pattern="/actor/admin/edit.do" access="hasRole('ADMIN')" requires-channel="https"  />
+		<security:intercept-url pattern="/actor/customer/register.do" access="isAnonymous()" requires-channel="https" /> 
+		<security:intercept-url pattern="/actor/customer/edit.do" access="hasRole('CUSTOMER')" requires-channel="https"  />
 		
 		<security:intercept-url pattern="/newspaper/list.do" access="permitAll" requires-channel="https"  />
 		<security:intercept-url pattern="/newspaper/display.do" access="permitAll" requires-channel="https"  />
 		<security:intercept-url pattern="/newspaper/user/**" access="hasRole('USER')" requires-channel="https"  />
 		<security:intercept-url pattern="/article/display.do" access="permitAll" requires-channel="https"  />
 		<security:intercept-url pattern="/article/user/**" access="hasRole('USER')" requires-channel="https"  />
+		
 		
 		<security:intercept-url pattern="/followUp/user/**" access="hasRole('USER')" requires-channel="https" /> 
 		<security:intercept-url pattern="/followUp/admin/**" access="hasRole('ADMIN')" requires-channel="https" /> 

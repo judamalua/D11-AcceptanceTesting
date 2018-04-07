@@ -30,7 +30,7 @@ import controllers.AbstractController;
 import domain.Chirp;
 import domain.Configuration;
 import domain.User;
-import forms.UserAdminForm;
+import forms.UserCustomerAdminForm;
 
 @Controller
 @RequestMapping("/actor/user")
@@ -62,7 +62,7 @@ public class ActorUserController extends AbstractController {
 	public ModelAndView editUser() {
 		ModelAndView result;
 		User user;
-		UserAdminForm actorForm;
+		UserCustomerAdminForm actorForm;
 
 		user = (User) this.actorService.findActorByPrincipal();
 		Assert.notNull(user);
@@ -231,7 +231,7 @@ public class ActorUserController extends AbstractController {
 	 * @author Luis
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView updateUser(@ModelAttribute("actor") final UserAdminForm actor, final BindingResult binding) {
+	public ModelAndView updateUser(@ModelAttribute("actor") final UserCustomerAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
 		User user = null;
 
@@ -254,7 +254,7 @@ public class ActorUserController extends AbstractController {
 
 	// Ancillary methods --------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final UserAdminForm user) {
+	protected ModelAndView createEditModelAndView(final UserCustomerAdminForm user) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(user, null);
@@ -262,7 +262,7 @@ public class ActorUserController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final UserAdminForm user, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final UserCustomerAdminForm user, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/edit");
