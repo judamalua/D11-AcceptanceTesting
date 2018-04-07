@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 import repositories.CreditCardRepository;
 import domain.CreditCard;
 import domain.Customer;
+import domain.Newspaper;
 
 @Service
 @Transactional
@@ -30,6 +31,9 @@ public class CreditCardService {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private NewspaperService		newspaperService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -173,5 +177,19 @@ public class CreditCardService {
 		if (ccYear == actualYear)
 			Assert.isTrue(ccMonth > actualMonth, "CreditCard expiration Date error");
 
+	}
+
+	public void subscribe(final CreditCard creditCard, final Newspaper newspaper) {
+		Assert.isTrue(newspaper.getPublicationDate() != null); //Tests that the newspaper is published
+		Assert.isTrue(newspaper.getPublicNewspaper() == false); //Tests that the newspaper is private
+		Assert.isTrue(this.creditCardRepository.creditCardSubscribed(newspaper.getId(), this.actorService.findActorByPrincipal().getId()) == null);//Tests that the user is not already subscribed
+		final CreditCard savedCard = this.save(creditCard);
+		newspaper.getCreditCards().add(savedCard);
+		this.newspaperService.save(newspaper);
+	}
+
+	public CreditCard creditCardSubscribed(final int newspaperId, final int customerId) {
+		final CreditCard result = this.creditCardRepository.creditCardSubscribed(newspaperId, customerId);
+		return result;
 	}
 }

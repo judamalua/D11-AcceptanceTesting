@@ -19,7 +19,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Admin;
-import forms.UserAdminForm;
+import forms.UserCustomerAdminForm;
 
 @Service
 @Transactional
@@ -261,10 +261,10 @@ public class ActorService {
 	 * 
 	 * @author Juanmi
 	 */
-	public UserAdminForm deconstruct(final Actor actor) {
-		UserAdminForm result;
+	public UserCustomerAdminForm deconstruct(final Actor actor) {
+		UserCustomerAdminForm result;
 
-		result = new UserAdminForm();
+		result = new UserCustomerAdminForm();
 
 		result.setId(actor.getId());
 		result.setVersion(actor.getVersion());

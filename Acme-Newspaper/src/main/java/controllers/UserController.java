@@ -68,7 +68,7 @@ public class UserController extends AbstractController {
 
 		try {
 
-			if (this.actorService.getLogged())
+			if (this.actorService.getLogged() && this.actorService.findActorByPrincipal() instanceof User)
 				principal = (User) this.actorService.findActorByPrincipal();
 
 			result = new ModelAndView("user/list");
@@ -80,7 +80,7 @@ public class UserController extends AbstractController {
 			result.addObject("page", page);
 			result.addObject("pageNum", users.getTotalPages());
 			result.addObject("requestURI", "user/list.do");
-			if (this.actorService.getLogged())
+			if (this.actorService.getLogged() && this.actorService.findActorByPrincipal() instanceof User)
 				result.addObject("principal", principal);
 
 		} catch (final Throwable oops) {

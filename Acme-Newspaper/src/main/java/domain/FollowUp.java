@@ -65,6 +65,7 @@ public class FollowUp extends DomainEntity {
 	public void setSummary(final String summary) {
 		this.summary = summary;
 	}
+
 	@SafeHtml(whitelistType = WhiteListType.RELAXED)
 	@Type(type = "text")
 	@Column(length = Integer.MAX_VALUE)

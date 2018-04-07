@@ -14,6 +14,9 @@
 <security:authorize access="hasRole('USER')">
 	<jstl:set var="requestURI" value="actor/user/edit.do"/>
 </security:authorize>
+<security:authorize access="hasRole('CUSTOMER')">
+	<jstl:set var="requestURI" value="actor/customer/edit.do"/>
+</security:authorize>
 
 
 <form:form id = "form" action="${requestURI}" modelAttribute ="actor">

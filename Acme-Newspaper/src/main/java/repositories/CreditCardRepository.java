@@ -32,4 +32,7 @@ public interface CreditCardRepository extends JpaRepository<CreditCard, Integer>
 	 */
 	@Query("select c from CreditCard c where c.cookieToken=?1")
 	CreditCard findByCookieToken(String cookieToken);
+
+	@Query("select c from Newspaper n join n.creditCards c where n.id=?1 and c.customer.id=?2")
+	CreditCard creditCardSubscribed(int newspaperId, int customerId);
 }
