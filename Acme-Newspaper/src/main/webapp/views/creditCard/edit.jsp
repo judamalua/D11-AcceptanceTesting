@@ -28,6 +28,7 @@
 <spring:message code="request.creditcard.info" var="creditCardInfo" />
 <spring:message code="request.select.error" var="selectError" />
 
+		<h2>Subscribe to ${newspaper.title}</h2>
 
 <p>
 	<em><spring:message code="form.required.params" /></em>
@@ -35,13 +36,9 @@
 
 <div class="row">
 
-	<form:form id="form" action="newspaper/user/subscribe.do"
+	<form:form id="form" action="newspaper/customer/subscribe.do"
 		modelAttribute="creditCard">
-		<form:hidden path="id" />
-		<form:hidden path="version" />
-		<form:hidden path="newspaper" />
-		
-		<h2>Subscribe to ${creditCard.newspaper.title}</h2>
+		<input type="hidden" id="newspaperId" name="newspaperId" value="${newspaper.id}"/>
 
 		<div class="cleared-div">
 			<h4>
@@ -52,9 +49,10 @@
 		<div class="cookieCard"></div>
 		<p class="creditCardCookieTokenNew" hidden="true"></p>
 		<div class="cardForm">
-
+		
 			<form:hidden path="id" />
 			<form:hidden path="version" />
+			<form:hidden path="customer" />
 			<form:hidden path="cookieToken"
 				class="creditCardCookieToken" />
 
@@ -74,7 +72,7 @@
 				path="expirationYear" required="true"
 				placeholder="${expirationYearPlaceholder}" />
 
-			<acme:textbox code="creditcard.cvv" path="creditCard.cvv"
+			<acme:textbox code="request.creditcard.cvv" path="cvv"
 				required="true" />
 
 		</div>
