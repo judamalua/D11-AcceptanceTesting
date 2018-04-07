@@ -170,14 +170,15 @@ public class FollowUpService {
 		User user;
 
 		if (followUp.getId() == 0) {
-			user = (User) this.actorService.findActorByPrincipal();
-			followUp.setUser(user);
 			result = followUp;
+			user = (User) this.actorService.findActorByPrincipal();
+			result.setUser(user);
+			result.setPublicationDate(new Date());
+
 		} else {
 			result = this.followUpRepository.findOne(followUp.getId());
-			result.setUser(followUp.getUser());
 			result.setText(followUp.getText());
-			result.setPublicationDate(followUp.getPublicationDate());
+			result.setPublicationDate(new Date());
 			result.setTitle(followUp.getTitle());
 			result.setSummary(followUp.getSummary());
 		}
