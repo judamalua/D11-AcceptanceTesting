@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.FollowUpService;
+import domain.Actor;
 import domain.FollowUp;
+import domain.User;
 
 @Controller
 @RequestMapping("/followUp")
@@ -26,6 +29,9 @@ public class FollowUpController extends AbstractController {
 
 	@Autowired
 	private FollowUpService	followUpService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -38,14 +44,20 @@ public class FollowUpController extends AbstractController {
 	public ModelAndView display(@RequestParam final Integer followUpId) {
 		ModelAndView result;
 		final FollowUp followUp;
+		User creator;
+		final Actor principal;
 
 		try {
 
 			result = new ModelAndView("followUp/display");
 			followUp = this.followUpService.findOne(followUpId);
 			Assert.notNull(followUp);
+			creator = followUp.getUser();
+			principal = this.actorService.findActorByPrincipal();
 
 			result.addObject("followUp", followUp);
+			result.addObject("creator", creator);
+			result.addObject("principal", principal);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
