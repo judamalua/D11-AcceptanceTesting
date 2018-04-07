@@ -26,4 +26,9 @@
 		<put-attribute name="body" value="/views/followUp/list-created.jsp" />
 	</definition>
 	
+	<definition name="followUp/display" extends="master.page">	
+		<put-attribute name="title" value="Display FollowUp" />
+		<put-attribute name="body" value="/views/followUp/display.jsp" />
+	</definition>
+	
 </tiles-definitions>

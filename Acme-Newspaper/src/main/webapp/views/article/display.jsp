@@ -84,7 +84,9 @@
 	</security:authorize>
 </display:table>
 
+<jstl:if test="${article.finalMode}">
 <acme:button url="followUp/user/create.do?articleId=${article.id}" code="followUp.create" />
+</jstl:if>
 <br />
 <security:authorize access="hasRole('ADMIN')">
 	<acme:button url="newspaper/admin/delete.do" code="newspaper.delete" />
