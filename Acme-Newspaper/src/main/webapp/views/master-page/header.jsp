@@ -81,11 +81,9 @@
             <security:authorize access="hasRole('CUSTOMER')">
                 <!-- Dropdown Structure -->
                 <ul id="dropdownCustomerFunctions" class="dropdown-content">
-                    <li><a href="#">NYI</a></li>
+                    <li><a class="fNiv" href="newspaper/customer/list.do"> <spring:message
+                            code="master.page.subscribedList" /></a></li>
                     <li class="divider"></li>
-                    <li><a href="#">NYI</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">NYI</a></li>
                 </ul>
 
                 <!-- Dropdown Trigger -->
