@@ -22,6 +22,7 @@
 
 <!-- Variable declaration -->
 <spring:message code="newspaper.title" var="titleName" />
+<spring:message code="newspaper.publicNewspaper" var="titlePublic" />
 <spring:message code="newspaper.description" var="titleDescription" />
 <spring:message code="newspaper.publicationDate" var="titlePublication" />
 <spring:message code="master.page.moment.format" var="formatMoment" />
@@ -43,6 +44,9 @@
 	<display:column property="title" title="${titleName}" sortable="true" />
 	<display:column property="publicationDate" title="${titlePublication}"
 		format="${formatMoment}" sortable="true" />
+	<jstl:if test="${requestUri!=\"newspaper/user/list.do?\"}">
+		<display:column property="publicNewspaper" title="${titlePublic}" sortable="true" />
+	</jstl:if>
 	<display:column>
 		<acme:button url="newspaper/display.do?newspaperId=${newspaper.id}"
 			code="newspaper.details" />
@@ -59,8 +63,8 @@
 			</jstl:if>
 		</security:authorize>
 	</display:column>
-	
-		<display:column>
+
+	<display:column>
 		<security:authorize access="hasRole('USER')">
 			<jstl:if
 				test="${(owner or ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null}">
