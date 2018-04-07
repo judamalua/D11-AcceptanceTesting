@@ -77,6 +77,23 @@
                     data-activates="dropdownAdminFunctions"><spring:message
                             code="master.page.admin" /><i class="material-icons right">arrow_drop_down</i></a></li>
             </security:authorize>
+            
+            <security:authorize access="hasRole('CUSTOMER')">
+                <!-- Dropdown Structure -->
+                <ul id="dropdownCustomerFunctions" class="dropdown-content">
+                    <li><a href="#">NYI</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">NYI</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">NYI</a></li>
+                </ul>
+
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-button" href="#!"
+                    data-activates="dropdownCustomerFunctions"><spring:message
+                            code="master.page.customer" /><i class="material-icons right">arrow_drop_down</i></a></li>
+            </security:authorize>
+            
             <security:authorize access="isAnonymous()">
                 <li><a class="fNiv" href="security/login.do"> <spring:message
                             code="master.page.login" /></a></li>
