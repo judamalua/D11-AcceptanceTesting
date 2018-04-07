@@ -96,13 +96,12 @@ public class FollowUpService {
 	 * 
 	 * @author Luis
 	 **/
-	public FollowUp save(final FollowUp followUp) {
+	public FollowUp save(final FollowUp followUp, final Article article) {
 		assert followUp != null;
-		Assert.isTrue(this.articleService.getArticleByFollowUp(followUp).getFinalMode());//Comprueba que el article esta guardado en final mode
-		Assert.isTrue(this.newsPaperService.findNewspaperByArticle(this.articleService.getArticleByFollowUp(followUp).getId()).getPublicationDate().before(new Date()));//Comprueba que el periódico  ha sido publicado
+		Assert.isTrue(article.getFinalMode());//Comprueba que el article esta guardado en final mode
+		Assert.isTrue(this.newsPaperService.findNewspaperByArticle(article.getId()).getPublicationDate().before(new Date()));//Comprueba que el periódico  ha sido publicado
 
 		FollowUp result;
-		Article article;
 		User user;
 		Newspaper newspaper;
 		boolean taboo;
@@ -114,7 +113,6 @@ public class FollowUpService {
 		}
 
 		result = this.followUpRepository.save(followUp);
-		article = this.articleService.getArticleByFollowUp(followUp);
 		user = (User) this.actorService.findActorByPrincipal();
 		newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
 
@@ -173,12 +171,12 @@ public class FollowUpService {
 			result = followUp;
 			user = (User) this.actorService.findActorByPrincipal();
 			result.setUser(user);
-			result.setPublicationDate(new Date());
+			result.setPublicationDate(new Date(System.currentTimeMillis() - 1000));
 
 		} else {
 			result = this.followUpRepository.findOne(followUp.getId());
 			result.setText(followUp.getText());
-			result.setPublicationDate(new Date());
+			result.setPublicationDate(new Date(System.currentTimeMillis() - 1000));
 			result.setTitle(followUp.getTitle());
 			result.setSummary(followUp.getSummary());
 		}

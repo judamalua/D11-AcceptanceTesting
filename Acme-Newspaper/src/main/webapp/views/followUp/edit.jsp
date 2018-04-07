@@ -26,7 +26,7 @@
 <form:form id="form" action="${requestURI}" modelAttribute="followUp">
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="user"/>
+	
 
 	
 	<acme:textbox code="followUp.title" path="title" required="true"/>

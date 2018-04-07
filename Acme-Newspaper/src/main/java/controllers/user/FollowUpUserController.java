@@ -156,14 +156,14 @@ public class FollowUpUserController extends AbstractController {
 		else
 			try {
 				actor = (User) this.actorService.findActorByPrincipal();
-				article = this.articleService.getArticleByFollowUp(followUp);
+				article = this.articleService.findOne(articleId);
 				creator = this.userService.findUserByArticle(article.getId());
 				newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
 				Assert.isTrue(actor == creator);
 				Assert.isTrue(newspaper.getPublicationDate().before(new Date()));
 				Assert.isTrue(article.getFinalMode());
 
-				savedFollowUp = this.followUpService.save(followUp);
+				savedFollowUp = this.followUpService.save(followUp, article);
 				creator = savedFollowUp.getUser();
 
 				Assert.isTrue(actor.equals(creator));
