@@ -164,6 +164,16 @@ public class NewspaperService {
 		return result;
 	}
 
+	public Page<Newspaper> findSubscribedNewspapersByUser(final int customerId, final Pageable pageable) {
+		Page<Newspaper> result;
+		Assert.isTrue(customerId != 0);
+		Assert.notNull(pageable);
+
+		result = this.newspaperRepository.findNotSubscribedNewspapersByCustomer(customerId, pageable);
+
+		return result;
+	}
+
 	public Newspaper reconstruct(final Newspaper newspaper, final BindingResult binding) {
 		Newspaper result;
 		Collection<Article> articles;

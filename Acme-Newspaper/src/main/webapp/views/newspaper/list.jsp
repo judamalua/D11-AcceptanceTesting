@@ -19,9 +19,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!-- Variable declaration -->
 <spring:message code="newspaper.title" var="titleName" />
+<spring:message code="newspaper.publicNewspaper" var="titlePublic" />
 <spring:message code="newspaper.description" var="titleDescription" />
 <spring:message code="newspaper.publicationDate" var="titlePublication" />
 <spring:message code="master.page.moment.format" var="formatMoment" />
@@ -43,7 +45,9 @@
 	<display:column property="title" title="${titleName}" sortable="true" />
 	<display:column property="publicationDate" title="${titlePublication}"
 		format="${formatMoment}" sortable="true" />
+		<display:column property="publicNewspaper" title="${titlePublic}" sortable="true" />
 	<display:column>
+	<jstl:if test="${newspaper.publicNewspaper or ((fn:length(subscribeNewspaper)>0) and subscriber[subscribeNewspaper_rowNum-1])}"></jstl:if>
 		<acme:button url="newspaper/display.do?newspaperId=${newspaper.id}"
 			code="newspaper.details" />
 	</display:column>
@@ -59,8 +63,8 @@
 			</jstl:if>
 		</security:authorize>
 	</display:column>
-	
-		<display:column>
+
+	<display:column>
 		<security:authorize access="hasRole('USER')">
 			<jstl:if
 				test="${(owner or ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null}">

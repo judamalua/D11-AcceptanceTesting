@@ -51,7 +51,7 @@
 			<acme:delete clickCode="article.confirm.delete" name="delete"
 				code="article.delete" />
 		</jstl:if>
-		<acme:cancel url="article/list.do" code="article.cancel" />
+		<acme:cancel url="newspaper/display.do?newspaperId=${newspaperId}" code="article.cancel" />
 
 	</form:form>
 </div>

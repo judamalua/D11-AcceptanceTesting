@@ -33,16 +33,9 @@
 //
 //
 // //******************************************Positive Methods*******************************************************************
-// /**
-// * 4.1 An actor who is not authenticated must be able to: Register to the system as a user.
-// *
-// *
-// * This test checks that a not registered user can register himself in the system,without errors
-// *
-// * @author Luis
-// */
+//
 // @Test
-// public void testCreateANewUser() {
+// public void testCreateANewspaper() {
 // Newspaper newspaper;
 // Newspaper savedNewspaper;
 //
@@ -58,6 +51,25 @@
 // this.newspaperService.save(newspaper);
 // savedNewspaper = this.newspaperService.findOne(newspaper.getId());
 // Assert.notNull(savedNewspaper);
+// }
+//
+// @Test
+// public void testCreateATabooNewspaperPositive() {
+// Newspaper newspaper;
+// Newspaper savedNewspaper;
+//
+// newspaper = this.newspaperService.create();
+//
+// newspaper.setTitle("sex");
+// newspaper.setArticles(new HashSet<Article>());
+// newspaper.setCreditCards(new HashSet<CreditCard>());
+// newspaper.setDescription("New description");
+// newspaper.setPictureUrl("");
+//
+// this.newspaperService.save(newspaper);
+// savedNewspaper = this.newspaperService.findOne(newspaper.getId());
+// Assert.notNull(savedNewspaper);
+// Assert.isTrue(newspaper.isTaboo());
 // }
 //
 // @Test(expected = javax.validation.ConstraintViolationException.class)
@@ -79,23 +91,22 @@
 // Assert.notNull(savedNewspaper);
 // }
 //
-// @Test(expected = javax.validation.ConstraintViolationException.class)
+// @Test
 // public void testEditANewUserPositive() {
 // Newspaper newspaper;
 // Newspaper savedNewspaper;
+// int newspaperId;
 //
-// newspaper = this.newspaperService.create();
+// newspaperId = super.getEntityId("Newspaper1");
 //
-// newspaper.setTitle("");
-// newspaper.setArticles(new HashSet<Article>());
-// newspaper.setCreditCards(new HashSet<CreditCard>());
-// newspaper.setDescription("");
-// newspaper.setPictureUrl("");
-// newspaper.setTaboo(false);
+// newspaper = this.newspaperService.findOne(newspaperId);
+//
+// newspaper.setTitle("New title");
 //
 // this.newspaperService.save(newspaper);
 // savedNewspaper = this.newspaperService.findOne(newspaper.getId());
 // Assert.notNull(savedNewspaper);
+// Assert.isTrue(savedNewspaper.getTitle().equals("New title"));
 // }
 //
 // /**

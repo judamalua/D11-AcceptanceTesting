@@ -20,12 +20,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.ArticleService;
 import services.ConfigurationService;
+import services.NewspaperService;
 import services.UserService;
+import domain.Actor;
 import domain.Article;
 import domain.Configuration;
+import domain.CreditCard;
+import domain.Customer;
 import domain.FollowUp;
+import domain.Newspaper;
 import domain.User;
 
 @Controller
@@ -36,7 +42,13 @@ public class ArticleController extends AbstractController {
 	private ArticleService			articleService;
 
 	@Autowired
+	private NewspaperService		newspaperService;
+
+	@Autowired
 	private UserService				userService;
+
+	@Autowired
+	private ActorService			actorService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -55,7 +67,10 @@ public class ArticleController extends AbstractController {
 		final User writer;
 		Page<FollowUp> followUps;
 		final Pageable pageable;
+		Newspaper newspaper;
 		final Configuration configuration;
+		Actor actor;
+		boolean validCustomer = false;
 
 		try {
 
@@ -65,6 +80,21 @@ public class ArticleController extends AbstractController {
 			writer = this.userService.findUserByArticle(articleId);
 			configuration = this.configurationService.findConfiguration();
 			pageable = new PageRequest(page, configuration.getPageSize());
+			newspaper = this.newspaperService.findNewspaperByArticle(article.getId());
+
+			if (this.actorService.getLogged()) {
+				actor = this.actorService.findActorByPrincipal();
+				if (!newspaper.getPublicNewspaper()) {
+					Assert.isTrue(actor instanceof Customer);
+					for (final CreditCard creditCard : newspaper.getCreditCards()) {
+						validCustomer = creditCard.getCustomer().equals(actor);
+						if (validCustomer)
+							break;
+					}
+					Assert.isTrue(validCustomer);
+				}
+			} else
+				Assert.isTrue(newspaper.getPublicNewspaper());
 
 			followUps = this.articleService.findFollowUpsByArticle(pageable);
 
