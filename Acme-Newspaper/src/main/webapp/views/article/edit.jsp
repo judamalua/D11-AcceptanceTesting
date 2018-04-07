@@ -32,7 +32,15 @@
 
 		<acme:textbox code="article.title" path="title" required="true" />
 		<acme:textarea code="article.summary" path="summary" required="true" />
-		<acme:textarea code="article.body" path="body" required="true" />
+		
+		<div class="form-group">
+			<div class="row">
+				<div class="input-field col s9">
+					<form:textarea path="body" class="widgEditor"/>
+					<form:errors path="body" cssClass="error" />
+				</div>
+			</div>
+		</div>
 		
 		<div class="cleared-div">
 			<acme:checkbox code="article.finalMode" path="finalMode"

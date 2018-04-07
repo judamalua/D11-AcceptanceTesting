@@ -53,9 +53,7 @@
 <h4>
 	<spring:message code="article.body" />
 </h4>
-<p>
-	<jstl:out value="${article.body}" />
-</p>
+	${article.body}
 <h4>
 	<spring:message code="article.writer" />
 </h4>
