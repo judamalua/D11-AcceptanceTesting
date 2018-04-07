@@ -23,8 +23,6 @@
 			<bean class="converters.Class1ToClass2" /> 
 		-->
 		
-	
-		
 		<bean class="converters.UserToStringConverter" />
 		<bean class="converters.StringToUserConverter" />
 		
@@ -33,9 +31,6 @@
 		
 		<bean class="converters.AuthorityToStringConverter" />
 		<bean class="converters.StringToAuthorityConverter" />
-		
-		<bean class="converters.UserToStringConverter" />
-		<bean class="converters.StringToUserConverter" />
 		
 		<bean class="converters.AdminToStringConverter" />
 		<bean class="converters.StringToAdminConverter" />

@@ -129,7 +129,6 @@ public class ArticleService {
 			pictureUrls = new HashSet<>();
 
 			result.setFollowUps(followUps);
-			result.setPictureUrls(pictureUrls);
 			result.setTaboo(false);
 
 		} else {

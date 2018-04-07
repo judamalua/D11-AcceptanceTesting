@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
@@ -24,12 +23,11 @@ public class Article extends DomainEntity {
 	// Constructors -----------------------------------------------------------
 
 	// Attributes -------------------------------------------------------------
-	private String				title;
-	private String				summary;
-	private String				body;
-	private Collection<String>	pictureUrls;
-	private boolean				finalMode;
-	private boolean				taboo;
+	private String	title;
+	private String	summary;
+	private String	body;
+	private boolean	finalMode;
+	private boolean	taboo;
 
 
 	@SafeHtml
@@ -61,16 +59,6 @@ public class Article extends DomainEntity {
 
 	public void setBody(final String body) {
 		this.body = body;
-	}
-
-	@NotNull
-	@ElementCollection
-	public Collection<String> getPictureUrls() {
-		return this.pictureUrls;
-	}
-
-	public void setPictureUrls(final Collection<String> pictureUrls) {
-		this.pictureUrls = pictureUrls;
 	}
 
 	public boolean getFinalMode() {
