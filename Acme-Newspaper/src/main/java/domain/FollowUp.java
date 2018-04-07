@@ -33,6 +33,7 @@ public class FollowUp extends DomainEntity {
 	private String				summary;
 	private String				text;
 	private Collection<String>	pictureUrls;
+	private boolean				taboo;
 
 
 	@SafeHtml
@@ -84,6 +85,14 @@ public class FollowUp extends DomainEntity {
 
 	public void setPictureUrls(final Collection<String> pictureUrls) {
 		this.pictureUrls = pictureUrls;
+	}
+
+	public boolean isTaboo() {
+		return this.taboo;
+	}
+
+	public void setTaboo(final boolean taboo) {
+		this.taboo = taboo;
 	}
 
 

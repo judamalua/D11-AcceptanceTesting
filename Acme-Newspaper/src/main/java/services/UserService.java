@@ -85,10 +85,13 @@ public class UserService {
 	}
 
 	public User findOne(final int userId) {
+		Assert.isTrue(userId != 0);
 
 		User result;
 
 		result = this.userRepository.findOne(userId);
+
+		Assert.notNull(result);
 
 		return result;
 

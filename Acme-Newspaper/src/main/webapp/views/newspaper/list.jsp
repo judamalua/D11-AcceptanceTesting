@@ -30,11 +30,10 @@
 	pattern="yyyy-MM-dd HH:mm" />
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestURI}page=" pageNum="${pageNum}"
+<acme:pagination requestURI="${requestUri}page=" pageNum="${pageNum}"
 	page="${page}" />
 
 <!-- Table -->
-
 <display:table name="newspapers" id="newspaper"
 	requestURI="${requestUri}">
 
@@ -53,10 +52,21 @@
 	<display:column>
 		<security:authorize access="hasRole('USER')">
 			<jstl:if
-				test="${ownNewspaper[newspaper_rowNum-1] and newspaper.publicationDate==null}">
+				test="${(owner or ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null}">
 				<acme:button
 					url="newspaper/user/edit.do?newspaperId=${newspaper.id}"
 					code="newspaper.edit" />
+			</jstl:if>
+		</security:authorize>
+	</display:column>
+	
+		<display:column>
+		<security:authorize access="hasRole('USER')">
+			<jstl:if
+				test="${(owner or ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null}">
+				<acme:button
+					url="newspaper/user/publish.do?newspaperId=${newspaper.id}"
+					code="newspaper.publish" />
 			</jstl:if>
 		</security:authorize>
 	</display:column>

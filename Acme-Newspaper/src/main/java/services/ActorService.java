@@ -28,12 +28,13 @@ public class ActorService {
 	// Managed repository --------------------------------------------------
 
 	@Autowired
-	private ActorRepository	actorRepository;
-
+	private ActorRepository			actorRepository;
 
 	// Supporting services --------------------------------------------------
 
-	// Simple CRUD methods --------------------------------------------------
+	@Autowired
+	private ConfigurationService	configurationService;
+
 
 	// Simple CRUD methods --------------------------------------------------
 	/**
@@ -273,6 +274,18 @@ public class ActorService {
 		result.setEmail(actor.getEmail());
 		result.setBirthDate(actor.getBirthDate());
 
+		return result;
+	}
+
+	public boolean checkSpamWords(final String stringToCheck) {
+		boolean result = false;
+
+		final Collection<String> spamWords = this.configurationService.findConfiguration().getTabooWords();
+		for (final String spamWord : spamWords) {
+			result = stringToCheck.toLowerCase().contains(spamWord);
+			if (result)
+				break;
+		}
 		return result;
 	}
 }

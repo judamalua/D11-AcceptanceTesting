@@ -82,7 +82,7 @@ public class ActorUserController extends AbstractController {
 	 */
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
 	public ModelAndView followOrUnfollow(@RequestParam final int userId, @RequestParam(defaultValue = "false") final boolean followedView, @RequestParam(defaultValue = "false") final boolean followersView) {
-		ModelAndView result = new ModelAndView("redirect:/user/list.do");
+		ModelAndView result;
 		User user;
 
 		try {
@@ -90,15 +90,15 @@ public class ActorUserController extends AbstractController {
 
 			this.userService.followOrUnfollowUser(user);
 
+			// If we come here since the standard list of users, we are redirected there
+			result = new ModelAndView("redirect:/user/list.do");
+
 			// If we come here since the list of the followed users, we are redirected there
 			if (followedView && !followersView)
 				result = new ModelAndView("redirect:list-followed.do");
 			else if (!followedView && followersView)
 				// If we come here since the list of the followers, we are redirected there
 				result = new ModelAndView("redirect:list-followers.do");
-			else
-				// If we come here since the standard list of users, we are redirected there
-				result = new ModelAndView("redirect:/user/list.do");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

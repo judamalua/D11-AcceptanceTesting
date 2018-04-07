@@ -32,6 +32,7 @@ public class Newspaper extends DomainEntity {
 	private String	description;
 	private String	pictureUrl;
 	private boolean	publicNewspaper;
+	private boolean	taboo;
 
 
 	@SafeHtml
@@ -78,6 +79,14 @@ public class Newspaper extends DomainEntity {
 
 	public void setPublicNewspaper(final boolean publicNewspaper) {
 		this.publicNewspaper = publicNewspaper;
+	}
+
+	public boolean isTaboo() {
+		return this.taboo;
+	}
+
+	public void setTaboo(final boolean taboo) {
+		this.taboo = taboo;
 	}
 
 

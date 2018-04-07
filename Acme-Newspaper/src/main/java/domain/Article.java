@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
-import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -27,6 +26,7 @@ public class Article extends DomainEntity {
 	private String				body;
 	private Collection<String>	pictureUrls;
 	private boolean				finalMode;
+	private boolean				taboo;
 
 
 	@SafeHtml
@@ -57,10 +57,8 @@ public class Article extends DomainEntity {
 		this.body = body;
 	}
 
-	@SafeHtml
 	@NotNull
 	@ElementCollection
-	@URL
 	public Collection<String> getPictureUrls() {
 		return this.pictureUrls;
 	}
@@ -75,6 +73,14 @@ public class Article extends DomainEntity {
 
 	public void setFinalMode(final boolean finalMode) {
 		this.finalMode = finalMode;
+	}
+
+	public boolean isTaboo() {
+		return this.taboo;
+	}
+
+	public void setTaboo(final boolean taboo) {
+		this.taboo = taboo;
 	}
 
 

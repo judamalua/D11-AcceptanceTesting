@@ -19,8 +19,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-
-
 <!-- Form -->
 <p>
 	<em><spring:message code="form.required.params" /></em>
@@ -34,6 +32,7 @@
 
 		<acme:textbox code="article.title" path="title" required="true" />
 		<acme:textarea code="article.summary" path="summary" required="true" />
+		<acme:textarea code="article.body" path="body" required="true" />
 		
 		<div class="cleared-div">
 			<acme:checkbox code="article.finalMode" path="finalMode"
@@ -44,7 +43,7 @@
 			<acme:delete clickCode="article.confirm.delete" name="delete"
 				code="article.delete" />
 		</jstl:if>
-		<acme:cancel url="article/user/list.do" code="article.cancel" />
+		<acme:cancel url="article/list.do" code="article.cancel" />
 
 	</form:form>
 </div>

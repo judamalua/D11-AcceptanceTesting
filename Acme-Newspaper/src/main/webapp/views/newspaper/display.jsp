@@ -35,8 +35,8 @@
 <fmt:formatDate var="currentDate" value="${now}"
 	pattern="yyyy-MM-dd HH:mm" />
 <spring:message var="format" code="master.page.moment.format.out" />
-<fmt:formatDate var="formatMomentnewspaper" value="${newspaper.publicationDate}"
-	pattern="${format}" />
+<fmt:formatDate var="formatMomentnewspaper"
+	value="${newspaper.publicationDate}" pattern="${format}" />
 
 
 <!-- Display -->
@@ -93,7 +93,7 @@
 </h4>
 <acme:pagination page="${page}" pageNum="${pageNum}"
 	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&page=" />
-<display:table name="${newspaper.articles}" id="article"
+<display:table name="${articles}" id="article"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleArticle}" sortable="true">
 		<a href="article/display.do?articleId=${article.id}">${article.title}</a>
@@ -107,7 +107,8 @@
 		</display:column>
 	</security:authorize>
 	<security:authorize access="hasRole('USER')">
-		<jstl:if test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1]}">
+		<jstl:if
+			test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1] and !article.finalMode}">
 			<display:column>
 				<acme:button url="article/user/edit.do?articleId=${article.id}"
 					code="article.edit" />
@@ -115,7 +116,9 @@
 		</jstl:if>
 	</security:authorize>
 </display:table>
-
-<acme:button url="article/user/create.do?newspaperId=${newspaper.id}" code="article.create" />
+<jstl:if test="${publicationDate==null}">
+	<acme:button url="article/user/create.do?newspaperId=${newspaper.id}"
+		code="article.create" />
+</jstl:if>
 <br />
 

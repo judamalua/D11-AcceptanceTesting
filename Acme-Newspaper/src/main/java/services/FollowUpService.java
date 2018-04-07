@@ -105,6 +105,13 @@ public class FollowUpService {
 		Article article;
 		User user;
 		Newspaper newspaper;
+		boolean taboo;
+
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof User) {
+			taboo = this.actorService.checkSpamWords(followUp.getTitle() + " " + followUp.getSummary() + " " + followUp.getText());
+			followUp.setTaboo(taboo);
+		}
 
 		result = this.followUpRepository.save(followUp);
 		article = this.articleService.getArticleByFollowUp(followUp);

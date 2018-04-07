@@ -2,23 +2,17 @@
 package services;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.expression.ParseException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.Actor;
 import domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,14 +20,12 @@ import domain.User;
 	"classpath:spring/junit.xml"
 })
 @Transactional
-public class UserServiceTest extends AbstractTest {
+public class ArticleServiceTest extends AbstractTest {
 
 	@Autowired
-	public ActorService			actorService;
+	public ActorService	actorService;
 	@Autowired
-	public UserService			userService;
-	@Autowired
-	public ConfigurationService	configurationService;
+	public UserService	userService;
 
 
 	//******************************************Positive Methods*******************************************************************
@@ -311,144 +303,6 @@ public class UserServiceTest extends AbstractTest {
 		user.setPostalAddress("Calle Alfarería 15b");
 
 		this.userService.save(user);
-
-		super.unauthenticate();
-
-	}
-
-	/**
-	 * This test checks that unauthenticated users can list the users of the system, regarding functional requirement 4.3:
-	 * An actor who is not authenticated must be able to: List the users of the system and display their profiles, which must include their
-	 * personal data and the list of articles that they have written as long as they are published in a newspaper
-	 * 
-	 * @author Juanmi
-	 */
-	@Test
-	public void testListUsersUnauthenticatedPositive() {
-		final Page<User> pageUsers;
-		Pageable pageable;
-		Collection<User> users;
-
-		pageable = new PageRequest(0, this.configurationService.findConfiguration().getPageSize());
-
-		super.authenticate(null);
-		pageUsers = this.userService.getUsers(pageable);
-		users = pageUsers.getContent();
-
-		Assert.notNull(users);
-
-		super.unauthenticate();
-
-	}
-
-	/**
-	 * This test checks that unauthenticated users cannot display the profile of a user that does not exist, regarding functional requirement 4.3:
-	 * An actor who is not authenticated must be able to: List the users of the system and display their profiles, which must include their
-	 * personal data and the list of articles that they have written as long as they are published in a newspaper
-	 * 
-	 * @author Juanmi
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testDisplayUnexistingProfileUnauthenticated() {
-
-		super.authenticate(null);
-
-		this.userService.findOne(0);
-
-		super.unauthenticate();
-
-	}
-
-	/**
-	 * This test checks that unauthenticated users cannot list system admins, regarding functional requirement 4.3:
-	 * An actor who is not authenticated must be able to: List the users of the system and display their profiles, which must include their
-	 * personal data and the list of articles that they have written as long as they are published in a newspaper
-	 * 
-	 * @author Juanmi
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testListUserDoesNotContainAdminUnauthenticated() {
-		Collection<Actor> actors;
-		Actor admin;
-		int adminId;
-
-		adminId = super.getEntityId("Admin1");
-		admin = this.actorService.findOne(adminId);
-
-		super.authenticate(null);
-
-		actors = this.actorService.findAll();
-
-		Assert.isTrue(!actors.contains(admin));
-
-		super.unauthenticate();
-
-	}
-
-	/**
-	 * This test checks that unauthenticated users can list the users of the system, regarding functional requirement 5.1.3:
-	 * An actor who is authenticated must be able to: List the users of the system and display their profiles, which must include their
-	 * personal data and the list of articles that they have written as long as they are published in a newspaper
-	 * 
-	 * @author Juanmi
-	 */
-	@Test
-	public void testListUsersAuthenticatedPositive() {
-		final Page<User> pageUsers;
-		Pageable pageable;
-		Collection<User> users;
-
-		pageable = new PageRequest(0, this.configurationService.findConfiguration().getPageSize());
-
-		super.authenticate("User1");
-		pageUsers = this.userService.getUsers(pageable);
-		users = pageUsers.getContent();
-
-		Assert.notNull(users);
-
-		super.unauthenticate();
-
-	}
-
-	/**
-	 * This test checks that unauthenticated users cannot display the profile of a user that does not exist, regarding functional requirement 5.1.3:
-	 * An actor who is authenticated must be able to: List the users of the system and display their profiles, which must include their
-	 * personal data and the list of articles that they have written as long as they are published in a newspaper
-	 * 
-	 * @author Juanmi
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testDisplayUnexistingProfileAuthenticated() {
-
-		super.authenticate("User1");
-
-		this.userService.findOne(0);
-
-		super.unauthenticate();
-
-	}
-
-	/**
-	 * This test checks that unauthenticated users cannot list system admins, regarding functional requirement 5.1.3:
-	 * An actor who is authenticated must be able to: List the users of the system and display their profiles, which must include their
-	 * personal data and the list of articles that they have written as long as they are published in a newspaper
-	 * 
-	 * @author Juanmi
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testListUserDoesNotContainAdminAuthenticated() {
-		Collection<Actor> actors;
-		Actor admin;
-		int adminId;
-
-		adminId = super.getEntityId("Admin1");
-		admin = this.actorService.findOne(adminId);
-
-		super.authenticate("User1");
-
-		actors = this.actorService.findAll();
-
-		Assert.isTrue(!actors.contains(admin));
 
 		super.unauthenticate();
 
