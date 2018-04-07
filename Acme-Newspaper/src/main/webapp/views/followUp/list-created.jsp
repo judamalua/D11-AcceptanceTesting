@@ -39,7 +39,6 @@
 	requestURI="${requestUri}">
 
 	<display:column property="title" title="${titleName}" sortable="true" />
-	<display:column property="text" title="${titleName}" sortable="true" />
 	<display:column property="publicationDate" title="${titlePublication}"
 		format="${formatMoment}" sortable="true" />
 	<display:column>

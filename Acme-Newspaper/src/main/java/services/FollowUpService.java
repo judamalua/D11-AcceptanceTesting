@@ -177,7 +177,6 @@ public class FollowUpService {
 			result = this.followUpRepository.findOne(followUp.getId());
 			result.setUser(followUp.getUser());
 			result.setText(followUp.getText());
-			result.setPictureUrls(followUp.getPictureUrls());
 			result.setPublicationDate(followUp.getPublicationDate());
 			result.setTitle(followUp.getTitle());
 			result.setSummary(followUp.getSummary());
