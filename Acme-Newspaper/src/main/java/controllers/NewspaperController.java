@@ -66,14 +66,13 @@ public class NewspaperController extends AbstractController {
 		final Page<Newspaper> newspapers;
 		final Pageable pageable;
 		final Configuration configuration;
-		final Collection<Boolean> ownNewspapers, subscribeNewspaper;
+		final Collection<Boolean> ownNewspapers;
 		Actor actor;
 		User publisher;
 
 		configuration = this.configurationService.findConfiguration();
 		pageable = new PageRequest(page, configuration.getPageSize());
 		ownNewspapers = new ArrayList<>();
-		subscribeNewspaper = new ArrayList<>();
 		result = new ModelAndView("newspaper/list");
 
 		newspapers = this.newspaperService.findPublicPublicatedNewspapers(pageable);
@@ -83,13 +82,8 @@ public class NewspaperController extends AbstractController {
 			for (final Newspaper newspaper : newspapers.getContent()) {
 				publisher = this.userService.findUserByNewspaper(newspaper.getId());
 				ownNewspapers.add(actor.equals(publisher));
-
-				if (actor instanceof Customer)
-					for (final CreditCard creditCard : newspaper.getCreditCards())
-						subscribeNewspaper.add(creditCard.getCustomer().equals(actor));
 			}
 
-			result.addObject("subscribeNewspaper", subscribeNewspaper);
 			result.addObject("ownNewspaper", ownNewspapers);
 		}
 		result.addObject("newspapers", newspapers.getContent());
@@ -109,7 +103,6 @@ public class NewspaperController extends AbstractController {
 		Pageable pageable;
 		Configuration configuration;
 		Boolean subscriber;
-		boolean validCustomer = false;
 
 		try {
 
@@ -127,16 +120,6 @@ public class NewspaperController extends AbstractController {
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
 
-				if (!newspaper.getPublicNewspaper()) {
-					Assert.isTrue(actor instanceof Customer);
-					for (final CreditCard creditCard : newspaper.getCreditCards()) {
-						validCustomer = creditCard.getCustomer().equals(actor);
-						if (validCustomer)
-							break;
-					}
-					Assert.isTrue(validCustomer);
-				}
-
 				for (final Article article : articles.getContent()) {
 					writer = this.userService.findUserByArticle(article.getId());
 					ownArticles.add(writer.equals(actor));
@@ -149,8 +132,7 @@ public class NewspaperController extends AbstractController {
 							break;
 					}
 				result.addObject("ownArticle", ownArticles);
-			} else
-				Assert.isTrue(newspaper.getPublicNewspaper());
+			}
 
 			result.addObject("subscriber", subscriber);
 			result.addObject("newspaper", newspaper);

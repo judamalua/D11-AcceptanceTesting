@@ -96,7 +96,12 @@
 <display:table name="${articles}" id="article"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleArticle}" sortable="true">
-		<a href="article/display.do?articleId=${article.id}">${article.title}</a>
+		<jstl:if test="${newspaper.publicNewspaper or subscriber}">
+			<a href="article/display.do?articleId=${article.id}">${article.title}</a>
+		</jstl:if>
+		<jstl:if test="${!subscriber and !newspaper.publicNewspaper}">
+			${article.title}
+		</jstl:if>
 	</display:column>
 	<display:column property="summary" title="${titleSummaryArticle}" />
 	<display:column property="body" title="${titleBodyArticle}" />
@@ -108,7 +113,7 @@
 	</security:authorize>
 	<security:authorize access="hasRole('USER')">
 		<jstl:if
-			test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1] and !article.finalMode}">
+			test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1] and !article.finalMode and newspaper.publicationDate==null}">
 			<display:column>
 				<acme:button url="article/user/edit.do?articleId=${article.id}"
 					code="article.edit" />
@@ -116,9 +121,11 @@
 		</jstl:if>
 	</security:authorize>
 </display:table>
-<jstl:if test="${publicationDate==null}">
-	<acme:button url="article/user/create.do?newspaperId=${newspaper.id}"
-		code="article.create" />
-</jstl:if>
+<security:authorize access="hasRole('USER')">
+	<jstl:if test="${newspaper.publicationDate==null}">
+		<acme:button url="article/user/create.do?newspaperId=${newspaper.id}"
+			code="article.create" />
+	</jstl:if>
+</security:authorize>
 <br />
 
