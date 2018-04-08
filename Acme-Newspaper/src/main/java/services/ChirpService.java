@@ -112,6 +112,7 @@ public class ChirpService {
 			result.setDescription(chirp.getDescription());
 			result.setTitle(chirp.getTitle());
 			result.setMoment(chirp.getMoment());
+			result.setTaboo(chirp.isTaboo());
 		}
 
 		this.validator.validate(result, binding);
