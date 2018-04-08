@@ -50,6 +50,10 @@
 					<li class="divider"></li>
                     <li><a href="actor/user/list-followers.do"><spring:message
                                 code="master.page.list.followers" /></a></li>
+                    <li><a href="chirp/user/stream.do"><spring:message
+                                code="master.page.chirp.stream" /></a></li>
+                    <li><a href="chirp/user/list.do"><spring:message
+                                code="master.page.chirp.yourlist" /></a></li>
                 </ul>
 
                 <!-- Dropdown Trigger -->
@@ -104,7 +108,7 @@
 				</a></li>
 				<li><a href="newspaper/list.do"><spring:message
                                 code="master.page.newspaperList" /></a></li>
-        </ul>
+        
         </security:authorize>
 
         <security:authorize access="isAuthenticated()">
@@ -178,6 +182,7 @@
             </security:authorize>
 
         </security:authorize>
+        </ul>
     </div>
 </nav>
 
