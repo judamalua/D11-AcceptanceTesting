@@ -63,7 +63,7 @@ public class ArticleUserController extends AbstractController {
 			result = this.createEditModelAndView(article);
 			result.addObject("newspaperId", newspaper.getId());
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 		return result;
 	}
@@ -85,7 +85,7 @@ public class ArticleUserController extends AbstractController {
 			result.addObject("newspaperId", newspaperId);
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 		return result;
 	}
@@ -100,7 +100,10 @@ public class ArticleUserController extends AbstractController {
 		Article savedArticle;
 		Newspaper newspaper;
 
-		article = this.articleService.reconstruct(article, binding);
+		try {
+			article = this.articleService.reconstruct(article, binding);
+		} catch (final Throwable oops) {
+		}
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(article, "article.params.error");
 			result.addObject("newspaperId", newspaperId);
@@ -121,6 +124,39 @@ public class ArticleUserController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(article, "article.commit.error");
 			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@ModelAttribute("newspaperId") final Integer newspaperId, @ModelAttribute("article") Article article, final BindingResult binding) {
+		ModelAndView result;
+		User actor;
+		User writer;
+		Newspaper newspaper;
+
+		try {
+			article = this.articleService.reconstruct(article, binding);
+		} catch (final Throwable oops) {
+		}
+		try {
+
+			actor = (User) this.actorService.findActorByPrincipal();
+			newspaper = this.newspaperService.findOne(newspaperId);
+			Assert.isTrue(actor.getNewspapers().contains(newspaper));
+			Assert.isTrue(newspaper.getPublicationDate() == null);
+
+			writer = this.userService.findUserByArticle(article.getId());
+
+			Assert.isTrue(actor.equals(writer));
+
+			this.articleService.delete(article);
+
+			result = new ModelAndView("redirect:/newspaper/display.do?newspaperId=" + newspaperId);
+
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(article, "article.commit.error");
+		}
 
 		return result;
 	}

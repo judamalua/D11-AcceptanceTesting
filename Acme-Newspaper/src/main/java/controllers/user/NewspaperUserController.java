@@ -1,6 +1,8 @@
 
 package controllers.user;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import services.NewspaperService;
 import services.UserService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Article;
 import domain.Configuration;
 import domain.Newspaper;
 import domain.User;
@@ -54,25 +57,37 @@ public class NewspaperUserController extends AbstractController {
 		final Pageable pageable;
 		Configuration configuration;
 		Actor actor;
+		Collection<Boolean> canPublicate;
+		boolean allFinalMode = true;
+
 		try {
 			result = new ModelAndView("newspaper/list");
 			actor = this.actorService.findActorByPrincipal();
 			configuration = this.configurationService.findConfiguration();
 			pageable = new PageRequest(page, configuration.getPageSize());
+			canPublicate = new ArrayList<>();
 
 			if (published)
 				newspapers = this.userService.findPublishedNewspapersByUser(actor.getId(), pageable);
 			else
 				newspapers = this.userService.findNotPublishedNewspapersByUser(actor.getId(), pageable);
 
+			for (final Newspaper newspaper : newspapers.getContent()) {
+				if (newspaper.getArticles().size() == 0)
+					allFinalMode = false;
+				for (final Article article : newspaper.getArticles())
+					allFinalMode &= article.getFinalMode();
+				canPublicate.add(allFinalMode);
+			}
 			result.addObject("owner", true);
+			result.addObject("canPublicate", canPublicate);
 			result.addObject("newspapers", newspapers.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", newspapers.getTotalPages());
 			result.addObject("requestUri", "newspaper/user/list.do?published=" + published + "&");
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 		return result;
 	}
@@ -95,7 +110,7 @@ public class NewspaperUserController extends AbstractController {
 
 			result = this.createEditModelAndView(newspaper);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 		return result;
 	}
@@ -118,25 +133,30 @@ public class NewspaperUserController extends AbstractController {
 
 	@RequestMapping(value = "/publish", method = RequestMethod.GET)
 	public ModelAndView publish(@RequestParam final Integer newspaperId) {
-		final ModelAndView result;
+		ModelAndView result;
 		Newspaper newspaper;
 		Actor actor;
 		User publisher;
+		try {
+			actor = this.actorService.findActorByPrincipal();
 
-		actor = this.actorService.findActorByPrincipal();
+			newspaper = this.newspaperService.findOne(newspaperId);
+			publisher = this.userService.findUserByNewspaper(newspaperId);
 
-		newspaper = this.newspaperService.findOne(newspaperId);
-		publisher = this.userService.findUserByNewspaper(newspaperId);
+			Assert.isTrue(actor.equals(publisher));
+			Assert.isTrue(newspaper.getPublicationDate() == null);
 
-		Assert.isTrue(actor.equals(publisher));
-		Assert.isTrue(newspaper.getPublicationDate() == null);
+			newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
 
-		newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
+			for (final Article article : newspaper.getArticles())
+				Assert.isTrue(article.getFinalMode());
 
-		this.newspaperService.save(newspaper);
+			this.newspaperService.save(newspaper);
 
-		result = new ModelAndView("redirect:/newspaper/user/list.do?published=true");
-
+			result = new ModelAndView("redirect:/newspaper/user/list.do?published=true");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
 		return result;
 	}
 	// Saving -------------------------------------------------------------------
@@ -147,9 +167,10 @@ public class NewspaperUserController extends AbstractController {
 		final User publisher;
 		final Actor actor;
 		Newspaper savedNewspaper;
-
-		newspaper = this.newspaperService.reconstruct(newspaper, binding);
-
+		try {
+			newspaper = this.newspaperService.reconstruct(newspaper, binding);
+		} catch (final Throwable oops) {
+		}
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(newspaper, "newspaper.params.error");
 		else
@@ -166,6 +187,34 @@ public class NewspaperUserController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(newspaper, "newspaper.commit.error");
 			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@ModelAttribute("newspaper") Newspaper newspaper, final BindingResult binding) {
+		ModelAndView result;
+		final User publisher;
+		final Actor actor;
+		try {
+			newspaper = this.newspaperService.reconstruct(newspaper, binding);
+		} catch (final Throwable oops) {
+		}
+
+		try {
+
+			publisher = this.userService.findUserByNewspaper(newspaper.getId());
+			actor = this.actorService.findActorByPrincipal();
+
+			Assert.isTrue(actor.equals(publisher));
+
+			this.newspaperService.delete(newspaper);
+
+			result = new ModelAndView("redirect:/newspaper/list.do");
+
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(newspaper, "newspaper.commit.error");
+		}
 
 		return result;
 	}
