@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ArticleService;
 import services.CustomerService;
+import services.FollowUpService;
 import services.NewspaperService;
 import services.UserService;
 import controllers.AbstractController;
@@ -33,6 +34,9 @@ public class DashboardAdminController extends AbstractController {
 	@Autowired
 	CustomerService		customerService;
 
+	@Autowired
+	FollowUpService		followUpService;
+
 
 	// Listing ---------------------------------------------------------------		
 
@@ -40,7 +44,7 @@ public class DashboardAdminController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		String newspapersInfoFromUsers, articlesInfoFromUsers, articlesInfoFromNewspapers, ratioCreatedNewspapers, ratioCreatedArticles, chirpsInfoFromUsers, ratioUsersPostedAbove75PercentAverageChirpsPerUser, ratioPublicNewspapers, averageArticlesPerPrivateNewspapers, averageArticlesPerPublicNewspapers;
-		String averageFollowUpsPerArticle;
+		String averageFollowUpsPerArticle, averageFollowUpPerArticleOneWeek, averageFollowUpPerArticleTwoWeek;
 		String averageRatioPrivateVSPublicNewspaperPublisher;
 		Collection<Newspaper> newspaperWith10PercentMoreArticlesThanAverage, newspaperWith10PercentLessArticlesThanAverage;
 
@@ -55,8 +59,8 @@ public class DashboardAdminController extends AbstractController {
 
 		//B queries
 		averageFollowUpsPerArticle = this.articleService.getAverageFollowUpsPerArticle();
-		//TODO B2 query
-		//TODO B3 query
+		averageFollowUpPerArticleOneWeek = this.followUpService.getAverageFollowUpPerArticleOneWeek();
+		averageFollowUpPerArticleTwoWeek = this.followUpService.getAverageFollowUpPerArticleTwoWeek();
 		chirpsInfoFromUsers = this.userService.getChirpsInfoFromUsers();
 		ratioUsersPostedAbove75PercentAverageChirpsPerUser = this.userService.getRatioUsersPostedAbove75PercentAverageChirpsPerUser();
 
@@ -89,8 +93,8 @@ public class DashboardAdminController extends AbstractController {
 		//B queries
 		result.addObject("averageFollowUpsPerArticle", averageFollowUpsPerArticle);
 
-		//B2 query
-		//B3 query
+		result.addObject("averageFollowUpPerArticleOneWeek", averageFollowUpPerArticleOneWeek);
+		result.addObject("averageFollowUpPerArticleTwoWeek", averageFollowUpPerArticleTwoWeek);
 
 		result.addObject("chirpsInfoFromUsersAverage", chirpsInfoFromUsers.split(",")[0]);
 		result.addObject("chirpsInfoFromUsersDeviation", chirpsInfoFromUsers.split(",")[1]);

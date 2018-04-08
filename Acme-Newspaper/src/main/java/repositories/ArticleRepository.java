@@ -15,7 +15,7 @@ import domain.FollowUp;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
-	@Query("select a from Article a where a.taboo = TRUE")
+	@Query("select a from Article a where a.taboo = TRUE and a.finalMode = TRUE")
 	Collection<Article> getAllTabooArticles();
 
 	/**

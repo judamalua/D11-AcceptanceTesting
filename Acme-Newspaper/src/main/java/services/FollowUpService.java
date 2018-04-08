@@ -206,4 +206,33 @@ public class FollowUpService {
 	public void flush() {
 		this.followUpRepository.flush();
 	}
+
+	//Queries -----------
+	/**
+	 * Level B query 2
+	 * 
+	 * @return The average number of follow-ups per article up to one week after the corresponding newspaper's been published.
+	 * @author Antonio
+	 */
+	public String getAverageFollowUpPerArticleOneWeek() {
+		String result;
+
+		result = this.followUpRepository.getAverageFollowUpPerArticleOneWeek();
+
+		return result;
+	}
+
+	/**
+	 * Level B query 3
+	 * 
+	 * @return The average number of follow-ups per article up to two weeks after the corresponding newspaper's been published.
+	 * @author Antonio
+	 */
+	public String getAverageFollowUpPerArticleTwoWeek() {
+		String result;
+
+		result = this.followUpRepository.getAverageFollowUpPerArticleTwoWeek();
+
+		return result;
+	}
 }
