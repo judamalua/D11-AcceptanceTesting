@@ -203,6 +203,14 @@ public class NewspaperService {
 		return result;
 	}
 
+	public Collection<Newspaper> getAllTabooNewspapers() {
+		Collection<Newspaper> result;
+
+		result = this.newspaperRepository.getAllTabooNewspapers();
+
+		return result;
+	}
+
 	//Dashboard queries ------------------------
 	/**
 	 * Level C query 3

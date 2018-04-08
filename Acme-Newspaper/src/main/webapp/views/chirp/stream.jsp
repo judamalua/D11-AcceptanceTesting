@@ -35,4 +35,6 @@
 
 </display:table>
 
-<acme:button url="chirp/user/create.do" code="chirp.create"/>
+<security:authorize access="hasRole('USER')">
+	<acme:button url="chirp/user/create.do" code="chirp.create"/>
+</security:authorize>
