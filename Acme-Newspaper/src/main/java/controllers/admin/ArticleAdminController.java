@@ -1,6 +1,8 @@
 
 package controllers.admin;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +50,27 @@ public class ArticleAdminController extends AbstractController {
 
 		return result;
 
+	}
+
+	// List taboo ---------------------------------------------------------
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		ModelAndView result;
+		Collection<Article> articles;
+
+		try {
+			articles = this.articleService.getAllTabooArticles();
+
+			result = new ModelAndView("article/list");
+
+			result.addObject("articles", articles);
+			result.addObject("requestUri", "article/admin/list.do?");
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("rediect:/misc/403");
+		}
+
+		return result;
 	}
 
 }

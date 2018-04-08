@@ -35,6 +35,7 @@
 		<value>/views/followUp/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/creditCard/messages</value>
+		<value>/views/chirp/messages</value>
 	</util:list>
 
 </beans>

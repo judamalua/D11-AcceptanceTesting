@@ -113,8 +113,31 @@
 </span></div>
 </li>
 
-<!--TODO B2 QUERY -->
-<!--TODO B3 QUERY -->
+
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.article.followUp.oneWeek"/></div>
+
+<div class="collapsible-body"><span>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${averageFollowUpPerArticleOneWeek == \"null\" ? 0 : averageFollowUpPerArticleOneWeek}"></jstl:out></p>
+
+</span></div>
+</li>
+
+
+
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.article.followUp.twoWeek"/></div>
+
+<div class="collapsible-body"><span>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${averageFollowUpPerArticleTwoWeek == \"null\" ? 0 : averageFollowUpPerArticleTwoWeek}"></jstl:out></p>
+
+</span></div>
+</li>
+
+
+
+
+
 <li class = "dashboard-expander">
 <div class="collapsible-header"><spring:message code="dashboard.chirp.user"/></div>
 

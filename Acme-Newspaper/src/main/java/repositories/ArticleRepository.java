@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +14,9 @@ import domain.FollowUp;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
+
+	@Query("select a from Article a where a.taboo = TRUE and a.finalMode = TRUE")
+	Collection<Article> getAllTabooArticles();
 
 	/**
 	 * Level B query 1

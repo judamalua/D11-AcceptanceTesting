@@ -1,6 +1,8 @@
 
 package controllers.admin;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,4 +49,25 @@ public class ChirpAdminController extends AbstractController {
 		return result;
 	}
 
+	// List taboo ---------------------------------------------------------
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		ModelAndView result;
+		Collection<Chirp> chirps;
+
+		try {
+			chirps = this.chirpService.getAllTabooChirps();
+
+			result = new ModelAndView("chirp/list");
+
+			result.addObject("chirps", chirps);
+			result.addObject("requestUri", "chirp/admin/list.do?");
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("rediect:/misc/403");
+		}
+
+		return result;
+	}
 }

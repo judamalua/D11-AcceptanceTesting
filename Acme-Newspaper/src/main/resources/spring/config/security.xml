@@ -51,6 +51,11 @@
 		<security:intercept-url pattern="/user/list.do" access="permitAll" requires-channel="https" /> 
 		<security:intercept-url pattern="/user/display.do" access="permitAll" requires-channel="https" /> 
 		
+		<security:intercept-url pattern="/chirp/user/stream.do" access="hasRole('USER')" requires-channel="https" /> 
+		<security:intercept-url pattern="/chirp/user/create.do" access="hasRole('USER')" requires-channel="https" /> 
+		<security:intercept-url pattern="/chirp/user/edit.do" access="hasRole('USER')" requires-channel="https" /> 
+		<security:intercept-url pattern="/chirp/user/list.do" access="hasRole('USER')" requires-channel="https" /> 
+		
 		<security:intercept-url pattern="/actor/display.do" access="isAuthenticated()" requires-channel="https"  />
 		<security:intercept-url pattern="/actor/user/register.do" access="permitAll" requires-channel="https" /> 
 		<security:intercept-url pattern="/actor/user/follow.do" access="hasRole('USER')" requires-channel="https" /> 
@@ -75,6 +80,9 @@
 		<security:intercept-url pattern="/newspaper/admin/delete.do" access="hasRole('ADMIN')" /> 
   		<security:intercept-url pattern="/article/admin/delete.do" access="hasRole('ADMIN')" />
   		<security:intercept-url pattern="/chirp/admin/delete.do" access="hasRole('ADMIN')" />
+  		<security:intercept-url pattern="/chirp/admin/list.do" access="hasRole('ADMIN')" />
+  		<security:intercept-url pattern="/newspaper/admin/list.do" access="hasRole('ADMIN')" />
+  		<security:intercept-url pattern="/article/admin/list.do" access="hasRole('ADMIN')" />
   		
 		<security:intercept-url pattern="/newspaper/customer/subscribe.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/newspaper/customer/ajax.do" access="hasRole('CUSTOMER')" /> 
