@@ -48,7 +48,7 @@
 
 	<acme:submit name="save" code="followUp.save"/>
 	<acme:cancel url="followUp/user/list.do" code="followUp.cancel"/>
-	
+	<acme:button  code="followUp.delete" url="followUp/user/delete.do?followUpId=+${followUp.id}"/>
 	
 	
 		

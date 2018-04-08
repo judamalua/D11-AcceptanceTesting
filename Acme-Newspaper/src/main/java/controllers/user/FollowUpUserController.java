@@ -182,7 +182,7 @@ public class FollowUpUserController extends AbstractController {
 
 	// Delete ---------------------------------------------------------
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int followUpId) {
+	public ModelAndView delete(@RequestParam("followUpId") final Integer followUpId) {
 		ModelAndView result;
 		FollowUp followUp;
 		Article article;
