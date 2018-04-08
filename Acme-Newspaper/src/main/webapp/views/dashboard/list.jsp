@@ -199,7 +199,17 @@
 </span></div>
 </li>
 
-<!--TODO A4 QUERY -->
+<li class = "dashboard-expander">
+<div class="collapsible-header"><spring:message code="dashboard.ratio.subscribers.privateNewspaper.customer"/></div>
+
+<div class="collapsible-body"><span>
+<p class = "element"><b><spring:message code="dashboard.average"/>:</b> <jstl:out value="${ratioSubscribersPrivateNewspaperVSTotalCustomers == \"null\" ? 0 : ratioSubscribersPrivateNewspaperVSTotalCustomers}"></jstl:out></p>
+
+</span></div>
+</li>
+
+
+
 
 <li class = "dashboard-expander">
 <div class="collapsible-header"><spring:message code="dashboard.newspaper.public.private.average.ratio"/></div>
