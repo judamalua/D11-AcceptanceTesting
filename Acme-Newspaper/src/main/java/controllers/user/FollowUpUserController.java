@@ -181,23 +181,19 @@ public class FollowUpUserController extends AbstractController {
 	}
 
 	// Delete ---------------------------------------------------------
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam("followUpId") final Integer followUpId) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@ModelAttribute("followUp") final FollowUp followUp) {
 		ModelAndView result;
-		FollowUp followUp;
 		Article article;
 
 		try {
-
-			followUp = this.followUpService.findOne(followUpId);
-			Assert.isTrue(followUp.getUser() == this.actorService.findActorByPrincipal());
 			article = this.articleService.getArticleByFollowUp(followUp);
 			this.followUpService.delete(followUp);
 
 			result = new ModelAndView("redirect:/article/display.do?articleId=" + article.getId());
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;

@@ -137,26 +137,23 @@ public class FollowUpService {
 		assert followUp.getId() != 0;
 		Assert.isTrue(this.followUpRepository.exists(followUp.getId()));
 		final Actor principal = this.actorService.findActorByPrincipal();
-		;
+		final User creator = followUp.getUser();
 
 		if (principal instanceof User)
-			Assert.isTrue(principal == followUp.getUser() && followUp.getPublicationDate().after(new Date()));
+			Assert.isTrue(principal.equals(creator));
 
 		Article article;
 		Newspaper newspaper;
-		User user;
 		article = this.articleService.getArticleByFollowUp(followUp);
 		newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
-		user = followUp.getUser();
 
 		article.getFollowUps().remove(followUp);
 		this.articleService.save(article, newspaper);
-		this.userService.save(user);
+		this.userService.save(creator);
 
 		this.followUpRepository.delete(followUp);
 
 	}
-
 	//Other Busssiness Methods 
 
 	/**
@@ -174,7 +171,9 @@ public class FollowUpService {
 			result.setPublicationDate(new Date(System.currentTimeMillis() - 1000));
 
 		} else {
+			user = (User) this.actorService.findActorByPrincipal();
 			result = this.followUpRepository.findOne(followUp.getId());
+			result.setUser(user);
 			result.setText(followUp.getText());
 			result.setPublicationDate(new Date(System.currentTimeMillis() - 1000));
 			result.setTitle(followUp.getTitle());
