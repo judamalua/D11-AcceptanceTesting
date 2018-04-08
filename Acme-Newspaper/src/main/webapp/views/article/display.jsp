@@ -82,7 +82,7 @@
 	</security:authorize>
 </display:table>
 
-<jstl:if test="${article.finalMode}">
+<jstl:if test="${article.finalMode and !newspaperPublished}">
 <acme:button url="followUp/user/create.do?articleId=${article.id}" code="followUp.create" />
 </jstl:if>
 <br />

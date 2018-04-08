@@ -26,8 +26,11 @@
 <form:form id="form" action="followUp/user/edit.do" modelAttribute="followUp">
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
+	<jstl:if test="${followUp.user!=null}">
+	<form:hidden path="user"/>
+	</jstl:if>
 	<input type="hidden" name="articleId" value="${articleId}"/>
-
+	
 	
 	<acme:textbox code="followUp.title" path="title" required="true"/>
 	
