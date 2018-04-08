@@ -1,190 +1,357 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"> 
 
-<!-- * PopulateDatabase.xml * * Copyright (C) 2017 Universidad de Sevilla 
-	* * The use of this project is hereby constrained to the conditions of the 
-	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	">
+ <!-- %%%%%%  domain.Newspaper %%%%%% --> 
+<bean id="Newspaper1" class="domain.Newspaper"> 
+<property name="title" value="El Informatico" /> 
+<property name="description" value="El Inform�tico es el peri�dico oficial de la Escuela T�cnica Superior de Ingenier�a Inform�tica de la Universidad de Sevilla. �S�guenos y mantente al corriente sobre las �ltimas novedades de la escuela!" /> 
+<property name="pictureUrl" value="http://comunicacion.us.es/sites/default/files/ingenieria_informatica.jpg" /> 
+<property name="publicNewspaper" value="true" /> 
+<property name="taboo" value="false" /> 
+<property name="creditCards" > 
+<list> 
+</list> 
+</property> 
+<property name="articles" > 
+<list> 
+<ref bean="Article1" /> 
+<ref bean="Article2" /> 
+</list> 
+</property> 
+</bean>
+<bean id="Newspaper2" class="domain.Newspaper"> 
+<property name="title" value="The Runner Journal" /> 
+<property name="description" value="The Runner Journal es el diario donde runners de todo el mundo comparten sus experiencias sobre el deporte m�s practicado hoy en d�a. �Ponte las botas, que nos vamos!" /> 
+<property name="pictureUrl" value="https://blogicalimentaria.files.wordpress.com/2016/03/runners.jpg" /> 
+<property name="publicNewspaper" value="true" /> 
+<property name="taboo" value="false" /> 
+<property name="creditCards" > 
+<list> 
+</list> 
+</property> 
+<property name="articles" > 
+<list> 
+<ref bean="Article3" /> 
+<ref bean="Article4" /> 
+</list> 
+</property> 
+</bean>
 
-	<!-- User accounts -->
 
-	<bean id="UserAccount1" class="security.UserAccount">
-		<property name="username" value="admin" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-			</list>
-		</property>
-	</bean>
+ <!-- %%%%%%  security.UserAccount %%%%%% --> 
+<bean id="UserAccount1" class="security.UserAccount"> 
+<property name="username" value="admin" /> 
+<property name="password" value="21232f297a57a5a743894a0e4a801fc3" /> 
+<property name="authorities" > 
+<list> 
+<bean class="security.Authority"> 
+ <property name="authority" value="ADMIN" /> 
+ </bean></list> 
+</property> 
+</bean>
+<bean id="UserAccount2" class="security.UserAccount"> 
+<property name="username" value="admin1" /> 
+<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" /> 
+<property name="authorities" > 
+<list> 
+<bean class="security.Authority"> 
+ <property name="authority" value="ADMIN" /> 
+ </bean></list> 
+</property> 
+</bean>
+<bean id="UserAccount3" class="security.UserAccount"> 
+<property name="username" value="user1" /> 
+<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" /> 
+<property name="authorities" > 
+<list> 
+<bean class="security.Authority"> 
+ <property name="authority" value="USER" /> 
+ </bean></list> 
+</property> 
+</bean>
+<bean id="UserAccount4" class="security.UserAccount"> 
+<property name="username" value="user2" /> 
+<property name="password" value="7e58d63b60197ceb55a1c487989a3720" /> 
+<property name="authorities" > 
+<list> 
+<bean class="security.Authority"> 
+ <property name="authority" value="USER" /> 
+ </bean></list> 
+</property> 
+</bean>
+<bean id="UserAccount5" class="security.UserAccount"> 
+<property name="username" value="customer1" /> 
+<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" /> 
+<property name="authorities" > 
+<list> 
+<bean class="security.Authority"> 
+ <property name="authority" value="CUSTOMER" /> 
+ </bean></list> 
+</property> 
+</bean>
 
-	<bean id="UserAccount2" class="security.UserAccount">
-		<property name="username" value="admin1" />
-		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-			</list>
-		</property>
-	</bean>
 
-	<bean id="UserAccount3" class="security.UserAccount">
-		<property name="username" value="user1" />
-		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="USER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
+ <!-- %%%%%%  domain.Slider %%%%%% --> 
+<bean id="Slider1" class="domain.Slider"> 
+<property name="title_en" value="Welcome to Sample Project 1.14!" /> 
+<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" /> 
+<property name="text_en" value="Example text 1" /> 
+<property name="text_es" value="Texto de ejemplo 1" /> 
+<property name="pictureUrl" value="https://tinyurl.com/adventure-meetup" /> 
+<property name="align" value="left" /> 
+</bean>
+<bean id="Slider2" class="domain.Slider"> 
+<property name="title_en" value="Welcome to Sample Project 1.14!" /> 
+<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" /> 
+<property name="text_en" value="Example text 2" /> 
+<property name="text_es" value="Texto de ejemplo 2" /> 
+<property name="pictureUrl" value="https://i.imgur.com/SoiZR6j.jpg" /> 
+<property name="align" value="right" /> 
+</bean>
+<bean id="Slider3" class="domain.Slider"> 
+<property name="title_en" value="Welcome to Sample Project 1.14!" /> 
+<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" /> 
+<property name="text_en" value="Example text 3" /> 
+<property name="text_es" value="Texto de ejemplo 3" /> 
+<property name="pictureUrl" value="https://imgur.com/Wu0HYcs.jpg" /> 
+<property name="align" value="center" /> 
+</bean>
 
-	<bean id="UserAccount4" class="security.UserAccount">
-		<property name="username" value="user2" />
-		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="USER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="UserAccount5" class="security.UserAccount">
-		<property name="username" value="customer1" />
-		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
 
-	<!-- Other domain beans come here -->
+ <!-- %%%%%%  domain.Chirp %%%%%% --> 
+<bean id="Chirp1" class="domain.Chirp"> 
+<property name="title" value="Hola mundo!" /> 
+<property name="description" value="Este es mi primer chirp en Acme-Newspaper :)" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp2" class="domain.Chirp"> 
+<property name="title" value="He quedado con mi amigo Pipo" /> 
+<property name="description" value="Al parecer el hombre tiene 3 trabajos muy distintos entre s�. Est� muy ocupado y apenas tiene tiempo libre. " /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp3" class="domain.Chirp"> 
+<property name="title" value="Deseando a que empiece la Feria de Abril" /> 
+<property name="description" value="El 14 de abril empieza la Feria, estoy deseando que llegue el d�a!" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp4" class="domain.Chirp"> 
+<property name="title" value="Estoy aburrido" /> 
+<property name="description" value="�Qui�n se echa un Fornite?" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp5" class="domain.Chirp"> 
+<property name="title" value="La celebraci�n de Griezmann jaja" /> 
+<property name="description" value="Griezmann ha celebrado su gol contra el Madrid bailando como un personaje del Fornite, �qu� grande!" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp6" class="domain.Chirp"> 
+<property name="title" value="Odio a los runners" /> 
+<property name="description" value="Ese peri�dico runner est� repleto de gente que me cae mal..." /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp7" class="domain.Chirp"> 
+<property name="title" value="Me encantan los animales" /> 
+<property name="description" value="Tengo dos gatos, y desear�a que en este sistema hubiera un peri�dico sobre animales o gatos" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp8" class="domain.Chirp"> 
+<property name="title" value="Mi gata no para de dormir" /> 
+<property name="description" value="�Alguien sabe si es normal?" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp9" class="domain.Chirp"> 
+<property name="title" value="�Quien pens�is que ganar� la Champions?" /> 
+<property name="description" value="Yo creo que ser� el Ba�a... Messi es el mejor!" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp10" class="domain.Chirp"> 
+<property name="title" value="Messi vs Cristiano" /> 
+<property name="description" value="�Qui�n os gusta m�s? Creo que Messi es mejor, pero Cristiano es muy guapo!" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp11" class="domain.Chirp"> 
+<property name="title" value="�Me recomend�is un libro?" /> 
+<property name="description" value="Esta semana de Feria voy a estar aburrido y me gustar�a leer un poco" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp12" class="domain.Chirp"> 
+<property name="title" value="Palabras tab�" /> 
+<property name="description" value="Hablar de sexo est� muy mal visto en nuestra sociedad. �Por qu�?" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
+<bean id="Chirp13" class="domain.Chirp"> 
+<property name="title" value="Esto de los chirps... es muy parecido a Twitter" /> 
+<property name="description" value="Aunque en Twitter hay muchos m�s usuarios, Acme-Newspaper me gusta m�s!" /> 
+<property name="moment" value="2018/04/08 00:00" /> 
+<property name="taboo" value="false" /> 
+</bean>
 
-	<!-- %%%% Administrators %%%% -->
-	<bean id="Admin1" class="domain.Admin">
-		<property name="name" value="Super" />
-		<property name="surname" value="Super" />
-		<property name="email" value="super@mail.com" />
-		<property name="birthDate" value="1995/10/03" />
-		<property name="userAccount" ref="UserAccount1" />
-	</bean>
 
-	<bean id="Admin2" class="domain.Admin">
-		<property name="name" value="Administrator 1" />
-		<property name="surname" value="Administrator" />
-		<property name="email" value="administrator1@mail.com" />
-		<property name="birthDate" value="1987/04/11" />
-		<property name="userAccount" ref="UserAccount2" />
-	</bean>
+ <!-- %%%%%%  domain.Customer %%%%%% --> 
+<bean id="Customer1" class="domain.Customer"> 
+<property name="name" value="Customer 1" /> 
+<property name="surname" value="Customer" /> 
+<property name="postalAddress" value="San Antion Spurs Street" /> 
+<property name="phoneNumber" value="635587789" /> 
+<property name="email" value="user1@mail.com" /> 
+<property name="birthDate" value="1987/04/11 00:00" /> 
+<property name="userAccount" ref="UserAccount5" /> 
+</bean>
 
-	<!-- %%%% Users %%%%% -->
-	<bean id="User1" class="domain.User">
-		<property name="name" value="User 1" />
-		<property name="surname" value="User" />
-		<property name="email" value="user1@mail.com" />
-		<property name="birthDate" value="1987/04/11" />
-		<property name="phoneNumber" value="635587789" />
-		<property name="postalAddress" value="San Antion Spurs Street" />
-		<property name="userAccount" ref="UserAccount3" />
-		<property name="newspapers" > 
-			<list> 
-			</list> 
-		</property> 
-		<property name="chirps" > 
-			<list> 
-			</list> 
-		</property>
-	</bean>
 
-	<bean id="User2" class="domain.User">
-		<property name="name" value="User 2" />
-		<property name="surname" value="User " />
-		<property name="email" value="user2@mail.com" />
-		<property name="phoneNumber" value="635582389" />
-		<property name="postalAddress" value="Okklahoma Thunder Street" />
-		<property name="birthDate" value="1992/07/15" />
-		<property name="userAccount" ref="UserAccount4" />
-		<property name="newspapers" > 
-			<list> 
-			</list> 
-		</property> 
-		<property name="chirps" > 
-			<list> 
-			</list> 
-		</property>
-	</bean>
-<!-- %%%% Customers %%%%% -->
-	<bean id="Customer1" class="domain.Customer">
-		<property name="name" value="Customer 1" />
-		<property name="surname" value="Customer" />
-		<property name="email" value="user1@mail.com" />
-		<property name="birthDate" value="1987/04/11" />
-		<property name="phoneNumber" value="635587789" />
-		<property name="postalAddress" value="San Antion Spurs Street" />
-		<property name="userAccount" ref="UserAccount5" />
-	</bean>
-	<!-- %%%%%% domain.Slider %%%%%% -->
-	<bean id="Slider1" class="domain.Slider">
-		<property name="title_en" value="Welcome to Sample Project 1.14!" />
-		<property name="title_es" value="¡Bienvenid@ a Sample Project 1.14!" />
-		<property name="text_en"
-			value="Example text 1" />
-		<property name="text_es" value="Texto de ejemplo 1" />
-		<property name="pictureUrl" value="https://tinyurl.com/adventure-meetup" />
-		<property name="align" value="left" />
-	</bean>
-	<bean id="Slider2" class="domain.Slider">
-		<property name="title_en" value="Welcome to Sample Project 1.14!" />
-		<property name="title_es" value="¡Bienvenid@ a Sample Project 1.14!" />
-		<property name="text_en"
-			value="Example text 2" />
-		<property name="text_es"
-			value="Texto de ejemplo 2" />
-		<property name="pictureUrl" value="https://i.imgur.com/SoiZR6j.jpg" />
-		<property name="align" value="right" />
-	</bean>
-	<bean id="Slider3" class="domain.Slider">
-		<property name="title_en" value="Welcome to Sample Project 1.14!" />
-		<property name="title_es" value="¡Bienvenid@ a Sample Project 1.14!" />
-		<property name="text_en"
-			value="Example text 3" />
-		<property name="text_es"
-			value="Texto de ejemplo 3" />
-		<property name="pictureUrl" value="https://imgur.com/Wu0HYcs.jpg" />
-		<property name="align" value="center" />
-	</bean>
+ <!-- %%%%%%  domain.User %%%%%% --> 
+<bean id="User1" class="domain.User"> 
+<property name="users" > 
+<list> 
+</list> 
+</property> 
+<property name="newspapers" > 
+<list> 
+<ref bean="Newspaper1" /> 
+<ref bean="Newspaper2" /> 
+</list> 
+</property> 
+<property name="chirps" > 
+<list> 
+<ref bean="Chirp1" /> 
+<ref bean="Chirp2" /> 
+<ref bean="Chirp3" /> 
+<ref bean="Chirp4" /> 
+<ref bean="Chirp5" /> 
+<ref bean="Chirp6" /> 
+<ref bean="Chirp7" /> 
+<ref bean="Chirp8" /> 
+</list> 
+</property> 
+<property name="name" value="User 1" /> 
+<property name="surname" value="User" /> 
+<property name="postalAddress" value="San Antion Spurs Street" /> 
+<property name="phoneNumber" value="635587789" /> 
+<property name="email" value="user1@mail.com" /> 
+<property name="birthDate" value="1987/04/11 00:00" /> 
+<property name="userAccount" ref="UserAccount3" /> 
+</bean>
+<bean id="User2" class="domain.User"> 
+<property name="users" > 
+<list> 
+</list> 
+</property> 
+<property name="newspapers" > 
+<list> 
+</list> 
+</property> 
+<property name="chirps" > 
+<list> 
+<ref bean="Chirp9" /> 
+<ref bean="Chirp10" /> 
+<ref bean="Chirp11" /> 
+<ref bean="Chirp12" /> 
+<ref bean="Chirp13" /> 
+</list> 
+</property> 
+<property name="name" value="User 2" /> 
+<property name="surname" value="User " /> 
+<property name="postalAddress" value="Okklahoma Thunder Street" /> 
+<property name="phoneNumber" value="635582389" /> 
+<property name="email" value="user2@mail.com" /> 
+<property name="birthDate" value="1992/07/15 00:00" /> 
+<property name="userAccount" ref="UserAccount4" /> 
+</bean>
 
-	<!-- %%%% Configuration %%%% -->
 
-	<bean id="Configuration1" class="domain.Configuration">
-		<property name="cookies_eng"
-			value="This page uses cookies for its internal operations, by continuing, we will assume that you accept these cookies." />
-		<property name="cookies_es"
-			value="Esta pagina usa cookies para realizar su correcto funcionamiento, si continúa navegando, asumiremos que acepta estas cookies." />
-		<property name="businessNameFirst" value="Acme" />
-		<property name="businessNameLast" value="Newspaper" />
-		<property name="pageSize" value="5" />
-		<property name="tabooWords">
-			<list>
-				<value>viagra</value>
-				<value>cialis</value>
-				<value>sex</value>
-				<value>sexo</value>
-			</list>
-		</property>
-	</bean>
+ <!-- %%%%%%  domain.Admin %%%%%% --> 
+<bean id="Admin1" class="domain.Admin"> 
+<property name="name" value="Super" /> 
+<property name="surname" value="Super" /> 
+<property name="email" value="super@mail.com" /> 
+<property name="birthDate" value="1995/10/03 00:00" /> 
+<property name="userAccount" ref="UserAccount1" /> 
+</bean>
+<bean id="Admin2" class="domain.Admin"> 
+<property name="name" value="Administrator 1" /> 
+<property name="surname" value="Administrator" /> 
+<property name="email" value="administrator1@mail.com" /> 
+<property name="birthDate" value="1987/04/11 00:00" /> 
+<property name="userAccount" ref="UserAccount2" /> 
+</bean>
+
+
+ <!-- %%%%%%  domain.Article %%%%%% --> 
+<bean id="Article1" class="domain.Article"> 
+<property name="title" value="[GU�A] C�mo sobrevivir en la ETSII" /> 
+<property name="summary" value="Si has sido aceptado recientemente en nuestra escuela, este art�culo te ayudar� a pasar tus primeros d�as." /> 
+<property name="body" value="<p>Es muy recomendable que lleves todos los días un </p><b>ordenador portátil</b><p>, no solo para matar el tiempo libre entre clase y clase sino porque te ser� de gran utilidad para seguir las clases y, sobre todo, las pr�cticas, ya que podr�s realizarlas en tu propio sistema por si despu�s necesitas acabarlas en casa.</p><div><br /></div><div><img src='https://www3.lenovo.com/medias/lenovo-laptop-legion-y720-15-hero.png?context=bWFzdGVyfGltYWdlc3w4Mzg2OXxpbWFnZS9wbmd8aW1hZ2VzL2hjOC9oYjEvOTM1OTcwMjA2NTE4Mi5wbmd8OGRjZGEyODA5OTRmMTk0YzE2MDczZjdkZjhkZmQ4ODEzYjZiZmE3NGZiODFiZjM3YzQ3Yjg3NjRiNjNjY2ViZg' alt='Portatil' /><br /></div><div><br /></div><div>Tambi�n debes instalar un programa para la conexi�n a <b>Eduroam</b>, la red Wifi para miembros de la Universidad de Sevilla. La gu�a de conexi�n se puede encontrar aqu�:&nbsp;<a href='http://www.reinus.us.es/ssid-eduroam.hes.html'>http://www.reinus.us.es/ssid-eduroam.es.html</a></div><div><br /></div><div><img src='http://www.uclm.es/-/media/Images/Recursos/Areas-de-Gestion/AREAS-Tecnologa-y-comunicaciones/eduroam.ashx' alt='Eduroam' /><br /></div>" /> 
+<property name="finalMode" value="false" /> 
+<property name="taboo" value="false" /> 
+<property name="followUps" > 
+<list> 
+</list> 
+</property> 
+</bean>
+<bean id="Article2" class="domain.Article"> 
+<property name="title" value="Charla del premio Nobel John Doe" /> 
+<property name="summary" value="El pr�ximo 5 de mayo el premio Nobel John Doe dar� una conferencia en nuestra escuela sobre gestion de proyectos informáticos." /> 
+<property name="body" value="<p>El departamento de <a href="http://www.lsi.us.es/">Lenguajes y Sistemas Operativos</a>&nbsp;se complace en anunciar en que el pr�ximo 5 de mayo de 2018, el premio Nobel John Doe dar� una conferencia en el Sal�n de Actos de la escuela sobre la gesti�n de proyectos inform�ticos.</p><div><br /></div><div><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/ETSII_Sevilla_005.jpg" alt="Sal�n de Actos de la ETSII" /><br /><div><br /></div><div><br /></div></div>" /> 
+<property name="finalMode" value="true" /> 
+<property name="taboo" value="false" /> 
+<property name="followUps" > 
+<list> 
+</list> 
+</property> 
+</bean>
+<bean id="Article3" class="domain.Article"> 
+<property name="title" value="Primer d�a de runner" /> 
+<property name="summary" value="En este art�culo encontrar�s informaci�n para tu primer d�a corriendo por la ciudad. �Adelante!" /> 
+<property name="body" value="<p>Ser runner cada vez est� de moda, en este art�culo hacemos una introducci�n al hobby m�s sano.&nbsp;</p><div><b><br /></b></div><div>	0.&nbsp;<b>C�mprate unas botas</b><div><div><img src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/xuxawemkamohk4r8f63b/md-runner-2-zapatillas-VjylGm.jpg" alt="Botas runner" />	<br /></div></div><div><br /></div><div><ol><li>T�matelo con calma</li><li>Alterna correr y andar</li><li>Tres sesiones semanales</li><li>Calienta antes y estira despu�s</li><li>Tendr�s agujetas pero no pasa nada</li><li>Espera un mes o dos para los primeros resultados</li><li>Paciencia si quieres adelgazar</li></ol></div></div>" /> 
+<property name="finalMode" value="true" /> 
+<property name="taboo" value="false" /> 
+<property name="followUps" > 
+<list> 
+</list> 
+</property> 
+</bean>
+<bean id="Article4" class="domain.Article"> 
+<property name="title" value="5 consejos para perder peso corriendo" /> 
+<property name="summary" value="Con estos cinco consejos y un poco de constancia conseguir�s bajar de peso con nuestro hobby favorito." /> 
+<property name="body" value="<div>S�lo el 10% de los que pierden peso con ayuda de la carrera conservan su 'nuevo' cuerpo delgado durante m�s de cuatro o cinco a�os �y qu� pasa con el 90% restante?</div><div><br /></div><div><br /></div><div>1. Hazte m�s millas</div><div>De entrada no hay nada m�s sencillo que aumentar la cantidad de kil�metros que haces por semana para lograr un balance cal�rico negativo en tu cuenta particular.</div><div><br /></div><div>Basta con que acumules de 8 a 15 km para quemar de 500 a 900 kcal extra. Es algo m�s de lo que parece a primera vista: cuantos m�s kil�metros hagas, m�s entrenado estar� tu cuerpo para conservar los hidratos de carbono y usar la grasa como energ�a, vamos que te conviertes en un ?quemagrasas? m�s eficiente.</div><div><br /></div><div>2. Rodajes largos</div><div><br /></div><div>rodaje largo por semana, como parte de tu entrenamiento. De entrada, durante el mismo consumes esas 60 kcal / km aproximadas, que suponen, en 20 km la espectacular cifra de 1.200 kcal. Pero adem�s est� el famoso aumento metab�lico post ejercicio.</div><div><br /></div><div>Despu�s del ejercicio, tu cuerpo contin�a consumiendo m�s calor�as. Cuanto m�s largo haya sido el entrenamiento, mayor ser� el tiempo que se prolongue este estado de "aumento metab�lico".</div><div><br /></div><div>- Realiza un rodaje largo a la semana a un ritmo dos minutos por kil�metro m�s lento que el que llevar�as para correr 5 km. Vete aumentando su duraci�n 5 � 10 minutos cada semana durante un mes, descansa de rodaje largo una semana y contin�a la misma pauta. No debes superar con este entrenamiento el 30 % de los kil�metros semanales.</div><div><br /></div><div>3. Sube el ritmo</div><div><br /></div><div>acelerar el ritmo hasta que te encuentres pr�ximo a tu umbral anaer�bico. Si mantienes los tiempos de carrera, el total de calor�as consumidas es mayor que a ritmos m�s lentos.</div><div><br /></div><div>Adem�s, est�s entrenando tu capacidad aer�bica con lo que elevas tu umbral y cada vez podr�s correr m�s deprisa ?y gastar m�s calor�as-.</div><div><br /></div><div>- Realiza cada semana una sesi�n de entrenamiento del umbral anaer�bico. El ritmo que tienes que llevar debe ser duro pero sin sufrir en exceso. Como el que llevar�as para correr 10 km si has empezado a entrenar recientemente o algo m�s lento si ya eres un corredor bien entrenado (y corres un 10.000 deprisa). Te proponemos estas sesiones, para elegir:</div><div><br /></div><div>- Tres o cuatro series de 1.500 m en tu umbral anaer�bico con un minuto de descanso entre series.</div><div><br /></div><div>- Entre 15 y 20 minutos ligeramente por debajo de tu umbral</div><div><br /></div>" /> 
+<property name="finalMode" value="false" /> 
+<property name="taboo" value="false" /> 
+<property name="followUps" > 
+<list> 
+</list> 
+</property> 
+</bean>
+
+
+ <!-- %%%%%%  domain.Configuration %%%%%% --> 
+<bean id="Configuration1" class="domain.Configuration"> 
+<property name="cookies_eng" value="This page uses cookies for its internal operations, by continuing, we will assume that you accept these cookies." /> 
+<property name="cookies_es" value="Esta pagina usa cookies para realizar su correcto funcionamiento, si contin�a navegando, asumiremos que acepta estas cookies." /> 
+<property name="businessNameFirst" value="Acme" /> 
+<property name="businessNameLast" value="Newspaper" /> 
+<property name="pageSize" value="5" /> 
+<property name="tabooWords" > 
+<list> 
+<value>viagra</value> 
+<value>cialis</value> 
+<value>sex</value> 
+<value>sexo</value> 
+</list> 
+</property> 
+</bean>
+
+
+ <!-- = = = = = = DATATYPES = = = = = = = --> 
 </beans>
