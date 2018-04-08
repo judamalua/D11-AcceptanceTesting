@@ -73,6 +73,17 @@
 		<security:intercept-url pattern="/article/display.do" access="permitAll" requires-channel="https"  />
 		<security:intercept-url pattern="/article/user/**" access="hasRole('USER')" requires-channel="https"  />
 		
+		<security:intercept-url pattern="/followUp/user/**" access="hasRole('USER')" requires-channel="https" /> 
+		<security:intercept-url pattern="/followUp/admin/**" access="hasRole('ADMIN')" requires-channel="https" /> 
+		<security:intercept-url pattern="/followUp/display.do" access="permitAll" requires-channel="https" />  
+		
+		<security:intercept-url pattern="/newspaper/admin/delete.do" access="hasRole('ADMIN')" /> 
+  		<security:intercept-url pattern="/article/admin/delete.do" access="hasRole('ADMIN')" />
+  		<security:intercept-url pattern="/chirp/admin/delete.do" access="hasRole('ADMIN')" />
+  		
+		<security:intercept-url pattern="/newspaper/customer/subscribe.do" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/newspaper/customer/ajax.do" access="hasRole('CUSTOMER')" /> 
+  		
 		<security:intercept-url pattern="/dashboard/admin/**" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/configuration/admin/**" access="hasRole('ADMIN')" />

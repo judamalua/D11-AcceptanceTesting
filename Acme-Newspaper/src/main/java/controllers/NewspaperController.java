@@ -83,6 +83,7 @@ public class NewspaperController extends AbstractController {
 				publisher = this.userService.findUserByNewspaper(newspaper.getId());
 				ownNewspapers.add(actor.equals(publisher));
 			}
+
 			result.addObject("ownNewspaper", ownNewspapers);
 		}
 		result.addObject("newspapers", newspapers.getContent());
@@ -91,7 +92,6 @@ public class NewspaperController extends AbstractController {
 		result.addObject("requestUri", "newspaper/user/list.do?");
 		return result;
 	}
-
 	@RequestMapping("/display")
 	public ModelAndView display(@RequestParam final Integer newspaperId, @RequestParam(required = true, defaultValue = "0") final Integer pageArticle) {
 		ModelAndView result;
@@ -119,6 +119,7 @@ public class NewspaperController extends AbstractController {
 
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
+
 				for (final Article article : articles.getContent()) {
 					writer = this.userService.findUserByArticle(article.getId());
 					ownArticles.add(writer.equals(actor));

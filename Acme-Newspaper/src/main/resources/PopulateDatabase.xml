@@ -59,6 +59,18 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="UserAccount5" class="security.UserAccount">
+		<property name="username" value="customer1" />
+		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 	<!-- Other domain beans come here -->
 
@@ -115,7 +127,16 @@
 			</list> 
 		</property>
 	</bean>
-
+<!-- %%%% Customers %%%%% -->
+	<bean id="Customer1" class="domain.Customer">
+		<property name="name" value="Customer 1" />
+		<property name="surname" value="Customer" />
+		<property name="email" value="user1@mail.com" />
+		<property name="birthDate" value="1987/04/11" />
+		<property name="phoneNumber" value="635587789" />
+		<property name="postalAddress" value="San Antion Spurs Street" />
+		<property name="userAccount" ref="UserAccount5" />
+	</bean>
 	<!-- %%%%%% domain.Slider %%%%%% -->
 	<bean id="Slider1" class="domain.Slider">
 		<property name="title_en" value="Welcome to Sample Project 1.14!" />
@@ -157,5 +178,13 @@
 		<property name="businessNameFirst" value="Acme" />
 		<property name="businessNameLast" value="Newspaper" />
 		<property name="pageSize" value="5" />
+		<property name="tabooWords">
+			<list>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>sex</value>
+				<value>sexo</value>
+			</list>
+		</property>
 	</bean>
 </beans>

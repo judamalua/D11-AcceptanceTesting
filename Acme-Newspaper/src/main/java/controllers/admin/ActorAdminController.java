@@ -25,7 +25,7 @@ import services.ActorService;
 import services.AdminService;
 import controllers.AbstractController;
 import domain.Admin;
-import forms.UserAdminForm;
+import forms.UserCustomerAdminForm;
 
 @Controller
 @RequestMapping("/actor/admin")
@@ -54,9 +54,9 @@ public class ActorAdminController extends AbstractController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView registerAdmin() {
 		ModelAndView result;
-		UserAdminForm admin;
+		UserCustomerAdminForm admin;
 
-		admin = new UserAdminForm();
+		admin = new UserCustomerAdminForm();
 
 		result = this.createEditModelAndViewRegister(admin);
 
@@ -77,7 +77,7 @@ public class ActorAdminController extends AbstractController {
 	public ModelAndView editUser() {
 		ModelAndView result;
 		Admin admin;
-		final UserAdminForm adminForm;
+		final UserCustomerAdminForm adminForm;
 
 		admin = (Admin) this.actorService.findActorByPrincipal();
 		Assert.notNull(admin);
@@ -96,7 +96,7 @@ public class ActorAdminController extends AbstractController {
 	 * @author Luis
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerAdministrator(@ModelAttribute("admin") final UserAdminForm actor, final BindingResult binding) {
+	public ModelAndView registerAdministrator(@ModelAttribute("admin") final UserCustomerAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
 		Authority auth;
 		Admin admin = null;
@@ -138,7 +138,7 @@ public class ActorAdminController extends AbstractController {
 	 * @author Luis
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView updateAdministrator(@ModelAttribute("actor") final UserAdminForm actor, final BindingResult binding) {
+	public ModelAndView updateAdministrator(@ModelAttribute("actor") final UserCustomerAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
 		Admin admin = null;
 
@@ -160,14 +160,14 @@ public class ActorAdminController extends AbstractController {
 	}
 	// Ancillary methods --------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final UserAdminForm admin) {
+	protected ModelAndView createEditModelAndView(final UserCustomerAdminForm admin) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(admin, null);
 
 		return result;
 	}
-	protected ModelAndView createEditModelAndViewRegister(final UserAdminForm admin) {
+	protected ModelAndView createEditModelAndViewRegister(final UserCustomerAdminForm admin) {
 		ModelAndView result;
 
 		result = this.createEditModelAndViewRegister(admin, null);
@@ -175,7 +175,7 @@ public class ActorAdminController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final UserAdminForm admin, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final UserCustomerAdminForm admin, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/edit");
@@ -186,7 +186,7 @@ public class ActorAdminController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndViewRegister(final UserAdminForm admin, final String messageCode) {
+	protected ModelAndView createEditModelAndViewRegister(final UserCustomerAdminForm admin, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("admin/register");

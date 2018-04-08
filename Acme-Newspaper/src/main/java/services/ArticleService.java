@@ -7,15 +7,19 @@ import java.util.HashSet;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.ArticleRepository;
+import domain.Actor;
 import domain.Article;
 import domain.FollowUp;
 import domain.Newspaper;
+import domain.User;
 
 @Service
 @Transactional
@@ -32,6 +36,9 @@ public class ArticleService {
 
 	@Autowired
 	private NewspaperService	newspaperService;
+
+	@Autowired
+	private ActorService		actorService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -71,7 +78,13 @@ public class ArticleService {
 		Assert.notNull(article);
 
 		Article result;
+		boolean taboo;
 
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof User) {
+			taboo = this.actorService.checkSpamWords(article.getTitle() + " " + article.getSummary() + " " + article.getBody());
+			article.setTaboo(taboo);
+		}
 		result = this.articleRepository.save(article);
 
 		newspaper.getArticles().remove(article);
@@ -90,6 +103,11 @@ public class ArticleService {
 		Assert.isTrue(this.articleRepository.exists(article.getId()));
 
 		Newspaper newspaper;
+		Actor actor;
+		actor = this.actorService.findActorByPrincipal();
+
+		if (actor instanceof User)
+			Assert.isTrue(!article.getFinalMode());
 
 		newspaper = this.newspaperService.findNewspaperByArticle(article.getId());
 
@@ -99,7 +117,6 @@ public class ArticleService {
 		this.articleRepository.delete(article);
 
 	}
-
 	public Article reconstruct(final Article article, final BindingResult binding) {
 		Article result;
 		final Collection<FollowUp> followUps;
@@ -112,7 +129,7 @@ public class ArticleService {
 			pictureUrls = new HashSet<>();
 
 			result.setFollowUps(followUps);
-			result.setPictureUrls(pictureUrls);
+			result.setTaboo(false);
 
 		} else {
 			result = this.articleRepository.findOne(article.getId());
@@ -138,6 +155,15 @@ public class ArticleService {
 		String result;
 
 		result = this.articleRepository.getAverageFollowUpsPerArticle();
+
+		return result;
+	}
+
+	public Page<FollowUp> findFollowUpsByArticle(final Pageable pageable) {
+		Page<FollowUp> result;
+		Assert.notNull(pageable);
+
+		result = this.articleRepository.findFollowUpsByArticle(pageable);
 
 		return result;
 	}

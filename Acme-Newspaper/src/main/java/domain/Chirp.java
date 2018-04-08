@@ -25,6 +25,7 @@ public class Chirp extends DomainEntity {
 	private String	title;
 	private String	description;
 	private Date	moment;
+	private boolean	taboo;
 
 
 	@SafeHtml
@@ -56,6 +57,14 @@ public class Chirp extends DomainEntity {
 
 	public void setMoment(final Date moment) {
 		this.moment = moment;
+	}
+
+	public boolean isTaboo() {
+		return this.taboo;
+	}
+
+	public void setTaboo(final boolean taboo) {
+		this.taboo = taboo;
 	}
 
 	// Relationships ----------------------------------------------------------

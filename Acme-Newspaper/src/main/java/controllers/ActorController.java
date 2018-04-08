@@ -25,7 +25,7 @@ import services.ActorService;
 import services.UserService;
 import domain.Actor;
 import domain.User;
-import forms.UserAdminForm;
+import forms.UserCustomerAdminForm;
 
 @Controller
 @RequestMapping("/actor")
@@ -82,9 +82,9 @@ public class ActorController extends AbstractController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView registerExplorer() {
 		ModelAndView result;
-		UserAdminForm user;
+		UserCustomerAdminForm user;
 
-		user = new UserAdminForm();
+		user = new UserCustomerAdminForm();
 
 		result = this.createEditModelAndViewRegister(user);
 
@@ -102,7 +102,7 @@ public class ActorController extends AbstractController {
 	 * @author Luis
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerUser(@ModelAttribute("actor") final UserAdminForm actor, final BindingResult binding) {
+	public ModelAndView registerUser(@ModelAttribute("actor") final UserCustomerAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
 		Authority auth;
 		User user = null;
@@ -154,7 +154,7 @@ public class ActorController extends AbstractController {
 
 		return result;
 	}
-	protected ModelAndView createEditModelAndViewRegister(final UserAdminForm user) {
+	protected ModelAndView createEditModelAndViewRegister(final UserCustomerAdminForm user) {
 		ModelAndView result;
 
 		result = this.createEditModelAndViewRegister(user, null);
@@ -162,7 +162,7 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndViewRegister(final UserAdminForm user, final String messageCode) {
+	protected ModelAndView createEditModelAndViewRegister(final UserCustomerAdminForm user, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("user/register");

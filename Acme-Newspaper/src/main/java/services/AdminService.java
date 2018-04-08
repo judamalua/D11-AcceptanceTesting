@@ -13,7 +13,7 @@ import org.springframework.validation.Validator;
 
 import repositories.AdminRepository;
 import domain.Admin;
-import forms.UserAdminForm;
+import forms.UserCustomerAdminForm;
 
 @Service
 @Transactional
@@ -89,7 +89,7 @@ public class AdminService {
 	}
 
 	// Other business methods
-	public Admin reconstruct(final UserAdminForm userAdminForm, final BindingResult binding) {
+	public Admin reconstruct(final UserCustomerAdminForm userAdminForm, final BindingResult binding) {
 		Admin result;
 
 		if (userAdminForm.getId() == 0) {

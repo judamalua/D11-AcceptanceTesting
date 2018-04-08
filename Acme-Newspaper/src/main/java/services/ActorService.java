@@ -19,7 +19,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Admin;
-import forms.UserAdminForm;
+import forms.UserCustomerAdminForm;
 
 @Service
 @Transactional
@@ -28,12 +28,13 @@ public class ActorService {
 	// Managed repository --------------------------------------------------
 
 	@Autowired
-	private ActorRepository	actorRepository;
-
+	private ActorRepository			actorRepository;
 
 	// Supporting services --------------------------------------------------
 
-	// Simple CRUD methods --------------------------------------------------
+	@Autowired
+	private ConfigurationService	configurationService;
+
 
 	// Simple CRUD methods --------------------------------------------------
 	/**
@@ -260,10 +261,10 @@ public class ActorService {
 	 * 
 	 * @author Juanmi
 	 */
-	public UserAdminForm deconstruct(final Actor actor) {
-		UserAdminForm result;
+	public UserCustomerAdminForm deconstruct(final Actor actor) {
+		UserCustomerAdminForm result;
 
-		result = new UserAdminForm();
+		result = new UserCustomerAdminForm();
 
 		result.setId(actor.getId());
 		result.setVersion(actor.getVersion());
@@ -273,6 +274,18 @@ public class ActorService {
 		result.setEmail(actor.getEmail());
 		result.setBirthDate(actor.getBirthDate());
 
+		return result;
+	}
+
+	public boolean checkSpamWords(final String stringToCheck) {
+		boolean result = false;
+
+		final Collection<String> spamWords = this.configurationService.findConfiguration().getTabooWords();
+		for (final String spamWord : spamWords) {
+			result = stringToCheck.toLowerCase().contains(spamWord);
+			if (result)
+				break;
+		}
 		return result;
 	}
 }

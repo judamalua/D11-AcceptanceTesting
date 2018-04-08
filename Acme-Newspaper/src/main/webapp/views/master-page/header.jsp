@@ -44,6 +44,9 @@
                     <li class="divider"></li>
                     <li><a href="actor/user/list-followed.do"><spring:message
                                 code="master.page.list.followed" /></a></li>
+                    <li class="divider"></li>
+                    <li><a href="followUp/user/list-created.do"><spring:message
+                                code="master.page.followUp.list-created" /></a></li>
 					<li class="divider"></li>
                     <li><a href="actor/user/list-followers.do"><spring:message
                                 code="master.page.list.followers" /></a></li>
@@ -78,11 +81,28 @@
                     data-activates="dropdownAdminFunctions"><spring:message
                             code="master.page.admin" /><i class="material-icons right">arrow_drop_down</i></a></li>
             </security:authorize>
+            
+            <security:authorize access="hasRole('CUSTOMER')">
+                <!-- Dropdown Structure -->
+                <ul id="dropdownCustomerFunctions" class="dropdown-content">
+                    <li><a class="fNiv" href="newspaper/customer/list.do"> <spring:message
+                            code="master.page.subscribedList" /></a></li>
+                    <li class="divider"></li>
+                </ul>
+
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-button" href="#!"
+                    data-activates="dropdownCustomerFunctions"><spring:message
+                            code="master.page.customer" /><i class="material-icons right">arrow_drop_down</i></a></li>
+            </security:authorize>
+            
             <security:authorize access="isAnonymous()">
                 <li><a class="fNiv" href="security/login.do"> <spring:message
                             code="master.page.login" /></a></li>
                 <li><a class="fNiv" href="actor/register.do"> <spring:message
                             code="master.page.registerUser" /></a></li>
+                <li><a class="fNiv" href="actor/customer/register.do"> <spring:message
+                            code="master.page.registerCustomer" /></a></li>
                 <li><a class="fNiv" href="user/list.do">
 						<spring:message code="master.page.userList" />
 				</a></li>
@@ -140,6 +160,26 @@
 
             </security:authorize>
 
+			<security:authorize access="hasRole('CUSTOMER')">
+				
+                <!-- Dropdown Structure -->
+                <ul id="dropdownCustomerProfile" class="dropdown-content">
+                   	<li><a href="actor/customer/edit.do"><spring:message
+                                code="master.page.actorEdit" /></a></li>
+                    <li class="divider"></li>
+                    <li><a href="actor/display.do"><spring:message
+                                code="master.page.actorProfile" /></a></li>
+                    <li class="divider"></li>
+                    <li><a href="j_spring_security_logout"><spring:message
+                                code="master.page.logout" /> </a></li>
+                </ul>
+
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-button" href="#!"
+                    data-activates="dropdownCustomerProfile"><security:authentication
+                            property="principal.username" /><i class="material-icons right">arrow_drop_down</i></a></li>
+
+            </security:authorize>
 
         </security:authorize>
         </ul>

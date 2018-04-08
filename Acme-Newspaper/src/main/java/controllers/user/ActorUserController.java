@@ -30,7 +30,7 @@ import controllers.AbstractController;
 import domain.Chirp;
 import domain.Configuration;
 import domain.User;
-import forms.UserAdminForm;
+import forms.UserCustomerAdminForm;
 
 @Controller
 @RequestMapping("/actor/user")
@@ -62,7 +62,7 @@ public class ActorUserController extends AbstractController {
 	public ModelAndView editUser() {
 		ModelAndView result;
 		User user;
-		UserAdminForm actorForm;
+		UserCustomerAdminForm actorForm;
 
 		user = (User) this.actorService.findActorByPrincipal();
 		Assert.notNull(user);
@@ -82,7 +82,7 @@ public class ActorUserController extends AbstractController {
 	 */
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
 	public ModelAndView followOrUnfollow(@RequestParam final int userId, @RequestParam(defaultValue = "false") final boolean followedView, @RequestParam(defaultValue = "false") final boolean followersView) {
-		ModelAndView result = new ModelAndView("redirect:/user/list.do");
+		ModelAndView result;
 		User user;
 
 		try {
@@ -90,15 +90,15 @@ public class ActorUserController extends AbstractController {
 
 			this.userService.followOrUnfollowUser(user);
 
+			// If we come here since the standard list of users, we are redirected there
+			result = new ModelAndView("redirect:/user/list.do");
+
 			// If we come here since the list of the followed users, we are redirected there
 			if (followedView && !followersView)
 				result = new ModelAndView("redirect:list-followed.do");
 			else if (!followedView && followersView)
 				// If we come here since the list of the followers, we are redirected there
 				result = new ModelAndView("redirect:list-followers.do");
-			else
-				// If we come here since the standard list of users, we are redirected there
-				result = new ModelAndView("redirect:/user/list.do");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -231,7 +231,7 @@ public class ActorUserController extends AbstractController {
 	 * @author Luis
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView updateUser(@ModelAttribute("actor") final UserAdminForm actor, final BindingResult binding) {
+	public ModelAndView updateUser(@ModelAttribute("actor") final UserCustomerAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
 		User user = null;
 
@@ -254,7 +254,7 @@ public class ActorUserController extends AbstractController {
 
 	// Ancillary methods --------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final UserAdminForm user) {
+	protected ModelAndView createEditModelAndView(final UserCustomerAdminForm user) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(user, null);
@@ -262,7 +262,7 @@ public class ActorUserController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final UserAdminForm user, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final UserCustomerAdminForm user, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/edit");

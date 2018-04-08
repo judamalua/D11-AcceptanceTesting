@@ -48,15 +48,20 @@ public class ArticleUserController extends AbstractController {
 		Article article;
 		Actor actor;
 		User writer;
+		Newspaper newspaper;
 
 		try {
 			actor = this.actorService.findActorByPrincipal();
 			article = this.articleService.findOne(articleId);
 			writer = this.userService.findUserByArticle(article.getId());
+			newspaper = this.newspaperService.findNewspaperByArticle(article.getId());
 
+			Assert.isTrue(newspaper.getPublicationDate() == null);
 			Assert.isTrue(actor.equals(writer));
+			Assert.isTrue(!article.getFinalMode());
 
 			result = this.createEditModelAndView(article);
+			result.addObject("newspaperId", newspaper.getId());
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
 		}
@@ -67,10 +72,14 @@ public class ArticleUserController extends AbstractController {
 	public ModelAndView create(@RequestParam final Integer newspaperId) {
 		ModelAndView result;
 		Article article;
+		Newspaper newspaper;
 
 		try {
 			this.actorService.checkUserLogin();
 			article = this.articleService.create();
+			newspaper = this.newspaperService.findOne(newspaperId);
+
+			Assert.isTrue(newspaper.getPublicationDate() == null);
 
 			result = this.createEditModelAndView(article);
 			result.addObject("newspaperId", newspaperId);
@@ -84,7 +93,7 @@ public class ArticleUserController extends AbstractController {
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("article") Article article, @ModelAttribute("newspaperId") final Integer newspaperId, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("newspaperId") final Integer newspaperId, @ModelAttribute("article") Article article, final BindingResult binding) {
 		ModelAndView result;
 		User actor;
 		User writer;
@@ -92,9 +101,10 @@ public class ArticleUserController extends AbstractController {
 		Newspaper newspaper;
 
 		article = this.articleService.reconstruct(article, binding);
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(article, "article.params.error");
-		else
+			result.addObject("newspaperId", newspaperId);
+		} else
 			try {
 				actor = (User) this.actorService.findActorByPrincipal();
 				newspaper = this.newspaperService.findOne(newspaperId);

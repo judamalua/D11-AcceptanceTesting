@@ -54,7 +54,7 @@ function checkCreditCard() {
 				}
 			}
 		};
-		xhttp.open("GET", getMainDomain() + "request/user/ajaxCard.do?cookieToken=" + cardCookie, true);
+		xhttp.open("GET", getMainDomain() + "newspaper/customer/ajaxCard.do?cookieToken=" + cardCookie, true);
 		xhttp.send();
 	}
 };

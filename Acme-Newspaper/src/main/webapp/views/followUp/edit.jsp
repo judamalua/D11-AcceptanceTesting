@@ -30,7 +30,14 @@
 
 	<acme:textbox code="followUp.title" path="text" required="true"/>
 	<acme:textbox code="followUp.publicationDate" path="text" required="true"/>
-	<acme:textbox code="followUp.sumary" path="text" required="true"/>
+	<div class="form-group">
+			<div class="row">
+				<div class="input-field col s9">
+					<form:textarea path="text" class="widgEditor"/>
+					<form:errors path="text" cssClass="error" />
+				</div>
+			</div>
+		</div>
 	<acme:textarea code="followUp.text" path="text" required="true"/>
 	<acme:textarea code="followUp.pictureUrls" path="pictureUrls"/>
 

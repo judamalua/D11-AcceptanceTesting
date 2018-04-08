@@ -11,15 +11,27 @@
 package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.ArticleService;
+import services.ConfigurationService;
+import services.NewspaperService;
 import services.UserService;
+import domain.Actor;
 import domain.Article;
+import domain.Configuration;
+import domain.CreditCard;
+import domain.Customer;
+import domain.FollowUp;
+import domain.Newspaper;
 import domain.User;
 
 @Controller
@@ -27,10 +39,19 @@ import domain.User;
 public class ArticleController extends AbstractController {
 
 	@Autowired
-	private ArticleService	articleService;
+	private ArticleService			articleService;
 
 	@Autowired
-	private UserService		userService;
+	private NewspaperService		newspaperService;
+
+	@Autowired
+	private UserService				userService;
+
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -40,10 +61,16 @@ public class ArticleController extends AbstractController {
 	}
 
 	@RequestMapping("/display")
-	public ModelAndView display(@RequestParam final Integer articleId) {
+	public ModelAndView display(@RequestParam final Integer articleId, @RequestParam(required = false, defaultValue = "0") final Integer page) {
 		ModelAndView result;
 		Article article;
 		final User writer;
+		Page<FollowUp> followUps;
+		final Pageable pageable;
+		Newspaper newspaper;
+		final Configuration configuration;
+		Actor actor;
+		boolean validCustomer = false;
 
 		try {
 
@@ -51,9 +78,31 @@ public class ArticleController extends AbstractController {
 			article = this.articleService.findOne(articleId);
 			Assert.notNull(article);
 			writer = this.userService.findUserByArticle(articleId);
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
+			newspaper = this.newspaperService.findNewspaperByArticle(article.getId());
+
+			if (this.actorService.getLogged()) {
+				actor = this.actorService.findActorByPrincipal();
+				if (!newspaper.getPublicNewspaper()) {
+					Assert.isTrue(actor instanceof Customer);
+					for (final CreditCard creditCard : newspaper.getCreditCards()) {
+						validCustomer = creditCard.getCustomer().equals(actor);
+						if (validCustomer)
+							break;
+					}
+					Assert.isTrue(validCustomer);
+				}
+			} else
+				Assert.isTrue(newspaper.getPublicNewspaper());
+
+			followUps = this.articleService.findFollowUpsByArticle(pageable);
 
 			result.addObject("writer", writer);
 			result.addObject("article", article);
+			result.addObject("followUps", followUps);
+			result.addObject("page", page);
+			result.addObject("pageNum", followUps.getTotalPages());
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -103,6 +105,13 @@ public class FollowUpService {
 		Article article;
 		User user;
 		Newspaper newspaper;
+		boolean taboo;
+
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof User) {
+			taboo = this.actorService.checkSpamWords(followUp.getTitle() + " " + followUp.getSummary() + " " + followUp.getText());
+			followUp.setTaboo(taboo);
+		}
 
 		result = this.followUpRepository.save(followUp);
 		article = this.articleService.getArticleByFollowUp(followUp);
@@ -168,7 +177,6 @@ public class FollowUpService {
 			result = this.followUpRepository.findOne(followUp.getId());
 			result.setUser(followUp.getUser());
 			result.setText(followUp.getText());
-			result.setPictureUrls(followUp.getPictureUrls());
 			result.setPublicationDate(followUp.getPublicationDate());
 			result.setTitle(followUp.getTitle());
 			result.setSummary(followUp.getSummary());
@@ -176,9 +184,21 @@ public class FollowUpService {
 		this.validator.validate(result, binding);
 		return result;
 	}
-
 	/**
 	 * 
+	 * @author Luis
+	 */
+	public Page<FollowUp> findCreatedFollowUps(final int UserId, final Pageable pageable) {
+		Page<FollowUp> result;
+
+		Assert.isTrue(UserId != 0);
+		Assert.notNull(pageable);
+
+		result = this.followUpRepository.findCreatedFollowUps(UserId, pageable);
+
+		return result;
+	}
+	/**
 	 * 
 	 * 
 	 * @author Luis
