@@ -10,6 +10,7 @@
 
 package controllers;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -79,7 +80,7 @@ public class NewspaperController extends AbstractController {
 	// Listing  ---------------------------------------------------------------		
 
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) {
+	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) throws IllegalArgumentException, IllegalAccessException, IOException {
 		final ModelAndView result;
 		final Page<Newspaper> newspapers;
 		final Pageable pageable;
@@ -118,7 +119,7 @@ public class NewspaperController extends AbstractController {
 
 		final HashMap<String, Integer> countDataTypesName = new HashMap<String, Integer>(); //String clase
 
-		final EntityManager et = Persistence.createEntityManagerFactory("Acme-Explorer").createEntityManager();
+		final EntityManager et = Persistence.createEntityManagerFactory("Acme-Newspaper").createEntityManager();
 
 		for (final EntityType<?> entity : et.getMetamodel().getEntities()) {
 
