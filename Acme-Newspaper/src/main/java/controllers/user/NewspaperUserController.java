@@ -182,7 +182,7 @@ public class NewspaperUserController extends AbstractController {
 				actor = this.actorService.findActorByPrincipal();
 
 				Assert.isTrue(actor.equals(publisher));
-				result = new ModelAndView("redirect:/newspaper/list.do");
+				result = new ModelAndView("redirect:/newspaper/user/list.do?published=false");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(newspaper, "newspaper.commit.error");
