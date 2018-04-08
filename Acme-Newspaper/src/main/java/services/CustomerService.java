@@ -142,11 +142,11 @@ public class CustomerService {
 	 * @return The ratio of subscribers per private newspaper versus the total number of customers.
 	 * @author Antonio
 	 */
-	//public String getRatioSubscribersPrivateNewspaperVSTotalCustomers() {
-	//String result;
-	//
-	//result = this.customerRepository.getRatioSubscribersPrivateNewspaperVSTotalCustomers();
-	//
-	//	return result;
-	//}
+	public String getRatioSubscribersPrivateNewspaperVSTotalCustomers() {
+		String result;
+
+		result = this.customerRepository.getRatioSubscribersPrivateNewspaperVSTotalCustomers();
+
+		return result;
+	}
 }

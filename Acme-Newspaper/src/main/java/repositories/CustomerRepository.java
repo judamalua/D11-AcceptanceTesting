@@ -2,6 +2,7 @@
 package repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Customer;
@@ -15,7 +16,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	 * @return The ratio of subscribers per private newspaper versus the total number of customers.
 	 * @author Antonio
 	 */
-	//TODO
-	//@Query("")
-	//String getRatioSubscribersPrivateNewspaperVSTotalCustomers();
+	@Query("select (select avg(n.creditCards.size)/count(n) from Newspaper n where n.publicNewspaper = FALSE)/count(c) from Customer c")
+	String getRatioSubscribersPrivateNewspaperVSTotalCustomers();
 }

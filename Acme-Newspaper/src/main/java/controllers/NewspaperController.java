@@ -10,8 +10,25 @@
 
 package controllers;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.metamodel.EntityType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import services.ActorService;
 import services.ConfigurationService;
 import services.NewspaperService;
@@ -32,6 +50,7 @@ import domain.Article;
 import domain.Configuration;
 import domain.CreditCard;
 import domain.Customer;
+import domain.DomainEntity;
 import domain.Newspaper;
 import domain.User;
 
@@ -61,7 +80,7 @@ public class NewspaperController extends AbstractController {
 	// Listing  ---------------------------------------------------------------		
 
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) {
+	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) throws IllegalArgumentException, IllegalAccessException, IOException {
 		final ModelAndView result;
 		final Page<Newspaper> newspapers;
 		final Pageable pageable;
@@ -89,7 +108,7 @@ public class NewspaperController extends AbstractController {
 		result.addObject("newspapers", newspapers.getContent());
 		result.addObject("page", page);
 		result.addObject("pageNum", newspapers.getTotalPages());
-		result.addObject("requestUri", "newspaper/user/list.do?");
+		result.addObject("requestUri", "newspaper/list.do?");
 		return result;
 	}
 	@RequestMapping("/display")

@@ -44,7 +44,7 @@ public class DashboardAdminController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		String newspapersInfoFromUsers, articlesInfoFromUsers, articlesInfoFromNewspapers, ratioCreatedNewspapers, ratioCreatedArticles, chirpsInfoFromUsers, ratioUsersPostedAbove75PercentAverageChirpsPerUser, ratioPublicNewspapers, averageArticlesPerPrivateNewspapers, averageArticlesPerPublicNewspapers;
-		String averageFollowUpsPerArticle, averageFollowUpPerArticleOneWeek, averageFollowUpPerArticleTwoWeek;
+		String averageFollowUpsPerArticle, averageFollowUpPerArticleOneWeek, averageFollowUpPerArticleTwoWeek, ratioSubscribersPrivateNewspaperVSTotalCustomers;
 		String averageRatioPrivateVSPublicNewspaperPublisher;
 		Collection<Newspaper> newspaperWith10PercentMoreArticlesThanAverage, newspaperWith10PercentLessArticlesThanAverage;
 
@@ -68,8 +68,7 @@ public class DashboardAdminController extends AbstractController {
 		ratioPublicNewspapers = this.newspaperService.getRatioPublicNewspapers();
 		averageArticlesPerPrivateNewspapers = this.newspaperService.getAverageArticlesPerPrivateNewspapers();
 		averageArticlesPerPublicNewspapers = this.newspaperService.getAverageArticlesPerPublicNewspapers();
-
-		//TODO A4 query
+		ratioSubscribersPrivateNewspaperVSTotalCustomers = this.customerService.getRatioSubscribersPrivateNewspaperVSTotalCustomers();
 		averageRatioPrivateVSPublicNewspaperPublisher = this.newspaperService.getAverageRatioPrivateVSPublicNewspaperPublisher();
 
 		result = new ModelAndView("dashboard/list");
@@ -107,7 +106,7 @@ public class DashboardAdminController extends AbstractController {
 		result.addObject("averageArticlesPerPrivateNewspapers", averageArticlesPerPrivateNewspapers);
 		result.addObject("averageArticlesPerPublicNewspapers", averageArticlesPerPublicNewspapers);
 
-		//A4 query
+		result.addObject("ratioSubscribersPrivateNewspaperVSTotalCustomers", ratioSubscribersPrivateNewspaperVSTotalCustomers);
 
 		result.addObject("averageRatioPrivateVSPublicNewspaperPublisher", averageRatioPrivateVSPublicNewspaperPublisher);
 
