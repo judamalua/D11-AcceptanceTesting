@@ -86,8 +86,8 @@ public class NewspaperCustomerController extends AbstractController {
 			Assert.isTrue(this.creditCardService.creditCardSubscribed(newspaper.getId(), this.actorService.findActorByPrincipal().getId()) == null);//Tests that the user is not already subscribed
 			creditCard = this.creditCardService.create();
 			result = this.createEditModelAndView(creditCard, newspaper);
-		} catch (final Exception e) {
-			result = new ModelAndView("rediect:/misc/403");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;
