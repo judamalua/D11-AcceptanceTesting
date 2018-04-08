@@ -23,13 +23,18 @@
 
 <p><em><spring:message code = "form.required.params"/></em></p>
 
-<form:form id="form" action="${requestURI}" modelAttribute="followUp">
+<form:form id="form" action="followUp/user/edit.do" modelAttribute="followUp">
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="user"/>
+	<input type="hidden" name="articleId" value="${articleId}"/>
 
-	<acme:textbox code="followUp.title" path="text" required="true"/>
-	<acme:textbox code="followUp.publicationDate" path="text" required="true"/>
+	
+	<acme:textbox code="followUp.title" path="title" required="true"/>
+	
+	<acme:textbox code="followUp.summary" path="summary" required="true"/>
+	
+	
+	
 	<div class="form-group">
 			<div class="row">
 				<div class="input-field col s9">
@@ -37,13 +42,13 @@
 					<form:errors path="text" cssClass="error" />
 				</div>
 			</div>
-		</div>
-	<acme:textarea code="followUp.text" path="text" required="true"/>
-	<acme:textarea code="followUp.pictureUrls" path="pictureUrls"/>
+	</div>
+	
+	
 
 	<acme:submit name="save" code="followUp.save"/>
 	<acme:cancel url="followUp/user/list.do" code="followUp.cancel"/>
-	
+	<acme:button  code="followUp.delete" url="followUp/user/delete.do?followUpId=+${followUp.id}"/>
 	
 	
 		

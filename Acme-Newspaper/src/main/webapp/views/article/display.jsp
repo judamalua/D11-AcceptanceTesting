@@ -68,7 +68,7 @@
 <acme:pagination page="${page}" pageNum="${pageNum}"
 	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&page=" />
 	
-<display:table name="${followUps}" id="article"
+<display:table name="${followUps}" id="followUp"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleFollowUp}" property="title" sortable="true"/>
 	<display:column property="publicationDate" format="${formatMoment}" title="${titlePublicationFollowUp}" />
