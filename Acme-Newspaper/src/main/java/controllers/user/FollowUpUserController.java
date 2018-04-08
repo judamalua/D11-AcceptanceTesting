@@ -106,15 +106,18 @@ public class FollowUpUserController extends AbstractController {
 		FollowUp followUp;
 		Actor actor;
 		User creator;
+		Integer articleId;
 
 		try {
 			actor = this.actorService.findActorByPrincipal();
 			followUp = this.followUpService.findOne(followUpId);
+			articleId = this.articleService.getArticleByFollowUp(followUp).getId();
 			creator = followUp.getUser();
 
 			Assert.isTrue(actor.equals(creator));
 
 			result = this.createEditModelAndView(followUp);
+			result.addObject("articleId", articleId);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
 		}
@@ -132,7 +135,7 @@ public class FollowUpUserController extends AbstractController {
 
 			result = this.createEditModelAndView(followUp);
 			result.addObject("articleId", articleId);
-			result.addObject("requestURI", "followUp/user/edit.do?articleId=" + articleId);
+			result.addObject("requestURI", "followUp/user/edit.do");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
@@ -142,7 +145,7 @@ public class FollowUpUserController extends AbstractController {
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("followUp") FollowUp followUp, final BindingResult binding, @ModelAttribute("articleId") final Integer articleId) {
+	public ModelAndView save(@ModelAttribute("followUp") FollowUp followUp, final BindingResult binding, @RequestParam("articleId") final Integer articleId) {
 		ModelAndView result;
 		User actor;
 		User creator;

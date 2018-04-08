@@ -27,7 +27,7 @@
 
 <!-- Table -->
 
-<display:table name="ownFollowsUps" id="followUp"
+<display:table name="${ownFollowUps}" id="followUp"
 	requestURI="${requestUri}">
 
 	<display:column property="title" title="${titleName}" sortable="true" />

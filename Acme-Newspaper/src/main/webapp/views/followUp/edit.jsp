@@ -23,10 +23,10 @@
 
 <p><em><spring:message code = "form.required.params"/></em></p>
 
-<form:form id="form" action="${requestURI}" modelAttribute="followUp">
+<form:form id="form" action="followUp/user/edit.do" modelAttribute="followUp">
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	
+	<input type="hidden" name="articleId" value="${articleId}"/>
 
 	
 	<acme:textbox code="followUp.title" path="title" required="true"/>

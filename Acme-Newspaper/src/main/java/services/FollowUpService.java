@@ -121,7 +121,7 @@ public class FollowUpService {
 			article.getFollowUps().remove(followUp);
 		}
 
-		article.getFollowUps().add(followUp);
+		article.getFollowUps().add(result);
 		this.articleService.save(article, newspaper);
 		this.userService.save(user);
 

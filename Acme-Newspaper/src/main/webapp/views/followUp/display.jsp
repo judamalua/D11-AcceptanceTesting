@@ -32,25 +32,23 @@
 
 <!-- Display -->
 
-<h2>
-	<jstl:out value="${followUp.title}" />
-</h2>
-<br>
-<h4>
-	<spring:message code="followUp.publicationDate" />:<jstl:out value="${formatPublicationDate}" />
-</h4>
-<br />
 <h3>
-	<jstl:out value="${followUp.text}" />
+	<spring:message code="followUp.title" />:<jstl:out value="${followUp.title}" />
 </h3>
 <br>
+<h5>
+	<spring:message code="followUp.publicationDate" />:<jstl:out value="${formatPublicationDate}" />
+</h5>
+<br />
+<h5>
+	<jstl:out value="${followUp.text}" />
+</h5>
+<br>
 
-<h4>
+<h5>
 	<spring:message code="followUp.summary" />
-</h4>
-<p>
+</h5>
 	<jstl:out value="${followUp.summary}" />
-</p>
 <br />
 
 <h4>
@@ -60,20 +58,9 @@
 	<a href="user/display.do?userId=${creator.id}" ><jstl:out value="${creator.name}" /></a>
 </p>
 
-<!-- Displaying Pictures -->
-<h4>
-	<spring:message code="followUp.pictureUrls" />
-</h4>
 
-<jstl:forEach items="${followUp.pictureUrls}" var="picture">
-	<jstl:if test="${picture != \"\"}">
-	<div class="parallax-container">
-		<div class="parallax">
-			<img src="${picture}">
-		</div>
-	</div>
-</jstl:if>   
-</jstl:forEach>
+
+
 
 
 <security:authorize access="hasRole('ADMIN')">
