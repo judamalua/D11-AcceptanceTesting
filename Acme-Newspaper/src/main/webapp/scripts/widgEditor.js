@@ -38,14 +38,14 @@ widgToolbarItems.push("blockformat");
 /* Options on block format select element. Consists of string pairs (option value, option label) */
 var widgSelectBlockOptions = new Array();
 
-widgSelectBlockOptions.push("", "Change block type");
-widgSelectBlockOptions.push("<h1>", "Heading 1");
-widgSelectBlockOptions.push("<h2>", "Heading 2");
-widgSelectBlockOptions.push("<h3>", "Heading 3");
-widgSelectBlockOptions.push("<h4>", "Heading 4");
-widgSelectBlockOptions.push("<h5>", "Heading 5");
-widgSelectBlockOptions.push("<h6>", "Heading 6");
-widgSelectBlockOptions.push("<p>", "Paragraph");
+// widgSelectBlockOptions.push("", "Change block type");
+// widgSelectBlockOptions.push("<h1>", "Heading 1");
+// widgSelectBlockOptions.push("<h2>", "Heading 2");
+// widgSelectBlockOptions.push("<h3>", "Heading 3");
+// widgSelectBlockOptions.push("<h4>", "Heading 4");
+// widgSelectBlockOptions.push("<h5>", "Heading 5");
+// widgSelectBlockOptions.push("<h6>", "Heading 6");
+// widgSelectBlockOptions.push("<p>", "Paragraph");
 
 /*
  * If widgInsertParagraphs = true, when content is submitted paragraphs will be * inserted around text without a parent element. Mozilla does not * automatically do this, so if
@@ -59,7 +59,7 @@ var widgInsertParagraphs = true;
  * they wish to clean the content.
  */
 
-var widgAutoClean = false;
+var widgAutoClean = true;
 
 /***********************************************************************************************************************************************************************************
  * * END CONFIGURATION
@@ -716,6 +716,7 @@ widgEditor.prototype.writeDocument = function(documentContent) {
 /* Toolbar items */
 function widgToolbar(theEditor) {
 	var self = this;
+	var language = getCookie("language");
 
 	this.widgEditorObject = theEditor;
 
@@ -729,37 +730,66 @@ function widgToolbar(theEditor) {
 	for ( var i = 0; i < widgToolbarItems.length; i++) {
 		switch (widgToolbarItems[i]) {
 			case "bold":
-				this.addButton(this.theList.id + "ButtonBold", "widgButtonBold", "Bold", "bold");
+				if (language == "es") {
+					this.addButton(this.theList.id + "ButtonBold", "widgButtonBold", "Negrita", "bold");
+				} else {
+					this.addButton(this.theList.id + "ButtonBold", "widgButtonBold", "Bold", "bold");
+
+				}
 
 				break;
 
 			case "italic":
-				this.addButton(this.theList.id + "ButtonItalic", "widgButtonItalic", "Italic", "italic");
+				if (language == "es") {
+					this.addButton(this.theList.id + "ButtonItalic", "widgButtonItalic", "Cursiva", "italic");
+				} else {
+					this.addButton(this.theList.id + "ButtonItalic", "widgButtonItalic", "Italic", "italic");
+				}
 
 				break;
 
 			case "hyperlink":
-				this.addButton(this.theList.id + "ButtonLink", "widgButtonLink", "Hyperlink", "link");
+				if (language == "es") {
+					this.addButton(this.theList.id + "ButtonLink", "widgButtonLink", "Hipervínculo", "link");
+				} else {
+					this.addButton(this.theList.id + "ButtonLink", "widgButtonLink", "Hyperlink", "link");
+				}
 
 				break;
 
 			case "unorderedlist":
-				this.addButton(this.theList.id + "ButtonUnordered", "widgButtonUnordered", "Unordered List", "insertunorderedlist");
+				if (language == "es") {
+					this.addButton(this.theList.id + "ButtonUnordered", "widgButtonUnordered", "Lista No Ordenada", "insertunorderedlist");
+				} else {
+					this.addButton(this.theList.id + "ButtonUnordered", "widgButtonUnordered", "Unordered List", "insertunorderedlist");
+				}
 
 				break;
 
 			case "orderedlist":
-				this.addButton(this.theList.id + "ButtonOrdered", "widgButtonOrdered", "Ordered List", "insertorderedlist");
+				if (language == "es") {
+					this.addButton(this.theList.id + "ButtonOrdered", "widgButtonOrdered", "Lista Ordenada", "insertorderedlist");
+				} else {
+					this.addButton(this.theList.id + "ButtonOrdered", "widgButtonOrdered", "Ordered List", "insertorderedlist");
+				}
 
 				break;
 
 			case "image":
-				this.addButton(this.theList.id + "ButtonImage", "widgButtonImage", "Insert Image", "image");
+				if (language == "es") {
+					this.addButton(this.theList.id + "ButtonImage", "widgButtonImage", "Insertar Imagen", "image");
+				} else {
+					this.addButton(this.theList.id + "ButtonImage", "widgButtonImage", "Insert Image", "image");
+				}
 
 				break;
 
 			case "htmlsource":
-				this.addButton(this.theList.id + "ButtonHTML", "widgButtonHTML", "HTML Source", "html");
+				if (language == "es") {
+					this.addButton(this.theList.id + "ButtonHTML", "widgButtonHTML", "Código Fuente", "html");
+				} else {
+					this.addButton(this.theList.id + "ButtonHTML", "widgButtonHTML", "HTML Source", "html");
+				}
 
 				break;
 
@@ -899,6 +929,7 @@ widgToolbar.prototype.setState = function(theState, theStatus) {
 
 /* Action taken when toolbar item activated */
 function widgToolbarAction() {
+	var language = getCookie("language");
 	var theToolbar = this.parentNode.parentNode.widgToolbarObject;
 	var theWidgEditor = theToolbar.widgEditorObject;
 	var theIframe = theWidgEditor.theIframe;
@@ -929,7 +960,12 @@ function widgToolbarAction() {
 					theSelection = theIframe.contentWindow.document.selection.createRange().text;
 
 					if (theSelection == "") {
-						alert("Please select the text you wish to hyperlink.");
+						debugger;
+						if (language == "es") {
+							alert("Por favor selecciona el texto para generar el enlace.");
+						} else {
+							alert("Please select the text you wish to hyperlink.");
+						}
 
 						break;
 					}
@@ -937,14 +973,21 @@ function widgToolbarAction() {
 					theSelection = theIframe.contentWindow.getSelection();
 
 					if (theSelection == "") {
-						alert("Please select the text you wish to hyperlink.");
+						if (language == "es") {
+							alert("Por favor selecciona el texto para generar el enlace.");
+						} else {
+							alert("Please select the text you wish to hyperlink.");
+						}
 
 						break;
 					}
 				}
-
-				var theURL = prompt("Enter the URL for this link:", "http://");
-
+				var theURL;
+				if (language == "es") {
+					theURL = prompt("Inserta la URL para este link:", "http://");
+				} else {
+					theURL = prompt("Enter the URL for this link:", "http://");
+				}
 				if (theURL != null) {
 					theIframe.contentWindow.document.execCommand("CreateLink", false, theURL);
 					theWidgEditor.theToolbar.setState("Link", "on");
@@ -954,10 +997,20 @@ function widgToolbarAction() {
 			break;
 
 		case "image":
-			var theImage = prompt("Enter the location for this image:", "");
+			var theImage;
+			if (language == "es") {
+				theImage = prompt("Introduce la localización de esta imagen:", "");
+			} else {
+				theImage = prompt("Enter the location for this image:", "");
+			}
 
 			if (theImage != null && theImage != "") {
-				var theAlt = prompt("Enter the alternate text for this image:", "");
+				var theAlt;
+				if (language == "es") {
+					theAlt = prompt("Introduce un texto alternativo a esta imagen:", "");
+				} else {
+					theAlt = prompt("Enter the alternate text for this image:", "");
+				}
 				var theSelection = null;
 				var theRange = null;
 
