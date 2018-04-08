@@ -47,8 +47,8 @@ public class Chirp extends DomainEntity {
 		this.description = description;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
 	@Past
 	@NotNull
 	public Date getMoment() {

@@ -86,6 +86,7 @@
   		<security:intercept-url pattern="/newspaper/admin/list.do" access="hasRole('ADMIN')" />
   		<security:intercept-url pattern="/article/admin/list.do" access="hasRole('ADMIN')" />
   		
+		<security:intercept-url pattern="/newspaper/customer/list.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/newspaper/customer/subscribe.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/newspaper/customer/ajax.do" access="hasRole('CUSTOMER')" /> 
   		
