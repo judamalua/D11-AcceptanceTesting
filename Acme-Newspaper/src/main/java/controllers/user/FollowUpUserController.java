@@ -145,18 +145,25 @@ public class FollowUpUserController extends AbstractController {
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("followUp") FollowUp followUp, final BindingResult binding, @RequestParam("articleId") final Integer articleId) {
+	public ModelAndView save(@ModelAttribute("followUp") FollowUp followUp, final BindingResult binding, @RequestParam("articleId") final Integer articleId, @RequestParam(value = "userId", defaultValue = "0") final Integer userId) {
 		ModelAndView result;
 		User actor;
 		User creator;
 		Article article;
 		final Newspaper newspaper;
 		FollowUp savedFollowUp;
+		try {
+			if (userId != null && userId != 0)
+				followUp.setUser(this.userService.findOne(userId));
+			followUp = this.followUpService.reconstruct(followUp, binding);
+		} catch (final Throwable oops) {
 
-		followUp = this.followUpService.reconstruct(followUp, binding);
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(followUp, "article.params.error");
-		else
+		}
+		if (binding.hasErrors()) {
+			result = this.createEditModelAndView(followUp, "followUp.params.error");
+			result.addObject("articleId", articleId);
+
+		} else
 			try {
 				actor = (User) this.actorService.findActorByPrincipal();
 				article = this.articleService.findOne(articleId);
@@ -179,7 +186,6 @@ public class FollowUpUserController extends AbstractController {
 
 		return result;
 	}
-
 	// Delete ---------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@ModelAttribute("followUp") final FollowUp followUp) {
