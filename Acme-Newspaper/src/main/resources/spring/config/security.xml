@@ -66,6 +66,8 @@
 		<security:intercept-url pattern="/actor/register.do" access="isAnonymous()" requires-channel="https" /> 
 		<security:intercept-url pattern="/actor/admin/register.do" access="hasRole('ADMIN')" requires-channel="https"  />
 		<security:intercept-url pattern="/actor/admin/edit.do" access="hasRole('ADMIN')" requires-channel="https"  />
+		<security:intercept-url pattern="/actor/customer/register.do" access="permitAll" requires-channel="https"  />
+		<security:intercept-url pattern="/actor/customer/edit.do" access="hasRole('CUSTOMER')" requires-channel="https"  />
 		
 		<security:intercept-url pattern="/newspaper/list.do" access="permitAll" requires-channel="https"  />
 		<security:intercept-url pattern="/newspaper/display.do" access="permitAll" requires-channel="https"  />
@@ -80,9 +82,13 @@
 		<security:intercept-url pattern="/newspaper/admin/delete.do" access="hasRole('ADMIN')" /> 
   		<security:intercept-url pattern="/article/admin/delete.do" access="hasRole('ADMIN')" />
   		<security:intercept-url pattern="/chirp/admin/delete.do" access="hasRole('ADMIN')" />
+  		<security:intercept-url pattern="/chirp/admin/list.do" access="hasRole('ADMIN')" />
+  		<security:intercept-url pattern="/newspaper/admin/list.do" access="hasRole('ADMIN')" />
+  		<security:intercept-url pattern="/article/admin/list.do" access="hasRole('ADMIN')" />
   		
+		<security:intercept-url pattern="/newspaper/customer/list.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/newspaper/customer/subscribe.do" access="hasRole('CUSTOMER')" /> 
-		<security:intercept-url pattern="/newspaper/customer/ajax.do" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/newspaper/customer/ajaxCard.do" access="hasRole('CUSTOMER')" /> 
   		
 		<security:intercept-url pattern="/dashboard/admin/**" access="hasRole('ADMIN')" />
 		

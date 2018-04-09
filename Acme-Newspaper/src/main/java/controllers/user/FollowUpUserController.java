@@ -101,26 +101,29 @@ public class FollowUpUserController extends AbstractController {
 	// Editing ---------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final Integer followUpId) {
+	public ModelAndView edit(@RequestParam("followUpId") final Integer followUpId) {
 		ModelAndView result;
 		FollowUp followUp;
 		Actor actor;
 		User creator;
+		Integer articleId;
 
 		try {
 			actor = this.actorService.findActorByPrincipal();
 			followUp = this.followUpService.findOne(followUpId);
+			articleId = this.articleService.getArticleByFollowUp(followUp).getId();
 			creator = followUp.getUser();
 
 			Assert.isTrue(actor.equals(creator));
 
 			result = this.createEditModelAndView(followUp);
+			result.addObject("articleId", articleId);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
 		}
 		return result;
 	}
-
+	//create--------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final Integer articleId) {
 		ModelAndView result;
@@ -132,17 +135,17 @@ public class FollowUpUserController extends AbstractController {
 
 			result = this.createEditModelAndView(followUp);
 			result.addObject("articleId", articleId);
+			result.addObject("requestURI", "followUp/user/edit.do");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
 		}
 		return result;
 	}
-
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("followUp") FollowUp followUp, @ModelAttribute("articleId") final Integer articleId, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("followUp") FollowUp followUp, final BindingResult binding, @RequestParam("articleId") final Integer articleId) {
 		ModelAndView result;
 		User actor;
 		User creator;
@@ -156,14 +159,14 @@ public class FollowUpUserController extends AbstractController {
 		else
 			try {
 				actor = (User) this.actorService.findActorByPrincipal();
-				article = this.articleService.getArticleByFollowUp(followUp);
+				article = this.articleService.findOne(articleId);
 				creator = this.userService.findUserByArticle(article.getId());
 				newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
 				Assert.isTrue(actor == creator);
 				Assert.isTrue(newspaper.getPublicationDate().before(new Date()));
 				Assert.isTrue(article.getFinalMode());
 
-				savedFollowUp = this.followUpService.save(followUp);
+				savedFollowUp = this.followUpService.save(followUp, article);
 				creator = savedFollowUp.getUser();
 
 				Assert.isTrue(actor.equals(creator));
@@ -178,23 +181,19 @@ public class FollowUpUserController extends AbstractController {
 	}
 
 	// Delete ---------------------------------------------------------
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int followUpId) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@ModelAttribute("followUp") final FollowUp followUp) {
 		ModelAndView result;
-		FollowUp followUp;
 		Article article;
 
 		try {
-
-			followUp = this.followUpService.findOne(followUpId);
-			Assert.isTrue(followUp.getUser() == this.actorService.findActorByPrincipal());
 			article = this.articleService.getArticleByFollowUp(followUp);
 			this.followUpService.delete(followUp);
 
 			result = new ModelAndView("redirect:/article/display.do?articleId=" + article.getId());
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;

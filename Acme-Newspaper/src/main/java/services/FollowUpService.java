@@ -96,13 +96,12 @@ public class FollowUpService {
 	 * 
 	 * @author Luis
 	 **/
-	public FollowUp save(final FollowUp followUp) {
+	public FollowUp save(final FollowUp followUp, final Article article) {
 		assert followUp != null;
-		Assert.isTrue(this.articleService.getArticleByFollowUp(followUp).getFinalMode());//Comprueba que el article esta guardado en final mode
-		Assert.isTrue(this.newsPaperService.findNewspaperByArticle(this.articleService.getArticleByFollowUp(followUp).getId()).getPublicationDate().before(new Date()));//Comprueba que el periódico  ha sido publicado
+		Assert.isTrue(article.getFinalMode());//Comprueba que el article esta guardado en final mode
+		Assert.isTrue(this.newsPaperService.findNewspaperByArticle(article.getId()).getPublicationDate().before(new Date()));//Comprueba que el periódico  ha sido publicado
 
 		FollowUp result;
-		Article article;
 		User user;
 		Newspaper newspaper;
 		boolean taboo;
@@ -114,7 +113,6 @@ public class FollowUpService {
 		}
 
 		result = this.followUpRepository.save(followUp);
-		article = this.articleService.getArticleByFollowUp(followUp);
 		user = (User) this.actorService.findActorByPrincipal();
 		newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
 
@@ -123,7 +121,7 @@ public class FollowUpService {
 			article.getFollowUps().remove(followUp);
 		}
 
-		article.getFollowUps().add(followUp);
+		article.getFollowUps().add(result);
 		this.articleService.save(article, newspaper);
 		this.userService.save(user);
 
@@ -139,26 +137,23 @@ public class FollowUpService {
 		assert followUp.getId() != 0;
 		Assert.isTrue(this.followUpRepository.exists(followUp.getId()));
 		final Actor principal = this.actorService.findActorByPrincipal();
-		;
+		final User creator = followUp.getUser();
 
 		if (principal instanceof User)
-			Assert.isTrue(principal == followUp.getUser() && followUp.getPublicationDate().after(new Date()));
+			Assert.isTrue(principal.equals(creator));
 
 		Article article;
 		Newspaper newspaper;
-		User user;
 		article = this.articleService.getArticleByFollowUp(followUp);
 		newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
-		user = followUp.getUser();
 
 		article.getFollowUps().remove(followUp);
 		this.articleService.save(article, newspaper);
-		this.userService.save(user);
+		this.userService.save(creator);
 
 		this.followUpRepository.delete(followUp);
 
 	}
-
 	//Other Busssiness Methods 
 
 	/**
@@ -170,14 +165,17 @@ public class FollowUpService {
 		User user;
 
 		if (followUp.getId() == 0) {
-			user = (User) this.actorService.findActorByPrincipal();
-			followUp.setUser(user);
 			result = followUp;
+			user = (User) this.actorService.findActorByPrincipal();
+			result.setUser(user);
+			result.setPublicationDate(new Date(System.currentTimeMillis() - 1000));
+
 		} else {
+			user = (User) this.actorService.findActorByPrincipal();
 			result = this.followUpRepository.findOne(followUp.getId());
-			result.setUser(followUp.getUser());
+			result.setUser(user);
 			result.setText(followUp.getText());
-			result.setPublicationDate(followUp.getPublicationDate());
+			result.setPublicationDate(new Date(System.currentTimeMillis() - 1000));
 			result.setTitle(followUp.getTitle());
 			result.setSummary(followUp.getSummary());
 		}
@@ -205,5 +203,34 @@ public class FollowUpService {
 	 */
 	public void flush() {
 		this.followUpRepository.flush();
+	}
+
+	//Queries -----------
+	/**
+	 * Level B query 2
+	 * 
+	 * @return The average number of follow-ups per article up to one week after the corresponding newspaper's been published.
+	 * @author Antonio
+	 */
+	public String getAverageFollowUpPerArticleOneWeek() {
+		String result;
+
+		result = this.followUpRepository.getAverageFollowUpPerArticleOneWeek();
+
+		return result;
+	}
+
+	/**
+	 * Level B query 3
+	 * 
+	 * @return The average number of follow-ups per article up to two weeks after the corresponding newspaper's been published.
+	 * @author Antonio
+	 */
+	public String getAverageFollowUpPerArticleTwoWeek() {
+		String result;
+
+		result = this.followUpRepository.getAverageFollowUpPerArticleTwoWeek();
+
+		return result;
 	}
 }

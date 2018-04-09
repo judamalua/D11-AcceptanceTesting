@@ -15,4 +15,21 @@ public interface FollowUpRepository extends JpaRepository<FollowUp, Integer> {
 	@Query("select f from FollowUp f where f.user.id=?1")
 	Page<FollowUp> findCreatedFollowUps(int userId, Pageable pageable);
 
+	/**
+	 * Level B query 2
+	 * 
+	 * @return The average number of follow-ups per article up to one week after the corresponding newspaper's been published.
+	 * @author Antonio
+	 */
+	@Query("select avg(a.followUps.size) from Newspaper n join n.articles a join a.followUps f where DATEDIFF(n.publicationDate, f.publicationDate) < 7")
+	String getAverageFollowUpPerArticleOneWeek();
+
+	/**
+	 * Level B query 3
+	 * 
+	 * @return The average number of follow-ups per article up to two weeks after the corresponding newspaper's been published.
+	 * @author Antonio
+	 */
+	@Query("select avg(a.followUps.size) from Newspaper n join n.articles a join a.followUps f where DATEDIFF(n.publicationDate, f.publicationDate) < 14")
+	String getAverageFollowUpPerArticleTwoWeek();
 }

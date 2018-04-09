@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -71,6 +73,7 @@ public class ArticleController extends AbstractController {
 		final Configuration configuration;
 		Actor actor;
 		boolean validCustomer = false;
+		boolean newspaperPublished = false;
 
 		try {
 
@@ -98,6 +101,10 @@ public class ArticleController extends AbstractController {
 
 			followUps = this.articleService.findFollowUpsByArticle(pageable);
 
+			if (newspaper.getPublicationDate() == null || newspaper.getPublicationDate().after(new Date()))
+				newspaperPublished = true;
+
+			result.addObject("newspaperPublished", newspaperPublished);
 			result.addObject("writer", writer);
 			result.addObject("article", article);
 			result.addObject("followUps", followUps);

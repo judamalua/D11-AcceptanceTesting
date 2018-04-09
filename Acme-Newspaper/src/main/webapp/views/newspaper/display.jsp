@@ -68,14 +68,14 @@
 
 <!-- Button for joining the newspaper -->
 <security:authorize access="hasRole('CUSTOMER')">
-	<jstl:if test="${!subscriber and newspaper.publicationDate==null}">
+	<jstl:if test="${!subscriber  and !newspaper.publicNewspaper}">
 		<a href="newspaper/customer/subscribe.do?newspaperId=${newspaper.id}">
 			<button class="btn">
 				<spring:message code="newspaper.subscribe" />
 			</button>
 		</a>
 	</jstl:if>
-	<jstl:if test="${subscriber and newspaper.publicationDate!=null}">
+	<jstl:if test="${subscriber and !newspaper.publicNewspaper}">
 		<a href="newspaper/customer/unsuscribe.do?newspaperId=${newspaper.id}">
 			<button class="btn"
 				onclick="javascript:confirm('<spring:message code="newspaper.leave.confirm"/>')">
@@ -92,7 +92,7 @@
 	<spring:message code="newspaper.articles.list" />
 </h4>
 <acme:pagination page="${page}" pageNum="${pageNum}"
-	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&page=" />
+	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&pageArticle=" />
 <display:table name="${articles}" id="article"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleArticle}" sortable="true">
@@ -104,7 +104,15 @@
 		</jstl:if>
 	</display:column>
 	<display:column property="summary" title="${titleSummaryArticle}" />
-	<display:column property="body" title="${titleBodyArticle}" />
+	<display:column title="${titleBodyArticle}">
+		<jstl:if test="${fn:length(article.body)>50}">
+			<jstl:out value="${fn:substring(article.body,3, 50)}..." />
+		</jstl:if>
+		<jstl:if test="${fn:length(article.body)<=50}">
+			<jstl:out
+				value="${fn:substring(article.body,3, fn:length(article.body)-4)}" />
+		</jstl:if>
+	</display:column>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<acme:button url="article/admin/delete.do?articleId=${article.id}"
@@ -113,7 +121,7 @@
 	</security:authorize>
 	<security:authorize access="hasRole('USER')">
 		<jstl:if
-			test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1] and !article.finalMode and newspaper.publicationDate==null}">
+			test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1] and !article.finalMode   and newspaper.publicationDate==null}">
 			<display:column>
 				<acme:button url="article/user/edit.do?articleId=${article.id}"
 					code="article.edit" />

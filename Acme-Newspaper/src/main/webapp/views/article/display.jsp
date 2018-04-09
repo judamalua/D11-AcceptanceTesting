@@ -68,7 +68,7 @@
 <acme:pagination page="${page}" pageNum="${pageNum}"
 	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&page=" />
 	
-<display:table name="${followUps}" id="article"
+<display:table name="${followUps}" id="followUp"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleFollowUp}" property="title" sortable="true"/>
 	<display:column property="publicationDate" format="${formatMoment}" title="${titlePublicationFollowUp}" />
@@ -82,7 +82,7 @@
 	</security:authorize>
 </display:table>
 
-<jstl:if test="${article.finalMode}">
+<jstl:if test="${article.finalMode and !newspaperPublished}">
 <acme:button url="followUp/user/create.do?articleId=${article.id}" code="followUp.create" />
 </jstl:if>
 <br />

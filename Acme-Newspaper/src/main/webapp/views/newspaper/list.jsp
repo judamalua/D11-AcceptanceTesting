@@ -37,7 +37,7 @@
 
 <!-- Table -->
 <display:table name="newspapers" id="newspaper"
-	requestURI="${requestUri}">
+	requestURI="${requestUri}page=${page}">
 
 	<display:column>
 		<img src="${newspaper.pictureUrl}" class="newspaperImg" />
@@ -45,9 +45,17 @@
 	<display:column property="title" title="${titleName}" sortable="true" />
 	<display:column property="publicationDate" title="${titlePublication}"
 		format="${formatMoment}" sortable="true" />
-		<display:column property="publicNewspaper" title="${titlePublic}" sortable="true" />
+	<display:column title="${titlePublic}" sortable="true">
+		<jstl:if test="${newspaper.publicNewspaper}">
+			<i class="material-icons">public</i>
+		</jstl:if>
+		<jstl:if test="${!newspaper.publicNewspaper}">
+			<i class="material-icons">pan_tool</i>
+		</jstl:if>
+	</display:column>
 	<display:column>
-	<jstl:if test="${newspaper.publicNewspaper or ((fn:length(subscribeNewspaper)>0) and subscriber[subscribeNewspaper_rowNum-1])}"></jstl:if>
+		<jstl:if
+			test="${newspaper.publicNewspaper or ((fn:length(subscribeNewspaper)>0) and subscriber[subscribeNewspaper_rowNum-1])}"></jstl:if>
 		<acme:button url="newspaper/display.do?newspaperId=${newspaper.id}"
 			code="newspaper.details" />
 	</display:column>
@@ -67,7 +75,7 @@
 	<display:column>
 		<security:authorize access="hasRole('USER')">
 			<jstl:if
-				test="${(owner or ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null}">
+				test="${((owner or (ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null)) and canPublicate!=null and  canPublicate[newspaper_rowNum-1] }">
 				<acme:button
 					url="newspaper/user/publish.do?newspaperId=${newspaper.id}"
 					code="newspaper.publish" />

@@ -1,6 +1,8 @@
 
 package controllers.admin;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,28 @@ public class NewspaperAdminController extends AbstractController {
 			this.newspaperService.delete(newspaper);
 
 			result = new ModelAndView("redirect:/newspaper/list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("rediect:/misc/403");
+		}
+
+		return result;
+	}
+
+	// List taboo ---------------------------------------------------------
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		ModelAndView result;
+		Collection<Newspaper> newspapers;
+
+		try {
+			newspapers = this.newspaperService.getAllTabooNewspapers();
+
+			result = new ModelAndView("newspaper/list");
+
+			result.addObject("newspapers", newspapers);
+			result.addObject("requestUri", "newspaper/admin/list.do?");
+
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
 		}

@@ -144,6 +144,14 @@ public class ArticleService {
 		return result;
 	}
 
+	public Collection<Article> getAllTabooArticles() {
+		Collection<Article> result;
+
+		result = this.articleRepository.getAllTabooArticles();
+
+		return result;
+	}
+
 	//Dashboard queries ----------------------------------
 	/**
 	 * Level B query 1

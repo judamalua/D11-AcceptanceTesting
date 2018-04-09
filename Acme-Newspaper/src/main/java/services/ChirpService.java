@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -23,12 +24,13 @@ public class ChirpService {
 
 	@Autowired
 	private ChirpRepository	chirpRepository;
-	
-	@Autowired
-	private UserService userService;
 
 	@Autowired
-	private Validator				validator;
+	private UserService		userService;
+
+	@Autowired
+	private Validator		validator;
+
 
 	// Supporting services --------------------------------------------------
 
@@ -69,11 +71,10 @@ public class ChirpService {
 		assert chirp != null;
 
 		Chirp result;
-		chirp.setMoment(new Date(System.currentTimeMillis()-10));
-		
+		chirp.setMoment(new Date(System.currentTimeMillis() - 10));
 
 		result = this.chirpRepository.save(chirp);
-		
+
 		user.getChirps().add(result);
 		this.userService.save(user);
 
@@ -91,7 +92,7 @@ public class ChirpService {
 		this.chirpRepository.delete(chirp);
 
 	}
-	
+
 	/**
 	 * Reconstruct the Chirp passed as parameter
 	 * 
@@ -118,5 +119,12 @@ public class ChirpService {
 		this.validator.validate(result, binding);
 		return result;
 	}
-}
 
+	public Collection<Chirp> getAllTabooChirps() {
+		Collection<Chirp> result;
+
+		result = this.chirpRepository.getAllTabooChirps();
+
+		return result;
+	}
+}

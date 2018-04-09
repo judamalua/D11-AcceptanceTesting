@@ -1,5 +1,5 @@
 <%--
- * action-2.jsp
+ * list.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -18,51 +18,41 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!-- Variable declaration -->
+<spring:message code="article.title" var="titleTitle" />
+<spring:message code="article.summary" var="summaryTitle" />
+<spring:message code="article.display" var="displayTitle" />
 <spring:message code="master.page.moment.format" var="formatMoment" />
+
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="currentDate" value="${now}"
 	pattern="yyyy-MM-dd HH:mm" />
-<spring:message var="format" code="master.page.moment.format.out" />
-<fmt:formatDate var="formatPublicationDate"
-	value="${followUp.publicationDate}" pattern="${format}" />
 
-<!-- Display -->
+<!-- Pagination -->
+<acme:pagination requestURI="${requestUri}page=" pageNum="${pageNum}"
+	page="${page}" />
 
-<h3>
-	<spring:message code="followUp.title" />:<jstl:out value="${followUp.title}" />
-</h3>
-<br>
-<h5>
-	<spring:message code="followUp.publicationDate" />:<jstl:out value="${formatPublicationDate}" />
-</h5>
-<br />
-<h5>
-	<jstl:out value="${followUp.text}" />
-</h5>
-<br>
+<!-- Table -->
+<display:table name="articles" id="article"
+	requestURI="${requestUri}">
 
-<h5>
-	<spring:message code="followUp.summary" />
-</h5>
-	<jstl:out value="${followUp.summary}" />
-<br />
+	<display:column property="title" title="${titleTitle}" sortable="true" />
 
-<h4>
-	<spring:message code="followUp.user" />
-</h4>
-<p>
-	<a href="user/display.do?userId=${creator.id}" ><jstl:out value="${creator.name}" /></a>
-</p>
-
-
-
-
-
-
-<security:authorize access="hasRole('ADMIN')">
-	<acme:button url="followUp/admin/delete.do" code="followUp.delete" />
-</security:authorize>
+	<display:column property="summary" title="${summaryTitle}" sortable="true" />
+	
+	<display:column title="${displayTitle}">
+		<acme:button
+				url="article/display.do?articleId=${article.id}"
+				code="article.display" />
+	</display:column>
+	<display:column>
+		<security:authorize access="hasRole('ADMIN')">
+			<acme:button
+				url="article/admin/delete.do?articleId=${article.id}"
+				code="article.delete" />
+		</security:authorize>
+	</display:column>
+</display:table>

@@ -74,6 +74,15 @@
                     <li class="divider"></li>
                     <li><a href="configuration/admin/list.do"><spring:message
                                 code="master.page.configuration" /></a></li>
+                    <li class="divider"></li>
+                    <li><a href="chirp/admin/list.do"><spring:message
+                                code="master.page.chirp.list.taboo" /></a></li>
+                      <li class="divider"></li>
+                    <li><a href="newspaper/admin/list.do"><spring:message
+                                code="master.page.newspaper.list.taboo" /></a></li>
+                          <li class="divider"></li>
+                    <li><a href="article/admin/list.do"><spring:message
+                                code="master.page.article.list.taboo" /></a></li>
                 </ul>
 
                 <!-- Dropdown Trigger -->
