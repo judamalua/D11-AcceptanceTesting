@@ -40,7 +40,7 @@
 	requestURI="${requestUri}page=${page}">
 
 	<display:column>
-		<img src="${newspaper.pictureUrl}" class="newspaperImg" />
+		<img src="${newspaper.pictureUrl}" class="serviceImg" />
 	</display:column>
 	<display:column property="title" title="${titleName}" sortable="true" />
 	<display:column property="publicationDate" title="${titlePublication}"

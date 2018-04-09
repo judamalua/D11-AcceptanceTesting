@@ -4,7 +4,7 @@
  <!-- %%%%%%  domain.Newspaper %%%%%% --> 
 <bean id="Newspaper1" class="domain.Newspaper"> 
 <property name="title" value="El Informatico" /> 
-<property name="description" value="El Inform�tico es el peri�dico oficial de la Escuela T�cnica Superior de Ingenier�a Inform�tica de la Universidad de Sevilla. �S�guenos y mantente al corriente sobre las �ltimas novedades de la escuela!" /> 
+<property name="description" value="El Informático es el periádico oficial de la Escuela Tácnica Superior de Ingenieráa Informática de la Universidad de Sevilla. áSáguenos y mantente al corriente sobre las áltimas novedades de la escuela!" /> 
 <property name="pictureUrl" value="http://comunicacion.us.es/sites/default/files/ingenieria_informatica.jpg" /> 
 <property name="publicNewspaper" value="true" /> 
 <property name="taboo" value="false" /> 
@@ -21,7 +21,7 @@
 </bean>
 <bean id="Newspaper2" class="domain.Newspaper"> 
 <property name="title" value="The Runner Journal" /> 
-<property name="description" value="The Runner Journal es el diario donde runners de todo el mundo comparten sus experiencias sobre el deporte m�s practicado hoy en d�a. �Ponte las botas, que nos vamos!" /> 
+<property name="description" value="The Runner Journal es el diario donde runners de todo el mundo comparten sus experiencias sobre el deporte más practicado hoy en dáa. áPonte las botas, que nos vamos!" /> 
 <property name="pictureUrl" value="https://blogicalimentaria.files.wordpress.com/2016/03/runners.jpg" /> 
 <property name="publicNewspaper" value="true" /> 
 <property name="taboo" value="false" /> 
@@ -94,7 +94,7 @@
  <!-- %%%%%%  domain.Slider %%%%%% --> 
 <bean id="Slider1" class="domain.Slider"> 
 <property name="title_en" value="Welcome to Sample Project 1.14!" /> 
-<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" /> 
+<property name="title_es" value="¡Bienvenid@ a Sample Project 1.14!" /> 
 <property name="text_en" value="Example text 1" /> 
 <property name="text_es" value="Texto de ejemplo 1" /> 
 <property name="pictureUrl" value="https://tinyurl.com/adventure-meetup" /> 
@@ -102,7 +102,7 @@
 </bean>
 <bean id="Slider2" class="domain.Slider"> 
 <property name="title_en" value="Welcome to Sample Project 1.14!" /> 
-<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" /> 
+<property name="title_es" value="¡Bienvenid@ a Sample Project 1.14!" /> 
 <property name="text_en" value="Example text 2" /> 
 <property name="text_es" value="Texto de ejemplo 2" /> 
 <property name="pictureUrl" value="https://i.imgur.com/SoiZR6j.jpg" /> 
@@ -110,7 +110,7 @@
 </bean>
 <bean id="Slider3" class="domain.Slider"> 
 <property name="title_en" value="Welcome to Sample Project 1.14!" /> 
-<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" /> 
+<property name="title_es" value="áBienvenid@ a Sample Project 1.14!" /> 
 <property name="text_en" value="Example text 3" /> 
 <property name="text_es" value="Texto de ejemplo 3" /> 
 <property name="pictureUrl" value="https://imgur.com/Wu0HYcs.jpg" /> 
@@ -127,73 +127,73 @@
 </bean>
 <bean id="Chirp2" class="domain.Chirp"> 
 <property name="title" value="He quedado con mi amigo Pipo" /> 
-<property name="description" value="Al parecer el hombre tiene 3 trabajos muy distintos entre s�. Est� muy ocupado y apenas tiene tiempo libre. " /> 
+<property name="description" value="Al parecer el hombre tiene 3 trabajos muy distintos entre sí. Está muy ocupado y apenas tiene tiempo libre. " /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp3" class="domain.Chirp"> 
-<property name="title" value="Deseando a que empiece la Feria de Abril" /> 
-<property name="description" value="El 14 de abril empieza la Feria, estoy deseando que llegue el d�a!" /> 
+<property name="title" value="Deseando que empiece la Feria de Abril" /> 
+<property name="description" value="El 14 de abril empieza la Feria, estoy deseando que llegue el día!" /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp4" class="domain.Chirp"> 
 <property name="title" value="Estoy aburrido" /> 
-<property name="description" value="�Qui�n se echa un Fornite?" /> 
+<property name="description" value="¿Quién se echa un Fornite?" /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp5" class="domain.Chirp"> 
-<property name="title" value="La celebraci�n de Griezmann jaja" /> 
-<property name="description" value="Griezmann ha celebrado su gol contra el Madrid bailando como un personaje del Fornite, �qu� grande!" /> 
+<property name="title" value="La celebración de Griezmann jaja" /> 
+<property name="description" value="Griezmann ha celebrado su gol contra el Madrid bailando como un personaje del Fornite, ¡qué grande!" /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp6" class="domain.Chirp"> 
 <property name="title" value="Odio a los runners" /> 
-<property name="description" value="Ese peri�dico runner est� repleto de gente que me cae mal..." /> 
+<property name="description" value="Ese periódico runner está repleto de gente que me cae mal..." /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp7" class="domain.Chirp"> 
 <property name="title" value="Me encantan los animales" /> 
-<property name="description" value="Tengo dos gatos, y desear�a que en este sistema hubiera un peri�dico sobre animales o gatos" /> 
+<property name="description" value="Tengo dos gatos, y desearía que en este sistema hubiera un periódico sobre animales o gatos" /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp8" class="domain.Chirp"> 
 <property name="title" value="Mi gata no para de dormir" /> 
-<property name="description" value="�Alguien sabe si es normal?" /> 
+<property name="description" value="¿Alguien sabe si es normal?" /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp9" class="domain.Chirp"> 
-<property name="title" value="�Quien pens�is que ganar� la Champions?" /> 
-<property name="description" value="Yo creo que ser� el Ba�a... Messi es el mejor!" /> 
+<property name="title" value="¿Quien pensáis que ganará la Champions?" /> 
+<property name="description" value="Yo creo que será el Barça... Messi es el mejor!" /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp10" class="domain.Chirp"> 
 <property name="title" value="Messi vs Cristiano" /> 
-<property name="description" value="�Qui�n os gusta m�s? Creo que Messi es mejor, pero Cristiano es muy guapo!" /> 
+<property name="description" value="¿Quién os gusta más? Creo que Messi es mejor, pero Cristiano es muy guapo!" /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp11" class="domain.Chirp"> 
-<property name="title" value="�Me recomend�is un libro?" /> 
-<property name="description" value="Esta semana de Feria voy a estar aburrido y me gustar�a leer un poco" /> 
+<property name="title" value="¿Me recomendáis un libro?" /> 
+<property name="description" value="Esta semana de Feria voy a estar aburrido y me gustaría leer un poco" /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp12" class="domain.Chirp"> 
-<property name="title" value="Palabras tab�" /> 
-<property name="description" value="Hablar de sexo est� muy mal visto en nuestra sociedad. �Por qu�?" /> 
+<property name="title" value="Palabras tabú" /> 
+<property name="description" value="Hablar de sexo está muy mal visto en nuestra sociedad. ¿Por qué?" /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
 <bean id="Chirp13" class="domain.Chirp"> 
 <property name="title" value="Esto de los chirps... es muy parecido a Twitter" /> 
-<property name="description" value="Aunque en Twitter hay muchos m�s usuarios, Acme-Newspaper me gusta m�s!" /> 
+<property name="description" value="Aunque en Twitter hay muchos más usuarios, Acme-Newspaper me gusta más!" /> 
 <property name="moment" value="2018/04/08 00:00" /> 
 <property name="taboo" value="false" /> 
 </bean>
@@ -290,8 +290,8 @@
 
  <!-- %%%%%%  domain.Article %%%%%% --> 
 <bean id="Article1" class="domain.Article"> 
-<property name="title" value="[GU�A] C�mo sobrevivir en la ETSII" /> 
-<property name="summary" value="Si has sido aceptado recientemente en nuestra escuela, este art�culo te ayudar� a pasar tus primeros d�as." /> 
+<property name="title" value="[GUÍA] Cómo sobrevivir en la ETSII" /> 
+<property name="summary" value="Si has sido aceptado recientemente en nuestra escuela, este artículo te ayudará a pasar tus primeros días." /> 
 <property name="body" value="Test Articulo 1" /> 
 <property name="finalMode" value="false" /> 
 <property name="taboo" value="false" /> 
@@ -302,7 +302,7 @@
 </bean>
 <bean id="Article2" class="domain.Article"> 
 <property name="title" value="Charla del premio Nobel John Doe" /> 
-<property name="summary" value="El pr�ximo 5 de mayo el premio Nobel John Doe dar� una conferencia en nuestra escuela sobre gestion de proyectos informáticos." /> 
+<property name="summary" value="El próximo 5 de mayo el premio Nobel John Doe dará una conferencia en nuestra escuela sobre gestion de proyectos informáticos." /> 
 <property name="body" value="Test Articulo 2" /> 
 <property name="finalMode" value="true" /> 
 <property name="taboo" value="false" /> 
@@ -312,8 +312,8 @@
 </property> 
 </bean>
 <bean id="Article3" class="domain.Article"> 
-<property name="title" value="Primer d�a de runner" /> 
-<property name="summary" value="En este art�culo encontrar�s informaci�n para tu primer d�a corriendo por la ciudad. �Adelante!" /> 
+<property name="title" value="Primer dáa de runner" /> 
+<property name="summary" value="En este artículo encontrarás información para tu primer día corriendo por la ciudad. ¡Adelante!" /> 
 <property name="body" value="Test Articulo 3" /> 
 <property name="finalMode" value="true" /> 
 <property name="taboo" value="false" /> 
@@ -324,7 +324,7 @@
 </bean>
 <bean id="Article4" class="domain.Article"> 
 <property name="title" value="5 consejos para perder peso corriendo" /> 
-<property name="summary" value="Con estos cinco consejos y un poco de constancia conseguir�s bajar de peso con nuestro hobby favorito." /> 
+<property name="summary" value="Con estos cinco consejos y un poco de constancia conseguirás bajar de peso con nuestro hobby favorito." /> 
 <property name="body" value="Test Articulo 4"/>
 <property name="finalMode" value="false" /> 
 <property name="taboo" value="false" /> 
@@ -338,7 +338,7 @@
  <!-- %%%%%%  domain.Configuration %%%%%% --> 
 <bean id="Configuration1" class="domain.Configuration"> 
 <property name="cookies_eng" value="This page uses cookies for its internal operations, by continuing, we will assume that you accept these cookies." /> 
-<property name="cookies_es" value="Esta pagina usa cookies para realizar su correcto funcionamiento, si contin�a navegando, asumiremos que acepta estas cookies." /> 
+<property name="cookies_es" value="Esta pagina usa cookies para realizar su correcto funcionamiento, si continúa navegando, asumiremos que acepta estas cookies." /> 
 <property name="businessNameFirst" value="Acme" /> 
 <property name="businessNameLast" value="Newspaper" /> 
 <property name="pageSize" value="5" /> 

@@ -50,8 +50,10 @@
 					<li class="divider"></li>
                     <li><a href="actor/user/list-followers.do"><spring:message
                                 code="master.page.list.followers" /></a></li>
+                    <li class="divider"></li>
                     <li><a href="chirp/user/stream.do"><spring:message
                                 code="master.page.chirp.stream" /></a></li>
+                    <li class="divider"></li>
                     <li><a href="chirp/user/list.do"><spring:message
                                 code="master.page.chirp.yourlist" /></a></li>
                 </ul>
