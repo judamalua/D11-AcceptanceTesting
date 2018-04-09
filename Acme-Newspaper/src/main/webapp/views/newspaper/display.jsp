@@ -75,14 +75,6 @@
 			</button>
 		</a>
 	</jstl:if>
-	<jstl:if test="${subscriber and !newspaper.publicNewspaper}">
-		<a href="newspaper/customer/unsuscribe.do?newspaperId=${newspaper.id}">
-			<button class="btn"
-				onclick="javascript:confirm('<spring:message code="newspaper.leave.confirm"/>')">
-				<spring:message code="newspaper.leave" />
-			</button>
-		</a>
-	</jstl:if>
 	<br />
 </security:authorize>
 
@@ -120,13 +112,14 @@
 		</display:column>
 	</security:authorize>
 	<security:authorize access="hasRole('USER')">
-		<jstl:if
-			test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1] and !article.finalMode   and newspaper.publicationDate==null}">
+		
 			<display:column>
+			<jstl:if
+			test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1] and !article.finalMode   and newspaper.publicationDate==null}">
 				<acme:button url="article/user/edit.do?articleId=${article.id}"
 					code="article.edit" />
-			</display:column>
 		</jstl:if>
+			</display:column>
 	</security:authorize>
 </display:table>
 <security:authorize access="hasRole('USER')">

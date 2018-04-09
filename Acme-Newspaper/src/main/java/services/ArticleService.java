@@ -189,4 +189,22 @@ public class ArticleService {
 		return result;
 	}
 
+	/**
+	 * Method to search a specific article
+	 * 
+	 * @author Daniel Diment
+	 * @param pageable
+	 * @param search
+	 * @return
+	 */
+	public Page<Article> findPublicPublicatedArticlessWithSearch(final Pageable pageable, final String search) {
+		Page<Article> result;
+
+		Assert.notNull(pageable);
+
+		result = this.articleRepository.findPublicPublicatedArticlesWithSearch(search, pageable);
+
+		return result;
+	}
+
 }
