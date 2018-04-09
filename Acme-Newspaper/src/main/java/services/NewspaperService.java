@@ -325,7 +325,7 @@ public class NewspaperService {
 
 		Assert.notNull(pageable);
 
-		result = this.newspaperRepository.findPublicPublicatedNewspapersWithSearch(pageable, search);
+		result = this.newspaperRepository.findPublicPublicatedNewspapersWithSearch(search, pageable);
 
 		return result;
 	}
