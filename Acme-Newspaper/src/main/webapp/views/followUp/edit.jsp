@@ -26,9 +26,8 @@
 <form:form id="form" action="followUp/user/edit.do" modelAttribute="followUp">
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<jstl:if test="${followUp.user!=null}">
-	<form:hidden path="user"/>
-	</jstl:if>
+	<input type="hidden" name="userId" id="userId" value="${followUp.user.id}"/>
+	
 	<input type="hidden" name="articleId" value="${articleId}"/>
 	
 	
@@ -50,7 +49,7 @@
 	
 
 	<acme:submit name="save" code="followUp.save"/>
-	<acme:cancel url="followUp/user/list.do" code="followUp.cancel"/>
+	<acme:cancel url="followUp/user/list-created.do" code="followUp.cancel"/>
 	<acme:delete clickCode="followUp.confirm.delete" name="delete" code="followUp.delete" />
 	
 	
