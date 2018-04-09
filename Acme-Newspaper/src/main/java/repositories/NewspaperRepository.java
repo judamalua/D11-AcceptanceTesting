@@ -95,4 +95,7 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	 */
 	@Query("select count(n1)/(select count(n) from Newspaper n) from Newspaper n1 where n1.publicNewspaper = FALSE")
 	String getAverageRatioPrivateVSPublicNewspaperPublisher();
+
+	@Query("select n from Newspaper n where ((n.publicationDate!=null or n.publicationDate!='') and (n.title like ?2 or n.description like ?2))")
+	Page<Newspaper> findPublicPublicatedNewspapersWithSearch(Pageable pageable, String search);
 }

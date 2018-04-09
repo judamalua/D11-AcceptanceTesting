@@ -311,4 +311,22 @@ public class NewspaperService {
 
 		return result;
 	}
+
+	/**
+	 * Method to search a specific newspaper
+	 * 
+	 * @author Daniel Diment
+	 * @param pageable
+	 * @param search
+	 * @return
+	 */
+	public Page<Newspaper> findPublicPublicatedNewspapersWithSearch(final Pageable pageable, final String search) {
+		Page<Newspaper> result;
+
+		Assert.notNull(pageable);
+
+		result = this.newspaperRepository.findPublicPublicatedNewspapersWithSearch(pageable, search);
+
+		return result;
+	}
 }
