@@ -27,6 +27,8 @@ public class ChirpService {
 
 	@Autowired
 	private UserService		userService;
+	@Autowired
+	private ActorService	actorService;
 
 	@Autowired
 	private Validator		validator;
@@ -68,11 +70,16 @@ public class ChirpService {
 
 	public Chirp save(final Chirp chirp, final User user) {
 
-		assert chirp != null;
+		Assert.notNull(chirp);
 
 		Chirp result;
 		chirp.setMoment(new Date(System.currentTimeMillis() - 10));
-
+		Boolean taboo;
+		// Comprobación palabras de spam
+		if (this.actorService.findActorByPrincipal() instanceof User) {
+			taboo = this.actorService.checkSpamWords(chirp.getTitle() + " " + chirp.getDescription());
+			chirp.setTaboo(taboo);
+		}
 		result = this.chirpRepository.save(chirp);
 
 		user.getChirps().add(result);
@@ -108,6 +115,8 @@ public class ChirpService {
 		if (chirp.getId() == 0) {
 			result = chirp;
 			result.setMoment(new Date(System.currentTimeMillis() - 1000));
+			result.setTaboo(false);
+
 		} else {
 			result = this.chirpRepository.findOne(chirp.getId());
 			result.setDescription(chirp.getDescription());

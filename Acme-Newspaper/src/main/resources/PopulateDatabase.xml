@@ -1,357 +1,551 @@
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"> 
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
- <!-- %%%%%%  domain.Newspaper %%%%%% --> 
-<bean id="Newspaper1" class="domain.Newspaper"> 
-<property name="title" value="El Informatico" /> 
-<property name="description" value="El Inform�tico es el peri�dico oficial de la Escuela T�cnica Superior de Ingenier�a Inform�tica de la Universidad de Sevilla. �S�guenos y mantente al corriente sobre las �ltimas novedades de la escuela!" /> 
-<property name="pictureUrl" value="http://comunicacion.us.es/sites/default/files/ingenieria_informatica.jpg" /> 
-<property name="publicNewspaper" value="true" /> 
-<property name="taboo" value="false" /> 
-<property name="creditCards" > 
-<list> 
-</list> 
-</property> 
-<property name="articles" > 
-<list> 
-<ref bean="Article1" /> 
-<ref bean="Article2" /> 
-</list> 
-</property> 
-</bean>
-<bean id="Newspaper2" class="domain.Newspaper"> 
-<property name="title" value="The Runner Journal" /> 
-<property name="description" value="The Runner Journal es el diario donde runners de todo el mundo comparten sus experiencias sobre el deporte m�s practicado hoy en d�a. �Ponte las botas, que nos vamos!" /> 
-<property name="pictureUrl" value="https://blogicalimentaria.files.wordpress.com/2016/03/runners.jpg" /> 
-<property name="publicNewspaper" value="true" /> 
-<property name="taboo" value="false" /> 
-<property name="creditCards" > 
-<list> 
-</list> 
-</property> 
-<property name="articles" > 
-<list> 
-<ref bean="Article3" /> 
-<ref bean="Article4" /> 
-</list> 
-</property> 
-</bean>
+	<!-- %%%%%% domain.Newspaper %%%%%% -->
+	<bean id="Newspaper1" class="domain.Newspaper">
+		<property name="title" value="El Informatico" />
+		<property name="description"
+			value="El Inform�tico es el peri�dico oficial de la Escuela T�cnica Superior de Ingenier�a Inform�tica de la Universidad de Sevilla. 
+			�S�guenos y mantente al corriente sobre las �ltimas novedades de la escuela!" />
+		<property name="pictureUrl"
+			value="http://comunicacion.us.es/sites/default/files/ingenieria_informatica.jpg" />
+		<property name="publicNewspaper" value="true" />
+		<property name="publicationDate" value="2018/04/09 00:00" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article1" />
+				<ref bean="Article2" />
+				<ref bean="Article3" />
+				<ref bean="Article4" />
+				<ref bean="Article5" />
+				<ref bean="Article6" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper2" class="domain.Newspaper">
+		<property name="title" value="The Runner Journal" />
+		<property name="description"
+			value="The Runner Journal es el diario donde runners de todo el mundo comparten sus experiencias sobre el deporte m�s practicado hoy en d�a. �Ponte las botas, que nos vamos!" />
+		<property name="pictureUrl"
+			value="https://blogicalimentaria.files.wordpress.com/2016/03/runners.jpg" />
+		<property name="publicNewspaper" value="true" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article11" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper3" class="domain.Newspaper">
+		<property name="title" value="The big pizza" />
+		<property name="description"
+			value="The biggest pizza in the world in Spain! Some people think that is better than sex." />
+		<property name="pictureUrl"
+			value="https://i0.wp.com/conectica.com/wp-content/uploads/2017/02/pizza-más-grande-del-mundo.jpg" />
+		<property name="publicNewspaper" value="false" />
+		<property name="taboo" value="true" />
+		<property name="publicationDate" value="2018/04/4 00:00" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article7" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper4" class="domain.Newspaper">
+		<property name="title" value="The big hamburger" />
+		<property name="description" value="The biggest hamburger in the world in Spain!" />
+		<property name="pictureUrl"
+			value="https://ep00.epimg.net/elpais/imagenes/2016/07/04/tentaciones/1467621449_945556_1467633477_noticia_normal.jpg" />
+		<property name="publicNewspaper" value="false" />
+		<property name="taboo" value="false" />
+		<property name="publicationDate" value="2018/01/09 00:00" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article8" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper5" class="domain.Newspaper">
+		<property name="title" value="Nessie" />
+		<property name="description"
+			value="Nessie sighted again. " />
+		<property name="pictureUrl"
+			value="https://www.pullmantur.travel/media/images/b2bbrasil/continentes/europa/escocia/lago-ness/608-240px/lago-ness-panoramica-foto-general.jpg" />
+		<property name="publicNewspaper" value="false" />
+		<property name="publicationDate" value="2012/11/03 00:00" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article9" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper6" class="domain.Newspaper">
+		<property name="title" value="New hacker attacks!" />
+		<property name="description"
+			value="The company Judamalua S.A was attacked the last day by a group of hackers autodenominated the princes of corchuelo." />
+		<property name="pictureUrl"
+			value="https://cdn.tn.com.ar/sites/default/files/styles/1366x765/public/2017/10/27/hacker.jpg" />
+		<property name="publicNewspaper" value="true" />
+		<property name="publicationDate" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article10" />
+			</list>
+		</property>
+	</bean>
 
 
- <!-- %%%%%%  security.UserAccount %%%%%% --> 
-<bean id="UserAccount1" class="security.UserAccount"> 
-<property name="username" value="admin" /> 
-<property name="password" value="21232f297a57a5a743894a0e4a801fc3" /> 
-<property name="authorities" > 
-<list> 
-<bean class="security.Authority"> 
- <property name="authority" value="ADMIN" /> 
- </bean></list> 
-</property> 
-</bean>
-<bean id="UserAccount2" class="security.UserAccount"> 
-<property name="username" value="admin1" /> 
-<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" /> 
-<property name="authorities" > 
-<list> 
-<bean class="security.Authority"> 
- <property name="authority" value="ADMIN" /> 
- </bean></list> 
-</property> 
-</bean>
-<bean id="UserAccount3" class="security.UserAccount"> 
-<property name="username" value="user1" /> 
-<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" /> 
-<property name="authorities" > 
-<list> 
-<bean class="security.Authority"> 
- <property name="authority" value="USER" /> 
- </bean></list> 
-</property> 
-</bean>
-<bean id="UserAccount4" class="security.UserAccount"> 
-<property name="username" value="user2" /> 
-<property name="password" value="7e58d63b60197ceb55a1c487989a3720" /> 
-<property name="authorities" > 
-<list> 
-<bean class="security.Authority"> 
- <property name="authority" value="USER" /> 
- </bean></list> 
-</property> 
-</bean>
-<bean id="UserAccount5" class="security.UserAccount"> 
-<property name="username" value="customer1" /> 
-<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" /> 
-<property name="authorities" > 
-<list> 
-<bean class="security.Authority"> 
- <property name="authority" value="CUSTOMER" /> 
- </bean></list> 
-</property> 
-</bean>
+	<!-- %%%%%% security.UserAccount %%%%%% -->
+	<bean id="UserAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="UserAccount2" class="security.UserAccount">
+		<property name="username" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="UserAccount3" class="security.UserAccount">
+		<property name="username" value="user1" />
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="UserAccount4" class="security.UserAccount">
+		<property name="username" value="user2" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="UserAccount5" class="security.UserAccount">
+		<property name="username" value="customer1" />
+		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 
- <!-- %%%%%%  domain.Slider %%%%%% --> 
-<bean id="Slider1" class="domain.Slider"> 
-<property name="title_en" value="Welcome to Sample Project 1.14!" /> 
-<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" /> 
-<property name="text_en" value="Example text 1" /> 
-<property name="text_es" value="Texto de ejemplo 1" /> 
-<property name="pictureUrl" value="https://tinyurl.com/adventure-meetup" /> 
-<property name="align" value="left" /> 
-</bean>
-<bean id="Slider2" class="domain.Slider"> 
-<property name="title_en" value="Welcome to Sample Project 1.14!" /> 
-<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" /> 
-<property name="text_en" value="Example text 2" /> 
-<property name="text_es" value="Texto de ejemplo 2" /> 
-<property name="pictureUrl" value="https://i.imgur.com/SoiZR6j.jpg" /> 
-<property name="align" value="right" /> 
-</bean>
-<bean id="Slider3" class="domain.Slider"> 
-<property name="title_en" value="Welcome to Sample Project 1.14!" /> 
-<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" /> 
-<property name="text_en" value="Example text 3" /> 
-<property name="text_es" value="Texto de ejemplo 3" /> 
-<property name="pictureUrl" value="https://imgur.com/Wu0HYcs.jpg" /> 
-<property name="align" value="center" /> 
-</bean>
+	<!-- %%%%%% domain.Slider %%%%%% -->
+	<bean id="Slider1" class="domain.Slider">
+		<property name="title_en" value="Welcome to Sample Project 1.14!" />
+		<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" />
+		<property name="text_en" value="Example text 1" />
+		<property name="text_es" value="Texto de ejemplo 1" />
+		<property name="pictureUrl" value="https://tinyurl.com/adventure-meetup" />
+		<property name="align" value="left" />
+	</bean>
+	<bean id="Slider2" class="domain.Slider">
+		<property name="title_en" value="Welcome to Sample Project 1.14!" />
+		<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" />
+		<property name="text_en" value="Example text 2" />
+		<property name="text_es" value="Texto de ejemplo 2" />
+		<property name="pictureUrl" value="https://i.imgur.com/SoiZR6j.jpg" />
+		<property name="align" value="right" />
+	</bean>
+	<bean id="Slider3" class="domain.Slider">
+		<property name="title_en" value="Welcome to Sample Project 1.14!" />
+		<property name="title_es" value="�Bienvenid@ a Sample Project 1.14!" />
+		<property name="text_en" value="Example text 3" />
+		<property name="text_es" value="Texto de ejemplo 3" />
+		<property name="pictureUrl" value="https://imgur.com/Wu0HYcs.jpg" />
+		<property name="align" value="center" />
+	</bean>
 
 
- <!-- %%%%%%  domain.Chirp %%%%%% --> 
-<bean id="Chirp1" class="domain.Chirp"> 
-<property name="title" value="Hola mundo!" /> 
-<property name="description" value="Este es mi primer chirp en Acme-Newspaper :)" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp2" class="domain.Chirp"> 
-<property name="title" value="He quedado con mi amigo Pipo" /> 
-<property name="description" value="Al parecer el hombre tiene 3 trabajos muy distintos entre s�. Est� muy ocupado y apenas tiene tiempo libre. " /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp3" class="domain.Chirp"> 
-<property name="title" value="Deseando a que empiece la Feria de Abril" /> 
-<property name="description" value="El 14 de abril empieza la Feria, estoy deseando que llegue el d�a!" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp4" class="domain.Chirp"> 
-<property name="title" value="Estoy aburrido" /> 
-<property name="description" value="�Qui�n se echa un Fornite?" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp5" class="domain.Chirp"> 
-<property name="title" value="La celebraci�n de Griezmann jaja" /> 
-<property name="description" value="Griezmann ha celebrado su gol contra el Madrid bailando como un personaje del Fornite, �qu� grande!" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp6" class="domain.Chirp"> 
-<property name="title" value="Odio a los runners" /> 
-<property name="description" value="Ese peri�dico runner est� repleto de gente que me cae mal..." /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp7" class="domain.Chirp"> 
-<property name="title" value="Me encantan los animales" /> 
-<property name="description" value="Tengo dos gatos, y desear�a que en este sistema hubiera un peri�dico sobre animales o gatos" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp8" class="domain.Chirp"> 
-<property name="title" value="Mi gata no para de dormir" /> 
-<property name="description" value="�Alguien sabe si es normal?" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp9" class="domain.Chirp"> 
-<property name="title" value="�Quien pens�is que ganar� la Champions?" /> 
-<property name="description" value="Yo creo que ser� el Ba�a... Messi es el mejor!" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp10" class="domain.Chirp"> 
-<property name="title" value="Messi vs Cristiano" /> 
-<property name="description" value="�Qui�n os gusta m�s? Creo que Messi es mejor, pero Cristiano es muy guapo!" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp11" class="domain.Chirp"> 
-<property name="title" value="�Me recomend�is un libro?" /> 
-<property name="description" value="Esta semana de Feria voy a estar aburrido y me gustar�a leer un poco" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp12" class="domain.Chirp"> 
-<property name="title" value="Palabras tab�" /> 
-<property name="description" value="Hablar de sexo est� muy mal visto en nuestra sociedad. �Por qu�?" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
-<bean id="Chirp13" class="domain.Chirp"> 
-<property name="title" value="Esto de los chirps... es muy parecido a Twitter" /> 
-<property name="description" value="Aunque en Twitter hay muchos m�s usuarios, Acme-Newspaper me gusta m�s!" /> 
-<property name="moment" value="2018/04/08 00:00" /> 
-<property name="taboo" value="false" /> 
-</bean>
+	<!-- %%%%%% domain.Chirp %%%%%% -->
+	<bean id="Chirp1" class="domain.Chirp">
+		<property name="title" value="Hola mundo!" />
+		<property name="description" value="Este es mi primer chirp en Acme-Newspaper :)" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp2" class="domain.Chirp">
+		<property name="title" value="He quedado con mi amigo Pipo" />
+		<property name="description"
+			value="Al parecer el hombre tiene 3 trabajos muy distintos entre s�. Est� muy ocupado y apenas tiene tiempo libre. " />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp3" class="domain.Chirp">
+		<property name="title" value="Deseando a que empiece la Feria de Abril" />
+		<property name="description"
+			value="El 14 de abril empieza la Feria, estoy deseando que llegue el d�a!" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp4" class="domain.Chirp">
+		<property name="title" value="Estoy aburrido" />
+		<property name="description" value="�Qui�n se echa un Fornite?" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp5" class="domain.Chirp">
+		<property name="title" value="La celebraci�n de Griezmann jaja" />
+		<property name="description"
+			value="Griezmann ha celebrado su gol contra el Madrid bailando como un personaje del Fornite, �qu� grande!" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp6" class="domain.Chirp">
+		<property name="title" value="Odio a los runners" />
+		<property name="description"
+			value="Ese peri�dico runner est� repleto de gente que me cae mal..." />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp7" class="domain.Chirp">
+		<property name="title" value="Me encantan los animales" />
+		<property name="description"
+			value="Tengo dos gatos, y desear�a que en este sistema hubiera un peri�dico sobre animales o gatos" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp8" class="domain.Chirp">
+		<property name="title" value="Mi gata no para de dormir" />
+		<property name="description" value="�Alguien sabe si es normal?" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp9" class="domain.Chirp">
+		<property name="title" value="�Quien pens�is que ganar� la Champions?" />
+		<property name="description"
+			value="Yo creo que ser� el Ba�a... Messi es el mejor!" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp10" class="domain.Chirp">
+		<property name="title" value="Messi vs Cristiano" />
+		<property name="description"
+			value="�Qui�n os gusta m�s? Creo que Messi es mejor, pero Cristiano es muy guapo!" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp11" class="domain.Chirp">
+		<property name="title" value="�Me recomend�is un libro?" />
+		<property name="description"
+			value="Esta semana de Feria voy a estar aburrido y me gustar�a leer un poco" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp12" class="domain.Chirp">
+		<property name="title" value="Palabras tab�" />
+		<property name="description"
+			value="Hablar de sexo est� muy mal visto en nuestra sociedad. �Por qu�?" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
+	<bean id="Chirp13" class="domain.Chirp">
+		<property name="title"
+			value="Esto de los chirps... es muy parecido a Twitter" />
+		<property name="description"
+			value="Aunque en Twitter hay muchos m�s usuarios, Acme-Newspaper me gusta m�s!" />
+		<property name="moment" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+	</bean>
 
 
- <!-- %%%%%%  domain.Customer %%%%%% --> 
-<bean id="Customer1" class="domain.Customer"> 
-<property name="name" value="Customer 1" /> 
-<property name="surname" value="Customer" /> 
-<property name="postalAddress" value="San Antion Spurs Street" /> 
-<property name="phoneNumber" value="635587789" /> 
-<property name="email" value="user1@mail.com" /> 
-<property name="birthDate" value="1987/04/11 00:00" /> 
-<property name="userAccount" ref="UserAccount5" /> 
-</bean>
+	<!-- %%%%%% domain.Customer %%%%%% -->
+	<bean id="Customer1" class="domain.Customer">
+		<property name="name" value="Customer 1" />
+		<property name="surname" value="Customer" />
+		<property name="postalAddress" value="San Antion Spurs Street" />
+		<property name="phoneNumber" value="635587789" />
+		<property name="email" value="user1@mail.com" />
+		<property name="birthDate" value="1987/04/11 00:00" />
+		<property name="userAccount" ref="UserAccount5" />
+	</bean>
 
 
- <!-- %%%%%%  domain.User %%%%%% --> 
-<bean id="User1" class="domain.User"> 
-<property name="users" > 
-<list> 
-</list> 
-</property> 
-<property name="newspapers" > 
-<list> 
-<ref bean="Newspaper1" /> 
-<ref bean="Newspaper2" /> 
-</list> 
-</property> 
-<property name="chirps" > 
-<list> 
-<ref bean="Chirp1" /> 
-<ref bean="Chirp2" /> 
-<ref bean="Chirp3" /> 
-<ref bean="Chirp4" /> 
-<ref bean="Chirp5" /> 
-<ref bean="Chirp6" /> 
-<ref bean="Chirp7" /> 
-<ref bean="Chirp8" /> 
-</list> 
-</property> 
-<property name="name" value="User 1" /> 
-<property name="surname" value="User" /> 
-<property name="postalAddress" value="San Antion Spurs Street" /> 
-<property name="phoneNumber" value="635587789" /> 
-<property name="email" value="user1@mail.com" /> 
-<property name="birthDate" value="1987/04/11 00:00" /> 
-<property name="userAccount" ref="UserAccount3" /> 
-</bean>
-<bean id="User2" class="domain.User"> 
-<property name="users" > 
-<list> 
-</list> 
-</property> 
-<property name="newspapers" > 
-<list> 
-</list> 
-</property> 
-<property name="chirps" > 
-<list> 
-<ref bean="Chirp9" /> 
-<ref bean="Chirp10" /> 
-<ref bean="Chirp11" /> 
-<ref bean="Chirp12" /> 
-<ref bean="Chirp13" /> 
-</list> 
-</property> 
-<property name="name" value="User 2" /> 
-<property name="surname" value="User " /> 
-<property name="postalAddress" value="Okklahoma Thunder Street" /> 
-<property name="phoneNumber" value="635582389" /> 
-<property name="email" value="user2@mail.com" /> 
-<property name="birthDate" value="1992/07/15 00:00" /> 
-<property name="userAccount" ref="UserAccount4" /> 
-</bean>
+	<!-- %%%%%% domain.User %%%%%% -->
+	<bean id="User1" class="domain.User">
+		<property name="users">
+			<list>
+			</list>
+		</property>
+		<property name="newspapers">
+			<list>
+				<ref bean="Newspaper1" />
+				<ref bean="Newspaper2" />
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+				<ref bean="Chirp1" />
+				<ref bean="Chirp2" />
+				<ref bean="Chirp3" />
+				<ref bean="Chirp4" />
+				<ref bean="Chirp5" />
+				<ref bean="Chirp6" />
+				<ref bean="Chirp7" />
+				<ref bean="Chirp8" />
+			</list>
+		</property>
+		<property name="name" value="User 1" />
+		<property name="surname" value="User" />
+		<property name="postalAddress" value="San Antion Spurs Street" />
+		<property name="phoneNumber" value="635587789" />
+		<property name="email" value="user1@mail.com" />
+		<property name="birthDate" value="1987/04/11 00:00" />
+		<property name="userAccount" ref="UserAccount3" />
+	</bean>
+	<bean id="User2" class="domain.User">
+		<property name="users">
+			<list>
+			</list>
+		</property>
+		<property name="newspapers">
+			<list>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+				<ref bean="Chirp9" />
+				<ref bean="Chirp10" />
+				<ref bean="Chirp11" />
+				<ref bean="Chirp12" />
+				<ref bean="Chirp13" />
+			</list>
+		</property>
+		<property name="name" value="User 2" />
+		<property name="surname" value="User " />
+		<property name="postalAddress" value="Okklahoma Thunder Street" />
+		<property name="phoneNumber" value="635582389" />
+		<property name="email" value="user2@mail.com" />
+		<property name="birthDate" value="1992/07/15 00:00" />
+		<property name="userAccount" ref="UserAccount4" />
+	</bean>
 
 
- <!-- %%%%%%  domain.Admin %%%%%% --> 
-<bean id="Admin1" class="domain.Admin"> 
-<property name="name" value="Super" /> 
-<property name="surname" value="Super" /> 
-<property name="email" value="super@mail.com" /> 
-<property name="birthDate" value="1995/10/03 00:00" /> 
-<property name="userAccount" ref="UserAccount1" /> 
-</bean>
-<bean id="Admin2" class="domain.Admin"> 
-<property name="name" value="Administrator 1" /> 
-<property name="surname" value="Administrator" /> 
-<property name="email" value="administrator1@mail.com" /> 
-<property name="birthDate" value="1987/04/11 00:00" /> 
-<property name="userAccount" ref="UserAccount2" /> 
-</bean>
+	<!-- %%%%%% domain.Admin %%%%%% -->
+	<bean id="Admin1" class="domain.Admin">
+		<property name="name" value="Super" />
+		<property name="surname" value="Super" />
+		<property name="email" value="super@mail.com" />
+		<property name="birthDate" value="1995/10/03 00:00" />
+		<property name="userAccount" ref="UserAccount1" />
+	</bean>
+	<bean id="Admin2" class="domain.Admin">
+		<property name="name" value="Administrator 1" />
+		<property name="surname" value="Administrator" />
+		<property name="email" value="administrator1@mail.com" />
+		<property name="birthDate" value="1987/04/11 00:00" />
+		<property name="userAccount" ref="UserAccount2" />
+	</bean>
 
 
- <!-- %%%%%%  domain.Article %%%%%% --> 
-<bean id="Article1" class="domain.Article"> 
-<property name="title" value="[GU�A] C�mo sobrevivir en la ETSII" /> 
-<property name="summary" value="Si has sido aceptado recientemente en nuestra escuela, este art�culo te ayudar� a pasar tus primeros d�as." /> 
-<property name="body" value="Test Articulo 1" /> 
-<property name="finalMode" value="false" /> 
-<property name="taboo" value="false" /> 
-<property name="followUps" > 
-<list> 
-</list> 
-</property> 
-</bean>
-<bean id="Article2" class="domain.Article"> 
-<property name="title" value="Charla del premio Nobel John Doe" /> 
-<property name="summary" value="El pr�ximo 5 de mayo el premio Nobel John Doe dar� una conferencia en nuestra escuela sobre gestion de proyectos informáticos." /> 
-<property name="body" value="Test Articulo 2" /> 
-<property name="finalMode" value="true" /> 
-<property name="taboo" value="false" /> 
-<property name="followUps" > 
-<list> 
-</list> 
-</property> 
-</bean>
-<bean id="Article3" class="domain.Article"> 
-<property name="title" value="Primer d�a de runner" /> 
-<property name="summary" value="En este art�culo encontrar�s informaci�n para tu primer d�a corriendo por la ciudad. �Adelante!" /> 
-<property name="body" value="Test Articulo 3" /> 
-<property name="finalMode" value="true" /> 
-<property name="taboo" value="false" /> 
-<property name="followUps" > 
-<list> 
-</list> 
-</property> 
-</bean>
-<bean id="Article4" class="domain.Article"> 
-<property name="title" value="5 consejos para perder peso corriendo" /> 
-<property name="summary" value="Con estos cinco consejos y un poco de constancia conseguir�s bajar de peso con nuestro hobby favorito." /> 
-<property name="body" value="Test Articulo 4"/>
-<property name="finalMode" value="false" /> 
-<property name="taboo" value="false" /> 
-<property name="followUps" > 
-<list> 
-</list> 
-</property> 
-</bean>
+	<!-- %%%%%% domain.Article %%%%%% -->
+	<bean id="Article1" class="domain.Article">
+		<property name="title" value="[GUIA] Como sobrevivir en la ETSII" />
+		<property name="summary"
+			value="Si has sido aceptado recientemente en nuestra escuela, este art�culo te ayudar� a pasar tus primeros d�as." />
+		<property name="body" value="Test Articulo 1" />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="Article2" class="domain.Article">
+		<property name="title" value="Charla del premio Nobel John Doe" />
+		<property name="summary"
+			value="El pr�ximo 5 de mayo el premio Nobel John Doe dar� una conferencia en nuestra escuela sobre gestion de proyectos informáticos." />
+		<property name="body" value="Test Articulo 2" />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="Article3" class="domain.Article">
+		<property name="title" value="Primer d�a de runner" />
+		<property name="summary"
+			value="En este art�culo encontrar�s informaci�n para tu primer d�a corriendo por la ciudad. �Adelante!" />
+		<property name="body" value="Test Articulo 3" />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="Article4" class="domain.Article">
+		<property name="title" value="5 consejos para perder peso corriendo" />
+		<property name="summary"
+			value="Con estos cinco consejos y un poco de constancia conseguir�s bajar de peso con nuestro hobby favorito." />
+		<property name="body" value="Test Articulo 4" />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="Article5" class="domain.Article">
+		<property name="title" value="Concurso mecanografia en la etsii" />
+		<property name="summary" value="Ponte a prueba!" />
+		<property name="body"
+			value="En la universidad de sevilla se va a organizar un concurso de mecanografía en el que TÚ estas obligado a venir, pon a prueba tus reflejos y tu capacidad!" />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="Article6" class="domain.Article">
+		<property name="title" value="Cusrso de programación en UNITY" />
+		<property name="summary" value="Crea tu propio juego!" />
+		<property name="body"
+			value="Con este curso te dejaremos listo para que puedas empezar a usar tu imaginación en crear algo maravilloso para la comunidad. El cielo es el límite!!" />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="Article7" class="domain.Article">
+		<property name="title" value="Come hasta que no puedas mas!" />
+		<property name="summary" value="Judamalua te invita a pizza unete!" />
+		<property name="body"
+			value="Ven con nosotros, nosotros ponemos la comida y tú la boca." />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="Article8" class="domain.Article">
+		<property name="title" value="5 consejos para ser feliz" />
+		<property name="summary"
+			value="Con estos cinco consejos conseguiras la felicidad" />
+		<property name="body" value="1 Ven. 2 Come pizza. 3. Disfruta." />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="Article9" class="domain.Article">
+		<property name="title" value="No te lo vas a creer" />
+		<property name="summary" value="Voy al lago ness y pasa esto!" />
+		<property name="body"
+			value="Fui de viaje al lago ness estas vacaciones en bussca del monstruo y no te los vas a creer!,
+			 no encontré nada!. La proxima vez será :D." />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="Article10" class="domain.Article">
+		<property name="title" value="Nadie esta seguro" />
+		<property name="summary" value="Los principes e corchuelo atacan de nuevo." />
+		<property name="body" value="Actualizar los antivirus!!" />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
+		<bean id="Article11" class="domain.Article">
+		<property name="title" value="Borrador de artículo" />
+		<property name="summary" value="Borrador" />
+		<property name="body" value="Borrador" />
+		<property name="finalMode" value="false" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
 
 
- <!-- %%%%%%  domain.Configuration %%%%%% --> 
-<bean id="Configuration1" class="domain.Configuration"> 
-<property name="cookies_eng" value="This page uses cookies for its internal operations, by continuing, we will assume that you accept these cookies." /> 
-<property name="cookies_es" value="Esta pagina usa cookies para realizar su correcto funcionamiento, si contin�a navegando, asumiremos que acepta estas cookies." /> 
-<property name="businessNameFirst" value="Acme" /> 
-<property name="businessNameLast" value="Newspaper" /> 
-<property name="pageSize" value="5" /> 
-<property name="tabooWords" > 
-<list> 
-<value>viagra</value> 
-<value>cialis</value> 
-<value>sex</value> 
-<value>sexo</value> 
-</list> 
-</property> 
-</bean>
+	<!-- %%%%%% domain.Configuration %%%%%% -->
+	<bean id="Configuration1" class="domain.Configuration">
+		<property name="cookies_eng"
+			value="This page uses cookies for its internal operations, by continuing, we will assume that you accept these cookies." />
+		<property name="cookies_es"
+			value="Esta pagina usa cookies para realizar su correcto funcionamiento, si contin�a navegando, asumiremos que acepta estas cookies." />
+		<property name="businessNameFirst" value="Acme" />
+		<property name="businessNameLast" value="Newspaper" />
+		<property name="pageSize" value="5" />
+		<property name="tabooWords">
+			<list>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>sex</value>
+				<value>sexo</value>
+			</list>
+		</property>
+	</bean>
 
 
- <!-- = = = = = = DATATYPES = = = = = = = --> 
+	<!-- = = = = = = DATATYPES = = = = = = = -->
 </beans>

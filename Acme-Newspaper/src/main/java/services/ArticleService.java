@@ -120,13 +120,11 @@ public class ArticleService {
 	public Article reconstruct(final Article article, final BindingResult binding) {
 		Article result;
 		final Collection<FollowUp> followUps;
-		Collection<String> pictureUrls;
 
 		if (article.getId() == 0) {
 
 			result = article;
 			followUps = new HashSet<>();
-			pictureUrls = new HashSet<>();
 
 			result.setFollowUps(followUps);
 			result.setTaboo(false);
@@ -202,7 +200,7 @@ public class ArticleService {
 
 		Assert.notNull(pageable);
 
-		result = this.articleRepository.findPublicPublicatedArticlesWithSearch(search, pageable);
+		result = this.articleRepository.findPublicPublicatedArticlesWithSearch("%" + search + "%", pageable);
 
 		return result;
 	}
