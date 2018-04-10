@@ -39,8 +39,19 @@ public class FollowUPServiceTest extends AbstractTest {
 
 	//******************************************Positive Methods*******************************************************************
 
+	/**
+	 * Information requirement 14.
+	 * The writer of an article may write follow-ups on it. Follow-ups can be written only after an
+	 * article is saved in final mode and the corresponding newspaper is published. For every follow-up,
+	 * the system must store the following data: title, publication moment, summary, text
+	 * and optional pictures.
+	 * 
+	 * That method test than a user can create a followUp correctly, according to the constraints
+	 * 
+	 * @author Luis
+	 */
 	@Test
-	public void testCreateANewspaper() {
+	public void testCreateAfollowUp() {
 		FollowUp followUp;
 		FollowUp savedFollowUp;
 		Article article;
@@ -58,6 +69,61 @@ public class FollowUPServiceTest extends AbstractTest {
 
 	//******************************************Negative Methods*******************************************************************
 
+	/**
+	 * Information requirement 14.
+	 * The writer of an article may write follow-ups on it. Follow-ups can be written only after an
+	 * article is saved in final mode and the corresponding newspaper is published. For every follow-up,
+	 * the system must store the following data: title, publication moment, summary, text
+	 * and optional pictures.
+	 * 
+	 * 
+	 * That method test that a User can created a followUp in an article of a not published newspaper
+	 * 
+	 * @author Luis
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateAfollowUpNegative() {
+		FollowUp followUp;
+		FollowUp savedFollowUp;
+		Article article;
+
+		super.authenticate("User2");
+		followUp = this.createStandarFollowUp();
+		article = (Article) this.articleService.findAll().toArray()[10];
+
+		followUp = this.followUpService.save(followUp, article);
+		savedFollowUp = this.followUpService.findOne(followUp.getId());
+		Assert.notNull(savedFollowUp);
+
+		super.unauthenticate();
+	}
+	/**
+	 * Information requirement 14.
+	 * The writer of an article may write follow-ups on it. Follow-ups can be written only after an
+	 * article is saved in final mode and the corresponding newspaper is published. For every follow-up,
+	 * the system must store the following data: title, publication moment, summary, text
+	 * and optional pictures.
+	 * 
+	 * That method test that a not authenticated actor can create a followUp
+	 * 
+	 * @author Luis
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateAfollowUpNegative2() {
+		FollowUp followUp;
+		FollowUp savedFollowUp;
+		Article article;
+
+		followUp = this.createStandarFollowUp();
+		followUp.setUser(null);
+		article = (Article) this.articleService.findAll().toArray()[10];
+
+		followUp = this.followUpService.save(followUp, article);
+		savedFollowUp = this.followUpService.findOne(followUp.getId());
+		Assert.notNull(savedFollowUp);
+
+	}
+
 	//******************************************Private Methods**************************
 
 	private FollowUp createStandarFollowUp() {
@@ -68,6 +134,7 @@ public class FollowUPServiceTest extends AbstractTest {
 		followUp = this.followUpService.create();
 		followUp.setText("That is a example of a simple text of a followUp");
 		followUp.setTitle("FollowUp 1");
+		followUp.setSummary("Hola soy un summary");
 		followUp.setPublicationDate(new Date());
 		followUp.setUser(creator);
 
