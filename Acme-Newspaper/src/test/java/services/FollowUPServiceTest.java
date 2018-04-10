@@ -1,22 +1,20 @@
 
 package services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Article;
-import domain.CreditCard;
-import domain.Newspaper;
+import domain.FollowUp;
+import domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -41,45 +39,40 @@ public class FollowUPServiceTest extends AbstractTest {
 
 	//******************************************Positive Methods*******************************************************************
 
+	@Test
+	public void testCreateANewspaper() {
+		FollowUp followUp;
+		FollowUp savedFollowUp;
+		Article article;
+
+		super.authenticate("User1");
+		followUp = this.createStandarFollowUp();
+		article = (Article) this.articleService.findAll().toArray()[0];
+
+		followUp = this.followUpService.save(followUp, article);
+		savedFollowUp = this.followUpService.findOne(followUp.getId());
+		Assert.notNull(savedFollowUp);
+
+		super.unauthenticate();
+	}
+
 	//******************************************Negative Methods*******************************************************************
 
 	//******************************************Private Methods**************************
 
-	@SuppressWarnings("unused")
-	private Newspaper createStandarNewspaper() throws ParseException {
-		Newspaper newspaper;
-		Newspaper savedNewspaper;
-		final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		final Date date = format.parse("21/12/2015");
+	private FollowUp createStandarFollowUp() {
+		super.authenticate("User1");
+		FollowUp followUp;
+		final User creator = (User) this.actorService.findActorByPrincipal();
 
-		final Collection<Article> articles = new ArrayList<Article>();
-		final Collection<CreditCard> creditCards = new ArrayList<CreditCard>();
+		followUp = this.followUpService.create();
+		followUp.setText("That is a example of a simple text of a followUp");
+		followUp.setTitle("FollowUp 1");
+		followUp.setPublicationDate(new Date());
+		followUp.setUser(creator);
 
-		newspaper = this.newspaperService.create();
-		newspaper.setArticles(articles);
-		newspaper.setCreditCards(creditCards);
-		newspaper.setDescription("New Description");
-		newspaper.setPublicationDate(date);
-		newspaper.setPictureUrl("https://www.realbetisbalompie.es/img1");
-		newspaper.setPublicNewspaper(true);
-		newspaper.setTaboo(false);
-		newspaper.setTitle("title 1");
-		savedNewspaper = this.newspaperService.save(newspaper);
-
-		return savedNewspaper;
+		return followUp;
 
 	}
-
-	//	private Article createStandarsArticle(){
-	//		Article article;
-	//		
-	//		article= this.articleService.create();
-	//		article.setFinalMode(true);
-	//		article.set;
-	//		article.set;
-	//		article.set;
-	//		article.set;
-	//		
-	//	}
 
 }
