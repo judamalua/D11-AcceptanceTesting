@@ -103,7 +103,7 @@ public class FollowUpService {
 		Assert.isTrue(this.newsPaperService.findNewspaperByArticle(article.getId()).getPublicationDate().before(new Date()));//Comprueba que el periódico  ha sido publicado
 
 		FollowUp result;
-		User user;
+		final User user;
 		Newspaper newspaper;
 		boolean taboo;
 
@@ -114,13 +114,11 @@ public class FollowUpService {
 		}
 
 		result = this.followUpRepository.save(followUp);
-		user = (User) this.actorService.findActorByPrincipal();
 		newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
+		user = followUp.getUser();
 
-		if (followUp.getId() != 0) {
-			Assert.isTrue(user == followUp.getUser());
+		if (followUp.getId() != 0)
 			article.getFollowUps().remove(followUp);
-		}
 
 		article.getFollowUps().add(result);
 		this.articleService.save(article, newspaper);
