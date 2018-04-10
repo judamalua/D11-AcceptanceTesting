@@ -3,126 +3,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-	<!-- %%%%%% domain.Newspaper %%%%%% -->
-	<bean id="Newspaper1" class="domain.Newspaper">
-		<property name="title" value="El Informatico" />
-		<property name="description"
-			value="El Inform�tico es el peri�dico oficial de la Escuela T�cnica Superior de Ingenier�a Inform�tica de la Universidad de Sevilla. 
-			�S�guenos y mantente al corriente sobre las �ltimas novedades de la escuela!" />
-		<property name="pictureUrl"
-			value="http://comunicacion.us.es/sites/default/files/ingenieria_informatica.jpg" />
-		<property name="publicNewspaper" value="true" />
-		<property name="publicationDate" value="2018/04/09 00:00" />
-		<property name="taboo" value="false" />
-		<property name="creditCards">
-			<list>
-			</list>
-		</property>
-		<property name="articles">
-			<list>
-				<ref bean="Article1" />
-				<ref bean="Article2" />
-				<ref bean="Article3" />
-				<ref bean="Article4" />
-				<ref bean="Article5" />
-				<ref bean="Article6" />
-			</list>
-		</property>
-	</bean>
-	<bean id="Newspaper2" class="domain.Newspaper">
-		<property name="title" value="The Runner Journal" />
-		<property name="description"
-			value="The Runner Journal es el diario donde runners de todo el mundo comparten sus experiencias sobre el deporte m�s practicado hoy en d�a. �Ponte las botas, que nos vamos!" />
-		<property name="pictureUrl"
-			value="https://blogicalimentaria.files.wordpress.com/2016/03/runners.jpg" />
-		<property name="publicNewspaper" value="true" />
-		<property name="taboo" value="false" />
-		<property name="creditCards">
-			<list>
-			</list>
-		</property>
-		<property name="articles">
-			<list>
-				<ref bean="Article11" />
-			</list>
-		</property>
-	</bean>
-	<bean id="Newspaper3" class="domain.Newspaper">
-		<property name="title" value="The big pizza" />
-		<property name="description"
-			value="The biggest pizza in the world in Spain! Some people think that is better than sex." />
-		<property name="pictureUrl"
-			value="https://i0.wp.com/conectica.com/wp-content/uploads/2017/02/pizza-más-grande-del-mundo.jpg" />
-		<property name="publicNewspaper" value="false" />
-		<property name="taboo" value="true" />
-		<property name="publicationDate" value="2018/04/4 00:00" />
-		<property name="creditCards">
-			<list>
-			</list>
-		</property>
-		<property name="articles">
-			<list>
-				<ref bean="Article7" />
-			</list>
-		</property>
-	</bean>
-	<bean id="Newspaper4" class="domain.Newspaper">
-		<property name="title" value="The big hamburger" />
-		<property name="description" value="The biggest hamburger in the world in Spain!" />
-		<property name="pictureUrl"
-			value="https://ep00.epimg.net/elpais/imagenes/2016/07/04/tentaciones/1467621449_945556_1467633477_noticia_normal.jpg" />
-		<property name="publicNewspaper" value="false" />
-		<property name="taboo" value="false" />
-		<property name="publicationDate" value="2018/01/09 00:00" />
-		<property name="creditCards">
-			<list>
-			</list>
-		</property>
-		<property name="articles">
-			<list>
-				<ref bean="Article8" />
-			</list>
-		</property>
-	</bean>
-	<bean id="Newspaper5" class="domain.Newspaper">
-		<property name="title" value="Nessie" />
-		<property name="description" value="Nessie sighted again. " />
-		<property name="pictureUrl"
-			value="https://www.pullmantur.travel/media/images/b2bbrasil/continentes/europa/escocia/lago-ness/608-240px/lago-ness-panoramica-foto-general.jpg" />
-		<property name="publicNewspaper" value="false" />
-		<property name="publicationDate" value="2012/11/03 00:00" />
-		<property name="taboo" value="false" />
-		<property name="creditCards">
-			<list>
-			</list>
-		</property>
-		<property name="articles">
-			<list>
-				<ref bean="Article9" />
-			</list>
-		</property>
-	</bean>
-	<bean id="Newspaper6" class="domain.Newspaper">
-		<property name="title" value="New hacker attacks!" />
-		<property name="description"
-			value="The company Judamalua S.A was attacked the last day by a group of hackers autodenominated the princes of corchuelo." />
-		<property name="pictureUrl"
-			value="https://cdn.tn.com.ar/sites/default/files/styles/1366x765/public/2017/10/27/hacker.jpg" />
-		<property name="publicNewspaper" value="true" />
-		<property name="publicationDate" value="2018/04/08 00:00" />
-		<property name="taboo" value="false" />
-		<property name="creditCards">
-			<list>
-			</list>
-		</property>
-		<property name="articles">
-			<list>
-				<ref bean="Article10" />
-			</list>
-		</property>
-	</bean>
-
-
 	<!-- %%%%%% security.UserAccount %%%%%% -->
 	<bean id="UserAccount1" class="security.UserAccount">
 		<property name="username" value="admin" />
@@ -322,6 +202,10 @@
 			<list>
 				<ref bean="Newspaper1" />
 				<ref bean="Newspaper2" />
+				<ref bean="Newspaper3" />
+				<ref bean="Newspaper4" />
+				<ref bean="Newspaper5" />
+				<ref bean="Newspaper6" />
 			</list>
 		</property>
 		<property name="chirps">
@@ -526,6 +410,126 @@
 			</list>
 		</property>
 	</bean>
+	
+		<!-- %%%%%% domain.Newspaper %%%%%% -->
+	<bean id="Newspaper1" class="domain.Newspaper">
+		<property name="title" value="El Informatico" />
+		<property name="description"
+			value="El Inform�tico es el peri�dico oficial de la Escuela T�cnica Superior de Ingenier�a Inform�tica de la Universidad de Sevilla. 
+			�S�guenos y mantente al corriente sobre las �ltimas novedades de la escuela!" />
+		<property name="pictureUrl"
+			value="http://comunicacion.us.es/sites/default/files/ingenieria_informatica.jpg" />
+		<property name="publicNewspaper" value="true" />
+		<property name="publicationDate" value="2018/04/09 00:00" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article1" />
+				<ref bean="Article2" />
+				<ref bean="Article3" />
+				<ref bean="Article4" />
+				<ref bean="Article5" />
+				<ref bean="Article6" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper2" class="domain.Newspaper">
+		<property name="title" value="The Runner Journal" />
+		<property name="description"
+			value="The Runner Journal es el diario donde runners de todo el mundo comparten sus experiencias sobre el deporte m�s practicado hoy en d�a. �Ponte las botas, que nos vamos!" />
+		<property name="pictureUrl"
+			value="https://blogicalimentaria.files.wordpress.com/2016/03/runners.jpg" />
+		<property name="publicNewspaper" value="true" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article11" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper3" class="domain.Newspaper">
+		<property name="title" value="The big pizza" />
+		<property name="description"
+			value="The biggest pizza in the world in Spain! Some people think that is better than sex." />
+		<property name="pictureUrl"
+			value="https://i0.wp.com/conectica.com/wp-content/uploads/2017/02/pizza-más-grande-del-mundo.jpg" />
+		<property name="publicNewspaper" value="false" />
+		<property name="taboo" value="true" />
+		<property name="publicationDate" value="2018/04/4 00:00" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article7" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper4" class="domain.Newspaper">
+		<property name="title" value="The big hamburger" />
+		<property name="description" value="The biggest hamburger in the world in Spain!" />
+		<property name="pictureUrl"
+			value="https://ep00.epimg.net/elpais/imagenes/2016/07/04/tentaciones/1467621449_945556_1467633477_noticia_normal.jpg" />
+		<property name="publicNewspaper" value="false" />
+		<property name="taboo" value="false" />
+		<property name="publicationDate" value="2018/01/09 00:00" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article8" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper5" class="domain.Newspaper">
+		<property name="title" value="Nessie" />
+		<property name="description" value="Nessie sighted again. " />
+		<property name="pictureUrl"
+			value="https://www.pullmantur.travel/media/images/b2bbrasil/continentes/europa/escocia/lago-ness/608-240px/lago-ness-panoramica-foto-general.jpg" />
+		<property name="publicNewspaper" value="false" />
+		<property name="publicationDate" value="2012/11/03 00:00" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article9" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper6" class="domain.Newspaper">
+		<property name="title" value="New hacker attacks!" />
+		<property name="description"
+			value="The company Judamalua S.A was attacked the last day by a group of hackers autodenominated the princes of corchuelo." />
+		<property name="pictureUrl"
+			value="https://cdn.tn.com.ar/sites/default/files/styles/1366x765/public/2017/10/27/hacker.jpg" />
+		<property name="publicNewspaper" value="true" />
+		<property name="publicationDate" value="2018/04/08 00:00" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article10" />
+			</list>
+		</property>
+	</bean>
+	
 
 	<!-- %%%%%% domain.Configuration %%%%%% -->
 	<bean id="Configuration1" class="domain.Configuration">
