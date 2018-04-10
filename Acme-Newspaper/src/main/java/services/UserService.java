@@ -331,6 +331,13 @@ public class UserService {
 		return result;
 	}
 
+	public User findUserByChirp(final int chirpId) {
+		User result;
+
+		result = this.userRepository.findUserByChirp(chirpId);
+
+		return result;
+	}
 	//Dashboard queries ------------------------
 
 	/**

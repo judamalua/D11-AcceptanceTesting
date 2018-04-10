@@ -96,6 +96,13 @@ public class ChirpService {
 
 		Assert.isTrue(this.chirpRepository.exists(chirp.getId()));
 
+		User user;
+
+		user = this.userService.findUserByChirp(chirp.getId());
+
+		user.getChirps().remove(chirp);
+		this.userService.save(user);
+
 		this.chirpRepository.delete(chirp);
 
 	}

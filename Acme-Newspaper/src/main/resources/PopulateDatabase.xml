@@ -168,7 +168,7 @@
 		<property name="description"
 			value="Hablar de sexo está muy mal visto en nuestra sociedad. ¿Por qué?" />
 		<property name="moment" value="2018/04/08 00:00" />
-		<property name="taboo" value="false" />
+		<property name="taboo" value="true" />
 	</bean>
 	<bean id="Chirp13" class="domain.Chirp">
 		<property name="title"
