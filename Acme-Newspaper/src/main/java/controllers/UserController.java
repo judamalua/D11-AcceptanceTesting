@@ -24,6 +24,7 @@ import services.ActorService;
 import services.ConfigurationService;
 import services.UserService;
 import domain.Article;
+import domain.Chirp;
 import domain.Configuration;
 import domain.User;
 
@@ -100,11 +101,12 @@ public class UserController extends AbstractController {
 	 * @author MJ
 	 */
 	@RequestMapping("/display")
-	public ModelAndView display(@RequestParam(required = false) Integer actorId, @RequestParam(defaultValue = "0") final int page) {
+	public ModelAndView display(@RequestParam(required = false) Integer actorId, @RequestParam(defaultValue = "0") final int articlePage, @RequestParam(defaultValue = "0") final int chirpPage) {
 		ModelAndView result;
 		User user;
 		Page<Article> articles;
-		Pageable pageable;
+		Page<Chirp> chirps;
+		Pageable articlePageable, chirpPageable;
 		Configuration configuration;
 
 		try {
@@ -118,13 +120,19 @@ public class UserController extends AbstractController {
 
 			Assert.notNull(user);
 			configuration = this.configurationService.findConfiguration();
-			pageable = new PageRequest(page, configuration.getPageSize());
-			articles = this.userService.findUserPublishedArticles(actorId, pageable);
+			articlePageable = new PageRequest(articlePage, configuration.getPageSize());
+			articles = this.userService.findUserPublishedArticles(actorId, articlePageable);
+
+			chirpPageable = new PageRequest(chirpPage, configuration.getPageSize());
+			chirps = this.userService.findChirpsOfUser(user.getId(), chirpPageable);
 
 			result.addObject("actor", user);
 			result.addObject("articles", articles.getContent());
-			result.addObject("page", page);
-			result.addObject("pageNum", articles.getTotalPages());
+			result.addObject("articlePage", articlePage);
+			result.addObject("articlePageNum", articles.getTotalPages());
+			result.addObject("chirps", chirps.getContent());
+			result.addObject("chirpPage", chirpPage);
+			result.addObject("chirpPageNum", chirps.getTotalPages());
 			result.addObject("isUserProfile", true);
 
 		} catch (final Throwable oops) {

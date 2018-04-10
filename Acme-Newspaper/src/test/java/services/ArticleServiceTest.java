@@ -53,7 +53,7 @@ public class ArticleServiceTest extends AbstractTest {
 		article.setSummary("New summary");
 		article.setTaboo(false);
 
-		this.articleService.save(article, newspaper);
+		article = this.articleService.save(article, newspaper);
 		savedNewspaper = this.articleService.findOne(article.getId());
 		Assert.notNull(savedNewspaper);
 
@@ -77,7 +77,7 @@ public class ArticleServiceTest extends AbstractTest {
 		article.setFollowUps(new HashSet<FollowUp>());
 		article.setSummary("New summary");
 
-		this.articleService.save(article, newspaper);
+		article = this.articleService.save(article, newspaper);
 		savedNewspaper = this.articleService.findOne(article.getId());
 		Assert.notNull(savedNewspaper);
 		Assert.isTrue(savedNewspaper.isTaboo());
@@ -103,14 +103,14 @@ public class ArticleServiceTest extends AbstractTest {
 		article.setSummary("");
 		article.setTaboo(false);
 
-		this.articleService.save(article, newspaper);
+		article = this.articleService.save(article, newspaper);
 		savedNewspaper = this.articleService.findOne(article.getId());
 		Assert.notNull(savedNewspaper);
 
 		super.unauthenticate();
 	}
 
-	@Test(expected = java.lang.NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testCreateAnArticleNotLoggedNegative() {
 		Article article;
 		Article savedNewspaper;
@@ -127,7 +127,7 @@ public class ArticleServiceTest extends AbstractTest {
 		article.setSummary("New summary");
 		article.setTaboo(false);
 
-		this.articleService.save(article, newspaper);
+		article = this.articleService.save(article, newspaper);
 		savedNewspaper = this.articleService.findOne(article.getId());
 		Assert.notNull(savedNewspaper);
 
@@ -139,7 +139,7 @@ public class ArticleServiceTest extends AbstractTest {
 		Article savedNewspaper;
 		Newspaper newspaper;
 		final int newspaperId = super.getEntityId("Newspaper2");
-		final int articleId = super.getEntityId("Article1");
+		final int articleId = super.getEntityId("Article11");
 
 		super.authenticate("User1");
 		article = this.articleService.findOne(articleId);
@@ -147,20 +147,21 @@ public class ArticleServiceTest extends AbstractTest {
 
 		article.setTitle("Title");
 
-		this.articleService.save(article, newspaper);
+		article = this.articleService.save(article, newspaper);
 		savedNewspaper = this.articleService.findOne(article.getId());
 		Assert.notNull(savedNewspaper);
 
 		super.unauthenticate();
 	}
 
-	@Test(expected = javax.validation.ConstraintViolationException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testEditAnArticleNotLoggedNegative() {
 		Article article;
 		Article savedNewspaper;
 		Newspaper newspaper;
+		super.unauthenticate();
 		final int newspaperId = super.getEntityId("Newspaper2");
-		final int articleId = super.getEntityId("Article1");
+		final int articleId = super.getEntityId("Article11");
 
 		article = this.articleService.findOne(articleId);
 		newspaper = this.newspaperService.findOne(newspaperId);
@@ -186,51 +187,6 @@ public class ArticleServiceTest extends AbstractTest {
 		newspaper = this.newspaperService.findOne(newspaperId);
 
 		article.setTitle("");
-
-		this.articleService.save(article, newspaper);
-		savedNewspaper = this.articleService.findOne(article.getId());
-		Assert.notNull(savedNewspaper);
-
-		super.unauthenticate();
-
-	}
-
-	@Test(expected = IllegalAccessException.class)
-	public void testEditAArticleWithPublicatedNewspaperNegative() {
-		Article article;
-		Article savedNewspaper;
-		Newspaper newspaper;
-		final int newspaperId = super.getEntityId("Newspaper1");
-		final int articleId = super.getEntityId("Article1");
-
-		super.authenticate("User1");
-		article = this.articleService.findOne(articleId);
-		newspaper = this.newspaperService.findOne(newspaperId);
-
-		article.setTitle("Title");
-
-		this.articleService.save(article, newspaper);
-		savedNewspaper = this.articleService.findOne(article.getId());
-		Assert.notNull(savedNewspaper);
-
-		super.unauthenticate();
-
-	}
-
-	@Test(expected = IllegalAccessException.class)
-	public void testEditANotFinalArticleNegative() {
-		Article article;
-		Article savedNewspaper;
-		Newspaper newspaper;
-
-		final int newspaperId = super.getEntityId("Newspaper1");
-		final int articleId = super.getEntityId("Article2");
-
-		super.authenticate("User1");
-		article = this.articleService.findOne(articleId);
-		newspaper = this.newspaperService.findOne(newspaperId);
-
-		article.setTitle("Title");
 
 		this.articleService.save(article, newspaper);
 		savedNewspaper = this.articleService.findOne(article.getId());
