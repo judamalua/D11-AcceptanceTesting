@@ -37,4 +37,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	 */
 	@Query("select a from Article a join a.followUps fs where fs =?1")
 	Article getArticleByFollowUp(FollowUp followUp);
+
+	@Query("select a from Article a where a.title like ?1 or a.summary like ?1 or a.body like ?1")
+	Page<Article> findPublicPublicatedArticlesWithSearch(String search, Pageable pageable);
 }

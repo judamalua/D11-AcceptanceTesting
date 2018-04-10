@@ -31,6 +31,18 @@
 <fmt:formatDate var="currentDate" value="${now}"
 	pattern="yyyy-MM-dd HH:mm" />
 
+<div class="row">
+	<form action="newspaper/search.do" method="get">
+		<div class="input-field col s3">
+			<input id="page" type="hidden" name="page" value="0" /> <input
+				id="search" type="search" name="search" required> <label
+				class="label-icon" for="search"><i class="material-icons">search</i></label>
+			<i class="material-icons">close</i>
+		</div>
+	</form>
+</div>
+
+
 <!-- Pagination -->
 <acme:pagination requestURI="${requestUri}page=" pageNum="${pageNum}"
 	page="${page}" />
@@ -40,7 +52,10 @@
 	requestURI="${requestUri}page=${page}">
 
 	<display:column>
-		<img src="${newspaper.pictureUrl}" class="serviceImg" />
+		<jstl:if
+			test="${newspaper.pictureUrl!=\"\" and newspaper.pictureUrl!=null}">
+			<img src="${newspaper.pictureUrl}" class="newspaperImg" />
+		</jstl:if>
 	</display:column>
 	<display:column property="title" title="${titleName}" sortable="true" />
 	<display:column property="publicationDate" title="${titlePublication}"
@@ -54,8 +69,6 @@
 		</jstl:if>
 	</display:column>
 	<display:column>
-		<jstl:if
-			test="${newspaper.publicNewspaper or ((fn:length(subscribeNewspaper)>0) and subscriber[subscribeNewspaper_rowNum-1])}"></jstl:if>
 		<acme:button url="newspaper/display.do?newspaperId=${newspaper.id}"
 			code="newspaper.details" />
 	</display:column>
@@ -75,7 +88,7 @@
 	<display:column>
 		<security:authorize access="hasRole('USER')">
 			<jstl:if
-				test="${((owner or (ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null)) and canPublicate!=null and  canPublicate[newspaper_rowNum-1] }">
+				test="${(owner or ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null and canPublicate!=null and  canPublicate[newspaper_rowNum-1] }">
 				<acme:button
 					url="newspaper/user/publish.do?newspaperId=${newspaper.id}"
 					code="newspaper.publish" />

@@ -145,6 +145,7 @@ public class NewspaperUserController extends AbstractController {
 
 			Assert.isTrue(actor.equals(publisher));
 			Assert.isTrue(newspaper.getPublicationDate() == null);
+			Assert.isTrue(newspaper.getArticles().size() > 0);
 
 			newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
 

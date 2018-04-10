@@ -120,13 +120,11 @@ public class ArticleService {
 	public Article reconstruct(final Article article, final BindingResult binding) {
 		Article result;
 		final Collection<FollowUp> followUps;
-		Collection<String> pictureUrls;
 
 		if (article.getId() == 0) {
 
 			result = article;
 			followUps = new HashSet<>();
-			pictureUrls = new HashSet<>();
 
 			result.setFollowUps(followUps);
 			result.setTaboo(false);
@@ -185,6 +183,24 @@ public class ArticleService {
 		Article result;
 
 		result = this.articleRepository.getArticleByFollowUp(followUp);
+
+		return result;
+	}
+
+	/**
+	 * Method to search a specific article
+	 * 
+	 * @author Daniel Diment
+	 * @param pageable
+	 * @param search
+	 * @return
+	 */
+	public Page<Article> findPublicPublicatedArticlessWithSearch(final Pageable pageable, final String search) {
+		Page<Article> result;
+
+		Assert.notNull(pageable);
+
+		result = this.articleRepository.findPublicPublicatedArticlesWithSearch("%" + search + "%", pageable);
 
 		return result;
 	}

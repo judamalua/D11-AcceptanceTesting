@@ -58,6 +58,7 @@ public class FollowUpService {
 		FollowUp result;
 
 		result = new FollowUp();
+		result.setUser((User) this.actorService.findActorByPrincipal());
 
 		return result;
 	}
@@ -171,10 +172,9 @@ public class FollowUpService {
 			result.setPublicationDate(new Date(System.currentTimeMillis() - 1000));
 
 		} else {
-			user = (User) this.actorService.findActorByPrincipal();
 			result = this.followUpRepository.findOne(followUp.getId());
-			result.setUser(user);
 			result.setText(followUp.getText());
+			result.setUser(followUp.getUser());
 			result.setPublicationDate(new Date(System.currentTimeMillis() - 1000));
 			result.setTitle(followUp.getTitle());
 			result.setSummary(followUp.getSummary());

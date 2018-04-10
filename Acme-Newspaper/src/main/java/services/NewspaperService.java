@@ -80,15 +80,15 @@ public class NewspaperService {
 
 		Newspaper result;
 		User publisher;
-
-		result = this.newspaperRepository.save(newspaper);
-		boolean taboo;
+		final boolean taboo;
 
 		// Comprobación palabras de spam
 		if (this.actorService.findActorByPrincipal() instanceof User) {
 			taboo = this.actorService.checkSpamWords(newspaper.getTitle() + " " + newspaper.getDescription());
 			newspaper.setTaboo(taboo);
 		}
+
+		result = this.newspaperRepository.save(newspaper);
 
 		if (newspaper.getId() != 0)
 			publisher = this.userService.findUserByNewspaper(result.getId());
@@ -308,6 +308,24 @@ public class NewspaperService {
 		String result;
 
 		result = this.newspaperRepository.getAverageRatioPrivateVSPublicNewspaperPublisher();
+
+		return result;
+	}
+
+	/**
+	 * Method to search a specific newspaper
+	 * 
+	 * @author Daniel Diment
+	 * @param pageable
+	 * @param search
+	 * @return
+	 */
+	public Page<Newspaper> findPublicPublicatedNewspapersWithSearch(final Pageable pageable, final String search) {
+		Page<Newspaper> result;
+
+		Assert.notNull(pageable);
+
+		result = this.newspaperRepository.findPublicPublicatedNewspapersWithSearch("%" + search + "%", pageable);
 
 		return result;
 	}
