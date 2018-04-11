@@ -998,6 +998,10 @@ function widgToolbarAction() {
 
 		case "image":
 			var theImage;
+			var theAlt;
+			var theHeight;
+			var theWidth;
+
 			if (language == "es") {
 				theImage = prompt("Introduce la localización de esta imagen:", "");
 			} else {
@@ -1005,29 +1009,31 @@ function widgToolbarAction() {
 			}
 
 			if (theImage != null && theImage != "") {
-				var theAlt;
 				if (language == "es") {
 					theAlt = prompt("Introduce un texto alternativo a esta imagen:", "");
 				} else {
 					theAlt = prompt("Enter the alternate text for this image:", "");
 				}
 
-				if (theImage != null && theImage != "") {
-					var theHeight;
-					if (language == "es") {
-						theHeight = prompt("Introduce la altura de esta imagen:", "");
-					} else {
-						theHeight = prompt("Enter height of this image:", "");
-					}
+			}
+
+			if ((theImage != null && theImage != "") && (theAlt != null && theAlt != "")) {
+				if (language == "es") {
+					theHeight = prompt("Introduce la altura de esta imagen:", "");
+				} else {
+					theHeight = prompt("Enter height of this image:", "");
 				}
-				if (theImage != null && theImage != "") {
-					var theWidth;
-					if (language == "es") {
-						theWidth = prompt("Introduce la anchura de esta imagen:", "");
-					} else {
-						theWidth = prompt("Enter width of this image:", "");
-					}
+			}
+
+			if ((theImage != null && theImage != "") && (theAlt != null && theAlt != "") && (theHeight != null && theHeight != "")) {
+				if (language == "es") {
+					theWidth = prompt("Introduce la anchura de esta imagen:", "");
+				} else {
+					theWidth = prompt("Enter width of this image:", "");
 				}
+			}
+			if ((theImage != null && theImage != "") && (theAlt != null && theAlt != "") && (theHeight != null && theHeight != "") && (theWidth != null && theWidth != "")) {
+
 				var theSelection = null;
 				var theRange = null;
 
@@ -1039,7 +1045,11 @@ function widgToolbarAction() {
 					theSelection = theIframe.contentWindow.document.selection;
 					theRange = theSelection.createRange();
 					theRange.collapse(false);
-					theRange.pasteHTML("<img height=\"" + theHeight + "\" width=\"" + theWidth + "\" alt=\"" + theAlt + "\" src=\"" + theImage + "\" />");
+					if (!isNaN(theHeight) && !isNaN(theWidth)) {
+						theRange.pasteHTML("<img height=\"" + Number(theHeight) + "\" width=\"" + Number(theWidth) + "\" alt=\"" + theAlt + "\" src=\"" + theImage + "\" />");
+					} else {
+						theRange.pasteHTML("<img alt=\"" + theAlt + "\" src=\"" + theImage + "\" />");
+					}
 
 					break;
 				}
@@ -1059,8 +1069,10 @@ function widgToolbarAction() {
 					theImageNode.src = theImage;
 					theImageNode.alt = theAlt;
 
-					theImageNode.height = theHeight;
-					theImageNode.width = theWidth;
+					if (!isNaN(theHeight) && !isNaN(theWidth)) {
+						theImageNode.height = Number(theHeight);
+						theImageNode.width = Number(theWidth);
+					}
 
 					theRange.insertNode(theImageNode);
 
