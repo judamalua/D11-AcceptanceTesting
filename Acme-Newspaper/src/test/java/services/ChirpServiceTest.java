@@ -156,7 +156,7 @@ public class ChirpServiceTest extends AbstractTest {
 			chirp.setDescription(description);
 			user = (User) this.actorService.findActorByPrincipal();
 			this.chirpService.save(chirp, user);
-			this.chirpService.flush();
+			//this.chirpService.flush();
 
 			super.unauthenticate();
 
@@ -177,7 +177,7 @@ public class ChirpServiceTest extends AbstractTest {
 			super.authenticate(username);
 
 			this.chirpService.delete(chirp);
-			this.chirpService.flush();
+			//this.chirpService.flush();
 
 			super.unauthenticate();
 

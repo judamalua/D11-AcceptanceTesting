@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -142,5 +144,13 @@ public class ChirpService {
 		result = this.chirpRepository.getAllTabooChirps();
 
 		return result;
+	}
+	
+	public Page<Chirp> findFollowedUsersChirps(int userId, Pageable pageable){
+		return this.chirpRepository.findFollowedUsersChirps(userId, pageable);
+	}
+	
+	public Page<Chirp> findUserChirps(int userId, Pageable pageable){
+	return this.chirpRepository.findUserChirps(userId, pageable);
 	}
 }
