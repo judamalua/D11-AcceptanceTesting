@@ -32,6 +32,13 @@
 
 	<spring:message code="chirp.description" var="description" />
 	<display:column property="description" title="${description}" sortable="false" />
+	
+	<spring:message code="chirp.delete" var="titleDelete" />
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column title="${titleDelete}">
+			<acme:button url="chirp/admin/delete.do?chirpId=${chirp.id}" code="chirp.delete"/>
+		</display:column>
+	</security:authorize>
 
 </display:table>
 

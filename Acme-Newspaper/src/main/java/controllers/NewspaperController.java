@@ -11,24 +11,8 @@
 package controllers;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.metamodel.EntityType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,10 +21,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
 import services.ActorService;
 import services.ConfigurationService;
 import services.NewspaperService;
@@ -50,7 +34,6 @@ import domain.Article;
 import domain.Configuration;
 import domain.CreditCard;
 import domain.Customer;
-import domain.DomainEntity;
 import domain.Newspaper;
 import domain.User;
 
@@ -163,6 +146,39 @@ public class NewspaperController extends AbstractController {
 			result = new ModelAndView("redirect:/misc/403");
 		}
 
+		return result;
+	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView search(@RequestParam(value = "search", defaultValue = "") final String search, @RequestParam(defaultValue = "0") final int page) {
+		final ModelAndView result;
+		final Page<Newspaper> newspapers;
+		final Pageable pageable;
+		final Configuration configuration;
+		final Collection<Boolean> ownNewspapers;
+		Actor actor;
+		User publisher;
+
+		configuration = this.configurationService.findConfiguration();
+		pageable = new PageRequest(page, configuration.getPageSize());
+		ownNewspapers = new ArrayList<>();
+		result = new ModelAndView("newspaper/list");
+
+		newspapers = this.newspaperService.findPublicPublicatedNewspapersWithSearch(pageable, search);
+
+		if (this.actorService.getLogged()) {
+			actor = this.actorService.findActorByPrincipal();
+			for (final Newspaper newspaper : newspapers.getContent()) {
+				publisher = this.userService.findUserByNewspaper(newspaper.getId());
+				ownNewspapers.add(actor.equals(publisher));
+			}
+
+			result.addObject("ownNewspaper", ownNewspapers);
+		}
+		result.addObject("newspapers", newspapers.getContent());
+		result.addObject("page", page);
+		result.addObject("pageNum", newspapers.getTotalPages());
+		result.addObject("requestUri", "newspaper/search.do?search=" + search);
 		return result;
 	}
 }

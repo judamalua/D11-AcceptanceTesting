@@ -44,6 +44,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate=null or n.publicationDate='')")
 	Collection<Newspaper> findNotPublishedNewspapersByUser(int userId);
 
+	@Query("select c from User u join u.chirps c where u.id = ?1")
+	Page<Chirp> findChirpsOfUser(int userId, Pageable pageable);
+
+	@Query("select u from User u join u.chirps c where c.id = ?1")
+	User findUserByChirp(int chirpId);
+
 	/**
 	 * Level C query 1
 	 * 

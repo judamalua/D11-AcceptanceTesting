@@ -41,7 +41,7 @@
 </h5>
 <br />
 <h5>
-	<jstl:out value="${followUp.text}" />
+	${followUp.text}
 </h5>
 <br>
 

@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -117,4 +118,27 @@ public class ArticleController extends AbstractController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView search(@RequestParam(value = "search", defaultValue = "") final String search, @RequestParam(defaultValue = "0") final int page) {
+		ModelAndView result;
+		final Page<Article> articles;
+		Pageable pageable;
+		Configuration configuration;
+		try {
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
+			articles = this.articleService.findPublicPublicatedArticlessWithSearch(pageable, search);
+			result = new ModelAndView("article/list");
+
+			result.addObject("articles", articles);
+			result.addObject("requestUri", "article/search.do?search=" + search);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("rediect:/misc/403");
+		}
+
+		return result;
+	}
+
 }

@@ -50,15 +50,18 @@ window.onload = function() {
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/css/bootstrap.min.css"> --> <!-- BOOTSTRAP 2.0.4 -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"><!-- MATERIALIZE -->
-
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">MATERIALIZE -->
+	<link rel="stylesheet" href="styles/materialize.min.css" />
 <!-- <script type="text/javascript"
 	src="scripts/locales/bootstrap-datetimepicker.es.js" charset="UTF-8"></script> -->
 
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/js/bootstrap.min.js"></script> --> <!-- BOOTSTRAP 2.0.4 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> <!-- MATERIALIZE -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- MATERIALIZE ICONS -->
+	<script src="scripts/materialize.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> MATERIALIZE -->
 
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> MATERIALIZE ICONS -->
+	
+<link rel="stylesheet" href="styles/icon.css" />
 <link rel="stylesheet" href="styles/common.css" type="text/css">
 <link rel="stylesheet" href="styles/jmenu.css" media="screen"
 	type="text/css" />

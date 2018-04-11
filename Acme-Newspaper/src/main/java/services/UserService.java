@@ -321,6 +321,23 @@ public class UserService {
 		return result;
 	}
 
+	public Page<Chirp> findChirpsOfUser(final int userId, final Pageable pageable) {
+		Page<Chirp> result;
+		Assert.isTrue(userId != 0);
+		Assert.notNull(pageable);
+
+		result = this.userRepository.findChirpsOfUser(userId, pageable);
+
+		return result;
+	}
+
+	public User findUserByChirp(final int chirpId) {
+		User result;
+
+		result = this.userRepository.findUserByChirp(chirpId);
+
+		return result;
+	}
 	//Dashboard queries ------------------------
 
 	/**

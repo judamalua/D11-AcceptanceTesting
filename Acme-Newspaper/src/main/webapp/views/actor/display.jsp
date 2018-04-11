@@ -46,13 +46,42 @@
 
 	
 	<!-- Pagination -->
-	<acme:pagination pageNum="${pageNum}" requestURI="user/display.do?actorId=${actor.id}&page=${page}" page = "${page}"/>
+	<acme:pagination pageNum="${articlePageNum}" requestURI="user/display.do?actorId=${actor.id}&chirpPage=${chirpPage}&articlePage=" page = "${articlePage}"/>
 
 	<display:table name="${articles}" id="article"
 		requestURI="user/display.do">
 
-		<display:column property="title" title="article.title" sortable="true" />
-		<display:column property="summary" title="article.summary" />
+		<spring:message code = "article.title" var = "articleTitle"/>
+		<display:column property="title" title="${articleTitle}" sortable="true" />
+		<spring:message code = "article.summary" var = "articleSummary"/>
+		<display:column property="summary" title="${articleSummary}" />
+		
+	</display:table>
+	
+	<h4>
+		<spring:message code="actor.published.chirps" />
+	</h4>
+
+	
+	<!-- Pagination -->
+	<acme:pagination pageNum="${chirpPageNum}" requestURI="user/display.do?actorId=${actor.id}&articlePage=${articlePage}&chirpPage=" page = "${chirpPage}"/>
+
+	<display:table name="${chirps}" id="chirp"
+		requestURI="user/display.do">
+
+		<spring:message code = "chirp.title" var = "chirpTitle"/>
+		<display:column property="title" title="${chirpTitle}"/>
+		<spring:message code = "chirp.description" var = "chirpDescription"/>
+		<display:column property="description" title="${chirpDescription}" />
+		<spring:message code = "chirp.moment" var = "chirpMoment"/>
+		<display:column property="moment" title="${chirpMoment}" sortable = "true" format = "${formatDate}"/>
+		
+		<spring:message code="actor.delete" var="titleDelete" />
+		<security:authorize access="hasRole('ADMIN')">
+			<display:column title="${titleDelete}">
+				<acme:button url="chirp/admin/delete.do?chirpId=${chirp.id}" code="actor.delete"/>
+			</display:column>
+		</security:authorize>
 		
 	</display:table>
  </jstl:if>

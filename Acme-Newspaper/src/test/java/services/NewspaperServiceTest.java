@@ -58,7 +58,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setPictureUrl("");
 		newspaper.setTaboo(false);
 
-		this.newspaperService.save(newspaper);
+		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
 		Assert.notNull(savedNewspaper);
 
@@ -78,10 +78,10 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setDescription("New description");
 		newspaper.setPictureUrl("");
 
-		this.newspaperService.save(newspaper);
+		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
 		Assert.notNull(savedNewspaper);
-		Assert.isTrue(newspaper.isTaboo());
+		Assert.isTrue(savedNewspaper.isTaboo());
 
 		super.unauthenticate();
 	}
@@ -107,11 +107,11 @@ public class NewspaperServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	@Test(expected = java.lang.NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testCreateANewspaperNotLoggedNegative() {
 		Newspaper newspaper;
 		Newspaper savedNewspaper;
-
+		super.unauthenticate();
 		newspaper = this.newspaperService.create();
 
 		newspaper.setTitle("New");
@@ -121,7 +121,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setPictureUrl("");
 		newspaper.setTaboo(false);
 
-		this.newspaperService.save(newspaper);
+		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
 		Assert.notNull(savedNewspaper);
 	}
@@ -147,7 +147,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	@Test(expected = javax.validation.ConstraintViolationException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testEditANewspaperNotLoggedNegative() {
 		Newspaper newspaper;
 		Newspaper savedNewspaper;
@@ -159,7 +159,7 @@ public class NewspaperServiceTest extends AbstractTest {
 
 		newspaper.setTitle("New");
 
-		this.newspaperService.save(newspaper);
+		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
 		Assert.notNull(savedNewspaper);
 
@@ -177,27 +177,6 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper = this.newspaperService.findOne(newspaperId);
 
 		newspaper.setTitle("");
-
-		this.newspaperService.save(newspaper);
-		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
-		Assert.notNull(savedNewspaper);
-
-		super.unauthenticate();
-
-	}
-
-	@Test(expected = IllegalAccessException.class)
-	public void testEditAPublicatedNewspaperNegative() {
-		Newspaper newspaper;
-		Newspaper savedNewspaper;
-		int newspaperId;
-		super.authenticate("User1");
-
-		newspaperId = super.getEntityId("Newspaper1");
-
-		newspaper = this.newspaperService.findOne(newspaperId);
-
-		newspaper.setTitle("New");
 
 		this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
@@ -291,7 +270,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		super.unauthenticate();
 
 	}
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testPublishNewspaperNotLogged() {
 		Newspaper newspaper, savedNewspaper;
 		int newspaperId;
@@ -302,13 +281,13 @@ public class NewspaperServiceTest extends AbstractTest {
 
 		newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
 
-		this.newspaperService.save(newspaper);
+		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
 		Assert.notNull(savedNewspaper);
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public void testPublishNewspaperNegative() {
 		Newspaper newspaper;
 		Newspaper savedNewspaper;
@@ -321,7 +300,7 @@ public class NewspaperServiceTest extends AbstractTest {
 
 		newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
 
-		this.newspaperService.save(newspaper);
+		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
 		Assert.notNull(savedNewspaper);
 
