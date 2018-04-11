@@ -132,7 +132,7 @@ public class ArticleController extends AbstractController {
 			result = new ModelAndView("article/list");
 
 			result.addObject("articles", articles);
-			result.addObject("requestUri", "article/list.do?");
+			result.addObject("requestUri", "article/search.do?search=" + search);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
