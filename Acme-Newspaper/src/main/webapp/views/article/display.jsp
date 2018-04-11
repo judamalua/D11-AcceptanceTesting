@@ -58,7 +58,7 @@
 	<spring:message code="article.writer" />
 </h4>
 <p>
-	<a href="user/display.do?userId=${writer.id}" ><jstl:out value="${writer.name}" /></a>
+	<a href="user/display.do?actorId=${writer.id}" ><jstl:out value="${writer.name}" /></a>
 </p>
 
 <!-- Displaying followUps -->
