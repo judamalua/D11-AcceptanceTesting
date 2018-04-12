@@ -89,15 +89,17 @@ public class ArticleController extends AbstractController {
 
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
-				if (!newspaper.getPublicNewspaper()) {
-					Assert.isTrue(actor instanceof Customer);
-					for (final CreditCard creditCard : newspaper.getCreditCards()) {
-						validCustomer = creditCard.getCustomer().equals(actor);
-						if (validCustomer)
-							break;
+				if (!newspaper.getPublicNewspaper())
+					if (writer.getId() != actor.getId()) {
+						Assert.isTrue(actor instanceof Customer);
+						for (final CreditCard creditCard : newspaper.getCreditCards()) {
+							validCustomer = creditCard.getCustomer().equals(actor);
+							if (validCustomer)
+								break;
+						}
+
+						Assert.isTrue(validCustomer);
 					}
-					Assert.isTrue(validCustomer);
-				}
 			} else
 				Assert.isTrue(newspaper.getPublicNewspaper());
 
@@ -122,7 +124,6 @@ public class ArticleController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search(@RequestParam(value = "search", defaultValue = "") final String search, @RequestParam(defaultValue = "0") final int page) {
 		ModelAndView result;
