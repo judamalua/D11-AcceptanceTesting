@@ -32,8 +32,8 @@ public class ChirpServiceTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 	/**
 	 * This driver checks that chirp can be added and findAll return the new value also.
-	 * Requirement 15.1 An actor who is not authenticated must be able to:
-	 * List the chirps that are associated with each rendezvous.
+	 *A user may post a chirp. For every chirp, the system must store the moment, a title, and a
+description. The list or chirps are considered a part of the profile of a user
 	 * 
 	 * @author Alejandro
 	 */
@@ -44,10 +44,25 @@ public class ChirpServiceTest extends AbstractTest {
 		this.templateCreate("User1", new Date(System.currentTimeMillis() - 1), "Test Title", "Test Description", null);
 		Assert.isTrue(this.chirpService.findAll().size() - prevSize == 1);
 	}
+	
+	
+	/**
+	 * This driver checks that chirp can be added with taboo and admin can list it.
+	 * Requirement 17.4: List the chirps that contain taboo words.
+	 * 
+	 * @author Alejandro
+	 */
+	@Test
+	public void testCaseListTabooChirps() {
+		final int prevSize = this.chirpService.getAllTabooChirps().size();
+		// Create a new chirp with creation template
+		this.templateCreate("User1", new Date(System.currentTimeMillis() - 1), "Test Title Taboo - Viagra", "Test Description", null);
+		Assert.isTrue(this.chirpService.getAllTabooChirps().size() - prevSize == 1);
+	}
+	
 
 	/**
-	 * This driver checks several tests regarding functional requirement number 21.1: An actor who is authenticated as a user must be able to manage
-	 * (add, edit, delete) the chirps that are associated with a rendezvous on draft mode that he or she has created previously, tests are explained inside
+	 * This driver checks several tests regarding functional requirement number 17.5 Remove a chirp that he or she thinks is inappropriate.
 	 * 
 	 * @author Alejandro
 	 */
@@ -76,14 +91,15 @@ public class ChirpServiceTest extends AbstractTest {
 			},
 		};
 		for (int i = 0; i < testingData.length; i++){
-			this.templateDelete((String) testingData[i][0],
-					super.getEntityId((String) testingData[i][1]),
+			String user = (String) testingData[i][0];
+			Integer chirp = super.getEntityId((String) testingData[i][1]);
+			this.templateDelete(user, chirp,
 					(Class<?>) testingData[i][2]);
 		}
 		}
 	/**
-	 * Functional requirement number 16.3: An actor who is authenticated as a user must be able to: Create an chirp regarding
-	 * one of the rendezvouses that he or she's created previously. *
+	 * Functional requirement number 15: A user may post a chirp. For every chirp, the system must store the moment, a title, and a
+	 * description. The list or chirps are considered a part of the profile of a user
 	 * 
 	 * @author Alejandro
 	 */
