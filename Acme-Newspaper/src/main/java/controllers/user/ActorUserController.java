@@ -136,7 +136,7 @@ public class ActorUserController extends AbstractController {
 			result.addObject("users", users.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", users.getTotalPages());
-			result.addObject("requestURI", "user/list-followed.do");
+			result.addObject("requestURI", "actor/user/list-followers.do");
 			result.addObject("principal", principal);
 			result.addObject("followersView", true);
 
@@ -175,7 +175,7 @@ public class ActorUserController extends AbstractController {
 			result.addObject("users", users.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", users.getTotalPages());
-			result.addObject("requestURI", "user/list-followed.do");
+			result.addObject("requestURI", "actor/user/list-followed.do");
 			result.addObject("principal", principal);
 			result.addObject("followedView", true);
 

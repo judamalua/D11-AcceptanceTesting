@@ -10,8 +10,6 @@
 
 package controllers;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -72,9 +70,10 @@ public class ArticleController extends AbstractController {
 		final Pageable pageable;
 		Newspaper newspaper;
 		final Configuration configuration;
-		Actor actor;
+		Actor actor = null;
 		boolean validCustomer = false;
 		boolean newspaperPublished = false;
+		boolean owner = false;
 
 		try {
 
@@ -88,25 +87,30 @@ public class ArticleController extends AbstractController {
 
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
-				if (!newspaper.getPublicNewspaper()) {
-					Assert.isTrue(actor instanceof Customer);
-					for (final CreditCard creditCard : newspaper.getCreditCards()) {
-						validCustomer = creditCard.getCustomer().equals(actor);
-						if (validCustomer)
-							break;
+				if (!newspaper.getPublicNewspaper())
+					if (writer.getId() != actor.getId()) {
+						Assert.isTrue(actor instanceof Customer);
+						for (final CreditCard creditCard : newspaper.getCreditCards()) {
+							validCustomer = creditCard.getCustomer().equals(actor);
+							if (validCustomer)
+								break;
+						}
+
+						Assert.isTrue(validCustomer);
 					}
-					Assert.isTrue(validCustomer);
-				}
 			} else
 				Assert.isTrue(newspaper.getPublicNewspaper());
 
 			followUps = this.articleService.findFollowUpsByArticle(pageable);
 
-			if (newspaper.getPublicationDate() == null || newspaper.getPublicationDate().after(new Date()))
+			if (newspaper.getPublicationDate() != null)
 				newspaperPublished = true;
+			if (actor != null)
+				owner = actor.equals(writer);
 
 			result.addObject("newspaperPublished", newspaperPublished);
 			result.addObject("writer", writer);
+			result.addObject("owner", owner);
 			result.addObject("article", article);
 			result.addObject("followUps", followUps);
 			result.addObject("page", page);
@@ -118,7 +122,6 @@ public class ArticleController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search(@RequestParam(value = "search", defaultValue = "") final String search, @RequestParam(defaultValue = "0") final int page) {
 		ModelAndView result;

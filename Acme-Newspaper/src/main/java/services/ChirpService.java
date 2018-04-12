@@ -15,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.ChirpRepository;
+import domain.Actor;
+import domain.Admin;
 import domain.Chirp;
 import domain.User;
 
@@ -77,11 +79,16 @@ public class ChirpService {
 		Chirp result;
 		chirp.setMoment(new Date(System.currentTimeMillis() - 10));
 		Boolean taboo;
+		Actor actor;
+
+		Assert.isTrue(chirp.getId() == 0);
+		actor = this.actorService.findActorByPrincipal();
 		// Comprobación palabras de spam
-		if (this.actorService.findActorByPrincipal() instanceof User) {
+		if (actor instanceof User) {
 			taboo = this.actorService.checkSpamWords(chirp.getTitle() + " " + chirp.getDescription());
 			chirp.setTaboo(taboo);
 		}
+
 		result = this.chirpRepository.save(chirp);
 
 		user.getChirps().add(result);
@@ -93,12 +100,16 @@ public class ChirpService {
 
 	public void delete(final Chirp chirp) {
 
-		assert chirp != null;
-		assert chirp.getId() != 0;
+		Assert.notNull(chirp);
+		Assert.isTrue(chirp.getId() != 0);
 
 		Assert.isTrue(this.chirpRepository.exists(chirp.getId()));
 
 		User user;
+		Actor actor;
+
+		actor = this.actorService.findActorByPrincipal();
+		Assert.isTrue(actor instanceof Admin);
 
 		user = this.userService.findUserByChirp(chirp.getId());
 
@@ -145,12 +156,12 @@ public class ChirpService {
 
 		return result;
 	}
-	
-	public Page<Chirp> findFollowedUsersChirps(int userId, Pageable pageable){
+
+	public Page<Chirp> findFollowedUsersChirps(final int userId, final Pageable pageable) {
 		return this.chirpRepository.findFollowedUsersChirps(userId, pageable);
 	}
-	
-	public Page<Chirp> findUserChirps(int userId, Pageable pageable){
-	return this.chirpRepository.findUserChirps(userId, pageable);
+
+	public Page<Chirp> findUserChirps(final int userId, final Pageable pageable) {
+		return this.chirpRepository.findUserChirps(userId, pageable);
 	}
 }
