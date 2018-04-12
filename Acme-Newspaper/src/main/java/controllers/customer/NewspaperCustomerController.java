@@ -1,6 +1,8 @@
 
 package controllers.customer;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -94,7 +96,7 @@ public class NewspaperCustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/subscribe", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("creditCard") final CreditCard creditCard, final BindingResult binding, final int newspaperId) {
+	public ModelAndView save(@Valid @ModelAttribute("creditCard") final CreditCard creditCard, final BindingResult binding, final int newspaperId) {
 		ModelAndView result;
 		Newspaper newspaper;
 
