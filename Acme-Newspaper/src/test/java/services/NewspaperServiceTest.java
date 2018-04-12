@@ -219,22 +219,6 @@ public class NewspaperServiceTest extends AbstractTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void listPublishedNotLoggedNewspapersNegative() {
-		Page<Newspaper> newspapers;
-		Pageable pageable;
-		Configuration configuration;
-		final int userId = super.getEntityId("User1");
-
-		configuration = this.configurationService.findConfiguration();
-		pageable = new PageRequest(0, configuration.getPageSize());
-
-		newspapers = this.userService.findPublishedNewspapersByUser(userId, pageable);
-
-		Assert.isTrue(newspapers.getContent().size() == 5);
-
-	}
-
-	@Test(expected = IllegalArgumentException.class)
 	public void listSubscribedNotLoggedNewspapersNegative() {
 		Page<Newspaper> newspapers;
 		Pageable pageable;
@@ -284,27 +268,6 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
 		Assert.notNull(savedNewspaper);
-
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void testPublishNewspaperNegative() {
-		Newspaper newspaper;
-		Newspaper savedNewspaper;
-		int newspaperId;
-		super.authenticate("User1");
-
-		newspaperId = super.getEntityId("Newspaper3");
-
-		newspaper = this.newspaperService.findOne(newspaperId);
-
-		newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
-
-		newspaper = this.newspaperService.save(newspaper);
-		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
-		Assert.notNull(savedNewspaper);
-
-		super.unauthenticate();
 
 	}
 }

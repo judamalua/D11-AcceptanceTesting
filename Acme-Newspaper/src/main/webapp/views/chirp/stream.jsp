@@ -13,8 +13,9 @@
 
  
  
+<acme:pagination requestURI = "${requestURI}?page=" pageNum = "${pageNum}" page = "${page}"/>
 
-<display:table name="chirps" id="chirp" requestURI="${requestURI}" pagesize="${pagesize}" class="displayTag">
+<display:table name="chirps" id="chirp" requestURI="${requestURI}" class="displayTag">
 
 
 
@@ -25,7 +26,7 @@
 	<spring:message code="chirp.moment.format" var="momentFormat" />
 	<spring:message code="chirp.moment" var="chirpMoment" />
 	<display:column property="moment" title="${chirpMoment}"
-		sortable="true" format="${momentFormat}" />
+	 format="${momentFormat}" />
 
 	<spring:message code="chirp.title" var="title" />
 	<display:column property="title" title="${title}" sortable="false" />

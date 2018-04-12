@@ -32,6 +32,10 @@
 		<value>/views/slider/messages</value>
 		<value>/views/article/messages</value>
 		<value>/views/newspaper/messages</value>
+		<value>/views/chirp/messages</value>
+		<value>/views/followUp/messages</value>
+		<value>/views/customer/messages</value>
+		<value>/views/creditCard/messages</value>
 		<value>/views/followUp/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/creditCard/messages</value>

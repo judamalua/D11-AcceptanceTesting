@@ -35,8 +35,8 @@
 	<form action="article/search.do" method="get">
         <div class="input-field col s3">
         	<input id="page" type="hidden" name="page" value="0"/>
-          	<input id="search" type="search" name="search" required>
-         	<label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          	<input id="search" type="search" name="search">
+         	<label for="search"><i class="material-icons">search</i></label>
          	<i class="material-icons">close</i>
         </div>
       </form>

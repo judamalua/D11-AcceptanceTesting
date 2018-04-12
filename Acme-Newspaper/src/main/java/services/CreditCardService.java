@@ -192,4 +192,8 @@ public class CreditCardService {
 		final CreditCard result = this.creditCardRepository.creditCardSubscribed(newspaperId, customerId);
 		return result;
 	}
+
+	public void flush() {
+		this.creditCardRepository.flush();
+	}
 }

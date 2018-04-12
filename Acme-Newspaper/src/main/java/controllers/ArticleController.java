@@ -72,9 +72,10 @@ public class ArticleController extends AbstractController {
 		final Pageable pageable;
 		Newspaper newspaper;
 		final Configuration configuration;
-		Actor actor;
+		Actor actor = null;
 		boolean validCustomer = false;
 		boolean newspaperPublished = false;
+		boolean owner = false;
 
 		try {
 
@@ -88,15 +89,17 @@ public class ArticleController extends AbstractController {
 
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
-				if (!newspaper.getPublicNewspaper()) {
-					Assert.isTrue(actor instanceof Customer);
-					for (final CreditCard creditCard : newspaper.getCreditCards()) {
-						validCustomer = creditCard.getCustomer().equals(actor);
-						if (validCustomer)
-							break;
+				if (!newspaper.getPublicNewspaper())
+					if (writer.getId() != actor.getId()) {
+						Assert.isTrue(actor instanceof Customer);
+						for (final CreditCard creditCard : newspaper.getCreditCards()) {
+							validCustomer = creditCard.getCustomer().equals(actor);
+							if (validCustomer)
+								break;
+						}
+
+						Assert.isTrue(validCustomer);
 					}
-					Assert.isTrue(validCustomer);
-				}
 			} else
 				Assert.isTrue(newspaper.getPublicNewspaper());
 
@@ -104,9 +107,12 @@ public class ArticleController extends AbstractController {
 
 			if (newspaper.getPublicationDate() == null || newspaper.getPublicationDate().after(new Date()))
 				newspaperPublished = true;
+			if (actor != null)
+				owner = actor.equals(writer);
 
 			result.addObject("newspaperPublished", newspaperPublished);
 			result.addObject("writer", writer);
+			result.addObject("owner", owner);
 			result.addObject("article", article);
 			result.addObject("followUps", followUps);
 			result.addObject("page", page);
@@ -118,7 +124,6 @@ public class ArticleController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search(@RequestParam(value = "search", defaultValue = "") final String search, @RequestParam(defaultValue = "0") final int page) {
 		ModelAndView result;
@@ -132,7 +137,7 @@ public class ArticleController extends AbstractController {
 			result = new ModelAndView("article/list");
 
 			result.addObject("articles", articles);
-			result.addObject("requestUri", "article/list.do?");
+			result.addObject("requestUri", "article/search.do?search=" + search);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");

@@ -119,4 +119,8 @@ public class AdminService {
 
 		return result;
 	}
+
+	public void flush() {
+		this.adminRepository.flush();
+	}
 }

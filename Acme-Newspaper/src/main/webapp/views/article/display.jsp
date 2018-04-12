@@ -28,7 +28,8 @@
 <spring:message code="followUp.title" var="titleFollowUp" />
 <spring:message code="followUp.summary" var="titleSummaryFollowUp" />
 <spring:message code="followUp.text" var="titleTextFollowUp" />
-<spring:message code="followUp.publicationDate" var="titlePublicationFollowUp" />
+<spring:message code="followUp.publicationDate"
+	var="titlePublicationFollowUp" />
 
 
 <jsp:useBean id="now" class="java.util.Date" />
@@ -53,12 +54,13 @@
 <h4>
 	<spring:message code="article.body" />
 </h4>
-	${article.body}
+${article.body}
 <h4>
 	<spring:message code="article.writer" />
 </h4>
 <p>
-	<a href="user/display.do?userId=${writer.id}" ><jstl:out value="${writer.name}" /></a>
+	<a href="user/display.do?actorId=${writer.id}"><jstl:out
+			value="${writer.name}" /></a>
 </p>
 
 <!-- Displaying followUps -->
@@ -67,13 +69,19 @@
 </h4>
 <acme:pagination page="${page}" pageNum="${pageNum}"
 	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&page=" />
-	
+
 <display:table name="${followUps}" id="followUp"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
-	<display:column title="${titleFollowUp}" property="title" sortable="true"/>
-	<display:column property="publicationDate" format="${formatMoment}" title="${titlePublicationFollowUp}" />
+	<display:column title="${titleFollowUp}" property="title"
+		sortable="true" />
+	<display:column property="publicationDate" format="${formatMoment}"
+		title="${titlePublicationFollowUp}" />
 	<display:column property="summary" title="${titleSummaryFollowUp}" />
 	<display:column property="text" title="${titleTextFollowUp}" />
+	<display:column>
+		<acme:button url="followUp/display.do?followUpId=${followUp.id}"
+			code="followUp.display" />
+	</display:column>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<acme:button url="followUp/admin/delete.do?followUpId=${followUp.id}"
@@ -81,10 +89,12 @@
 		</display:column>
 	</security:authorize>
 </display:table>
-
-<jstl:if test="${article.finalMode and !newspaperPublished}">
-<acme:button url="followUp/user/create.do?articleId=${article.id}" code="followUp.create" />
-</jstl:if>
+<security:authorize access="hasRole('USER')">
+	<jstl:if test="${owner and article.finalMode and !newspaperPublished}">
+		<acme:button url="followUp/user/create.do?articleId=${article.id}"
+			code="followUp.create" />
+	</jstl:if>
+</security:authorize>
 <br />
 <security:authorize access="hasRole('ADMIN')">
 	<acme:button url="newspaper/admin/delete.do" code="newspaper.delete" />

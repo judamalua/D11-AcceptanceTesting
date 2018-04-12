@@ -76,5 +76,12 @@
 		<spring:message code = "chirp.moment" var = "chirpMoment"/>
 		<display:column property="moment" title="${chirpMoment}" sortable = "true" format = "${formatDate}"/>
 		
+		<spring:message code="actor.delete" var="titleDelete" />
+		<security:authorize access="hasRole('ADMIN')">
+			<display:column title="${titleDelete}">
+				<acme:button url="chirp/admin/delete.do?chirpId=${chirp.id}" code="actor.delete"/>
+			</display:column>
+		</security:authorize>
+		
 	</display:table>
  </jstl:if>

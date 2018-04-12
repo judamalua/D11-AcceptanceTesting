@@ -40,7 +40,7 @@ public class ChirpAdminController extends AbstractController {
 			user = this.userService.findUserByChirp(chirpId);
 			this.chirpService.delete(chirp);
 
-			result = new ModelAndView("redirect:/user/display.do?actotId=" + user.getId());
+			result = new ModelAndView("redirect:/user/display.do?actorId=" + user.getId());
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("misc/403");
