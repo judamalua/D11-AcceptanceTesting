@@ -105,7 +105,7 @@ public class ArticleController extends AbstractController {
 
 			followUps = this.articleService.findFollowUpsByArticle(pageable);
 
-			if (newspaper.getPublicationDate() == null || newspaper.getPublicationDate().after(new Date()))
+			if (newspaper.getPublicationDate() != null || newspaper.getPublicationDate().after(new Date()))
 				newspaperPublished = true;
 			if (actor != null)
 				owner = actor.equals(writer);

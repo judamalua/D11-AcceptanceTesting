@@ -115,6 +115,7 @@ public class FollowUpService {
 
 		result = this.followUpRepository.save(followUp);
 		user = (User) this.actorService.findActorByPrincipal();
+		Assert.isTrue(user == followUp.getUser());
 		newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
 
 		if (followUp.getId() != 0) {
