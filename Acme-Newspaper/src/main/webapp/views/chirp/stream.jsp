@@ -13,8 +13,9 @@
 
  
  
+<acme:pagination requestURI = "${requestURI}?page=" pageNum = "${pageNum}" page = "${page}"/>
 
-<display:table name="chirps" id="chirp" requestURI="${requestURI}" pagesize="${pagesize}" class="displayTag">
+<display:table name="chirps" id="chirp" requestURI="${requestURI}" class="displayTag">
 
 
 
@@ -25,13 +26,20 @@
 	<spring:message code="chirp.moment.format" var="momentFormat" />
 	<spring:message code="chirp.moment" var="chirpMoment" />
 	<display:column property="moment" title="${chirpMoment}"
-		sortable="true" format="${momentFormat}" />
+	 format="${momentFormat}" />
 
 	<spring:message code="chirp.title" var="title" />
 	<display:column property="title" title="${title}" sortable="false" />
 
 	<spring:message code="chirp.description" var="description" />
 	<display:column property="description" title="${description}" sortable="false" />
+	
+	<spring:message code="chirp.delete" var="titleDelete" />
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column title="${titleDelete}">
+			<acme:button url="chirp/admin/delete.do?chirpId=${chirp.id}" code="chirp.delete"/>
+		</display:column>
+	</security:authorize>
 
 </display:table>
 

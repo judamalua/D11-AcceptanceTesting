@@ -15,6 +15,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -29,6 +32,7 @@ import services.ConfigurationService;
 import services.UserService;
 import controllers.AbstractController;
 import domain.Chirp;
+import domain.Configuration;
 import domain.User;
 
 @Controller
@@ -55,27 +59,39 @@ public class ChirpUserController extends AbstractController {
 	 * @author Alejandro
 	 */
 	@RequestMapping(value = "/stream")
-	public ModelAndView streamChirps() {
+	public ModelAndView streamChirps(@RequestParam(defaultValue = "0") final int page) {
 		ModelAndView result;
-		HashMap<Chirp, String> chirps = new HashMap<Chirp,String>();
+		//HashMap<Chirp, String> chirps = new HashMap<Chirp,String>();
 		User user;
+		Pageable pageable;
+		Page<Chirp> chirpList;
+		Configuration configuration;
+		List<String> authors;
 		try {
 
 			result = new ModelAndView("chirp/stream");
 			user = (User) this.actorService.findActorByPrincipal();
-			for (User follow: user.getUsers()){
-				for(Chirp chirpF : follow.getChirps()){
-					chirps.put(chirpF, follow.getName());
-				}
-			}
-			chirps = sortByChirps(chirps);
+//			for (User follow: user.getUsers()){
+//				for(Chirp chirpF : follow.getChirps()){
+//					chirps.put(chirpF, follow.getName());
+//				}
+//			}
+			configuration = this.configurationService.findConfiguration();
+			
+			pageable = new PageRequest(page, configuration.getPageSize());;
+			chirpList = chirpService.findFollowedUsersChirps(user.getId(), pageable);
+			
+			authors = mapUsers(chirpList.getContent());
 
 			/**
 			 * Adding the associated rendezvouses to an chirp
 			 */
 
-			result.addObject("chirps", chirps.keySet());
-			result.addObject("authors", chirps.values().toArray());
+			result.addObject("chirps", chirpList.getContent());
+			result.addObject("page", page);
+			result.addObject("pageNum", chirpList.getTotalPages());
+			
+			result.addObject("authors", authors);
 			result.addObject("requestURI", "chirp/user/stream.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -85,6 +101,15 @@ public class ChirpUserController extends AbstractController {
 	}
 
 	
+	private List<String> mapUsers(List<Chirp> chirpList) {
+		List<String > result = new ArrayList<String>();
+		for (Chirp c : chirpList){
+		result.add(userService.findUserByChirp(c.getId()).getName());
+		}
+		return result;
+	}
+
+
 	/**
 	 * List the chirps of created Rendezvouses
 	 * 
@@ -92,27 +117,39 @@ public class ChirpUserController extends AbstractController {
 	 * @author Alejandro
 	 */
 	@RequestMapping(value = "/list")
-	public ModelAndView listChirps() {
+	public ModelAndView listChirps(@RequestParam(defaultValue = "0") final int page) {
 		ModelAndView result;
-		HashMap<Chirp, String> chirps = new HashMap<Chirp,String>();
+		//HashMap<Chirp, String> chirps = new HashMap<Chirp,String>();
 		User user;
+		Pageable pageable;
+		Page<Chirp> chirpList;
+		Configuration configuration;
+		List<String> authors;
 		try {
 
 			result = new ModelAndView("chirp/stream");
 			user = (User) this.actorService.findActorByPrincipal();
+//			for (User follow: user.getUsers()){
+//				for(Chirp chirpF : follow.getChirps()){
+//					chirps.put(chirpF, follow.getName());
+//				}
+//			}
+			configuration = this.configurationService.findConfiguration();
 			
-				for(Chirp chirpF : user.getChirps()){
-					chirps.put(chirpF, user.getName());
-				}
+			pageable = new PageRequest(page, configuration.getPageSize());;
+			chirpList = chirpService.findUserChirps(user.getId(), pageable);
 			
-			chirps = sortByChirps(chirps);
+			authors = mapUsers(chirpList.getContent());
 
 			/**
 			 * Adding the associated rendezvouses to an chirp
 			 */
 
-			result.addObject("chirps", chirps.keySet());
-			result.addObject("authors", Arrays.asList(chirps.values().toArray()));
+			result.addObject("chirps", chirpList.getContent());
+			result.addObject("page", page);
+			result.addObject("pageNum", chirpList.getTotalPages());
+			
+			result.addObject("authors", authors);
 			result.addObject("requestURI", "chirp/user/list.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -162,7 +199,10 @@ public class ChirpUserController extends AbstractController {
 	public ModelAndView save(Chirp chirp, final BindingResult binding) {
 		ModelAndView result;
 		User user;
-		
+		try {
+			chirp = this.chirpService.reconstruct(chirp, binding);
+		} catch (final Throwable oops) {//Not delete
+		}
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(chirp, "chirp.params.error");
 		} else

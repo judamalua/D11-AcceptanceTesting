@@ -27,7 +27,7 @@
 	</definition>
 	
 	<definition name="article/list" extends="master.page">	
-		<put-attribute name="title" value="Listar artículos tabú" />
+		<put-attribute name="title" value="Lista de artículos" />
 		<put-attribute name="body" value="/views/article/list.jsp" />
 	</definition>
 </tiles-definitions>

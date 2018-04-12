@@ -88,15 +88,15 @@
 <display:table name="${articles}" id="article"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleArticle}" sortable="true">
-		<jstl:if test="${newspaper.publicNewspaper or subscriber}">
+		<jstl:if test="${((ownArticle!=null and ownArticle[article_rowNum-1])  or (subscriber and newspaper.publicNewspaper))}">
 			<a href="article/display.do?articleId=${article.id}">${article.title}</a>
 		</jstl:if>
-		<jstl:if test="${!subscriber and !newspaper.publicNewspaper}">
+		<jstl:if test="${!subscriber and !newspaper.publicNewspaper and !(ownArticle!=null and ownArticle[article_rowNum-1])}">
 			${article.title}
 		</jstl:if>
 	</display:column>
 	<display:column property="summary" title="${titleSummaryArticle}" />
-	<display:column title="${titleBodyArticle}">
+	<%-- <display:column title="${titleBodyArticle}">
 		<jstl:if test="${fn:length(article.body)>50}">
 			<jstl:out value="${fn:substring(article.body,3, 50)}..." />
 		</jstl:if>
@@ -104,7 +104,7 @@
 			<jstl:out
 				value="${fn:substring(article.body,3, fn:length(article.body)-4)}" />
 		</jstl:if>
-	</display:column>
+	</display:column> --%>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<acme:button url="article/admin/delete.do?articleId=${article.id}"

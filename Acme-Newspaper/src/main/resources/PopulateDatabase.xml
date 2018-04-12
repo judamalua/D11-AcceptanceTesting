@@ -63,30 +63,13 @@
 
 	<!-- %%%%%% domain.Slider %%%%%% -->
 	<bean id="Slider1" class="domain.Slider">
-		<property name="title_en" value="Welcome to Sample Project 1.14!" />
-		<property name="title_es" value="¡Bienvenid@ a Sample Project 1.14!" />
-		<property name="text_en" value="Example text 1" />
-		<property name="text_es" value="Texto de ejemplo 1" />
-		<property name="pictureUrl" value="https://tinyurl.com/adventure-meetup" />
+		<property name="title_en" value="Welcome to Acme-Newspaper!" />
+		<property name="title_es" value="¡Bienvenid@ a Acme-Newspaper!" />
+		<property name="text_en" value="The best place to read newspapers online!" />
+		<property name="text_es" value="El mejor sitio web para leer periódicos!" />
+		<property name="pictureUrl" value="https://static1.squarespace.com/static/53dbb376e4b0c2c2156962ef/t/54d23ff8e4b0c27bb201abc3/1423065081477/breaking-news.jpg" />
 		<property name="align" value="left" />
 	</bean>
-	<bean id="Slider2" class="domain.Slider">
-		<property name="title_en" value="Welcome to Sample Project 1.14!" />
-		<property name="title_es" value="¡Bienvenid@ a Sample Project 1.14!" />
-		<property name="text_en" value="Example text 2" />
-		<property name="text_es" value="Texto de ejemplo 2" />
-		<property name="pictureUrl" value="https://i.imgur.com/SoiZR6j.jpg" />
-		<property name="align" value="right" />
-	</bean>
-	<bean id="Slider3" class="domain.Slider">
-		<property name="title_en" value="Welcome to Sample Project 1.14!" />
-		<property name="title_es" value="áBienvenid@ a Sample Project 1.14!" />
-		<property name="text_en" value="Example text 3" />
-		<property name="text_es" value="Texto de ejemplo 3" />
-		<property name="pictureUrl" value="https://imgur.com/Wu0HYcs.jpg" />
-		<property name="align" value="center" />
-	</bean>
-
 
 	<!-- %%%%%% domain.Chirp %%%%%% -->
 	<bean id="Chirp1" class="domain.Chirp">
@@ -168,7 +151,7 @@
 		<property name="description"
 			value="Hablar de sexo está muy mal visto en nuestra sociedad. ¿Por qué?" />
 		<property name="moment" value="2018/04/08 00:00" />
-		<property name="taboo" value="false" />
+		<property name="taboo" value="true" />
 	</bean>
 	<bean id="Chirp13" class="domain.Chirp">
 		<property name="title"
@@ -410,8 +393,8 @@
 			</list>
 		</property>
 	</bean>
-	
-		<!-- %%%%%% domain.Newspaper %%%%%% -->
+
+	<!-- %%%%%% domain.Newspaper %%%%%% -->
 	<bean id="Newspaper1" class="domain.Newspaper">
 		<property name="title" value="El Informatico" />
 		<property name="description"
@@ -529,7 +512,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 
 	<!-- %%%%%% domain.Configuration %%%%%% -->
 	<bean id="Configuration1" class="domain.Configuration">
