@@ -60,7 +60,7 @@ public class ChirpServiceTest extends AbstractTest {
 			}, {
 				"User2", "Chirp1", IllegalArgumentException.class
 			}, {
-				"User1", "Chirp1", null
+				"User1", "Chirp1", IllegalArgumentException.class
 			}, {
 				"Admin1", "Chirp2", null
 			},
@@ -70,14 +70,17 @@ public class ChirpServiceTest extends AbstractTest {
 			}, {
 				"User2", "Chirp4", IllegalArgumentException.class
 			}, {
-				"User1", "Chirp4", null
+				"User1", "Chirp4", IllegalArgumentException.class
 			}, {
 				"Admin1", "Chirp5", null
 			},
 		};
-		for (int i = 0; i < testingData.length; i++)
-			this.templateDelete((String) testingData[i][0], super.getEntityId((String) testingData[i][1]), (Class<?>) testingData[i][2]);
-	}
+		for (int i = 0; i < testingData.length; i++){
+			this.templateDelete((String) testingData[i][0],
+					super.getEntityId((String) testingData[i][1]),
+					(Class<?>) testingData[i][2]);
+		}
+		}
 	/**
 	 * Functional requirement number 16.3: An actor who is authenticated as a user must be able to: Create an chirp regarding
 	 * one of the rendezvouses that he or she's created previously. *
@@ -90,35 +93,17 @@ public class ChirpServiceTest extends AbstractTest {
 
 		final Object testingData[][] = {
 			{
-				// This test checks that authenticated users cannot create chirp to a rendezvous already finished.
-				"User1", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
-				// This test checks that authenticated users can add an chirp to a Rendezvous that they have created in final mode
+				// This test checks that authenticated users can create chirp
 				"User1", currentDate, "Test Title", "Test Description", null
 			}, {
 				// This test checks that unauthenticated users cannot create chirp to a rendezvous already finished
 				null, currentDate, "Test Title", "Test Description", IllegalArgumentException.class
 			}, {
-				// This test checks that unauthenticated users cannot create questions to a rendezvous not finished
-				null, currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
 				// This test checks that authenticated actors that are not users cannot create chirp to a rendezvous in draft mode
-				"Admin1", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
+				"Admin1", currentDate, "Test Title", "Test Description", ClassCastException.class
 			}, {
-				// This test checks that authenticated actors that are not users cannot create chirp to a rendezvous in final mode
-				"Admin1", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
-				// This test checks that authenticated actors that are not users cannot create chirp to a rendezvous in final mode
-				"Admin1", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
-				// This test checks that authenticated users cannot create chirp to a draft mode rendezvous they did not create
-				"User2", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
-				// This test checks that authenticated users cannot create chirp to a final mode rendezvous they did not create
-				"User2", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
-				// This test checks that authenticated users cannot create chirp to a final mode rendezvous they did not create
-				"User2", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
+				// This test checks that authenticated users can create chirp
+				"User2", currentDate, "Test Title", "Test Description", null
 			}, {
 				// This test checks that chirp with empty texts cannot be saved
 				"User1", currentDate, "", "", javax.validation.ConstraintViolationException.class
@@ -134,8 +119,10 @@ public class ChirpServiceTest extends AbstractTest {
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++)
+		for (int i = 0; i < testingData.length; i++){
+			System.out.println("Test" + i);
 			this.templateCreate((String) testingData[i][0], (Date) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (Class<?>) testingData[i][4]);
+	}
 	}
 
 	// Ancillary methods ------------------------------------------------------

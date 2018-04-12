@@ -22,7 +22,7 @@
 	</definition>
 	
 		<definition name="chirp/list" extends="master.page">	
-		<put-attribute name="title" value="Your chirps" />
+		<put-attribute name="title" value="Chirp List" />
 		<put-attribute name="body" value="/views/chirp/stream.jsp" />
 	</definition>
 	

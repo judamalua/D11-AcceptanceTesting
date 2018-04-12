@@ -38,7 +38,7 @@ public class ChirpAdminController extends AbstractController {
 			chirp = this.chirpService.findOne(chirpId);
 			this.chirpService.delete(chirp);
 
-			result = new ModelAndView("redirect:chirp/admin/list.do");
+			result = new ModelAndView("redirect:list.do");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("misc/403");
