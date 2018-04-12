@@ -72,9 +72,10 @@ public class ArticleController extends AbstractController {
 		final Pageable pageable;
 		Newspaper newspaper;
 		final Configuration configuration;
-		Actor actor;
+		Actor actor = null;
 		boolean validCustomer = false;
 		boolean newspaperPublished = false;
+		boolean owner = false;
 
 		try {
 
@@ -104,9 +105,12 @@ public class ArticleController extends AbstractController {
 
 			if (newspaper.getPublicationDate() == null || newspaper.getPublicationDate().after(new Date()))
 				newspaperPublished = true;
+			if (actor != null)
+				owner = actor.equals(writer);
 
 			result.addObject("newspaperPublished", newspaperPublished);
 			result.addObject("writer", writer);
+			result.addObject("owner", owner);
 			result.addObject("article", article);
 			result.addObject("followUps", followUps);
 			result.addObject("page", page);

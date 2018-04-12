@@ -88,7 +88,7 @@
 <display:table name="${articles}" id="article"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleArticle}" sortable="true">
-		<jstl:if test="${newspaper.publicNewspaper or subscriber}">
+		<jstl:if test="${((ownArticle!=null and ownArticle[article_rowNum-1])  or subscriber) and newspaper.publicNewspaper}">
 			<a href="article/display.do?articleId=${article.id}">${article.title}</a>
 		</jstl:if>
 		<jstl:if test="${!subscriber and !newspaper.publicNewspaper}">
