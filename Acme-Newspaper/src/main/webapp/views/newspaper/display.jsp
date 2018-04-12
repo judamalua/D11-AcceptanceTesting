@@ -92,8 +92,16 @@
 			<a href="article/display.do?articleId=${article.id}">${article.title}</a>
 		</jstl:if>
 		<jstl:if test="${!subscriber and !newspaper.publicNewspaper and !(ownArticle!=null and ownArticle[article_rowNum-1])}">
-			${article.title}
+			<jstl:out value="${article.title}"/>
 		</jstl:if>
+		<security:authorize access="!hasRole('USER')">
+			<jstl:if test="${newspaper.publicNewspaper}">
+				<a href="article/display.do?articleId=${article.id}">${article.title}</a>
+			</jstl:if>
+			<jstl:if test="${!newspaper.publicNewspaper}">
+				<jstl:out value="${article.title}"/>
+			</jstl:if>
+		</security:authorize>
 	</display:column>
 	<display:column property="summary" title="${titleSummaryArticle}" />
 	<%-- <display:column title="${titleBodyArticle}">
