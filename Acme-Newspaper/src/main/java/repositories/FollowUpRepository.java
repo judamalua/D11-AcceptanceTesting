@@ -21,7 +21,7 @@ public interface FollowUpRepository extends JpaRepository<FollowUp, Integer> {
 	 * @return The average number of follow-ups per article up to one week after the corresponding newspaper's been published.
 	 * @author Antonio
 	 */
-	@Query("select avg(a.followUps.size) from Newspaper n join n.articles a join a.followUps f where DATEDIFF(n.publicationDate, f.publicationDate) < 7")
+	@Query("select ((count(f)*1.0)/count(a)*1.0) from Newspaper n join n.articles a join a.followUps f where DATEDIFF(n.publicationDate, f.publicationDate) < 7")
 	String getAverageFollowUpPerArticleOneWeek();
 
 	/**
@@ -30,6 +30,6 @@ public interface FollowUpRepository extends JpaRepository<FollowUp, Integer> {
 	 * @return The average number of follow-ups per article up to two weeks after the corresponding newspaper's been published.
 	 * @author Antonio
 	 */
-	@Query("select avg(a.followUps.size) from Newspaper n join n.articles a join a.followUps f where DATEDIFF(n.publicationDate, f.publicationDate) < 14")
+	@Query("select ((count(f)*1.0)/count(a)*1.0) from Newspaper n join n.articles a join a.followUps f where DATEDIFF(n.publicationDate, f.publicationDate) < 14")
 	String getAverageFollowUpPerArticleTwoWeek();
 }
