@@ -262,7 +262,7 @@
 	<bean id="Article1" class="domain.Article">
 		<property name="title" value="[GUIA] Como sobrevivir en la ETSII" />
 		<property name="summary"
-			value="Si has sido aceptado recientemente en nuestra escuela, este art�culo te ayudar� a pasar tus primeros d�as." />
+			value="Si has sido aceptado recientemente en nuestra escuela, este artículo te ayudará a pasar tus primeros días." />
 		<property name="body" value="Test Articulo 1" />
 		<property name="finalMode" value="true" />
 		<property name="taboo" value="false" />
@@ -274,7 +274,7 @@
 	<bean id="Article2" class="domain.Article">
 		<property name="title" value="Charla del premio Nobel John Doe" />
 		<property name="summary"
-			value="El pr�ximo 5 de mayo el premio Nobel John Doe dar� una conferencia en nuestra escuela sobre gestion de proyectos informáticos." />
+			value="El próximo 5 de mayo el premio Nobel John Doe dar�áuna conferencia en nuestra escuela sobre gestion de proyectos informáticos." />
 		<property name="body" value="Test Articulo 2" />
 		<property name="finalMode" value="true" />
 		<property name="taboo" value="false" />
@@ -284,9 +284,9 @@
 		</property>
 	</bean>
 	<bean id="Article3" class="domain.Article">
-		<property name="title" value="Primer d�a de runner" />
+		<property name="title" value="Primer día de runner" />
 		<property name="summary"
-			value="En este art�culo encontrar�s informaci�n para tu primer d�a corriendo por la ciudad. �Adelante!" />
+			value="En este artículo encontrarás información para tu primer día corriendo por la ciudad. ¡Adelante!" />
 		<property name="body" value="Test Articulo 3" />
 		<property name="finalMode" value="true" />
 		<property name="taboo" value="false" />
@@ -298,7 +298,7 @@
 	<bean id="Article4" class="domain.Article">
 		<property name="title" value="5 consejos para perder peso corriendo" />
 		<property name="summary"
-			value="Con estos cinco consejos y un poco de constancia conseguir�s bajar de peso con nuestro hobby favorito." />
+			value="Con estos cinco consejos y un poco de constancia conseguirás bajar de peso con nuestro hobby favorito." />
 		<property name="body" value="Test Articulo 4" />
 		<property name="finalMode" value="true" />
 		<property name="taboo" value="false" />
@@ -316,6 +316,8 @@
 		<property name="taboo" value="false" />
 		<property name="followUps">
 			<list>
+				<ref bean="FollowUp1"/>
+				<ref bean="FollowUp2"/>
 			</list>
 		</property>
 	</bean>
@@ -354,6 +356,7 @@
 		<property name="taboo" value="false" />
 		<property name="followUps">
 			<list>
+				<ref bean="FollowUp3"/>
 			</list>
 		</property>
 	</bean>
@@ -367,18 +370,21 @@
 		<property name="taboo" value="false" />
 		<property name="followUps">
 			<list>
+				<ref bean="FollowUp4"/>
+				<ref bean="FollowUp5"/>
 			</list>
 		</property>
 	</bean>
 
 	<bean id="Article10" class="domain.Article">
 		<property name="title" value="Nadie esta seguro" />
-		<property name="summary" value="Los principes e corchuelo atacan de nuevo." />
-		<property name="body" value="Actualizar los antivirus!!" />
+		<property name="summary" value="El grupo hacker the princes of corchuelo ataca de nuevo." />
+		<property name="body" value="Actualizad los antivirus!!" />
 		<property name="finalMode" value="true" />
 		<property name="taboo" value="false" />
 		<property name="followUps">
 			<list>
+				<ref bean="FollowUp6"/>
 			</list>
 		</property>
 	</bean>
@@ -393,13 +399,74 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- %%%%%% domain.FollowUp %%%%%% -->
+	<bean id="FollowUp1" class="domain.FollowUp">
+		<property name="title" value="Alejandro Vázquez, ganador del concurso" />
+		<property name="publicationDate" value="2018/04/13 12:00" />
+		<property name="summary"
+			value="Sacó 4 segundos y medio de ventaja al subcampeón, Antonio López" />
+		<property name="text" value="El alumno de 4º curso Alejandro Vázquez ha sido el ganador del concurso de mecanografía de la ETSII con un asombroso tiempo de 12 segundos, que le ha valido para escribir un texto de 1000 palabras. ¡Enhorabuena!" />
+		<property name="taboo" value="false" />
+		<property name="user" ref ="User1"/>
+	</bean>
+	
+	<bean id="FollowUp2" class="domain.FollowUp">
+		<property name="title" value="Actualización: Alejandro Vázquez descalificado" />
+		<property name="publicationDate" value="2018/04/13 13:00" />
+		<property name="summary"
+			value="El galardón de campeón del concurso pasa a ser para Antonio López" />
+		<property name="text" value="Recientes investigaciones han sacado a la luz que el alumno hizo trampas con un bot que él había programado" />
+		<property name="taboo" value="false" />
+		<property name="user" ref ="User1"/>
+	</bean>
 
+	<bean id="FollowUp3" class="domain.FollowUp">
+		<property name="title" value="Los otros 2 consejos" />
+		<property name="publicationDate" value="2018/04/13 13:00" />
+		<property name="summary"
+			value="Estos 2 pasos complementan a los 3 anteriores para formar los 5... o eso creo" />
+		<property name="text" value="4 Cómete los bordes. 5 Pasa por caja." />
+		<property name="taboo" value="false" />
+		<property name="user" ref ="User1"/>
+	</bean>
+	
+	<bean id="FollowUp4" class="domain.FollowUp">
+		<property name="title" value="En realidad creo que vi algo..." />
+		<property name="publicationDate" value="2015/04/13 13:00" />
+		<property name="summary"
+			value="¿Pensáis que tengo un problema?" />
+		<property name="text" value="Analizando las fotos del viaje, me parece haber visto la silueta de un largo cuello..." />
+		<property name="taboo" value="false" />
+		<property name="user" ref ="User1"/>
+	</bean>
+	
+	<bean id="FollowUp5" class="domain.FollowUp">
+		<property name="title" value="He ampliado la foto y el resultado te sorprenderá" />
+		<property name="publicationDate" value="2015/04/20 13:00" />
+		<property name="summary"
+			value="La lente de mi cámara estaba muy sucia" />
+		<property name="text" value="Y eso es todo. Lo que parecía Nessie no era más que una mota de polvo." />
+		<property name="taboo" value="false" />
+		<property name="user" ref ="User1"/>
+	</bean>
+	
+	<bean id="FollowUp6" class="domain.FollowUp">
+		<property name="title" value="Encrypted files" />
+		<property name="publicationDate" value="2018/04/10 00:00" />
+		<property name="summary"
+			value="All my files from my HDD are encrypted" />
+		<property name="text" value="Can anyone help me?" />
+		<property name="taboo" value="false" />
+		<property name="user" ref ="User1"/>
+	</bean>
+	
 	<!-- %%%%%% domain.Newspaper %%%%%% -->
 	<bean id="Newspaper1" class="domain.Newspaper">
 		<property name="title" value="El Informatico" />
 		<property name="description"
-			value="El Inform�tico es el peri�dico oficial de la Escuela T�cnica Superior de Ingenier�a Inform�tica de la Universidad de Sevilla. 
-			�S�guenos y mantente al corriente sobre las �ltimas novedades de la escuela!" />
+			value="El Informático es el periódico oficial de la Escuela Técnica Superior de Ingeniería Informática de la Universidad de Sevilla. 
+			¡Síguenos y mantente al corriente sobre las últimas novedades de la escuela!" />
 		<property name="pictureUrl"
 			value="http://comunicacion.us.es/sites/default/files/ingenieria_informatica.jpg" />
 		<property name="publicNewspaper" value="true" />
@@ -423,7 +490,7 @@
 	<bean id="Newspaper2" class="domain.Newspaper">
 		<property name="title" value="The Runner Journal" />
 		<property name="description"
-			value="The Runner Journal es el diario donde runners de todo el mundo comparten sus experiencias sobre el deporte m�s practicado hoy en d�a. �Ponte las botas, que nos vamos!" />
+			value="The Runner Journal es el diario donde runners de todo el mundo comparten sus experiencias sobre el deporte más practicado hoy en día. ¡Ponte las botas, que nos vamos!" />
 		<property name="pictureUrl"
 			value="https://blogicalimentaria.files.wordpress.com/2016/03/runners.jpg" />
 		<property name="publicNewspaper" value="true" />

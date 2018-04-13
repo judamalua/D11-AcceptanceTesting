@@ -101,7 +101,7 @@ public class ArticleController extends AbstractController {
 			} else
 				Assert.isTrue(newspaper.getPublicNewspaper());
 
-			followUps = this.articleService.findFollowUpsByArticle(pageable);
+			followUps = this.articleService.findFollowUpsByArticle(pageable, articleId);
 
 			if (newspaper.getPublicationDate() != null)
 				newspaperPublished = true;

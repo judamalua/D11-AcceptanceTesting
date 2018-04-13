@@ -165,11 +165,11 @@ public class ArticleService {
 		return result;
 	}
 
-	public Page<FollowUp> findFollowUpsByArticle(final Pageable pageable) {
+	public Page<FollowUp> findFollowUpsByArticle(final Pageable pageable, final Integer articleId) {
 		Page<FollowUp> result;
 		Assert.notNull(pageable);
 
-		result = this.articleRepository.findFollowUpsByArticle(pageable);
+		result = this.articleRepository.findFollowUpsByArticle(pageable, articleId);
 
 		return result;
 	}
