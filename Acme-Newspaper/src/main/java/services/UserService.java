@@ -148,6 +148,7 @@ public class UserService {
 
 	public User reconstruct(final UserCustomerAdminForm userAdminForm, final BindingResult binding) {
 		User result;
+		Actor actor;
 
 		if (userAdminForm.getId() == 0) {
 
@@ -172,7 +173,10 @@ public class UserService {
 			result.setNewspapers(newspapers);
 
 		} else {
+			actor = this.actorService.findActorByPrincipal();
 			result = this.userRepository.findOne(userAdminForm.getId());
+
+			Assert.isTrue(result.getId() == actor.getId());
 
 			result.setName(userAdminForm.getName());
 			result.setSurname(userAdminForm.getSurname());
