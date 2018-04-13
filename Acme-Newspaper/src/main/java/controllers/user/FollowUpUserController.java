@@ -107,14 +107,19 @@ public class FollowUpUserController extends AbstractController {
 		Actor actor;
 		User creator;
 		Integer articleId;
+		final Newspaper newspaper;
+		Article article;
 
 		try {
 			actor = this.actorService.findActorByPrincipal();
 			followUp = this.followUpService.findOne(followUpId);
-			articleId = this.articleService.getArticleByFollowUp(followUp).getId();
+			article = this.articleService.getArticleByFollowUp(followUp);
+			articleId = article.getId();
+			newspaper = this.newsPaperService.findNewspaperByArticle(articleId);
 			creator = followUp.getUser();
-
 			Assert.isTrue(actor.equals(creator));
+			Assert.isTrue(article.getFinalMode());
+			Assert.isTrue(newspaper.getPublicNewspaper());
 
 			result = this.createEditModelAndView(followUp);
 			result.addObject("articleId", articleId);

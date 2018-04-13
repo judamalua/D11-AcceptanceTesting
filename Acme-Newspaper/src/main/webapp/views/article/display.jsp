@@ -90,7 +90,7 @@ ${article.body}
 	</security:authorize>
 </display:table>
 <security:authorize access="hasRole('USER')">
-	<jstl:if test="${owner and article.finalMode and !newspaperPublished}">
+	<jstl:if test="${owner and article.finalMode and newspaperPublished}">
 		<acme:button url="followUp/user/create.do?articleId=${article.id}"
 			code="followUp.create" />
 	</jstl:if>

@@ -65,7 +65,7 @@
 			<i class="material-icons">public</i>
 		</jstl:if>
 		<jstl:if test="${!newspaper.publicNewspaper}">
-			<i class="material-icons">pan_tool</i>
+			<i class="material-icons">not_interested</i>
 		</jstl:if>
 	</display:column>
 	<display:column>

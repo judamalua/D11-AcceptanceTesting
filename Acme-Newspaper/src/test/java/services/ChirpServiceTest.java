@@ -32,8 +32,8 @@ public class ChirpServiceTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 	/**
 	 * This driver checks that chirp can be added and findAll return the new value also.
-	 * Requirement 15.1 An actor who is not authenticated must be able to:
-	 * List the chirps that are associated with each rendezvous.
+	 *A user may post a chirp. For every chirp, the system must store the moment, a title, and a
+description. The list or chirps are considered a part of the profile of a user
 	 * 
 	 * @author Alejandro
 	 */
@@ -44,10 +44,25 @@ public class ChirpServiceTest extends AbstractTest {
 		this.templateCreate("User1", new Date(System.currentTimeMillis() - 1), "Test Title", "Test Description", null);
 		Assert.isTrue(this.chirpService.findAll().size() - prevSize == 1);
 	}
+	
+	
+	/**
+	 * This driver checks that chirp can be added with taboo and admin can list it.
+	 * Requirement 17.4: List the chirps that contain taboo words.
+	 * 
+	 * @author Alejandro
+	 */
+	@Test
+	public void testCaseListTabooChirps() {
+		final int prevSize = this.chirpService.getAllTabooChirps().size();
+		// Create a new chirp with creation template
+		this.templateCreate("User1", new Date(System.currentTimeMillis() - 1), "Test Title Taboo - Viagra", "Test Description", null);
+		Assert.isTrue(this.chirpService.getAllTabooChirps().size() - prevSize == 1);
+	}
+	
 
 	/**
-	 * This driver checks several tests regarding functional requirement number 21.1: An actor who is authenticated as a user must be able to manage
-	 * (add, edit, delete) the chirps that are associated with a rendezvous on draft mode that he or she has created previously, tests are explained inside
+	 * This driver checks several tests regarding functional requirement number 17.5 Remove a chirp that he or she thinks is inappropriate.
 	 * 
 	 * @author Alejandro
 	 */
@@ -60,7 +75,7 @@ public class ChirpServiceTest extends AbstractTest {
 			}, {
 				"User2", "Chirp1", IllegalArgumentException.class
 			}, {
-				"User1", "Chirp1", null
+				"User1", "Chirp1", IllegalArgumentException.class
 			}, {
 				"Admin1", "Chirp2", null
 			},
@@ -70,17 +85,21 @@ public class ChirpServiceTest extends AbstractTest {
 			}, {
 				"User2", "Chirp4", IllegalArgumentException.class
 			}, {
-				"User1", "Chirp4", null
+				"User1", "Chirp4", IllegalArgumentException.class
 			}, {
 				"Admin1", "Chirp5", null
 			},
 		};
-		for (int i = 0; i < testingData.length; i++)
-			this.templateDelete((String) testingData[i][0], super.getEntityId((String) testingData[i][1]), (Class<?>) testingData[i][2]);
-	}
+		for (int i = 0; i < testingData.length; i++){
+			String user = (String) testingData[i][0];
+			Integer chirp = super.getEntityId((String) testingData[i][1]);
+			this.templateDelete(user, chirp,
+					(Class<?>) testingData[i][2]);
+		}
+		}
 	/**
-	 * Functional requirement number 16.3: An actor who is authenticated as a user must be able to: Create an chirp regarding
-	 * one of the rendezvouses that he or she's created previously. *
+	 * Functional requirement number 15: A user may post a chirp. For every chirp, the system must store the moment, a title, and a
+	 * description. The list or chirps are considered a part of the profile of a user
 	 * 
 	 * @author Alejandro
 	 */
@@ -90,35 +109,17 @@ public class ChirpServiceTest extends AbstractTest {
 
 		final Object testingData[][] = {
 			{
-				// This test checks that authenticated users cannot create chirp to a rendezvous already finished.
-				"User1", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
-				// This test checks that authenticated users can add an chirp to a Rendezvous that they have created in final mode
+				// This test checks that authenticated users can create chirp
 				"User1", currentDate, "Test Title", "Test Description", null
 			}, {
 				// This test checks that unauthenticated users cannot create chirp to a rendezvous already finished
 				null, currentDate, "Test Title", "Test Description", IllegalArgumentException.class
 			}, {
-				// This test checks that unauthenticated users cannot create questions to a rendezvous not finished
-				null, currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
 				// This test checks that authenticated actors that are not users cannot create chirp to a rendezvous in draft mode
-				"Admin1", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
+				"Admin1", currentDate, "Test Title", "Test Description", ClassCastException.class
 			}, {
-				// This test checks that authenticated actors that are not users cannot create chirp to a rendezvous in final mode
-				"Admin1", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
-				// This test checks that authenticated actors that are not users cannot create chirp to a rendezvous in final mode
-				"Admin1", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
-				// This test checks that authenticated users cannot create chirp to a draft mode rendezvous they did not create
-				"User2", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
-				// This test checks that authenticated users cannot create chirp to a final mode rendezvous they did not create
-				"User2", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
-			}, {
-				// This test checks that authenticated users cannot create chirp to a final mode rendezvous they did not create
-				"User2", currentDate, "Test Title", "Test Description", IllegalArgumentException.class
+				// This test checks that authenticated users can create chirp
+				"User2", currentDate, "Test Title", "Test Description", null
 			}, {
 				// This test checks that chirp with empty texts cannot be saved
 				"User1", currentDate, "", "", javax.validation.ConstraintViolationException.class
@@ -134,8 +135,10 @@ public class ChirpServiceTest extends AbstractTest {
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++)
+		for (int i = 0; i < testingData.length; i++){
+			System.out.println("Test" + i);
 			this.templateCreate((String) testingData[i][0], (Date) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (Class<?>) testingData[i][4]);
+	}
 	}
 
 	// Ancillary methods ------------------------------------------------------
