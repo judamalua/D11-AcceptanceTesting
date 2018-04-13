@@ -268,6 +268,12 @@
 		<property name="taboo" value="false" />
 		<property name="followUps">
 			<list>
+				<ref bean="FollowUp1"/>
+				<ref bean="FollowUp2"/>
+				<ref bean="FollowUp3"/>
+				<ref bean="FollowUp4"/>
+				<ref bean="FollowUp5"/>
+				<ref bean="FollowUp6"/>
 			</list>
 		</property>
 	</bean>
@@ -316,8 +322,6 @@
 		<property name="taboo" value="false" />
 		<property name="followUps">
 			<list>
-				<ref bean="FollowUp1"/>
-				<ref bean="FollowUp2"/>
 			</list>
 		</property>
 	</bean>
@@ -356,7 +360,6 @@
 		<property name="taboo" value="false" />
 		<property name="followUps">
 			<list>
-				<ref bean="FollowUp3"/>
 			</list>
 		</property>
 	</bean>
@@ -370,8 +373,6 @@
 		<property name="taboo" value="false" />
 		<property name="followUps">
 			<list>
-				<ref bean="FollowUp4"/>
-				<ref bean="FollowUp5"/>
 			</list>
 		</property>
 	</bean>
@@ -384,7 +385,6 @@
 		<property name="taboo" value="false" />
 		<property name="followUps">
 			<list>
-				<ref bean="FollowUp6"/>
 			</list>
 		</property>
 	</bean>

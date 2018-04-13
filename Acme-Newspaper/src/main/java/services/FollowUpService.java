@@ -103,11 +103,11 @@ public class FollowUpService {
 		Assert.isTrue(this.newsPaperService.findNewspaperByArticle(article.getId()).getPublicationDate().before(new Date()));//Comprueba que el periï¿½dico  ha sido publicado
 
 		FollowUp result;
-		final User user;
+		User user;
 		Newspaper newspaper;
 		boolean taboo;
 
-		// Comprobaciï¿½n palabras de spam
+		// Comprobación palabras de spam
 		if (this.actorService.findActorByPrincipal() instanceof User) {
 			taboo = this.actorService.checkSpamWords(followUp.getTitle() + " " + followUp.getSummary() + " " + followUp.getText());
 			followUp.setTaboo(taboo);
