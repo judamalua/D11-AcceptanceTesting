@@ -59,8 +59,61 @@
 			</list>
 		</property>
 	</bean>
-
-
+		<bean id="UserAccount6" class="security.UserAccount">
+		<property name="username" value="user3" />
+		<property name="password" value="92877af70a45fd6a2ed7fe81e1236b78" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+		<bean id="UserAccount7" class="security.UserAccount">
+		<property name="username" value="user4" />
+		<property name="password" value="3f02ebe3d7929b091e3d8ccfde2f3bc6" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+		<bean id="UserAccount8" class="security.UserAccount">
+		<property name="username" value="user5" />
+		<property name="password" value="0a791842f52a0acfbb3a783378c066b8" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+		<bean id="UserAccount9" class="security.UserAccount">
+		<property name="username" value="user6" />
+		<property name="password" value="affec3b64cf90492377a8114c86fc093" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+		<bean id="UserAccount10" class="security.UserAccount">
+		<property name="username" value="user7" />
+		<property name="password" value="3e0469fb134991f8f75a2760e409c6ed" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 	<!-- %%%%%% domain.Slider %%%%%% -->
 	<bean id="Slider1" class="domain.Slider">
 		<property name="title_en" value="Welcome to Acme-Newspaper!" />
@@ -179,6 +232,12 @@
 	<bean id="User1" class="domain.User">
 		<property name="users">
 			<list>
+				<ref bean="User2" />
+				<ref bean="User3" />
+				<ref bean="User4" />
+				<ref bean="User5" />
+				<ref bean="User6" />
+				<ref bean="User7" />
 			</list>
 		</property>
 		<property name="newspapers">
@@ -214,6 +273,7 @@
 	<bean id="User2" class="domain.User">
 		<property name="users">
 			<list>
+				<ref bean="User1" />
 			</list>
 		</property>
 		<property name="newspapers">
@@ -237,7 +297,116 @@
 		<property name="birthDate" value="1992/07/15 00:00" />
 		<property name="userAccount" ref="UserAccount4" />
 	</bean>
-
+	<bean id="User3" class="domain.User">
+		<property name="users">
+			<list>
+				<ref bean="User1" />
+			</list>
+		</property>
+		<property name="newspapers">
+			<list>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="name" value="User 3" />
+		<property name="surname" value="User " />
+		<property name="postalAddress" value="Okklahoma Thunder Street" />
+		<property name="phoneNumber" value="635582389" />
+		<property name="email" value="user3@mail.com" />
+		<property name="birthDate" value="1991/07/10 00:00" />
+		<property name="userAccount" ref="UserAccount5" />
+	</bean>
+	<bean id="User4" class="domain.User">
+		<property name="users">
+			<list>
+				<ref bean="User1" />
+			</list>
+		</property>
+		<property name="newspapers">
+			<list>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="name" value="User 4" />
+		<property name="surname" value="User " />
+		<property name="postalAddress" value="Okklahoma Thunder Street" />
+		<property name="phoneNumber" value="635582389" />
+		<property name="email" value="user4@mail.com" />
+		<property name="birthDate" value="1992/07/15 00:00" />
+		<property name="userAccount" ref="UserAccount6" />
+	</bean>
+	<bean id="User5" class="domain.User">
+		<property name="users">
+			<list>
+				<ref bean="User1" />
+			</list>
+		</property>
+		<property name="newspapers">
+			<list>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="name" value="User 5" />
+		<property name="surname" value="User " />
+		<property name="postalAddress" value="Okklahoma Thunder Street" />
+		<property name="phoneNumber" value="635582389" />
+		<property name="email" value="user5@mail.com" />
+		<property name="birthDate" value="1990/12/15 00:00" />
+		<property name="userAccount" ref="UserAccount7" />
+	</bean>
+	<bean id="User6" class="domain.User">
+		<property name="users">
+			<list>
+				<ref bean="User1" />
+			</list>
+		</property>
+		<property name="newspapers">
+			<list>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="name" value="User 6" />
+		<property name="surname" value="User " />
+		<property name="postalAddress" value="Okklahoma Thunder Street" />
+		<property name="phoneNumber" value="635582389" />
+		<property name="email" value="user6@mail.com" />
+		<property name="birthDate" value="1992/07/1 00:00" />
+		<property name="userAccount" ref="UserAccount8" />
+	</bean>
+	<bean id="User7" class="domain.User">
+		<property name="users">
+			<list>
+				<ref bean="User1" />
+			</list>
+		</property>
+		<property name="newspapers">
+			<list>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+			</list>
+		</property>
+		<property name="name" value="User 7" />
+		<property name="surname" value="User " />
+		<property name="postalAddress" value="Okklahoma Thunder Street" />
+		<property name="phoneNumber" value="635582389" />
+		<property name="email" value="user7@mail.com" />
+		<property name="birthDate" value="1984/07/10 00:00" />
+		<property name="userAccount" ref="UserAccount9" />
+	</bean>
 
 	<!-- %%%%%% domain.Admin %%%%%% -->
 	<bean id="Admin1" class="domain.Admin">
