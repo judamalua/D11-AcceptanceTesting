@@ -18,8 +18,8 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <!-- Variable declaration -->
 <spring:message code="article.title" var="titleTitle" />
@@ -33,36 +33,33 @@
 
 <div class="row">
 	<form action="article/search.do" method="get">
-        <div class="input-field col s3">
-        	<input id="page" type="hidden" name="page" value="0"/>
-          	<input id="search" type="search" name="search">
-         	<label for="search"><i class="material-icons">search</i></label>
-         	<i class="material-icons">close</i>
-        </div>
-      </form>
-      </div>
+		<div class="input-field col s3">
+			<input id="page" type="hidden" name="page" value="0" /> <input
+				id="search" type="search" name="search" /> <label for="search"><i
+				class="material-icons">search</i></label> <i class="material-icons">close</i>
+		</div>
+	</form>
+</div>
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestUri}page=" pageNum="${pageNum}"
+<acme:pagination requestURI="${requestUri}?search=${search}&page=" pageNum="${pageNum}"
 	page="${page}" />
 
 <!-- Table -->
-<display:table name="articles" id="article"
-	requestURI="${requestUri}">
+<display:table name="articles" id="article" requestURI="${requestUri}">
 
 	<display:column property="title" title="${titleTitle}" sortable="true" />
 
-	<display:column property="summary" title="${summaryTitle}" sortable="true" />
-	
+	<display:column property="summary" title="${summaryTitle}"
+		sortable="true" />
+
 	<display:column title="${displayTitle}">
-		<acme:button
-				url="article/display.do?articleId=${article.id}"
-				code="article.display" />
+		<acme:button url="article/display.do?articleId=${article.id}"
+			code="article.display" />
 	</display:column>
 	<display:column>
 		<security:authorize access="hasRole('ADMIN')">
-			<acme:button
-				url="article/admin/delete.do?articleId=${article.id}"
+			<acme:button url="article/admin/delete.do?articleId=${article.id}"
 				code="article.delete" />
 		</security:authorize>
 	</display:column>

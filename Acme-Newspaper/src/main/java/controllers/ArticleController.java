@@ -134,8 +134,11 @@ public class ArticleController extends AbstractController {
 			articles = this.articleService.findPublicPublicatedArticlessWithSearch(pageable, search);
 			result = new ModelAndView("article/list");
 
-			result.addObject("articles", articles);
-			result.addObject("requestUri", "article/search.do?search=" + search);
+			result.addObject("articles", articles.getContent());
+			result.addObject("search", search);
+			result.addObject("page", page);
+			result.addObject("pageNum", articles.getTotalPages());
+			result.addObject("requestUri", "article/search.do");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("rediect:/misc/403");
