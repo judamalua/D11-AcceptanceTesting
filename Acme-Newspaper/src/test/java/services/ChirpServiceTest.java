@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Date;
@@ -10,10 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import utilities.AbstractTest;
 import domain.Chirp;
 import domain.User;
-
-import utilities.AbstractTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -32,8 +32,8 @@ public class ChirpServiceTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 	/**
 	 * This driver checks that chirp can be added and findAll return the new value also.
-	 *A user may post a chirp. For every chirp, the system must store the moment, a title, and a
-description. The list or chirps are considered a part of the profile of a user
+	 * A user may post a chirp. For every chirp, the system must store the moment, a title, and a
+	 * description. The list or chirps are considered a part of the profile of a user
 	 * 
 	 * @author Alejandro
 	 */
@@ -44,8 +44,7 @@ description. The list or chirps are considered a part of the profile of a user
 		this.templateCreate("User1", new Date(System.currentTimeMillis() - 1), "Test Title", "Test Description", null);
 		Assert.isTrue(this.chirpService.findAll().size() - prevSize == 1);
 	}
-	
-	
+
 	/**
 	 * This driver checks that chirp can be added with taboo and admin can list it.
 	 * Requirement 17.4: List the chirps that contain taboo words.
@@ -59,7 +58,6 @@ description. The list or chirps are considered a part of the profile of a user
 		this.templateCreate("User1", new Date(System.currentTimeMillis() - 1), "Test Title Taboo - Viagra", "Test Description", null);
 		Assert.isTrue(this.chirpService.getAllTabooChirps().size() - prevSize == 1);
 	}
-	
 
 	/**
 	 * This driver checks several tests regarding functional requirement number 17.5 Remove a chirp that he or she thinks is inappropriate.
@@ -90,13 +88,12 @@ description. The list or chirps are considered a part of the profile of a user
 				"Admin1", "Chirp5", null
 			},
 		};
-		for (int i = 0; i < testingData.length; i++){
-			String user = (String) testingData[i][0];
-			Integer chirp = super.getEntityId((String) testingData[i][1]);
-			this.templateDelete(user, chirp,
-					(Class<?>) testingData[i][2]);
+		for (int i = 0; i < testingData.length; i++) {
+			final String user = (String) testingData[i][0];
+			final Integer chirp = super.getEntityId((String) testingData[i][1]);
+			this.templateDelete(user, chirp, (Class<?>) testingData[i][2]);
 		}
-		}
+	}
 	/**
 	 * Functional requirement number 15: A user may post a chirp. For every chirp, the system must store the moment, a title, and a
 	 * description. The list or chirps are considered a part of the profile of a user
@@ -135,10 +132,8 @@ description. The list or chirps are considered a part of the profile of a user
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++){
-			System.out.println("Test" + i);
+		for (int i = 0; i < testingData.length; i++)
 			this.templateCreate((String) testingData[i][0], (Date) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (Class<?>) testingData[i][4]);
-	}
 	}
 
 	// Ancillary methods ------------------------------------------------------

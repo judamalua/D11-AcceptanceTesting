@@ -69,11 +69,9 @@ public class CreditCardServiceTest extends AbstractTest {
 			}
 
 		};
-		for (int i = 0; i < testingData.length; i++) {
+		for (int i = 0; i < testingData.length; i++)
 			this.template((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (Integer) testingData[i][5], (Integer) testingData[i][6], (Integer) testingData[i][7],
 				(Class<?>) testingData[i][8]);
-			System.out.println(i);
-		}
 
 	}
 

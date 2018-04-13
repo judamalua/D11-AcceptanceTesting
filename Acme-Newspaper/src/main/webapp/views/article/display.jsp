@@ -68,10 +68,10 @@ ${article.body}
 	<spring:message code="article.followUp.list" />
 </h4>
 <acme:pagination page="${page}" pageNum="${pageNum}"
-	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&page=" />
+	requestURI="article/display.do?articleId=${article.id}&page=" />
 
 <display:table name="${followUps}" id="followUp"
-	requestURI="newspaper/display.do" pagesize="${pagesize}">
+	requestURI="article/display.do" pagesize="${pagesize}">
 	<display:column title="${titleFollowUp}" property="title"
 		sortable="true" />
 	<display:column property="publicationDate" format="${formatMoment}"
