@@ -22,7 +22,7 @@
 
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestURI}page=" pageNum="${pageNum}"
+<acme:pagination requestURI="${requestUri}page=" pageNum="${pageNum}"
 	page="${page}" />
 
 <!-- Table -->
