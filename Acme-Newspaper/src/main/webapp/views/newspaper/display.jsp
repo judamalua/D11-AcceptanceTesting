@@ -88,23 +88,31 @@
 <display:table name="${articles}" id="article"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleArticle}" sortable="true">
-		<jstl:if test="${((ownArticle!=null and ownArticle[article_rowNum-1])  or (subscriber and newspaper.publicNewspaper))}">
+		<jstl:if
+			test="${((ownArticle!=null and ownArticle[article_rowNum-1])  or (subscriber and newspaper.publicNewspaper))}">
 			<a href="article/display.do?articleId=${article.id}">${article.title}</a>
 		</jstl:if>
-		<jstl:if test="${!subscriber and !newspaper.publicNewspaper and !(ownArticle!=null and ownArticle[article_rowNum-1])}">
-			${article.title}
+		<jstl:if
+			test="${!subscriber and !newspaper.publicNewspaper and !(ownArticle!=null and ownArticle[article_rowNum-1])}">
+			<jstl:out value="${article.title}" />
+		</jstl:if>
+		<security:authorize access="!hasRole('USER')">
+			<jstl:if test="${newspaper.publicNewspaper}">
+				<a href="article/display.do?articleId=${article.id}">${article.title}</a>
+			</jstl:if>
+			<jstl:if test="${!newspaper.publicNewspaper}">
+				<jstl:out value="${article.title}" />
+			</jstl:if>
+		</security:authorize>
+	</display:column>
+	<display:column title="${titleSummaryArticle}" >
+		<jstl:if test="${(fn:length(article.summary))<=40}">
+			<jstl:out value="${article.summary}" />
+		</jstl:if>
+		<jstl:if test="${(fn:length(article.summary))>40}">
+			<jstl:out value="${fn:substring(article.summary,0,40)}..." />
 		</jstl:if>
 	</display:column>
-	<display:column property="summary" title="${titleSummaryArticle}" />
-	<%-- <display:column title="${titleBodyArticle}">
-		<jstl:if test="${fn:length(article.body)>50}">
-			<jstl:out value="${fn:substring(article.body,3, 50)}..." />
-		</jstl:if>
-		<jstl:if test="${fn:length(article.body)<=50}">
-			<jstl:out
-				value="${fn:substring(article.body,3, fn:length(article.body)-4)}" />
-		</jstl:if>
-	</display:column> --%>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<acme:button url="article/admin/delete.do?articleId=${article.id}"
@@ -112,14 +120,14 @@
 		</display:column>
 	</security:authorize>
 	<security:authorize access="hasRole('USER')">
-		
-			<display:column>
+
+		<display:column>
 			<jstl:if
-			test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1] and !article.finalMode   and newspaper.publicationDate==null}">
+				test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1] and !article.finalMode   and newspaper.publicationDate==null}">
 				<acme:button url="article/user/edit.do?articleId=${article.id}"
 					code="article.edit" />
-		</jstl:if>
-			</display:column>
+			</jstl:if>
+		</display:column>
 	</security:authorize>
 </display:table>
 <security:authorize access="hasRole('USER')">

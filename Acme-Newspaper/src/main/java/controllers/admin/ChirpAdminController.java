@@ -33,14 +33,12 @@ public class ChirpAdminController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int chirpId) {
 		ModelAndView result;
 		Chirp chirp;
-		User user;
 
 		try {
 			chirp = this.chirpService.findOne(chirpId);
-			user = this.userService.findUserByChirp(chirpId);
 			this.chirpService.delete(chirp);
 
-			result = new ModelAndView("redirect:/user/display.do?actorId=" + user.getId());
+			result = new ModelAndView("redirect:list.do");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("misc/403");

@@ -127,7 +127,7 @@ public class ChirpUserController extends AbstractController {
 		List<String> authors;
 		try {
 
-			result = new ModelAndView("chirp/stream");
+			result = new ModelAndView("chirp/list");
 			user = (User) this.actorService.findActorByPrincipal();
 //			for (User follow: user.getUsers()){
 //				for(Chirp chirpF : follow.getChirps()){
@@ -218,26 +218,7 @@ public class ChirpUserController extends AbstractController {
 		return result;
 	}
 	
-	
-	private static HashMap<Chirp,String> sortByChirps(HashMap<Chirp,String> map) { 
-	       List<Entry<Chirp,String>> list = new LinkedList<Entry<Chirp,String>>(map.entrySet());
-	       // Defined Custom Comparator here
-	       Collections.sort(list, new Comparator<Object>() {
-	            public int compare(Object o1, Object o2) {
-	               return ((Comparable<Date>) ((Chirp)((Map.Entry) (o1)).getKey()).getMoment())
-	                  .compareTo(((Chirp)((Map.Entry) (o1)).getKey()).getMoment());
-	            }
-	       });
 
-	       // Here I am copying the sorted list in HashMap
-	       // using LinkedHashMap to preserve the insertion order
-	       HashMap sortedHashMap = new LinkedHashMap();
-	       for (Iterator it = list.iterator(); it.hasNext();) {
-	              Map.Entry entry = (Map.Entry) it.next();
-	              sortedHashMap.put(entry.getKey(), entry.getValue());
-	       } 
-	       return sortedHashMap;
-	  }
 
 	// Ancillary methods --------------------------------------------------
 

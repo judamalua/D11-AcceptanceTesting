@@ -43,6 +43,8 @@
 
 </display:table>
 
+<jstl:if test="${requestURI == 'chirp/user/list.do'}">
 <security:authorize access="hasRole('USER')">
 	<acme:button url="chirp/user/create.do" code="chirp.create"/>
 </security:authorize>
+</jstl:if>

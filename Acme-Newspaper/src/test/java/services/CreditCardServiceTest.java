@@ -37,14 +37,43 @@ public class CreditCardServiceTest extends AbstractTest {
 				//Positive test
 				"customer1", "Newspaper3", "Valid Holder Name", "Valid Brand Name", "4485677312398507", 123, 12, 20, null
 			}, {
-				//Negative test
+				//Checks that you can't subscribe twice to the same newspaper
 				"customer1", "Newspaper3", "Valid Holder Name", "Valid Brand Name", "4485677312398507", 123, 12, 20, IllegalArgumentException.class
+			}, {
+				//Checks that the Brand name must not be blank.
+				"customer1", "Newspaper5", "Valid Holder Name", "", "4485677312398507", 123, 12, 20, javax.validation.ConstraintViolationException.class
+			}, {
+				//Checks that the Number must not be blank.
+				"customer1", "Newspaper5", "Valid Holder Name", "Valid Brand Name", "", 123, 12, 20, javax.validation.ConstraintViolationException.class
+			}, {
+				//Checks that the Number must be a valid Credit Card number.
+				"customer1", "Newspaper5", "Valid Holder Name", "Valid Brand Name", "1234567891234567", 123, 12, 20, javax.validation.ConstraintViolationException.class
+			}, {
+				//Checks that the CVV is not outside the minimum range (100).
+				"customer1", "Newspaper5", "Valid Holder Name", "Valid Brand Name", "4485677312398507", 99, 12, 20, javax.validation.ConstraintViolationException.class
+			}, {
+				//Checks that the CVV is not outside the maximum range (999).
+				"customer1", "Newspaper5", "Valid Holder Name", "Valid Brand Name", "4485677312398507", 1000, 12, 20, javax.validation.ConstraintViolationException.class
+			}, {
+				//Checks that the Expiration Month is not outside the minimum range (1).
+				"customer1", "Newspaper5", "Valid Holder Name", "Valid Brand Name", "4485677312398507", 123, 0, 20, javax.validation.ConstraintViolationException.class
+			}, {
+				//Checks that the Expiration Month is not outside the maximum range (12).
+				"customer1", "Newspaper5", "Valid Holder Name", "Valid Brand Name", "4485677312398507", 123, 13, 20, javax.validation.ConstraintViolationException.class
+			}, {
+				//Checks that the Expiration Year is not outside the minimum range (0).
+				"customer1", "Newspaper5", "Valid Holder Name", "Valid Brand Name", "4485677312398507", 123, 12, -1, javax.validation.ConstraintViolationException.class
+			}, {
+				//Checks that the Expiration Year is not outside the maximum range (99).
+				"customer1", "Newspaper5", "Valid Holder Name", "Valid Brand Name", "4485677312398507", 123, 12, 100, javax.validation.ConstraintViolationException.class
 			}
 
 		};
-		for (int i = 0; i < testingData.length; i++)
+		for (int i = 0; i < testingData.length; i++) {
 			this.template((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (Integer) testingData[i][5], (Integer) testingData[i][6], (Integer) testingData[i][7],
 				(Class<?>) testingData[i][8]);
+			System.out.println(i);
+		}
 
 	}
 
