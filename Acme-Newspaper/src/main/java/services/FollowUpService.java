@@ -100,14 +100,14 @@ public class FollowUpService {
 	public FollowUp save(final FollowUp followUp, final Article article) {
 		assert followUp != null;
 		Assert.isTrue(article.getFinalMode());//Comprueba que el article esta guardado en final mode
-		Assert.isTrue(this.newsPaperService.findNewspaperByArticle(article.getId()).getPublicationDate().before(new Date()));//Comprueba que el periódico  ha sido publicado
+		Assert.isTrue(this.newsPaperService.findNewspaperByArticle(article.getId()).getPublicationDate().before(new Date()));//Comprueba que el periï¿½dico  ha sido publicado
 
 		FollowUp result;
-		User user;
+		final User user;
 		Newspaper newspaper;
 		boolean taboo;
 
-		// Comprobación palabras de spam
+		// Comprobaciï¿½n palabras de spam
 		if (this.actorService.findActorByPrincipal() instanceof User) {
 			taboo = this.actorService.checkSpamWords(followUp.getTitle() + " " + followUp.getSummary() + " " + followUp.getText());
 			followUp.setTaboo(taboo);
@@ -117,11 +117,10 @@ public class FollowUpService {
 		user = (User) this.actorService.findActorByPrincipal();
 		Assert.isTrue(user == followUp.getUser());
 		newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
+		user = followUp.getUser();
 
-		if (followUp.getId() != 0) {
-			Assert.isTrue(user == followUp.getUser());
+		if (followUp.getId() != 0)
 			article.getFollowUps().remove(followUp);
-		}
 
 		article.getFollowUps().add(result);
 		this.articleService.save(article, newspaper);

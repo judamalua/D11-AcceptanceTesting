@@ -167,6 +167,7 @@ public class FollowUpUserController extends AbstractController {
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(followUp, "followUp.params.error");
 			result.addObject("articleId", articleId);
+			result.addObject("userId", userId);
 
 		} else
 			try {
@@ -174,8 +175,7 @@ public class FollowUpUserController extends AbstractController {
 				article = this.articleService.findOne(articleId);
 				creator = this.userService.findUserByArticle(article.getId());
 				newspaper = this.newsPaperService.findNewspaperByArticle(article.getId());
-				Assert.isTrue(actor == creator);
-				Assert.isTrue(newspaper.getPublicationDate().before(new Date()));
+				Assert.isTrue(newspaper != null);
 				Assert.isTrue(article.getFinalMode());
 
 				savedFollowUp = this.followUpService.save(followUp, article);
@@ -187,17 +187,22 @@ public class FollowUpUserController extends AbstractController {
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(followUp, "followUp.commit.error");
+				result.addObject("articleId", articleId);
+				result.addObject("userId", userId);
 			}
 
 		return result;
 	}
 	// Delete ---------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@ModelAttribute("followUp") final FollowUp followUp) {
+	public ModelAndView delete(@ModelAttribute("followUp") final FollowUp followUp, @RequestParam(value = "userId", defaultValue = "0") final Integer userId) {
 		ModelAndView result;
 		Article article;
 
 		try {
+			final User user = this.userService.findOne(userId);
+			followUp.setUser(user);
+			followUp.setPublicationDate(new Date());
 			article = this.articleService.getArticleByFollowUp(followUp);
 			this.followUpService.delete(followUp);
 
