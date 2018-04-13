@@ -57,7 +57,7 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	 * @return The newspapers that have at least 10% fewer articles than the average.
 	 * @author Antonio
 	 */
-	@Query("select n from Newspaper n where n.articles.size > (select (avg(ne.articles.size)*0.9) from Newspaper ne)")
+	@Query("select n from Newspaper n where n.articles.size < (select (avg(ne.articles.size)*0.9) from Newspaper ne)")
 	Collection<Newspaper> getNewspaperWith10PercentLessArticlesThanAverage();
 
 	/**
