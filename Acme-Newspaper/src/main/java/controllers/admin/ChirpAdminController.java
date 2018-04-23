@@ -14,7 +14,6 @@ import services.ChirpService;
 import services.UserService;
 import controllers.AbstractController;
 import domain.Chirp;
-import domain.User;
 
 @Controller
 @RequestMapping("/chirp/admin")

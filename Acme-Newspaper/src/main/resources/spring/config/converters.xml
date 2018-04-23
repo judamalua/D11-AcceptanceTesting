@@ -55,6 +55,12 @@
 		
 		<bean class="converters.NewspaperToStringConverter" />
 		<bean class="converters.StringToNewspaperConverter" />
+		
+		<bean class="converters.MessageFolderToStringConverter" />
+		<bean class="converters.StringToMessageFolderConverter" />
+		
+		<bean class="converters.MessageToStringConverter" />
+		<bean class="converters.StringToMessageConverter" />
 	
 	</util:list>
 	
