@@ -317,7 +317,7 @@
 		<property name="phoneNumber" value="635582389" />
 		<property name="email" value="user3@mail.com" />
 		<property name="birthDate" value="1991/07/10 00:00" />
-		<property name="userAccount" ref="UserAccount5" />
+		<property name="userAccount" ref="UserAccount6" />
 	</bean>
 	<bean id="User4" class="domain.User">
 		<property name="users">
@@ -339,7 +339,7 @@
 		<property name="phoneNumber" value="635582389" />
 		<property name="email" value="user4@mail.com" />
 		<property name="birthDate" value="1992/07/15 00:00" />
-		<property name="userAccount" ref="UserAccount6" />
+		<property name="userAccount" ref="UserAccount7" />
 	</bean>
 	<bean id="User5" class="domain.User">
 		<property name="users">
@@ -361,7 +361,7 @@
 		<property name="phoneNumber" value="635582389" />
 		<property name="email" value="user5@mail.com" />
 		<property name="birthDate" value="1990/12/15 00:00" />
-		<property name="userAccount" ref="UserAccount7" />
+		<property name="userAccount" ref="UserAccount8" />
 	</bean>
 	<bean id="User6" class="domain.User">
 		<property name="users">
@@ -383,7 +383,7 @@
 		<property name="phoneNumber" value="635582389" />
 		<property name="email" value="user6@mail.com" />
 		<property name="birthDate" value="1992/07/1 00:00" />
-		<property name="userAccount" ref="UserAccount8" />
+		<property name="userAccount" ref="UserAccount9" />
 	</bean>
 	<bean id="User7" class="domain.User">
 		<property name="users">
@@ -405,7 +405,7 @@
 		<property name="phoneNumber" value="635582389" />
 		<property name="email" value="user7@mail.com" />
 		<property name="birthDate" value="1984/07/10 00:00" />
-		<property name="userAccount" ref="UserAccount9" />
+		<property name="userAccount" ref="UserAccount10" />
 	</bean>
 
 	<!-- %%%%%% domain.Admin %%%%%% -->
@@ -548,8 +548,8 @@
 
 	<bean id="Article10" class="domain.Article">
 		<property name="title" value="Nadie esta seguro" />
-		<property name="summary" value="El grupo hacker the princes of corchuelo ataca de nuevo." />
-		<property name="body" value="Actualizad los antivirus!!" />
+		<property name="summary" value="El grupo hacker the princes of filadelphia ataca de nuevo." />
+		<property name="body" value="Crecía y vivía sin hacer mucho caso a la policía." />
 		<property name="finalMode" value="true" />
 		<property name="taboo" value="false" />
 		<property name="followUps">
