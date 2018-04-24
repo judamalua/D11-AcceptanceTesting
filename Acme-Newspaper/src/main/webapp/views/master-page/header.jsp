@@ -114,6 +114,8 @@
                             code="master.page.registerUser" /></a></li>
                 <li><a class="fNiv" href="actor/customer/register.do"> <spring:message
                             code="master.page.registerCustomer" /></a></li>
+                <li><a class="fNiv" href="actor/agent/register.do"> <spring:message
+                            code="master.page.registerAgent" /></a></li>
                 <li><a class="fNiv" href="user/list.do">
 						<spring:message code="master.page.userList" />
 				</a></li>
