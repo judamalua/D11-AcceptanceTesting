@@ -40,6 +40,7 @@
 		<value>/views/creditCard/tiles.xml</value>
 		<value>/views/followUp/tiles.xml</value>
 		<value>/views/chirp/tiles.xml</value>
+		<value>/views/agent/tiles.xml</value>
 	</util:list>
 
 </beans>
