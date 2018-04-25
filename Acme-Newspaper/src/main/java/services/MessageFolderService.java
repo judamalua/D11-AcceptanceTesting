@@ -6,9 +6,13 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.MessageFolderRepository;
 import security.LoginService;
@@ -23,24 +27,23 @@ public class MessageFolderService {
 
 	@Autowired
 	private MessageFolderRepository	messageFolderRepository;
+
 	@Autowired
 	private MessageService			messageService;
+
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	// Simple CRUD methods --------------------------------------------------
 	public MessageFolder create() {
 
 		MessageFolder result;
-		//		UserAccount userAccount;
-		//
-		//		userAccount = LoginService.getPrincipal();
-		//		Assert.notNull(userAccount);
 
 		result = new MessageFolder();
-		result.setMessageFolderChildren(new ArrayList<MessageFolder>());
-		result.setMessages(new ArrayList<Message>());
 		result.setIsDefault(false);
 
 		return result;
@@ -74,7 +77,6 @@ public class MessageFolderService {
 
 		result = this.messageFolderRepository.findOne(messageFolderId);
 		Assert.notNull(result);
-		//Assert.isTrue(actor.getMessageFolders().contains(result));
 
 		return result;
 	}
@@ -83,27 +85,18 @@ public class MessageFolderService {
 		Assert.notNull(messageFolder);
 		this.checkMessageFolder(messageFolder);
 
-		// Comprobación palabras de spam
-		this.actorService.checkSpamWords(messageFolder.getName());
-
-		final Actor actor;
-		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-		//		if (this.actorService.findActorByMessageFolder(messageFolder.getId()) == null)
-		//			actor = this.actorService.findActorByPrincipal();
-		//		else
-		//			actor = this.actorService.findActorByMessageFolder(messageFolder.getId());
-		//Assert.notNull(actor);
-		//Assert.isTrue(this.messageFolderRepository.exists(messageFolder.getId()) || !messageFolder.getIsDefault() || actor.getMessageFolders().size() < 6);
-		//		if (messageFolder.getId() != 0)
-		//			Assert.isTrue(!messageFolder.getIsDefault()); CHEQUEAR EN UN MËTODO A PARTE
+		Actor actor;
 		MessageFolder result;
+		if (messageFolder.getId() == 0)
+			actor = this.actorService.findActorByPrincipal();
+		else
+			actor = this.actorService.findActorByMessageFolder(messageFolder.getId());
 
 		result = this.messageFolderRepository.save(messageFolder);
-		//		if (actor.getMessageFolders().contains(messageFolder))
-		//			actor.getMessageFolders().remove(messageFolder);
-		//		actor.getMessageFolders().add(result);
-		//this.actorService.save(actor);
+
+		actor.getMessageFolders().remove(messageFolder);
+		actor.getMessageFolders().add(result);
+		this.actorService.save(actor);
 
 		return result;
 	}
@@ -114,43 +107,12 @@ public class MessageFolderService {
 		Assert.isTrue(messageFolder.getId() != 0);
 		Assert.isTrue(this.messageFolderRepository.exists(messageFolder.getId()));
 
-		//		Collection<MessageFolder> messageFolderChildren;
-
-		MessageFolder messageFolderFather;
-
 		Assert.isTrue(!messageFolder.getIsDefault());
-		//		messageFolderChildren = messageFolder.getMessageFolderChildren();
 
-		//		if (this.actorService.findActorByMessageFolder(messageFolder.getId()) != null) {
-		//			userAccount = LoginService.getPrincipal();
-		//			Assert.notNull(userAccount);
-		//			actor = this.actorService.findActorByUserAccountId(userAccount.getId());
-		//			Assert.notNull(actor);
-		//
-		//			Assert.isTrue(!messageFolder.getIsDefault());
-		//			Assert.isTrue(actor.getMessageFolders().contains(messageFolder));
-		//
-		//			actor.getMessageFolders().remove(messageFolder);
-		//			this.actorService.save(actor);
-		//		}
-
-		messageFolderFather = messageFolder.getMessageFolderFather();
-		if (messageFolderFather != null) {
-			messageFolderFather.getMessageFolderChildren().remove(messageFolder);
-			this.messageFolderRepository.save(messageFolderFather);
-		}
-
-		//		for (final Message m : messages)
-		//			this.messageService.delete(m);
-
-		//		messageFolderChildren = messageFolder.getMessageFolderChildren();
 		this.deleteChildrenMessageFolders(messageFolder);
-		//		for (final MessageFolder messageFolderChild : messageFolderChildren)
-		//			this.messageFolderRepository.delete(messageFolderChild);
-
-		//this.messageFolderRepository.delete(messageFolder);
 
 	}
+
 	private void checkMessageFolder(final MessageFolder messageFolder) {
 
 		boolean result;
@@ -195,9 +157,9 @@ public class MessageFolderService {
 		Assert.notNull(name);
 		this.actorService.checkUserLogin();
 
-		final MessageFolder result = null;
+		final MessageFolder result;
 
-		//result = this.messageFolderRepository.findMessageFolder(name, actor.getId());
+		result = this.messageFolderRepository.findMessageFolder(name, actor.getId());
 
 		return result;
 	}
@@ -208,14 +170,14 @@ public class MessageFolderService {
 
 		final UserAccount userAccount;
 		final Actor actor;
-		final Collection<MessageFolder> result = null;
+		final Collection<MessageFolder> result;
 
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		actor = this.actorService.findActorByPrincipal();
 		Assert.notNull(actor);
 
-		//result = actor.getMessageFolders();
+		result = actor.getMessageFolders();
 
 		return result;
 	}
@@ -223,21 +185,46 @@ public class MessageFolderService {
 	public Collection<MessageFolder> findRootMessageFolders() {
 		this.actorService.checkUserLogin();
 
-		final UserAccount userAccount;
 		final Actor actor;
-		final Collection<MessageFolder> result = null;
+		final Collection<MessageFolder> result;
 
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
 		actor = this.actorService.findActorByPrincipal();
 		Assert.notNull(actor);
 
-		//result = this.messageFolderRepository.findRootMessageFolders(actor.getId());
+		result = this.messageFolderRepository.findRootMessageFolders(actor.getId());
 
 		Assert.notNull(result);
 
 		return result;
 
+	}
+
+	public Page<MessageFolder> findRootMessageFolders(final Pageable pageable) {
+		this.actorService.checkUserLogin();
+
+		final Actor actor;
+		final Page<MessageFolder> result;
+
+		actor = this.actorService.findActorByPrincipal();
+		Assert.notNull(actor);
+
+		result = this.messageFolderRepository.findRootMessageFolders(actor.getId(), pageable);
+
+		Assert.notNull(result);
+
+		return result;
+
+	}
+
+	public Page<MessageFolder> findMessageFolderChildren(final int messageFolderId, final Pageable pageable) {
+		this.actorService.checkUserLogin();
+		final Page<MessageFolder> result;
+
+		result = this.messageFolderRepository.findMessageFolderChildren(messageFolderId, pageable);
+
+		Assert.notNull(result);
+
+		return result;
 	}
 
 	private MessageFolder deleteChildrenMessageFolders(final MessageFolder messageFolder) {
@@ -247,8 +234,8 @@ public class MessageFolderService {
 		Actor actor;
 
 		result = messageFolder;
-		messageFolders = new HashSet<MessageFolder>(messageFolder.getMessageFolderChildren());
-		messages = messageFolder.getMessages();
+		messageFolders = new HashSet<MessageFolder>(this.findMessageFolderChildren(messageFolder.getId()));
+		messages = this.messageService.findMessagesByMessageFolderId(messageFolder.getId());
 		actor = this.actorService.findActorByPrincipal();
 
 		if (messageFolders.isEmpty()) {
@@ -256,7 +243,7 @@ public class MessageFolderService {
 			for (final Message m : messages)
 				this.messageService.delete(m);
 
-			//actor.getMessageFolders().remove(messageFolder);
+			actor.getMessageFolders().remove(messageFolder);
 			this.actorService.save(actor);
 
 			this.messageFolderRepository.delete(messageFolder);
@@ -265,8 +252,6 @@ public class MessageFolderService {
 			for (final MessageFolder mf : messageFolders)
 				this.deleteChildrenMessageFolders(mf);
 
-			messageFolders.clear();
-			messageFolder.setMessageFolderChildren(messageFolders);
 			this.deleteChildrenMessageFolders(messageFolder);
 		}
 		return result;
@@ -277,14 +262,37 @@ public class MessageFolderService {
 
 		final Collection<MessageFolder> family = new ArrayList<>();
 
-		if (messageFolder.getMessageFolderChildren().size() == 0)
+		if (this.findMessageFolderChildren(messageFolder.getId()).size() == 0)
 			return family;
 		else {
-			family.addAll(messageFolder.getMessageFolderChildren());
-			for (final MessageFolder mf : messageFolder.getMessageFolderChildren())
+			family.addAll(this.findMessageFolderChildren(messageFolder.getId()));
+			for (final MessageFolder mf : this.findMessageFolderChildren(messageFolder.getId()))
 				family.addAll(this.getHerency(mf));
 		}
 
 		return family;
+	}
+
+	public Collection<MessageFolder> findMessageFolderChildren(final int messageFolderId) {
+		Collection<MessageFolder> result;
+
+		result = this.messageFolderRepository.findMessageFolderChildren(messageFolderId);
+
+		return result;
+	}
+
+	public MessageFolder reconstruct(final MessageFolder messageFolder, final BindingResult binding) {
+		MessageFolder result;
+
+		if (messageFolder.getId() == 0) {
+			result = messageFolder;
+			result.setIsDefault(false);
+
+		} else {
+			result = this.messageFolderRepository.findOne(messageFolder.getId());
+			result.setName(messageFolder.getName());
+		}
+		this.validator.validate(result, binding);
+		return result;
 	}
 }

@@ -6,8 +6,6 @@ import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
-import org.joda.time.LocalDate;
-import org.joda.time.Years;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +17,8 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Admin;
+import domain.Message;
+import domain.MessageFolder;
 import forms.UserCustomerAdminForm;
 
 @Service
@@ -34,6 +34,12 @@ public class ActorService {
 
 	@Autowired
 	private ConfigurationService	configurationService;
+
+	@Autowired
+	private MessageService			messageService;
+
+	@Autowired
+	private MessageFolderService	messageFolderService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -204,28 +210,6 @@ public class ActorService {
 	}
 
 	/**
-	 * This method obtains the age of the actor passed by parameters
-	 * 
-	 * @param actor
-	 * @return age
-	 * @author MJ
-	 */
-	private int getAge(final Actor actor) {
-		Assert.notNull(actor);
-
-		final int result;
-		LocalDate birthDay;
-		LocalDate currentDate;
-
-		currentDate = LocalDate.now();
-		birthDay = LocalDate.fromDateFields(actor.getBirthDate());
-		result = Years.yearsBetween(birthDay, currentDate).getYears();
-		Assert.isTrue(result > 0);
-
-		return result;
-	}
-
-	/**
 	 * This method registers in the system the actor passed by parameters
 	 * 
 	 * @param actor
@@ -288,4 +272,86 @@ public class ActorService {
 		}
 		return result;
 	}
+
+	public Actor findActorByMessageFolder(final int id) {
+		this.checkUserLogin();
+
+		Actor result;
+
+		result = this.actorRepository.findActorByMessageFolder(id);
+
+		return result;
+	}
+
+	public Message moveMessage(final Message message, final MessageFolder folder) {
+
+		Assert.notNull(folder);
+		Assert.isTrue(folder.getId() != 0);
+		this.checkUserLogin();
+
+		UserAccount userAccount;
+		Actor actor;
+
+		userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+		actor = this.actorRepository.findActorByUserAccountId(userAccount.getId());
+		Assert.notNull(actor);
+
+		Assert.isTrue(actor.getMessageFolders().contains(message.getMessageFolder()));
+		Assert.isTrue(actor.getMessageFolders().contains(folder));
+
+		final MessageFolder messageFolderOr;
+		Message result;
+
+		messageFolderOr = message.getMessageFolder();
+
+		this.messageFolderService.save(messageFolderOr);
+
+		message.setMessageFolder(folder);
+		result = this.messageService.save(message);
+
+		return result;
+	}
+
+	public void checkMessageFolders(final Actor a) {
+
+		Integer count;
+		Collection<MessageFolder> messageFolders;
+
+		count = 0;
+		messageFolders = a.getMessageFolders();
+
+		for (final MessageFolder mf : messageFolders)
+			if (mf.getIsDefault() == true)
+				count++;
+		Assert.isTrue(count == 5);
+
+	}
+
+	public void sendMessage(final Message message, final Actor sender, final Actor receiver, final MessageFolder messageFolderReceiver) {
+
+		Assert.notNull(message);
+		this.checkUserLogin();
+
+		UserAccount userAccount;
+		Message messageCopy;
+		MessageFolder outBoxSender;
+
+		userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+		Assert.notNull(sender);
+
+		messageCopy = this.messageService.copyMessage(message);
+
+		messageCopy.setMessageFolder(messageFolderReceiver);
+
+		outBoxSender = this.messageFolderService.findMessageFolder("out box", sender);
+		if (!this.messageService.findMessagesByMessageFolderId(outBoxSender.getId()).contains(message)) {
+			message.setMessageFolder(outBoxSender);
+			this.messageService.save(message);
+		}
+
+		this.messageService.save(messageCopy);
+	}
+
 }

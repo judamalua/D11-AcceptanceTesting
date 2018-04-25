@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -20,6 +21,7 @@ import security.UserAccount;
 import domain.Actor;
 import domain.Article;
 import domain.Chirp;
+import domain.MessageFolder;
 import domain.Newspaper;
 import domain.User;
 import forms.UserCustomerAdminForm;
@@ -31,14 +33,18 @@ public class UserService {
 	// Managed repository --------------------------------------------------
 
 	@Autowired
-	private UserRepository	userRepository;
+	private UserRepository			userRepository;
 
 	// Supporting services --------------------------------------------------
 
 	@Autowired
-	private Validator		validator;
+	private Validator				validator;
+
 	@Autowired
-	private ActorService	actorService;
+	private MessageFolderService	messageFolderService;
+
+	@Autowired
+	private ActorService			actorService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -149,6 +155,8 @@ public class UserService {
 	public User reconstruct(final UserCustomerAdminForm userAdminForm, final BindingResult binding) {
 		User result;
 		Actor actor;
+		final MessageFolder inbox, outbox, notificationbox, trashbox, spambox;
+		final Collection<MessageFolder> messageFolders;
 
 		if (userAdminForm.getId() == 0) {
 
@@ -168,6 +176,41 @@ public class UserService {
 			result.setPhoneNumber(userAdminForm.getPhoneNumber());
 			result.setEmail(userAdminForm.getEmail());
 			result.setBirthDate(userAdminForm.getBirthDate());
+
+			inbox = this.messageFolderService.create();
+			inbox.setIsDefault(true);
+			inbox.setMessageFolderFather(null);
+			inbox.setName("in box");
+			outbox = this.messageFolderService.create();
+			outbox.setIsDefault(true);
+			outbox.setMessageFolderFather(null);
+			outbox.setName("out box");
+			notificationbox = this.messageFolderService.create();
+			notificationbox.setIsDefault(true);
+			notificationbox.setMessageFolderFather(null);
+			notificationbox.setName("notification box");
+			trashbox = this.messageFolderService.create();
+			trashbox.setIsDefault(true);
+			trashbox.setMessageFolderFather(null);
+			trashbox.setName("trash box");
+			spambox = this.messageFolderService.create();
+			spambox.setIsDefault(true);
+			spambox.setMessageFolderFather(null);
+			spambox.setName("spam box");
+
+			messageFolders = new ArrayList<MessageFolder>();
+			messageFolders.add(inbox);
+			messageFolders.add(outbox);
+			messageFolders.add(trashbox);
+			messageFolders.add(spambox);
+			messageFolders.add(notificationbox);
+
+			final Collection<MessageFolder> savedMessageFolders = new ArrayList<MessageFolder>();
+
+			for (final MessageFolder mf : messageFolders)
+				savedMessageFolders.add(this.messageFolderService.saveDefaultMessageFolder(mf));
+
+			result.setMessageFolders(savedMessageFolders);
 
 			result.setChirps(chirps);
 			result.setNewspapers(newspapers);

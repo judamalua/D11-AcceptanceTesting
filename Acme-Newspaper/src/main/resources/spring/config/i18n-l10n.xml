@@ -40,6 +40,8 @@
 		<value>/views/customer/messages</value>
 		<value>/views/creditCard/messages</value>
 		<value>/views/chirp/messages</value>
+		<value>/views/message/messages</value>
+		<value>/views/messageFolder/messages</value>
 	</util:list>
 
 </beans>

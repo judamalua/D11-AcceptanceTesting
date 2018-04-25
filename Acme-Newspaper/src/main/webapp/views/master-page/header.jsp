@@ -126,13 +126,16 @@
 
         <security:authorize access="isAuthenticated()">
             <li><a class="fNiv" href="user/list.do">
-						<spring:message code="master.page.userList" />
-			<li><a href="newspaper/list.do"><spring:message
+						<spring:message code="master.page.userList" /></a></li>
+						
+			<li><a class="fNiv" href="newspaper/list.do"><spring:message
                                 code="master.page.newspaperList" /></a></li>
-			</a></li>
+                                
 			<li><a href="article/search.do"><spring:message
                                 code="master.page.articleSearch" /></a></li>
-
+                                
+             <li><a href="messageFolder/list.do"><spring:message
+                                code="master.page.messageFolderList" /></a></li>
 
             <security:authorize access="hasRole('ADMIN')">
                 <!-- Dropdown Structure -->
