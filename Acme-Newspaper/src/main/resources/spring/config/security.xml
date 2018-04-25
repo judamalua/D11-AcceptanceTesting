@@ -95,6 +95,8 @@
   		<security:intercept-url pattern="/actor/agent/register.do" access="isAnonymous()" requires-channel="https" /> 
   		<security:intercept-url pattern="/actor/agent/edit.do" access="hasRole('AGENT')" requires-channel="https" /> 
   		
+  		<security:intercept-url pattern="/volume/list.do" access="permitAll" requires-channel="https"  />
+  		
 		<security:intercept-url pattern="/dashboard/admin/**" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/configuration/admin/**" access="hasRole('ADMIN')" />

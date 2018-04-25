@@ -1,10 +1,13 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -102,7 +105,8 @@ public class CreditCard extends DomainEntity {
 
 
 	// Relationships ----------------------------------------------------------
-	private Customer	customer;
+	private Customer			customer;
+	private Collection<Volume>	volumes;
 
 
 	@Valid
@@ -116,4 +120,15 @@ public class CreditCard extends DomainEntity {
 		this.customer = customer;
 
 	}
+
+	@Valid
+	@ManyToMany
+	public Collection<Volume> getVolumes() {
+		return this.volumes;
+	}
+
+	public void setVolumes(final Collection<Volume> volumes) {
+		this.volumes = volumes;
+	}
+
 }

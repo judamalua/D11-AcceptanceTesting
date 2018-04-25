@@ -41,6 +41,7 @@
 		<value>/views/creditCard/messages</value>
 		<value>/views/chirp/messages</value>
 		<value>/views/agent/messages</value>
+		<value>/views/volume/messages</value>
 	</util:list>
 
 </beans>

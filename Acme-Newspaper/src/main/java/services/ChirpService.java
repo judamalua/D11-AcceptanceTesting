@@ -29,6 +29,7 @@ public class ChirpService {
 	@Autowired
 	private ChirpRepository	chirpRepository;
 
+	// Supporting services --------------------------------------------------
 	@Autowired
 	private UserService		userService;
 	@Autowired
@@ -37,8 +38,6 @@ public class ChirpService {
 	@Autowired
 	private Validator		validator;
 
-
-	// Supporting services --------------------------------------------------
 
 	// Simple CRUD methods --------------------------------------------------
 

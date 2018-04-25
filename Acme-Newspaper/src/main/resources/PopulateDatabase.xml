@@ -114,6 +114,30 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="UserAccount11" class="security.UserAccount">
+		<property name="username" value="agent1" />
+		<property name="password" value="83a87fd756ab57199c0bb6d5e11168cb" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="AGENT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="UserAccount12" class="security.UserAccount">
+		<property name="username" value="agent2" />
+		<property name="password" value="b1a4a6b01cc297d4677c4ca6656e14d7" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="AGENT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 	<!-- %%%%%% domain.Slider %%%%%% -->
 	<bean id="Slider1" class="domain.Slider">
 		<property name="title_en" value="Welcome to Acme-Newspaper!" />
@@ -225,6 +249,27 @@
 		<property name="email" value="user1@mail.com" />
 		<property name="birthDate" value="1987/04/11 00:00" />
 		<property name="userAccount" ref="UserAccount5" />
+	</bean>
+	
+	<!-- %%%%%% domain.Agent %%%%%% -->
+	<bean id="Agent1" class="domain.Agent">
+		<property name="name" value="Agent 1" />
+		<property name="surname" value="Agent" />
+		<property name="postalAddress" value="Calle Nervión s/n" />
+		<property name="phoneNumber" value="954337788" />
+		<property name="email" value="agent1@mail.com" />
+		<property name="birthDate" value="1990/04/11 00:00" />
+		<property name="userAccount" ref="UserAccount11" />
+	</bean>
+
+	<bean id="Agent2" class="domain.Agent">
+		<property name="name" value="Agent 2" />
+		<property name="surname" value="Agent" />
+		<property name="postalAddress" value="Alianz Arena, Munich" />
+		<property name="phoneNumber" value="621332201" />
+		<property name="email" value="agent2@mail.com" />
+		<property name="birthDate" value="2000/02/28 00:00" />
+		<property name="userAccount" ref="UserAccount12" />
 	</bean>
 
 
