@@ -48,7 +48,7 @@ public class ActorAgentController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
-	public ModelAndView registerAdministrator(@ModelAttribute("agent") final UserCustomerAdminForm actor, final BindingResult binding) {
+	public ModelAndView registerAgent(@ModelAttribute("actor") final UserCustomerAdminForm actor, final BindingResult binding) {
 		ModelAndView result;
 		Authority auth;
 		Agent agent = null;
@@ -79,6 +79,47 @@ public class ActorAgentController extends AbstractController {
 		return result;
 	}
 
+	// Edit agent --------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView editAgent() {
+		ModelAndView result;
+		Agent agent;
+		UserCustomerAdminForm agentForm;
+
+		try {
+			agent = (Agent) this.actorService.findActorByPrincipal();
+			Assert.notNull(agent);
+			agentForm = this.actorService.deconstruct(agent);
+			result = this.createEditModelAndView(agentForm);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView editAgent(@ModelAttribute("actor") final UserCustomerAdminForm actor, final BindingResult binding) {
+		ModelAndView result;
+		Agent agent = null;
+
+		try {
+			agent = this.agentService.reconstruct(actor, binding);
+		} catch (final Throwable oops) { //Not delete
+		}
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(actor, "actor.params.error");
+		else
+			try {
+				this.actorService.save(agent);
+				result = new ModelAndView("redirect:/actor/display.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(actor, "actor.commit.error");
+			}
+
+		return result;
+	}
+
 	// Ancillary methods --------------------------------------------------
 
 	protected ModelAndView createEditModelAndViewRegister(final UserCustomerAdminForm agent) {
@@ -94,7 +135,26 @@ public class ActorAgentController extends AbstractController {
 
 		result = new ModelAndView("agent/register");
 		result.addObject("message", messageCode);
-		result.addObject("agent", agent);
+		result.addObject("actor", agent);
+
+		return result;
+
+	}
+
+	protected ModelAndView createEditModelAndView(final UserCustomerAdminForm agent) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(agent, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final UserCustomerAdminForm agent, final String messageCode) {
+		ModelAndView result;
+
+		result = new ModelAndView("actor/edit");
+		result.addObject("message", messageCode);
+		result.addObject("actor", agent);
 
 		return result;
 

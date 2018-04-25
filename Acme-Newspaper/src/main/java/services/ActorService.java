@@ -273,6 +273,7 @@ public class ActorService {
 		result.setPhoneNumber(actor.getPhoneNumber());
 		result.setEmail(actor.getEmail());
 		result.setBirthDate(actor.getBirthDate());
+		result.setPostalAddress(actor.getPostalAddress());
 
 		return result;
 	}

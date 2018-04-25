@@ -197,6 +197,27 @@
                             property="principal.username" /><i class="material-icons right">arrow_drop_down</i></a></li>
 
             </security:authorize>
+            
+            <security:authorize access="hasRole('AGENT')">
+				
+                <!-- Dropdown Structure -->
+                <ul id="dropdownCustomerProfile" class="dropdown-content">
+                   	<li><a href="actor/agent/edit.do"><spring:message
+                                code="master.page.actorEdit" /></a></li>
+                    <li class="divider"></li>
+                    <li><a href="actor/display.do"><spring:message
+                                code="master.page.actorProfile" /></a></li>
+                    <li class="divider"></li>
+                    <li><a href="j_spring_security_logout"><spring:message
+                                code="master.page.logout" /> </a></li>
+                </ul>
+
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-button" href="#!"
+                    data-activates="dropdownCustomerProfile"><security:authentication
+                            property="principal.username" /><i class="material-icons right">arrow_drop_down</i></a></li>
+
+            </security:authorize>
 
         </security:authorize>
         </ul>
