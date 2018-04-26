@@ -121,6 +121,8 @@
 				</a></li>
 				<li><a href="newspaper/list.do"><spring:message
                                 code="master.page.newspaperList" /></a></li>
+                <li><a href="volume/list.do"><spring:message
+                                code="master.page.volumeList" /></a></li>
 				<li><a href="article/search.do"><spring:message
                                 code="master.page.articleSearch" /></a></li>
         
@@ -132,6 +134,8 @@
 			<li><a href="newspaper/list.do"><spring:message
                                 code="master.page.newspaperList" /></a></li>
 			</a></li>
+			 <li><a href="volume/list.do"><spring:message
+                                code="master.page.volumeList" /></a></li>
 			<li><a href="article/search.do"><spring:message
                                 code="master.page.articleSearch" /></a></li>
 
