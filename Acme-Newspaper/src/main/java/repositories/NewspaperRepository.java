@@ -107,4 +107,10 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 
 	@Query("select n from Newspaper n where ((n.publicationDate!=null or n.publicationDate!='') and (n.title like ?1 or n.description like ?1))")
 	Page<Newspaper> findPublicPublicatedNewspapersWithSearch(String search, Pageable pageable);
+
+	@Query("select n from Volume v join v.newspapers n where v.id = ?1")
+	Page<Newspaper> findNewspapersByVolume(Integer volumeId, Pageable pageable);
+
+	@Query("select n from Volume v join v.newspapers n where v.id = ?1")
+	Collection<Newspaper> findNewspapersByVolume(Integer volumeId);
 }

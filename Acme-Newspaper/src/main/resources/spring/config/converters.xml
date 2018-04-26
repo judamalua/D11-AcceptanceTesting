@@ -61,6 +61,12 @@
 		
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
+		
+		<bean class="converters.AgentToStringConverter" />
+		<bean class="converters.StringToAgentConverter" />
+		
+		<bean class="converters.VolumeToStringConverter" />
+		<bean class="converters.StringToVolumeConverter" />
 	
 	</util:list>
 	

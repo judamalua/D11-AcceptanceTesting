@@ -40,6 +40,14 @@
 
 
 <!-- Display -->
+
+<jstl:if test="${advertisment != null}">
+	<a href="${advertisment.additionalInfoLink}"> <img
+		class="sponsorshipBannerUrl" src="${advertisment.bannerUrl}"
+		alt="${advertisment.title}" />
+	</a>
+</jstl:if>
+
 <jstl:if test="${newspaper.pictureUrl != \"\"}">
 	<div class="parallax-container">
 		<div class="parallax">

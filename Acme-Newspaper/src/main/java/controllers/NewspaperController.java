@@ -13,6 +13,7 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -136,6 +137,11 @@ public class NewspaperController extends AbstractController {
 				result.addObject("ownArticle", ownArticles);
 			}
 
+			final Random random = new Random();
+			if (newspaper.getAdvetisments().size() > 0)
+				result.addObject("advertisment", newspaper.getAdvetisments().toArray()[random.nextInt(newspaper.getAdvetisments().size())]);
+			else
+				result.addObject("advertisment", null);
 			result.addObject("subscriber", subscriber);
 			result.addObject("newspaper", newspaper);
 			result.addObject("articles", articles.getContent());

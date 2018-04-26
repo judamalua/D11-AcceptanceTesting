@@ -196,4 +196,14 @@ public class CreditCardService {
 	public void flush() {
 		this.creditCardRepository.flush();
 	}
+
+	public Collection<CreditCard> getCreditCardsByVolume(final int volumeId) {
+		Assert.isTrue(volumeId != 0);
+
+		Collection<CreditCard> result;
+
+		result = this.creditCardRepository.getCreditCardsByVolume(volumeId);
+
+		return result;
+	}
 }

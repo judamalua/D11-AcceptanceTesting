@@ -329,4 +329,22 @@ public class NewspaperService {
 
 		return result;
 	}
+
+	public Page<Newspaper> findNewspapersByVolume(final Integer volumeId, final Pageable pageable) {
+		Page<Newspaper> result;
+
+		Assert.notNull(pageable);
+
+		result = this.newspaperRepository.findNewspapersByVolume(volumeId, pageable);
+
+		return result;
+	}
+
+	public Collection<Newspaper> findNewspapersByVolume(final Integer volumeId) {
+		Collection<Newspaper> result;
+
+		result = this.newspaperRepository.findNewspapersByVolume(volumeId);
+
+		return result;
+	}
 }
