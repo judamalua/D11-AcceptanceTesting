@@ -270,6 +270,15 @@
 		<property name="email" value="agent1@mail.com" />
 		<property name="birthDate" value="1990/04/11 00:00" />
 		<property name="userAccount" ref="UserAccount11" />
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder56" />
+				<ref bean="MessageFolder57" />
+				<ref bean="MessageFolder58" />
+				<ref bean="MessageFolder59" />
+				<ref bean="MessageFolder60" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="Agent2" class="domain.Agent">
@@ -280,6 +289,15 @@
 		<property name="email" value="agent2@mail.com" />
 		<property name="birthDate" value="2000/02/28 00:00" />
 		<property name="userAccount" ref="UserAccount12" />
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder61" />
+				<ref bean="MessageFolder62" />
+				<ref bean="MessageFolder63" />
+				<ref bean="MessageFolder64" />
+				<ref bean="MessageFolder65" />
+			</list>
+		</property>
 	</bean>
 
 
@@ -807,6 +825,52 @@
 		<property name="isDefault" value="true" />
 	</bean>
 	<bean id="MessageFolder55" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	
+	<bean id="MessageFolder56" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder57" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder58" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder59" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder60" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	
+	<bean id="MessageFolder61" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder62" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder63" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder64" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder65" class="domain.MessageFolder">
 		<property name="name" value="spam box" />
 		<property name="isDefault" value="true" />
 	</bean>
