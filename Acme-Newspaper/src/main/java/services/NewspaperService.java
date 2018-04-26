@@ -347,4 +347,13 @@ public class NewspaperService {
 
 		return result;
 	}
+
+	public String getRatioNewspapersAtLeastOneAdvertisementVsNoOne() {
+
+		String result;
+
+		result = this.newspaperRepository.getRatioNewspapersAtLeastOneAdvertisementVsNoOne();
+
+		return result;
+	}
 }

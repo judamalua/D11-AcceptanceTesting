@@ -138,8 +138,8 @@ public class NewspaperController extends AbstractController {
 			}
 
 			final Random random = new Random();
-			if (newspaper.getAdvetisments().size() > 0)
-				result.addObject("advertisment", newspaper.getAdvetisments().toArray()[random.nextInt(newspaper.getAdvetisments().size())]);
+			if (newspaper.getAdvertisements().size() > 0)
+				result.addObject("advertisment", newspaper.getAdvertisements().toArray()[random.nextInt(newspaper.getAdvertisements().size())]);
 			else
 				result.addObject("advertisment", null);
 			result.addObject("subscriber", subscriber);

@@ -105,4 +105,21 @@ public class VolumeService {
 
 		return result;
 	}
+
+	public String getRatioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers() {
+		String result;
+
+		result = this.volumeRepository.getRatioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers();
+
+		return result;
+	}
+
+	public String getAverageNewspapersPerVolume() {
+
+		String result;
+
+		result = this.volumeRepository.getAverageNewspapersPerVolume();
+
+		return result;
+	}
 }

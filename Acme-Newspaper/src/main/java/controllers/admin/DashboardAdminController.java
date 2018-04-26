@@ -8,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AdvertisementService;
 import services.ArticleService;
 import services.CustomerService;
 import services.FollowUpService;
 import services.NewspaperService;
 import services.UserService;
+import services.VolumeService;
 import controllers.AbstractController;
 import domain.Newspaper;
 
@@ -23,19 +25,25 @@ public class DashboardAdminController extends AbstractController {
 	// Services -------------------------------------------------------
 
 	@Autowired
-	UserService			userService;
+	UserService				userService;
 
 	@Autowired
-	NewspaperService	newspaperService;
+	NewspaperService		newspaperService;
 
 	@Autowired
-	ArticleService		articleService;
+	ArticleService			articleService;
 
 	@Autowired
-	CustomerService		customerService;
+	CustomerService			customerService;
 
 	@Autowired
-	FollowUpService		followUpService;
+	FollowUpService			followUpService;
+
+	@Autowired
+	AdvertisementService	advertisementService;
+
+	@Autowired
+	VolumeService			volumeService;
 
 
 	// Listing ---------------------------------------------------------------		
@@ -46,6 +54,7 @@ public class DashboardAdminController extends AbstractController {
 		String newspapersInfoFromUsers, articlesInfoFromUsers, articlesInfoFromNewspapers, ratioCreatedNewspapers, ratioCreatedArticles, chirpsInfoFromUsers, ratioUsersPostedAbove75PercentAverageChirpsPerUser, ratioPublicNewspapers, averageArticlesPerPrivateNewspapers, averageArticlesPerPublicNewspapers;
 		String averageFollowUpsPerArticle, averageFollowUpPerArticleOneWeek, averageFollowUpPerArticleTwoWeek, ratioSubscribersPrivateNewspaperVSTotalCustomers;
 		String averageRatioPrivateVSPublicNewspaperPublisher;
+		final String ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers, averageNewspapersPerVolume, ratioTabooAdvertisements, ratioNewspapersAtLeastOneAdvertisementVsNoOne;
 		Collection<Newspaper> newspaperWith10PercentMoreArticlesThanAverage, newspaperWith10PercentLessArticlesThanAverage;
 
 		//C queries
@@ -56,6 +65,8 @@ public class DashboardAdminController extends AbstractController {
 		newspaperWith10PercentLessArticlesThanAverage = this.newspaperService.getNewspaperWith10PercentLessArticlesThanAverage();
 		ratioCreatedNewspapers = this.userService.getRatioCreatedNewspapers();
 		ratioCreatedArticles = this.userService.getRatioCreatedArticles();
+		ratioNewspapersAtLeastOneAdvertisementVsNoOne = this.newspaperService.getRatioNewspapersAtLeastOneAdvertisementVsNoOne();
+		ratioTabooAdvertisements = this.advertisementService.getRatioTabooAdvertisements();
 
 		//B queries
 		averageFollowUpsPerArticle = this.articleService.getAverageFollowUpsPerArticle();
@@ -63,6 +74,8 @@ public class DashboardAdminController extends AbstractController {
 		averageFollowUpPerArticleTwoWeek = this.followUpService.getAverageFollowUpPerArticleTwoWeek();
 		chirpsInfoFromUsers = this.userService.getChirpsInfoFromUsers();
 		ratioUsersPostedAbove75PercentAverageChirpsPerUser = this.userService.getRatioUsersPostedAbove75PercentAverageChirpsPerUser();
+		averageNewspapersPerVolume = this.volumeService.getAverageNewspapersPerVolume();
+		ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers = this.volumeService.getRatioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers();
 
 		//A queries
 		ratioPublicNewspapers = this.newspaperService.getRatioPublicNewspapers();
@@ -89,6 +102,9 @@ public class DashboardAdminController extends AbstractController {
 		result.addObject("ratioCreatedNewspapers", ratioCreatedNewspapers);
 		result.addObject("ratioCreatedArticles", ratioCreatedArticles);
 
+		result.addObject("ratioNewspapersAtLeastOneAdvertisementVsNoOne", ratioNewspapersAtLeastOneAdvertisementVsNoOne.split(","));
+		result.addObject("ratioTabooAdvertisements", ratioTabooAdvertisements);
+
 		//B queries
 		result.addObject("averageFollowUpsPerArticle", averageFollowUpsPerArticle);
 
@@ -99,6 +115,9 @@ public class DashboardAdminController extends AbstractController {
 		result.addObject("chirpsInfoFromUsersDeviation", chirpsInfoFromUsers.split(",")[1]);
 
 		result.addObject("ratioUsersPostedAbove75PercentAverageChirpsPerUser", ratioUsersPostedAbove75PercentAverageChirpsPerUser);
+
+		result.addObject("averageNewspapersPerVolume", averageNewspapersPerVolume);
+		result.addObject("ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers", ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers.split(","));
 
 		//A queries
 		result.addObject("ratioPublicNewspapers", ratioPublicNewspapers);

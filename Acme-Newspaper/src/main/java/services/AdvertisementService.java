@@ -12,19 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.AdvertismentRepository;
-import domain.Advertisment;
+import repositories.AdvertisementRepository;
+import domain.Advertisement;
 import domain.Agent;
 import domain.Newspaper;
 
 @Service
 @Transactional
-public class AdvertismentService {
+public class AdvertisementService {
 
 	// Managed repository --------------------------------------------------
 
 	@Autowired
-	private AdvertismentRepository	advertismentRepository;
+	private AdvertisementRepository	advertismentRepository;
 
 	// Supporting services --------------------------------------------------
 
@@ -37,19 +37,19 @@ public class AdvertismentService {
 
 	// Simple CRUD methods --------------------------------------------------
 
-	public Advertisment create() {
-		Advertisment result;
+	public Advertisement create() {
+		Advertisement result;
 
-		result = new Advertisment();
+		result = new Advertisement();
 
 		result.setAgent((Agent) this.actorService.findActorByPrincipal());
 
 		return result;
 	}
 
-	public Collection<Advertisment> findAll() {
+	public Collection<Advertisement> findAll() {
 
-		Collection<Advertisment> result;
+		Collection<Advertisement> result;
 
 		Assert.notNull(this.advertismentRepository);
 		result = this.advertismentRepository.findAll();
@@ -59,9 +59,9 @@ public class AdvertismentService {
 
 	}
 
-	public Advertisment findOne(final int advertismentId) {
+	public Advertisement findOne(final int advertismentId) {
 
-		Advertisment result;
+		Advertisement result;
 
 		result = this.advertismentRepository.findOne(advertismentId);
 
@@ -69,8 +69,8 @@ public class AdvertismentService {
 
 	}
 
-	public Advertisment save(final Advertisment advertisment) {
-		Advertisment result;
+	public Advertisement save(final Advertisement advertisment) {
+		Advertisement result;
 
 		//Checks that the CreditCard hasn't expired
 		this.checkCreditCardExpired(advertisment);
@@ -82,7 +82,7 @@ public class AdvertismentService {
 
 	}
 
-	public void delete(final Advertisment advertisment) {
+	public void delete(final Advertisement advertisment) {
 
 		assert advertisment != null;
 		assert advertisment.getId() != 0;
@@ -100,7 +100,7 @@ public class AdvertismentService {
 	 * @param creditCard
 	 * @author Antonio and Daniel Diment
 	 */
-	public void checkCreditCardExpired(final Advertisment advertisment) {
+	public void checkCreditCardExpired(final Advertisement advertisment) {
 		Integer actualMonth, actualYear, ccMonth, ccYear;
 		DateFormat dfYear, dfMonth;
 		String formattedYear, formattedMonth;
@@ -126,10 +126,20 @@ public class AdvertismentService {
 
 	}
 
-	public void advertise(final Advertisment advertisment, final Newspaper newspaper) {
+	public void advertise(final Advertisement advertisment, final Newspaper newspaper) {
 		Assert.isTrue(newspaper.getPublicationDate() != null); //Tests that the newspaper is published
-		final Advertisment savedAdvertisment = this.save(advertisment);
-		newspaper.getAdvetisments().add(savedAdvertisment);
+		final Advertisement savedAdvertisment;
+
+		savedAdvertisment = this.save(advertisment);
+		newspaper.getAdvertisements().add(savedAdvertisment);
 		this.newspaperService.save(newspaper);
+	}
+
+	public String getRatioTabooAdvertisements() {
+		String result;
+
+		result = this.advertismentRepository.getRatioTabooAdvertisements();
+
+		return result;
 	}
 }

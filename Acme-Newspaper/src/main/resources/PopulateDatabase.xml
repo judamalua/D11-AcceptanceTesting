@@ -1171,6 +1171,10 @@
 			<list>
 			</list>
 		</property>
+		<property name="advertisements">
+			<list>
+			</list>
+		</property>
 		<property name="articles">
 			<list>
 				<ref bean="Article1" />
@@ -1194,6 +1198,10 @@
 			<list>
 			</list>
 		</property>
+		<property name="advertisements">
+			<list>
+			</list>
+		</property>
 		<property name="articles">
 			<list>
 				<ref bean="Article11" />
@@ -1210,6 +1218,10 @@
 		<property name="taboo" value="true" />
 		<property name="publicationDate" value="2018/04/4 00:00" />
 		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="advertisements">
 			<list>
 			</list>
 		</property>
@@ -1231,6 +1243,10 @@
 			<list>
 			</list>
 		</property>
+		<property name="advertisements">
+			<list>
+			</list>
+		</property>
 		<property name="articles">
 			<list>
 				<ref bean="Article8" />
@@ -1246,6 +1262,10 @@
 		<property name="publicationDate" value="2012/11/03 00:00" />
 		<property name="taboo" value="false" />
 		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="advertisements">
 			<list>
 			</list>
 		</property>
@@ -1265,6 +1285,10 @@
 		<property name="publicationDate" value="2018/04/08 00:00" />
 		<property name="taboo" value="false" />
 		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="advertisements">
 			<list>
 			</list>
 		</property>

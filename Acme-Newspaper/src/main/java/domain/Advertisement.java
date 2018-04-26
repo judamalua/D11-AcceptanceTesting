@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Advertisment extends DomainEntity {
+public class Advertisement extends DomainEntity {
 
 	// Constructors -----------------------------------------------------------
 
@@ -29,6 +29,7 @@ public class Advertisment extends DomainEntity {
 	private String	number;
 	private Integer	expirationMonth;
 	private Integer	expirationYear;
+	private Boolean	taboo;
 	private Integer	cvv;
 
 
@@ -121,6 +122,15 @@ public class Advertisment extends DomainEntity {
 
 	public void setCvv(final Integer cvv) {
 		this.cvv = cvv;
+	}
+
+	@NotNull
+	public Boolean getTaboo() {
+		return this.taboo;
+	}
+
+	public void setTaboo(final Boolean taboo) {
+		this.taboo = taboo;
 	}
 
 
