@@ -95,8 +95,9 @@ public class Newspaper extends DomainEntity {
 
 
 	// Relationships ----------------------------------------------------------
-	private Collection<CreditCard>	creditCards;
-	private Collection<Article>		articles;
+	private Collection<CreditCard>		creditCards;
+	private Collection<Article>			articles;
+	private Collection<Advertisment>	advetisments;
 
 
 	@Valid
@@ -118,6 +119,16 @@ public class Newspaper extends DomainEntity {
 
 	public void setArticles(final Collection<Article> articles) {
 		this.articles = articles;
+	}
+
+	@Valid
+	@ManyToMany
+	public Collection<Advertisment> getAdvetisments() {
+		return this.advetisments;
+	}
+
+	public void setAdvetisments(final Collection<Advertisment> advetisments) {
+		this.advetisments = advetisments;
 	}
 
 }
