@@ -73,6 +73,7 @@ public class NewspaperUserController extends AbstractController {
 				newspapers = this.userService.findNotPublishedNewspapersByUser(actor.getId(), pageable);
 
 			for (final Newspaper newspaper : newspapers.getContent()) {
+				allFinalMode = true;
 				if (newspaper.getArticles().size() == 0)
 					allFinalMode = false;
 				for (final Article article : newspaper.getArticles())

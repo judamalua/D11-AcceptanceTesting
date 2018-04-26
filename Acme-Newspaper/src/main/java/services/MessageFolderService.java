@@ -41,6 +41,8 @@ public class MessageFolderService {
 	// Simple CRUD methods --------------------------------------------------
 	public MessageFolder create() {
 
+		this.actorService.checkUserLogin();
+
 		MessageFolder result;
 
 		result = new MessageFolder();
@@ -83,6 +85,7 @@ public class MessageFolderService {
 	public MessageFolder save(final MessageFolder messageFolder) {
 
 		Assert.notNull(messageFolder);
+		this.actorService.checkUserLogin();
 		this.checkMessageFolder(messageFolder);
 
 		Actor actor;
@@ -293,6 +296,7 @@ public class MessageFolderService {
 			result.setName(messageFolder.getName());
 		}
 		this.validator.validate(result, binding);
+		this.messageFolderRepository.flush();
 		return result;
 	}
 }

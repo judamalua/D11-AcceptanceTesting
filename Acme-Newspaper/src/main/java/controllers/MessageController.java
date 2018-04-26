@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,7 +81,7 @@ public class MessageController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = {
 		"save"
 	})
-	public ModelAndView saveBroadcast(@RequestParam(value = "broadcast", required = false, defaultValue = "false") final Boolean broadcast, @ModelAttribute("modelMessage") Message message, final BindingResult binding) {
+	public ModelAndView save(@RequestParam(value = "broadcast", required = false, defaultValue = "false") final Boolean broadcast, @ModelAttribute("modelMessage") Message message, final BindingResult binding) {
 		ModelAndView result;
 		MessageFolder messageFolderNotification, outBox;
 		Actor actor;
@@ -93,10 +94,12 @@ public class MessageController extends AbstractController {
 			result = this.createEditModelAndView(message, "message.params.error");
 		else
 			try {
+				Assert.isTrue(message.getId() == 0);
 				actor = this.actorService.findActorByPrincipal();
-				if (broadcast == true)
+				if (broadcast == true) {
+					message.setReceiver(null);
 					this.messageService.broadcastNotification(message);
-				else {
+				} else {
 					messageFolderNotification = this.messageFolderService.findMessageFolder("notification box", message.getReceiver());
 					this.actorService.sendMessage(message, message.getSender(), message.getReceiver(), messageFolderNotification);
 				}

@@ -96,12 +96,9 @@ public class MessageService {
 
 		Assert.notNull(message);
 
-		UserAccount userAccount;
 		Actor actor;
 		Message result;
 
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
 		actor = this.actorService.findActorByPrincipal();
 		Assert.notNull(actor);
 
@@ -116,13 +113,10 @@ public class MessageService {
 		Assert.isTrue(message.getId() != 0);
 		Assert.isTrue(this.messageRepository.exists(message.getId()));
 
-		UserAccount userAccount;
 		Actor actor;
 		MessageFolder messageFolder;
 		MessageFolder trashBox;
 
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
 		actor = this.actorService.findActorByPrincipal();
 		Assert.notNull(actor);
 
@@ -159,12 +153,14 @@ public class MessageService {
 
 		Message messageCopy;
 		MessageFolder messageFolder, messageFolderNotification;
-		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-		final Actor actor = this.actorService.findActorByPrincipal();
+		final Actor actor;
+		final Collection<Actor> allActors;
+
+		actor = this.actorService.findActorByPrincipal();
 		Assert.notNull(actor);
 
-		final Collection<Actor> allActors = this.actorService.findAll();
+		allActors = this.actorService.findAll();
+		Boolean first = true;
 
 		for (final Actor receiver : allActors) {
 			Assert.notNull(receiver);
@@ -173,11 +169,11 @@ public class MessageService {
 			messageFolderNotification = this.messageFolderService.findMessageFolder("notification box", receiver);
 			messageCopy.setMessageFolder(messageFolder);
 			messageCopy.setReceiver(receiver);
-			this.actorService.sendMessage(messageCopy, actor, receiver, messageFolderNotification);
+			this.actorService.sendMessage(messageCopy, actor, receiver, messageFolderNotification, first, true);
+			first = false;
 		}
 
 	}
-
 	public Collection<Message> showMessages() {
 
 		this.actorService.checkUserLogin();
@@ -198,9 +194,9 @@ public class MessageService {
 
 	public Collection<Message> findMessagesByActorId(final int id) {
 
-		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-		final Actor actor = this.actorService.findActorByPrincipal();
+		final Actor actor;
+
+		actor = this.actorService.findActorByPrincipal();
 		Assert.notNull(actor);
 
 		final Collection<Message> result;
@@ -229,12 +225,14 @@ public class MessageService {
 	public Message reconstruct(final Message message, final BindingResult binding) {
 
 		Message result;
+		Actor actor;
 
 		result = message;
 
 		if (message.getId() == 0) {
+			actor = this.actorService.findActorByPrincipal();
 			result.setReceptionDate(new Date(System.currentTimeMillis() - 1));
-			result.setSender(this.actorService.findActorByPrincipal());
+			result.setSender(actor);
 		} else {
 			result = this.findOne(message.getId());
 			result.setMessageFolder(message.getMessageFolder());

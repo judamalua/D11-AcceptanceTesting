@@ -104,6 +104,7 @@ public class MessageFolderController extends AbstractController {
 		try {
 			messageFolder = this.messageFolderService.reconstruct(messageFolder, binding);
 		} catch (final Throwable oops) {
+			oops.printStackTrace();
 		}
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(messageFolder, "messageFolder.params.error");
@@ -129,6 +130,7 @@ public class MessageFolderController extends AbstractController {
 		try {
 			messageFolder = this.messageFolderService.reconstruct(messageFolder, binding);
 		} catch (final Throwable oops) {
+			oops.printStackTrace();
 		}
 		try {
 			Assert.isTrue(this.actorService.findActorByPrincipal().getMessageFolders().contains(messageFolder));

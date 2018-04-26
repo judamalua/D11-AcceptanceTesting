@@ -770,7 +770,6 @@
 		<property name="isDefault" value="true" />
 	</bean>
 
-
 	<bean id="MessageFolder43" class="domain.MessageFolder">
 		<property name="name" value="trash box" />
 		<property name="isDefault" value="true" />
@@ -874,7 +873,80 @@
 		<property name="name" value="spam box" />
 		<property name="isDefault" value="true" />
 	</bean>
-
+	
+	<!-- %%%%%% domain.Message %%%%%% -->
+	<bean id="Message1" class="domain.Message">
+		<property name="priority" value="LOW" />
+		<property name="subject" value="Buenos días." />
+		<property name="body" value="Duda sobre artículo" />
+		<property name="receptionDate" value="2016/05/10 12:00" />
+		<property name="sender" ref="Admin1" />
+		<property name="receiver" ref="User1" />
+		<property name="messageFolder" ref="MessageFolder42" />
+	</bean>
+	<bean id="Message2" class="domain.Message">
+		<property name="priority" value="LOW" />
+		<property name="subject" value="Buenas tardes." />
+		<property name="body" value="Respuesta sobre duda." />
+		<property name="receptionDate" value="2017/03/10 12:00" />
+		<property name="sender" ref="Admin1" />
+		<property name="receiver" ref="User1" />
+		<property name="messageFolder" ref="MessageFolder42" />
+	</bean>
+	<bean id="Message3" class="domain.Message">
+		<property name="priority" value="HIGH" />
+		<property name="subject" value="Querido administrador." />
+		<property name="body" value="Pregunta sobre UML." />
+		<property name="receptionDate" value="2016/05/10 12:00" />
+		<property name="sender" ref="User1" />
+		<property name="receiver" ref="Admin1" />
+		<property name="messageFolder" ref="MessageFolder2" />
+	</bean>
+	<bean id="Message4" class="domain.Message">
+		<property name="priority" value="HIGH" />
+		<property name="subject" value="Querido usuario." />
+		<property name="body" value="Respuesta sobre consulta." />
+		<property name="receptionDate" value="2017/03/10 12:00" />
+		<property name="sender" ref="Admin1" />
+		<property name="receiver" ref="User1" />
+		<property name="messageFolder" ref="MessageFolder42" />
+	</bean>
+	<bean id="Message5" class="domain.Message">
+		<property name="priority" value="HIGH" />
+		<property name="subject" value="Illo Juan" />
+		<property name="body" value="Amove miarma.." />
+		<property name="receptionDate" value="2018/04/10 12:00" />
+		<property name="sender" ref="Admin1" />
+		<property name="receiver" ref="User1" />
+		<property name="messageFolder" ref="MessageFolder42" />
+	</bean>
+	<bean id="Message6" class="domain.Message">
+		<property name="priority" value="HIGH" />
+		<property name="subject" value="Hola" />
+		<property name="body" value="¿Cómo vas?" />
+		<property name="receptionDate" value="2015/11/10 12:00" />
+		<property name="sender" ref="Admin1" />
+		<property name="receiver" ref="User1" />
+		<property name="messageFolder" ref="MessageFolder42" />
+	</bean>
+	<bean id="Message7" class="domain.Message">
+		<property name="priority" value="HIGH" />
+		<property name="subject" value="Querido usuario." />
+		<property name="body" value="¿Qué tal?" />
+		<property name="receptionDate" value="2017/01/15 12:00" />
+		<property name="sender" ref="Admin1" />
+		<property name="receiver" ref="User1" />
+		<property name="messageFolder" ref="MessageFolder42" />
+	</bean>
+	<bean id="Message8" class="domain.Message">
+		<property name="priority" value="HIGH" />
+		<property name="subject" value="Hola juan." />
+		<property name="body" value="Bienvenido" />
+		<property name="receptionDate" value="2018/03/10 12:00" />
+		<property name="sender" ref="User2" />
+		<property name="receiver" ref="User1" />
+		<property name="messageFolder" ref="MessageFolder7" />
+	</bean>
 	<!-- %%%%%% domain.Article %%%%%% -->
 
 	<bean id="Article1" class="domain.Article">

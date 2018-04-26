@@ -290,19 +290,15 @@ public class ActorService {
 		Assert.isTrue(folder.getId() != 0);
 		this.checkUserLogin();
 
-		UserAccount userAccount;
 		Actor actor;
+		final MessageFolder messageFolderOr;
+		Message result;
 
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-		actor = this.actorRepository.findActorByUserAccountId(userAccount.getId());
+		actor = this.findActorByPrincipal();
 		Assert.notNull(actor);
 
 		Assert.isTrue(actor.getMessageFolders().contains(message.getMessageFolder()));
 		Assert.isTrue(actor.getMessageFolders().contains(folder));
-
-		final MessageFolder messageFolderOr;
-		Message result;
 
 		messageFolderOr = message.getMessageFolder();
 
@@ -330,24 +326,35 @@ public class ActorService {
 	}
 
 	public void sendMessage(final Message message, final Actor sender, final Actor receiver, final MessageFolder messageFolderReceiver) {
+		this.sendMessage(message, sender, receiver, messageFolderReceiver, true, false);
+	}
+
+	public void sendMessage(final Message message, final Actor sender, final Actor receiver, final MessageFolder messageFolderReceiver, final Boolean first, final Boolean broadcast) {
 
 		Assert.notNull(message);
 		this.checkUserLogin();
 
-		UserAccount userAccount;
 		Message messageCopy;
 		MessageFolder outBoxSender;
 
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
 		Assert.notNull(sender);
+		Assert.notNull(receiver);
+		Assert.isTrue(sender.equals(this.findActorByPrincipal()));
+
+		message.setSender(sender);
+		message.setReceiver(receiver);
 
 		messageCopy = this.messageService.copyMessage(message);
 
 		messageCopy.setMessageFolder(messageFolderReceiver);
 
 		outBoxSender = this.messageFolderService.findMessageFolder("out box", sender);
-		if (!this.messageService.findMessagesByMessageFolderId(outBoxSender.getId()).contains(message)) {
+
+		if (first && broadcast) {
+			message.setMessageFolder(outBoxSender);
+			message.setReceiver(null);
+			this.messageService.save(message);
+		} else if (first && !broadcast) {
 			message.setMessageFolder(outBoxSender);
 			this.messageService.save(message);
 		}
