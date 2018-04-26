@@ -59,7 +59,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="UserAccount6" class="security.UserAccount">
+	<bean id="UserAccount6" class="security.UserAccount">
 		<property name="username" value="user3" />
 		<property name="password" value="92877af70a45fd6a2ed7fe81e1236b78" />
 		<property name="authorities">
@@ -70,7 +70,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="UserAccount7" class="security.UserAccount">
+	<bean id="UserAccount7" class="security.UserAccount">
 		<property name="username" value="user4" />
 		<property name="password" value="3f02ebe3d7929b091e3d8ccfde2f3bc6" />
 		<property name="authorities">
@@ -81,7 +81,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="UserAccount8" class="security.UserAccount">
+	<bean id="UserAccount8" class="security.UserAccount">
 		<property name="username" value="user5" />
 		<property name="password" value="0a791842f52a0acfbb3a783378c066b8" />
 		<property name="authorities">
@@ -92,7 +92,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="UserAccount9" class="security.UserAccount">
+	<bean id="UserAccount9" class="security.UserAccount">
 		<property name="username" value="user6" />
 		<property name="password" value="affec3b64cf90492377a8114c86fc093" />
 		<property name="authorities">
@@ -103,7 +103,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="UserAccount10" class="security.UserAccount">
+	<bean id="UserAccount10" class="security.UserAccount">
 		<property name="username" value="user7" />
 		<property name="password" value="3e0469fb134991f8f75a2760e409c6ed" />
 		<property name="authorities">
@@ -144,7 +144,8 @@
 		<property name="title_es" value="¡Bienvenid@ a Acme-Newspaper!" />
 		<property name="text_en" value="The best place to read newspapers online!" />
 		<property name="text_es" value="El mejor sitio web para leer periódicos!" />
-		<property name="pictureUrl" value="https://static1.squarespace.com/static/53dbb376e4b0c2c2156962ef/t/54d23ff8e4b0c27bb201abc3/1423065081477/breaking-news.jpg" />
+		<property name="pictureUrl"
+			value="https://static1.squarespace.com/static/53dbb376e4b0c2c2156962ef/t/54d23ff8e4b0c27bb201abc3/1423065081477/breaking-news.jpg" />
 		<property name="align" value="left" />
 	</bean>
 
@@ -249,6 +250,15 @@
 		<property name="email" value="user1@mail.com" />
 		<property name="birthDate" value="1987/04/11 00:00" />
 		<property name="userAccount" ref="UserAccount5" />
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder1" />
+				<ref bean="MessageFolder2" />
+				<ref bean="MessageFolder3" />
+				<ref bean="MessageFolder4" />
+				<ref bean="MessageFolder5" />
+			</list>
+		</property>
 	</bean>
 	
 	<!-- %%%%%% domain.Agent %%%%%% -->
@@ -283,6 +293,15 @@
 				<ref bean="User5" />
 				<ref bean="User6" />
 				<ref bean="User7" />
+			</list>
+		</property>
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder6" />
+				<ref bean="MessageFolder7" />
+				<ref bean="MessageFolder8" />
+				<ref bean="MessageFolder9" />
+				<ref bean="MessageFolder10" />
 			</list>
 		</property>
 		<property name="newspapers">
@@ -321,6 +340,15 @@
 				<ref bean="User1" />
 			</list>
 		</property>
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder11" />
+				<ref bean="MessageFolder12" />
+				<ref bean="MessageFolder13" />
+				<ref bean="MessageFolder14" />
+				<ref bean="MessageFolder15" />
+			</list>
+		</property>
 		<property name="newspapers">
 			<list>
 			</list>
@@ -348,6 +376,15 @@
 				<ref bean="User1" />
 			</list>
 		</property>
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder16" />
+				<ref bean="MessageFolder17" />
+				<ref bean="MessageFolder18" />
+				<ref bean="MessageFolder19" />
+				<ref bean="MessageFolder20" />
+			</list>
+		</property>
 		<property name="newspapers">
 			<list>
 			</list>
@@ -368,6 +405,15 @@
 		<property name="users">
 			<list>
 				<ref bean="User1" />
+			</list>
+		</property>
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder21" />
+				<ref bean="MessageFolder22" />
+				<ref bean="MessageFolder23" />
+				<ref bean="MessageFolder24" />
+				<ref bean="MessageFolder25" />
 			</list>
 		</property>
 		<property name="newspapers">
@@ -392,6 +438,15 @@
 				<ref bean="User1" />
 			</list>
 		</property>
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder26" />
+				<ref bean="MessageFolder27" />
+				<ref bean="MessageFolder28" />
+				<ref bean="MessageFolder29" />
+				<ref bean="MessageFolder30" />
+			</list>
+		</property>
 		<property name="newspapers">
 			<list>
 			</list>
@@ -414,6 +469,15 @@
 				<ref bean="User1" />
 			</list>
 		</property>
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder31" />
+				<ref bean="MessageFolder32" />
+				<ref bean="MessageFolder33" />
+				<ref bean="MessageFolder34" />
+				<ref bean="MessageFolder35" />
+			</list>
+		</property>
 		<property name="newspapers">
 			<list>
 			</list>
@@ -434,6 +498,15 @@
 		<property name="users">
 			<list>
 				<ref bean="User1" />
+			</list>
+		</property>
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder36" />
+				<ref bean="MessageFolder37" />
+				<ref bean="MessageFolder38" />
+				<ref bean="MessageFolder39" />
+				<ref bean="MessageFolder40" />
 			</list>
 		</property>
 		<property name="newspapers">
@@ -460,6 +533,15 @@
 		<property name="email" value="super@mail.com" />
 		<property name="birthDate" value="1995/10/03 00:00" />
 		<property name="userAccount" ref="UserAccount1" />
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder41" />
+				<ref bean="MessageFolder42" />
+				<ref bean="MessageFolder43" />
+				<ref bean="MessageFolder44" />
+				<ref bean="MessageFolder45" />
+			</list>
+		</property>
 	</bean>
 	<bean id="Admin2" class="domain.Admin">
 		<property name="name" value="Administrator 1" />
@@ -467,11 +549,269 @@
 		<property name="email" value="administrator1@mail.com" />
 		<property name="birthDate" value="1987/04/11 00:00" />
 		<property name="userAccount" ref="UserAccount2" />
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder46" />
+				<ref bean="MessageFolder47" />
+				<ref bean="MessageFolder48" />
+				<ref bean="MessageFolder49" />
+				<ref bean="MessageFolder50" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- %%%%%% domain.Admin %%%%%% -->
+	<bean id="MessageFolder1" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder2" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
 	</bean>
 
 
-	<!-- %%%%%% domain.Article %%%%%% -->
+	<bean id="MessageFolder3" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder4" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder5" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
 
+	<bean id="MessageFolder6" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder7" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder8" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder9" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder10" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+	<bean id="MessageFolder11" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder12" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder13" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder14" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder15" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+	<bean id="MessageFolder16" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder17" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder18" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder19" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder20" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+	<bean id="MessageFolder21" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder22" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder23" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder24" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder25" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder26" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder27" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder28" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder29" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder30" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+	<bean id="MessageFolder31" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder32" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder33" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder34" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder35" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+	<bean id="MessageFolder36" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder37" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder38" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder39" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder40" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder41" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder42" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder43" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder44" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder45" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder46" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder47" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder48" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder49" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder50" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+	<bean id="MessageFolder51" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder52" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+
+	<bean id="MessageFolder53" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder54" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder55" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
+	</bean>
+
+	<!-- %%%%%% domain.Article %%%%%% -->
 
 	<bean id="Article1" class="domain.Article">
 		<property name="title" value="[GUIA] Como sobrevivir en la ETSII" />
@@ -482,12 +822,12 @@
 		<property name="taboo" value="false" />
 		<property name="followUps">
 			<list>
-				<ref bean="FollowUp1"/>
-				<ref bean="FollowUp2"/>
-				<ref bean="FollowUp3"/>
-				<ref bean="FollowUp4"/>
-				<ref bean="FollowUp5"/>
-				<ref bean="FollowUp6"/>
+				<ref bean="FollowUp1" />
+				<ref bean="FollowUp2" />
+				<ref bean="FollowUp3" />
+				<ref bean="FollowUp4" />
+				<ref bean="FollowUp5" />
+				<ref bean="FollowUp6" />
 			</list>
 		</property>
 	</bean>
@@ -593,8 +933,10 @@
 
 	<bean id="Article10" class="domain.Article">
 		<property name="title" value="Nadie esta seguro" />
-		<property name="summary" value="El grupo hacker the princes of filadelphia ataca de nuevo." />
-		<property name="body" value="Crecía y vivía sin hacer mucho caso a la policía." />
+		<property name="summary"
+			value="El grupo hacker the princes of filadelphia ataca de nuevo." />
+		<property name="body"
+			value="Crecía y vivía sin hacer mucho caso a la policía." />
 		<property name="finalMode" value="true" />
 		<property name="taboo" value="false" />
 		<property name="followUps">
@@ -613,26 +955,29 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- %%%%%% domain.FollowUp %%%%%% -->
 	<bean id="FollowUp1" class="domain.FollowUp">
 		<property name="title" value="Alejandro Vázquez, ganador del concurso" />
 		<property name="publicationDate" value="2018/04/13 12:00" />
 		<property name="summary"
 			value="Sacó 4 segundos y medio de ventaja al subcampeón, Antonio López" />
-		<property name="text" value="El alumno de 4º curso Alejandro Vázquez ha sido el ganador del concurso de mecanografía de la ETSII con un asombroso tiempo de 12 segundos, que le ha valido para escribir un texto de 1000 palabras. ¡Enhorabuena!" />
+		<property name="text"
+			value="El alumno de 4º curso Alejandro Vázquez ha sido el ganador del concurso de mecanografía de la ETSII con un asombroso tiempo de 12 segundos, que le ha valido para escribir un texto de 1000 palabras. ¡Enhorabuena!" />
 		<property name="taboo" value="false" />
-		<property name="user" ref ="User1"/>
+		<property name="user" ref="User1" />
 	</bean>
-	
+
 	<bean id="FollowUp2" class="domain.FollowUp">
-		<property name="title" value="Actualización: Alejandro Vázquez descalificado" />
+		<property name="title"
+			value="Actualización: Alejandro Vázquez descalificado" />
 		<property name="publicationDate" value="2018/04/13 13:00" />
 		<property name="summary"
 			value="El galardón de campeón del concurso pasa a ser para Antonio López" />
-		<property name="text" value="Recientes investigaciones han sacado a la luz que el alumno hizo trampas con un bot que él había programado" />
+		<property name="text"
+			value="Recientes investigaciones han sacado a la luz que el alumno hizo trampas con un bot que él había programado" />
 		<property name="taboo" value="false" />
-		<property name="user" ref ="User1"/>
+		<property name="user" ref="User1" />
 	</bean>
 
 	<bean id="FollowUp3" class="domain.FollowUp">
@@ -642,39 +987,39 @@
 			value="Estos 2 pasos complementan a los 3 anteriores para formar los 5... o eso creo" />
 		<property name="text" value="4 Cómete los bordes. 5 Pasa por caja." />
 		<property name="taboo" value="false" />
-		<property name="user" ref ="User1"/>
+		<property name="user" ref="User1" />
 	</bean>
-	
+
 	<bean id="FollowUp4" class="domain.FollowUp">
 		<property name="title" value="En realidad creo que vi algo..." />
 		<property name="publicationDate" value="2015/04/13 13:00" />
-		<property name="summary"
-			value="¿Pensáis que tengo un problema?" />
-		<property name="text" value="Analizando las fotos del viaje, me parece haber visto la silueta de un largo cuello..." />
+		<property name="summary" value="¿Pensáis que tengo un problema?" />
+		<property name="text"
+			value="Analizando las fotos del viaje, me parece haber visto la silueta de un largo cuello..." />
 		<property name="taboo" value="false" />
-		<property name="user" ref ="User1"/>
+		<property name="user" ref="User1" />
 	</bean>
-	
+
 	<bean id="FollowUp5" class="domain.FollowUp">
-		<property name="title" value="He ampliado la foto y el resultado te sorprenderá" />
+		<property name="title"
+			value="He ampliado la foto y el resultado te sorprenderá" />
 		<property name="publicationDate" value="2015/04/20 13:00" />
-		<property name="summary"
-			value="La lente de mi cámara estaba muy sucia" />
-		<property name="text" value="Y eso es todo. Lo que parecía Nessie no era más que una mota de polvo." />
+		<property name="summary" value="La lente de mi cámara estaba muy sucia" />
+		<property name="text"
+			value="Y eso es todo. Lo que parecía Nessie no era más que una mota de polvo." />
 		<property name="taboo" value="false" />
-		<property name="user" ref ="User1"/>
+		<property name="user" ref="User1" />
 	</bean>
-	
+
 	<bean id="FollowUp6" class="domain.FollowUp">
 		<property name="title" value="Encrypted files" />
 		<property name="publicationDate" value="2018/04/10 00:00" />
-		<property name="summary"
-			value="All my files from my HDD are encrypted" />
+		<property name="summary" value="All my files from my HDD are encrypted" />
 		<property name="text" value="Can anyone help me?" />
 		<property name="taboo" value="false" />
-		<property name="user" ref ="User1"/>
+		<property name="user" ref="User1" />
 	</bean>
-	
+
 	<!-- %%%%%% domain.Newspaper %%%%%% -->
 	<bean id="Newspaper1" class="domain.Newspaper">
 		<property name="title" value="El Informatico" />

@@ -5,9 +5,13 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.MessageRepository;
 import security.LoginService;
@@ -27,6 +31,8 @@ public class MessageService {
 	private ActorService			actorService;
 	@Autowired
 	private MessageFolderService	messageFolderService;
+	@Autowired
+	private Validator				validator;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -57,11 +63,6 @@ public class MessageService {
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 
-		//		final Authority authority = new Authority();
-		//		authority.setAuthority(Authority.ADMIN);
-		//
-		//		Assert.isTrue(userAccount.getAuthorities().contains(authority)); TODO Revisar
-
 		result = this.messageRepository.findAll();
 		Assert.notNull(result);
 
@@ -86,7 +87,7 @@ public class MessageService {
 
 		result = this.messageRepository.findOne(messageId);
 		Assert.notNull(result);
-		//Assert.isTrue(actor.getMessageFolders().contains(result.getMessageFolder()));
+		Assert.isTrue(actor.getMessageFolders().contains(result.getMessageFolder()));
 
 		return result;
 	}
@@ -99,25 +100,11 @@ public class MessageService {
 		Actor actor;
 		Message result;
 
-		// Comprobación palabras de spam
-		if (this.actorService.findActorByPrincipal().equals(message.getSender())) {
-			this.actorService.checkSpamWords(message.getSubject());
-			this.actorService.checkSpamWords(message.getBody());
-		}
-
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		actor = this.actorService.findActorByPrincipal();
 		Assert.notNull(actor);
 
-		//		for (int i = 0; i < actor.getMessageFolders().size(); i++)
-		//			if (actor.getMessageFolders().toArray()[i].equals(message.getMessageFolder())) {
-		//				final MessageFolder messageFolder = (MessageFolder) actor.getMessageFolders().toArray()[i];
-		//				messageFolder.getMessages().add(message);
-		//				this.messageFolderService.save(messageFolder);
-		//				this.actorService.save(actor);
-		//				break;
-		//			}
 		message.setReceptionDate(new Date(System.currentTimeMillis() - 1));
 		result = this.messageRepository.save(message);
 
@@ -139,16 +126,15 @@ public class MessageService {
 		actor = this.actorService.findActorByPrincipal();
 		Assert.notNull(actor);
 
-		//Assert.isTrue(actor.getMessageFolders().contains(message.getMessageFolder()));
+		Assert.isTrue(actor.getMessageFolders().contains(message.getMessageFolder()));
 
 		messageFolder = message.getMessageFolder();
-		if (messageFolder.getName().equals("trash box") && messageFolder.getIsDefault() == true) {
-			messageFolder.getMessages().remove(message);
-			this.messageFolderService.save(messageFolder);
+		if (messageFolder.getName().equals("trash box") && messageFolder.getIsDefault() == true)
 			this.messageRepository.delete(message);
-		} else
+		else {
 			trashBox = this.messageFolderService.findMessageFolder("trash box", actor);
-		//this.actorService.moveMessage(message, trashBox);
+			this.actorService.moveMessage(message, trashBox);
+		}
 
 	}
 	// Other business methods --------------------------------------------------
@@ -180,14 +166,14 @@ public class MessageService {
 
 		final Collection<Actor> allActors = this.actorService.findAll();
 
-		for (final Actor a : allActors) {
-			Assert.notNull(a);
+		for (final Actor receiver : allActors) {
+			Assert.notNull(receiver);
 			messageCopy = this.copyMessage(message);
-			messageFolder = this.messageFolderService.findMessageFolder("out box", a);
-			messageFolderNotification = this.messageFolderService.findMessageFolder("notification box", a);
+			messageFolder = this.messageFolderService.findMessageFolder("out box", receiver);
+			messageFolderNotification = this.messageFolderService.findMessageFolder("notification box", receiver);
 			messageCopy.setMessageFolder(messageFolder);
-			messageCopy.setReceiver(a);
-			//this.actorService.sendMessage(messageCopy, actor, a, messageFolderNotification);
+			messageCopy.setReceiver(receiver);
+			this.actorService.sendMessage(messageCopy, actor, receiver, messageFolderNotification);
 		}
 
 	}
@@ -217,11 +203,44 @@ public class MessageService {
 		final Actor actor = this.actorService.findActorByPrincipal();
 		Assert.notNull(actor);
 
-		final Collection<Message> result = null;
+		final Collection<Message> result;
 
-		//result = this.messageRepository.findMessagesByActorId(id);
+		result = this.messageRepository.findMessagesByActorId(id);
 
 		return result;
+	}
 
+	public Page<Message> findMessagesByMessageFolderId(final Integer messageFolderId, final Pageable pageable) {
+		Page<Message> result;
+
+		result = this.messageRepository.findMessagesByMessageFolderId(messageFolderId, pageable);
+
+		return result;
+	}
+
+	public Collection<Message> findMessagesByMessageFolderId(final Integer messageFolderId) {
+		Collection<Message> result;
+
+		result = this.messageRepository.findMessagesByMessageFolderId(messageFolderId);
+
+		return result;
+	}
+
+	public Message reconstruct(final Message message, final BindingResult binding) {
+
+		Message result;
+
+		result = message;
+
+		if (message.getId() == 0) {
+			result.setReceptionDate(new Date(System.currentTimeMillis() - 1));
+			result.setSender(this.actorService.findActorByPrincipal());
+		} else {
+			result = this.findOne(message.getId());
+			result.setMessageFolder(message.getMessageFolder());
+		}
+		this.validator.validate(result, binding);
+
+		return result;
 	}
 }

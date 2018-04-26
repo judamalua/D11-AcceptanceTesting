@@ -111,6 +111,7 @@ public class ActorController extends AbstractController {
 			user = this.userService.reconstruct(actor, binding);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
+			return result;
 		}
 		if (binding.hasErrors())
 			result = this.createEditModelAndViewRegister(actor, "user.params.error");
