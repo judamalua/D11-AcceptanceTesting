@@ -35,4 +35,7 @@ public interface CreditCardRepository extends JpaRepository<CreditCard, Integer>
 
 	@Query("select c from Newspaper n join n.creditCards c where n.id=?1 and c.customer.id=?2")
 	CreditCard creditCardSubscribed(int newspaperId, int customerId);
+
+	@Query("select c from CreditCard c join c.volumes v where v.id = ?1")
+	Collection<CreditCard> getCreditCardsByVolume(int volumeId);
 }

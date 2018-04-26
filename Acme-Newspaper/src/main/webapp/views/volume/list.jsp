@@ -38,13 +38,13 @@
 <display:table name="volumes" id="volume"
 	requestURI="${requestUri}page=${page}">
 
-	<display:column property="title" title="${titleName}" sortable="true" />
+	<display:column property="title" title="${titleTitle}" sortable="true" />
 	<display:column property="description" title="${titleDescription}" sortable="true" />
 	<display:column property="year" title="${titleYear}" sortable="true" />
 
 	<display:column>
-		<acme:button url="newspaper/list.do?volumeId=${volume.id}"
-			code="volume.newspapers.list" />
+		<acme:button url="volume/display.do?volumeId=${volume.id}"
+			code="volume.display" />
 	</display:column>
 
 
@@ -55,4 +55,8 @@
 	</display:column>
 
 </display:table>
+
+<security:authorize access="hasRole('USER')">
+	<acme:button url="volume/user/create.do" code="volume.create" />
+</security:authorize>
 
