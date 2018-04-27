@@ -1299,7 +1299,29 @@
 		</property>
 	</bean>
 
+	<!-- %%%%%% domain.Volume %%%%%% -->
+	<bean id="Volume1" class="domain.Volume">
+		<property name="title" value="Test Volume 1" />
+		<property name="description" value="Test Volume descripcion 1" />
+		<property name="year" value="2018" />
+		<property name="newspapers">
+			<list>
+			</list>
+		</property>
+	</bean>
 
+	<bean id="Volume2" class="domain.Volume">
+		<property name="title" value="Test Volume 2" />
+		<property name="description" value="Test Volume descripcion 2" />
+		<property name="year" value="2018" />
+		<property name="newspapers">
+			<list>
+				<ref bean="Newspaper1" />
+				<ref bean="Newspaper2" />
+				<ref bean="Newspaper3" />
+			</list>
+		</property>
+	</bean>
 	<!-- %%%%%% domain.Configuration %%%%%% -->
 	<bean id="Configuration1" class="domain.Configuration">
 		<property name="cookies_eng"
