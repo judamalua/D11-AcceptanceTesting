@@ -35,6 +35,11 @@
 			required="true" />
 		<acme:textbox code="volume.year" path="year" required="true" />
 		
+		<acme:select code="volume.newspapers" path="newspapers"
+		items="${elegibleNewspapers}" itemLabel="title" multiple="true" />
+		
+		<br/>
+		
 		<acme:submit name="save" code="volume.save" />
 		<jstl:if test="${volume.id!=0}">
 			<acme:delete clickCode="volume.confirm.delete" name="delete"

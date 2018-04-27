@@ -112,4 +112,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	 */
 	@Query("select avg(sum(case when(n.publicNewspaper = FALSE) then 1.0 else 0.0 end)/count(n)) from User u join u.newspapers n ")
 	String getAverageRatioPrivateNewspaperPerPublisher();
+
+	@Query("select n from User u join u.newspapers n where u.id=?1 and (n.publicationDate!=null or n.publicationDate!='')")
+	Collection<Newspaper> findPublishedNewspapersByUser(int userId);
 }

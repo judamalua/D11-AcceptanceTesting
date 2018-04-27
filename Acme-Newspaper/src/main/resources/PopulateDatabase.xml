@@ -1319,7 +1319,6 @@
 		<property name="newspapers">
 			<list>
 				<ref bean="Newspaper1" />
-				<ref bean="Newspaper2" />
 				<ref bean="Newspaper3" />
 			</list>
 		</property>

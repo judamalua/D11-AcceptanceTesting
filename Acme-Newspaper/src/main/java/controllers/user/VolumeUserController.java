@@ -1,6 +1,8 @@
 
 package controllers.user;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.VolumeService;
 import controllers.AbstractController;
+import domain.Newspaper;
 import domain.User;
 import domain.Volume;
 
@@ -126,10 +129,16 @@ public class VolumeUserController extends AbstractController {
 
 	private ModelAndView createEditModelAndView(final Volume volume, final String message) {
 		ModelAndView result;
+		Collection<Newspaper> elegibleNewspapers;
+		User user;
+
+		user = (User) this.actorService.findActorByPrincipal();
+		elegibleNewspapers = this.volumeService.getElegibleNewspaperForVolume(user);
 
 		result = new ModelAndView("volume/edit");
 		result.addObject("volume", volume);
 		result.addObject("message", message);
+		result.addObject("elegibleNewspapers", elegibleNewspapers);
 
 		return result;
 	}

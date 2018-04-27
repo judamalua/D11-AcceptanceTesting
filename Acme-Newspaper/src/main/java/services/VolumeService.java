@@ -34,6 +34,9 @@ public class VolumeService {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private UserService			userService;
+
 
 	// Simple CRUD methods --------------------------------------------------
 
@@ -105,6 +108,7 @@ public class VolumeService {
 			result.setDescription(volume.getDescription());
 			result.setTitle(volume.getTitle());
 			result.setYear(volume.getYear());
+			result.setNewspapers(volume.getNewspapers());
 		}
 
 		this.validator.validate(result, binding);
@@ -135,6 +139,14 @@ public class VolumeService {
 		String result;
 
 		result = this.volumeRepository.getAverageNewspapersPerVolume();
+
+		return result;
+	}
+
+	public Collection<Newspaper> getElegibleNewspaperForVolume(final User user) {
+		Collection<Newspaper> result;
+
+		result = this.userService.findPublishedNewspapersByUser(user.getId());
 
 		return result;
 	}

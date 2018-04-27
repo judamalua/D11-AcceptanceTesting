@@ -62,7 +62,6 @@ public class Volume extends DomainEntity {
 
 
 	@Valid
-	@NotNull
 	@ManyToMany
 	public Collection<Newspaper> getNewspapers() {
 		return this.newspapers;

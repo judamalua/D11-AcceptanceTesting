@@ -489,4 +489,12 @@ public class UserService {
 		return result;
 	}
 
+	public Collection<Newspaper> findPublishedNewspapersByUser(final int userId) {
+		Collection<Newspaper> result;
+
+		result = this.userRepository.findPublishedNewspapersByUser(userId);
+
+		return result;
+	}
+
 }
