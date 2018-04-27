@@ -24,6 +24,7 @@ import domain.Configuration;
 import domain.CreditCard;
 import domain.Customer;
 import domain.Newspaper;
+import domain.User;
 import domain.Volume;
 
 @Controller
@@ -59,6 +60,7 @@ public class VolumeController extends AbstractController {
 		Configuration configuration;
 		Pageable pageable;
 		Page<Volume> volumes;
+		Actor actor;
 
 		try {
 			configuration = this.configurationService.findConfiguration();
@@ -67,6 +69,13 @@ public class VolumeController extends AbstractController {
 			result = new ModelAndView("volume/list");
 
 			volumes = this.volumeService.findVolumes(pageable);
+
+			if (this.actorService.getLogged()) {
+				actor = this.actorService.findActorByPrincipal();
+
+				if (actor instanceof User)
+					result.addObject("userId", actor.getId());
+			}
 
 			result.addObject("volumes", volumes.getContent());
 			result.addObject("page", page);
@@ -87,10 +96,10 @@ public class VolumeController extends AbstractController {
 		Volume volume;
 		Pageable pageable;
 		Configuration configuration;
-		final Page<Newspaper> newspapers;
-		final Collection<Newspaper> newspapersCollection;
+		Page<Newspaper> newspapers;
 		Actor actor;
-		Boolean subscriber;
+		User user;
+		Boolean subscriber, userIsCreator;
 		Collection<CreditCard> creditCards;
 
 		try {
@@ -103,7 +112,6 @@ public class VolumeController extends AbstractController {
 			pageable = new PageRequest(pageNewspaper, configuration.getPageSize());
 
 			newspapers = this.newspaperService.findNewspapersByVolume(volumeId, pageable);
-			//newspapersCollection = this.newspaperService.findNewspapersByVolume(volumeId);
 			creditCards = this.creditCardService.getCreditCardsByVolume(volumeId);
 
 			subscriber = false;
@@ -117,6 +125,15 @@ public class VolumeController extends AbstractController {
 						if (subscriber)
 							break;
 					}
+				else if (actor instanceof User) {
+					user = (User) actor;
+					userIsCreator = false;
+
+					if (user.equals(volume.getUser()))
+						userIsCreator = true;
+
+					result.addObject("userIsCreator", userIsCreator);
+				}
 			}
 
 			result.addObject("subscriber", subscriber);

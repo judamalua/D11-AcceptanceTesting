@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -57,6 +58,7 @@ public class Volume extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 	private Collection<Newspaper>	newspapers;
+	private User					user;
 
 
 	@Valid
@@ -68,6 +70,17 @@ public class Volume extends DomainEntity {
 
 	public void setNewspapers(final Collection<Newspaper> newspapers) {
 		this.newspapers = newspapers;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(final User user) {
+		this.user = user;
 	}
 
 }

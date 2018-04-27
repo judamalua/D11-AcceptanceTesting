@@ -1304,6 +1304,7 @@
 		<property name="title" value="Test Volume 1" />
 		<property name="description" value="Test Volume descripcion 1" />
 		<property name="year" value="2018" />
+		<property name="user" ref="User1"/>
 		<property name="newspapers">
 			<list>
 			</list>
@@ -1314,6 +1315,7 @@
 		<property name="title" value="Test Volume 2" />
 		<property name="description" value="Test Volume descripcion 2" />
 		<property name="year" value="2018" />
+		<property name="user" ref="User1"/>
 		<property name="newspapers">
 			<list>
 				<ref bean="Newspaper1" />

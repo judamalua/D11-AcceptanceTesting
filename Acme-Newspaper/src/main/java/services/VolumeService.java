@@ -16,6 +16,7 @@ import org.springframework.validation.Validator;
 
 import repositories.VolumeRepository;
 import domain.Newspaper;
+import domain.User;
 import domain.Volume;
 
 @Service
@@ -29,6 +30,9 @@ public class VolumeService {
 	// Supporting services --------------------------------------------------
 	@Autowired
 	private Validator			validator;
+
+	@Autowired
+	private ActorService		actorService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -71,18 +75,30 @@ public class VolumeService {
 		Assert.notNull(volume);
 		Assert.isTrue(volume.getId() != 0);
 
+		User user;
+		Volume savedVolume;
+
+		savedVolume = this.findOne(volume.getId());
+		user = (User) this.actorService.findActorByPrincipal();
+
+		Assert.isTrue(savedVolume.getUser().equals(user));
+
 		this.volumeRepository.delete(volume);
 	}
 
 	public Volume reconstruct(final Volume volume, final BindingResult binding) {
 		Volume result;
+		User user;
 
 		if (volume.getId() == 0) {
 			Collection<Newspaper> newspapers;
 
+			user = (User) this.actorService.findActorByPrincipal();
 			result = volume;
 			newspapers = new HashSet<Newspaper>();
+
 			result.setNewspapers(newspapers);
+			result.setUser(user);
 
 		} else {
 			result = this.findOne(volume.getId());
@@ -122,4 +138,5 @@ public class VolumeService {
 
 		return result;
 	}
+
 }

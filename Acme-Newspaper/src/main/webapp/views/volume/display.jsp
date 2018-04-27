@@ -100,3 +100,12 @@
 	</display:column>
 		
 </display:table>
+
+<security:authorize access="hasRole('USER')">
+	<jstl:if test="${userIsCreator}">
+		<acme:button url="volume/user/edit.do?volumeId=${volume.id}" code="volume.edit" />
+	</jstl:if>
+</security:authorize>
+
+<br/>
+<acme:button url="volume/list.do" code="volume.list.back" />

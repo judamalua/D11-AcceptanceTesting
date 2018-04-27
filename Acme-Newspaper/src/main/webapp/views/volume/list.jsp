@@ -53,10 +53,16 @@
 				<jstl:out value="TODO: SUBSCRIBE BY CUSTOMER"/>
 		</security:authorize>
 	</display:column>
-
+	
+	<display:column>
+		<jstl:if test="${volume.user.id == userId}">
+				<acme:button url="volume/user/edit.do?volumeId=${volume.id}"
+					code="volume.edit" />	
+		</jstl:if>
+	</display:column>	
+	
 </display:table>
 
 <security:authorize access="hasRole('USER')">
 	<acme:button url="volume/user/create.do" code="volume.create" />
 </security:authorize>
-

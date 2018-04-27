@@ -3,14 +3,17 @@ package controllers.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.VolumeService;
 import controllers.AbstractController;
+import domain.User;
 import domain.Volume;
 
 @Controller
@@ -21,6 +24,9 @@ public class VolumeUserController extends AbstractController {
 
 	@Autowired
 	private VolumeService	volumeService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Create volume ---------------------------------------------------------
@@ -40,10 +46,36 @@ public class VolumeUserController extends AbstractController {
 	}
 
 	//Edit volume ----------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(final int volumeId) {
+		ModelAndView result;
+		Volume volume;
+		User principal, volumeCreator;
+
+		try {
+			volume = this.volumeService.findOne(volumeId);
+
+			Assert.notNull(volume);
+
+			principal = (User) this.actorService.findActorByPrincipal();
+			volumeCreator = volume.getUser();
+
+			Assert.isTrue(principal.equals(volumeCreator));
+
+			result = this.createEditModelAndView(volume);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
+
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView edit(@ModelAttribute("volume") Volume volume, final BindingResult binding) {
 		ModelAndView result;
 		Volume savedVolume;
+		User user;
 
 		try {
 			volume = this.volumeService.reconstruct(volume, binding);
@@ -54,12 +86,31 @@ public class VolumeUserController extends AbstractController {
 			result = this.createEditModelAndView(volume, "volume.params.error");
 		else
 			try {
+				user = (User) this.actorService.findActorByPrincipal();
+
+				Assert.isTrue(user.equals(volume.getUser()));
+
 				savedVolume = this.volumeService.save(volume);
 
 				result = new ModelAndView("redirect:/volume/display.do?volumeId=" + savedVolume.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(volume, "newspaper.commit.error");
+				result = this.createEditModelAndView(volume, "volume.commit.error");
 			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@ModelAttribute("volume") final Volume volume, final BindingResult binding) {
+		ModelAndView result;
+
+		try {
+			this.volumeService.delete(volume);
+
+			result = new ModelAndView("redirect:/volume/list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(volume, "volume.commit.error");
+		}
 
 		return result;
 	}
