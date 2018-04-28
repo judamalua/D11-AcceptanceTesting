@@ -101,10 +101,14 @@ public class ArticleController extends AbstractController {
 							}
 							Assert.isTrue(validCustomer);
 						}
-				if (!actor.equals(writer))
+				if (!actor.equals(writer)) {
 					Assert.isTrue(article.getFinalMode());
+					Assert.isTrue(newspaper.getPublicationDate() != null);
+				}
+
 			} else {
 				Assert.isTrue(newspaper.getPublicNewspaper());
+				Assert.isTrue(newspaper.getPublicationDate() != null);
 				Assert.isTrue(article.getFinalMode());
 			}
 

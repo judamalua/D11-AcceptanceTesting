@@ -46,19 +46,19 @@
 	pageNum="${pageNum}" page="${page}" />
 
 <!-- Table -->
-<display:table name="articles" id="article" requestURI="${requestUri}">
+<display:table name="articles" id="articleList" requestURI="${requestUri}">
 
 	<display:column property="title" title="${titleTitle}" />
 
 	<display:column property="summary" title="${summaryTitle}" />
 
 	<display:column title="${newspaper.publicNewspaper}">
-			<acme:button url="article/display.do?articleId=${article.id}"
+			<acme:button url="article/display.do?articleId=${articleList.id}"
 				code="article.display" />
 	</display:column>
 	<display:column>
 		<security:authorize access="hasRole('ADMIN')">
-			<acme:button url="article/admin/delete.do?articleId=${article.id}"
+			<acme:button url="article/admin/delete.do?articleId=${articleList.id}"
 				code="article.delete" />
 		</security:authorize>
 	</display:column>

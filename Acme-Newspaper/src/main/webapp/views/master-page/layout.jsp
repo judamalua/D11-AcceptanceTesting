@@ -49,7 +49,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$('#messageFolder').DataTable({
+		$('#messageFolderList').DataTable({
 			paging : false,
 			"columnDefs" : [
 				{
@@ -61,7 +61,7 @@
 			]
 		});
 
-		$('#message').DataTable({
+		$('#messageList').DataTable({
 			paging : false,
 			"columnDefs" : [
 				{
@@ -73,11 +73,11 @@
 			]
 		});
 
-		$('#newspaper').DataTable({
+		$('#newspaperList').DataTable({
 			paging : false,
 			"order" : [
 				[
-						2, 'desc'
+					2, 'desc'
 				]
 			],
 			"columnDefs" : [
@@ -90,19 +90,47 @@
 			]
 		});
 
-		$('#user').DataTable({
+		$('#userList').DataTable({
 			paging : false,
 			"columnDefs" : [
 				{
 					"orderable" : false,
 					targets : [
-							3, 6
+							3, 6,7,8
+					]
+				}
+			]
+		});
+		
+		$('#articleListActor').DataTable({
+			paging : false,
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							1
+					]
+				}
+			]
+		});
+		$('#chirpListActor').DataTable({
+			paging : false,
+			"order" : [
+						[
+							2, 'desc'
+						]
+					],
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							1
 					]
 				}
 			]
 		});
 
-		$('#volume').DataTable({
+		$('#volumeList').DataTable({
 			paging : false,
 			"columnDefs" : [
 				{
@@ -114,19 +142,20 @@
 			]
 		});
 
-		$('#article').DataTable({
+		$('#articleList').DataTable({
 			paging : false,
 			"columnDefs" : [
-				{
-					"orderable" : false,
-					targets : [
-							2, 3
-					]
-				}
-			]
+					{
+						"orderable" : false,
+						targets : [
+								1,2
+						]
+					}
+				]
+			
 		});
 
-		$('#chirp').DataTable({
+		$('#chirpList').DataTable({
 			paging : false,
 			"columnDefs" : [
 				{
@@ -138,7 +167,7 @@
 			]
 		});
 
-		$('#followUp').DataTable({
+		$('#followUpList').DataTable({
 			paging : false,
 			"columnDefs" : [
 				{

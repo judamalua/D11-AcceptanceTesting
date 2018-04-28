@@ -58,11 +58,6 @@
 	<a href="user/display.do?userId=${creator.id}" ><jstl:out value="${creator.name}" /></a>
 </p>
 
-
-
-
-
-
 <security:authorize access="hasRole('ADMIN')">
 	<acme:button url="followUp/admin/delete.do?followUpId=${followUp.id}" code="followUp.delete" />
 </security:authorize>

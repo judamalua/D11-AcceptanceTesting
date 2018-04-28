@@ -70,7 +70,7 @@ ${article.body}
 <acme:pagination page="${page}" pageNum="${pageNum}"
 	requestURI="article/display.do?articleId=${article.id}&page=" />
 
-<display:table name="${followUps}" id="followUp"
+<display:table name="${followUps}" id="followUpList"
 	requestURI="article/display.do" pagesize="${pagesize}">
 	<display:column title="${titleFollowUp}" property="title" />
 	<display:column property="publicationDate" format="${formatMoment}"
@@ -78,14 +78,16 @@ ${article.body}
 	<display:column property="summary" title="${titleSummaryFollowUp}" />
 	<display:column property="text" title="${titleTextFollowUp}" />
 	<display:column>
+
 		<jstl:if test="${isLogged}">
 			<acme:button url="followUp/display.do?followUpId=${followUp.id}"
 				code="followUp.display" />
 		</jstl:if>
+
 	</display:column>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<acme:button url="followUp/admin/delete.do?followUpId=${followUp.id}"
+			<acme:button url="followUp/admin/delete.do?followUpId=${followUpList.id}"
 				code="followUp.delete" />
 		</display:column>
 	</security:authorize>

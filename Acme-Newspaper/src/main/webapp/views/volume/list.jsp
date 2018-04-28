@@ -35,7 +35,7 @@
 	
 	
 <!-- Table -->
-<display:table name="volumes" id="volume"
+<display:table name="volumes" id="volumeList"
 	requestURI="${requestUri}page=${page}">
 
 	<display:column property="title" title="${titleTitle}"  />
@@ -43,7 +43,7 @@
 	<display:column property="year" title="${titleYear}"  />
 
 	<display:column>
-		<acme:button url="volume/display.do?volumeId=${volume.id}"
+		<acme:button url="volume/display.do?volumeId=${volumeList.id}"
 			code="volume.display" />
 	</display:column>
 
@@ -55,8 +55,8 @@
 	</display:column>
 	
 	<display:column>
-		<jstl:if test="${volume.user.id == userId}">
-				<acme:button url="volume/user/edit.do?volumeId=${volume.id}"
+		<jstl:if test="${volumeList.user.id == userId}">
+				<acme:button url="volume/user/edit.do?volumeId=${volumeList.id}"
 					code="volume.edit" />	
 		</jstl:if>
 	</display:column>	
