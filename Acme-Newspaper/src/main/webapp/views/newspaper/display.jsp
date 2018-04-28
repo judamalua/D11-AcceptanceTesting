@@ -41,10 +41,10 @@
 
 <!-- Display -->
 
-<jstl:if test="${advertisment != null}">
-	<a href="${advertisment.additionalInfoLink}"> <img
-		class="sponsorshipBannerUrl" src="${advertisment.bannerUrl}"
-		alt="${advertisment.title}" />
+<jstl:if test="${advertisement != null}">
+	<a href="${advertisement.additionalInfoLink}"> <img
+		class="sponsorshipBannerUrl" src="${advertisement.bannerUrl}"
+		alt="${advertisement.title}" />
 	</a>
 </jstl:if>
 

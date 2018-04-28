@@ -26,7 +26,7 @@ public class AdvertisementService {
 	// Managed repository --------------------------------------------------
 
 	@Autowired
-	private AdvertisementRepository	advertismentRepository;
+	private AdvertisementRepository	advertisementRepository;
 
 	// Supporting services --------------------------------------------------
 
@@ -53,45 +53,45 @@ public class AdvertisementService {
 
 		Collection<Advertisement> result;
 
-		Assert.notNull(this.advertismentRepository);
-		result = this.advertismentRepository.findAll();
+		Assert.notNull(this.advertisementRepository);
+		result = this.advertisementRepository.findAll();
 		Assert.notNull(result);
 
 		return result;
 
 	}
 
-	public Advertisement findOne(final int advertismentId) {
+	public Advertisement findOne(final int advertisementId) {
 
 		Advertisement result;
 
-		result = this.advertismentRepository.findOne(advertismentId);
+		result = this.advertisementRepository.findOne(advertisementId);
 
 		return result;
 
 	}
 
-	public Advertisement save(final Advertisement advertisment) {
+	public Advertisement save(final Advertisement advertisement) {
 		Advertisement result;
 
 		//Checks that the CreditCard hasn't expired
-		this.checkCreditCardExpired(advertisment);
+		this.checkCreditCardExpired(advertisement);
 
-		advertisment.setAgent((Agent) this.actorService.findActorByPrincipal());
-		result = this.save(advertisment);
+		advertisement.setAgent((Agent) this.actorService.findActorByPrincipal());
+		result = this.save(advertisement);
 
 		return result;
 
 	}
 
-	public void delete(final Advertisement advertisment) {
+	public void delete(final Advertisement advertisement) {
 
-		Assert.isTrue(advertisment != null);
-		Assert.isTrue(advertisment.getId() != 0);
+		Assert.isTrue(advertisement != null);
+		Assert.isTrue(advertisement.getId() != 0);
 
-		Assert.isTrue(this.advertismentRepository.exists(advertisment.getId()));
+		Assert.isTrue(this.advertisementRepository.exists(advertisement.getId()));
 
-		this.advertismentRepository.delete(advertisment);
+		this.advertisementRepository.delete(advertisement);
 
 	}
 
@@ -102,13 +102,13 @@ public class AdvertisementService {
 	 * @param creditCard
 	 * @author Antonio and Daniel Diment
 	 */
-	public void checkCreditCardExpired(final Advertisement advertisment) {
+	public void checkCreditCardExpired(final Advertisement advertisement) {
 		Integer actualMonth, actualYear, ccMonth, ccYear;
 		DateFormat dfYear, dfMonth;
 		String formattedYear, formattedMonth;
 
-		ccMonth = advertisment.getExpirationMonth();
-		ccYear = advertisment.getExpirationYear();
+		ccMonth = advertisement.getExpirationMonth();
+		ccYear = advertisement.getExpirationYear();
 
 		dfYear = new SimpleDateFormat("yy"); // Just the year, with 2 digits
 		formattedYear = dfYear.format(Calendar.getInstance().getTime());
@@ -140,7 +140,7 @@ public class AdvertisementService {
 	public String getRatioTabooAdvertisements() {
 		String result;
 
-		result = this.advertismentRepository.getRatioTabooAdvertisements();
+		result = this.advertisementRepository.getRatioTabooAdvertisements();
 
 		return result;
 	}
@@ -148,7 +148,7 @@ public class AdvertisementService {
 	public Page<Advertisement> findTabooAdvertisements(final Pageable pageable) {
 		Page<Advertisement> result;
 
-		result = this.advertismentRepository.findTabooAdvertisements(pageable);
+		result = this.advertisementRepository.findTabooAdvertisements(pageable);
 
 		return result;
 	}
