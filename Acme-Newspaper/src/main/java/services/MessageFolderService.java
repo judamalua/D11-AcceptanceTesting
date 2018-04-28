@@ -41,8 +41,6 @@ public class MessageFolderService {
 	// Simple CRUD methods --------------------------------------------------
 	public MessageFolder create() {
 
-		this.actorService.checkUserLogin();
-
 		MessageFolder result;
 
 		result = new MessageFolder();
