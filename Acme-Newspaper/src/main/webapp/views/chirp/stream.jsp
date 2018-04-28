@@ -15,12 +15,10 @@
  
 <acme:pagination requestURI = "${requestURI}?page=" pageNum = "${pageNum}" page = "${page}"/>
 
-<display:table name="chirps" id="chirp" requestURI="${requestURI}" class="displayTag">
-
-
+<display:table name="chirps" id="chirpList" requestURI="${requestURI}" class="displayTag">
 
 	<spring:message code="chirp.author" var="authour" />
-	<display:column title="${author}" sortable="false" > <jstl:out value="${authors[chirp_rowNum-1]}"/></display:column>
+	<display:column title="${author}"> <jstl:out value="${authors[chirpList_rowNum-1]}"/></display:column>
 	
 	<spring:message code="chirp.moment.format" var="momentFormat" />
 	<spring:message code="chirp.moment" var="chirpMoment" />
@@ -28,15 +26,15 @@
 	 format="${momentFormat}" />
 
 	<spring:message code="chirp.title" var="title" />
-	<display:column property="title" title="${title}" sortable="false" />
+	<display:column property="title" title="${title}" />
 
 	<spring:message code="chirp.description" var="description" />
-	<display:column property="description" title="${description}" sortable="false" />
+	<display:column property="description" title="${description}" />
 	
 	<spring:message code="chirp.delete" var="titleDelete" />
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column title="${titleDelete}">
-			<acme:button url="chirp/admin/delete.do?chirpId=${chirp.id}" code="chirp.delete"/>
+			<acme:button url="chirp/admin/delete.do?chirpId=${chirpList.id}" code="chirp.delete"/>
 		</display:column>
 	</security:authorize>
 

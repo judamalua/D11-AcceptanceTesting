@@ -16,6 +16,7 @@ import org.springframework.validation.Validator;
 
 import repositories.NewspaperRepository;
 import domain.Actor;
+import domain.Advertisement;
 import domain.Article;
 import domain.CreditCard;
 import domain.Newspaper;
@@ -178,14 +179,17 @@ public class NewspaperService {
 		Newspaper result;
 		Collection<Article> articles;
 		final Collection<CreditCard> creditCards;
+		final Collection<Advertisement> advertisements;
 
 		if (newspaper.getId() == 0) {
 
 			result = newspaper;
 			articles = new HashSet<>();
 			creditCards = new HashSet<>();
+			advertisements = new HashSet<>();
 
 			result.setArticles(articles);
+			result.setAdvertisements(advertisements);
 			result.setCreditCards(creditCards);
 			result.setTaboo(false);
 

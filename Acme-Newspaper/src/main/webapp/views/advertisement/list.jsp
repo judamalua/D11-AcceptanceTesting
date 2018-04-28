@@ -32,10 +32,10 @@
 	pageNum="${pageNum}" />
 
 <!-- Table -->
-<display:table name="advertisements" id="advertisement"
+<display:table name="advertisements" id="advertisementList"
 	requestURI="${requestUri}">
 
-	<display:column property="title" title="${titleTitle}" sortable="true" />
+	<display:column property="title" title="${titleTitle}" />
 
 	<display:column title="${bannerURLTitle}">
 		<img src="${bannerURL}" />
@@ -48,14 +48,14 @@
 	<security:authorize access="hasRole('AGENT')">
 		<display:column>
 			<acme:button
-				url="advertisement/agent/edit.do?advertisementId=${advertisement.id}"
+				url="advertisement/agent/edit.do?advertisementId=${advertisementList.id}"
 				code="advertisement.edit" />
 		</display:column>
 	</security:authorize>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<acme:button
-				url="advertisement/admin/delete.do?advertisementId=${advertisement.id}"
+				url="advertisement/admin/delete.do?advertisementId=${advertisementList.id}"
 				code="advertisement.delete" />
 		</display:column>
 	</security:authorize>

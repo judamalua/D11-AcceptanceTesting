@@ -48,28 +48,28 @@
 	page="${page}" />
 
 <!-- Table -->
-<display:table name="newspapers" id="newspaper"
+<display:table name="newspapers" id="newspaperList"
 	requestURI="${requestUri}page=${page}">
 
 	<display:column>
 		<jstl:if
-			test="${newspaper.pictureUrl!=\"\" and newspaper.pictureUrl!=null}">
-			<img src="${newspaper.pictureUrl}" class="newspaperImg" />
+			test="${newspaperList.pictureUrl!=\"\" and newspaperList.pictureUrl!=null}">
+			<img src="${newspaperList.pictureUrl}" class="newspaperImg" />
 		</jstl:if>
 	</display:column>
 	<display:column property="title" title="${titleName}" />
 	<display:column property="publicationDate" title="${titlePublication}"
 		format="${formatMoment}"/>
 	<display:column title="${titlePublic}" >
-		<jstl:if test="${newspaper.publicNewspaper}">
+		<jstl:if test="${newspaperList.publicNewspaper}">
 			<i class="material-icons">public</i>
 		</jstl:if>
-		<jstl:if test="${!newspaper.publicNewspaper}">
+		<jstl:if test="${!newspaperList.publicNewspaper}">
 			<i class="material-icons">not_interested</i>
 		</jstl:if>
 	</display:column>
 	<display:column>
-		<acme:button url="newspaper/display.do?newspaperId=${newspaper.id}"
+		<acme:button url="newspaper/display.do?newspaperId=${newspaperList.id}"
 			code="newspaper.details" />
 	</display:column>
 
@@ -77,9 +77,9 @@
 	<display:column>
 		<security:authorize access="hasRole('USER')">
 			<jstl:if
-				test="${(owner or ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null}">
+				test="${(owner or ownNewspaper[newspaperList_rowNum-1]) and newspaperList.publicationDate==null}">
 				<acme:button
-					url="newspaper/user/edit.do?newspaperId=${newspaper.id}"
+					url="newspaper/user/edit.do?newspaperId=${newspaperList.id}"
 					code="newspaper.edit" />
 			</jstl:if>
 		</security:authorize>
@@ -88,9 +88,9 @@
 	<display:column>
 		<security:authorize access="hasRole('USER')">
 			<jstl:if
-				test="${(owner or ownNewspaper[newspaper_rowNum-1]) and newspaper.publicationDate==null and canPublicate!=null and  canPublicate[newspaper_rowNum-1] }">
+				test="${(owner or ownNewspaper[newspaperList_rowNum-1]) and newspaperList.publicationDate==null and canPublicate!=null and  canPublicate[newspaperList_rowNum-1] }">
 				<acme:button
-					url="newspaper/user/publish.do?newspaperId=${newspaper.id}"
+					url="newspaper/user/publish.do?newspaperId=${newspaperList.id}"
 					code="newspaper.publish" />
 			</jstl:if>
 		</security:authorize>
@@ -99,7 +99,7 @@
 	<display:column>
 		<security:authorize access="hasRole('ADMIN')">
 			<acme:button
-				url="newspaper/admin/delete.do?newspaperId=${newspaper.id}"
+				url="newspaper/admin/delete.do?newspaperId=${newspaperList.id}"
 				code="newspaper.delete" />
 		</security:authorize>
 	</display:column>

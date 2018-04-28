@@ -63,7 +63,7 @@
 	<br />
 </security:authorize>
 
-<!-- Displaying articles -->
+<!-- Displaying newspapers -->
 <h4>
 	<spring:message code="volume.newspapers.list" />
 </h4>
@@ -71,31 +71,31 @@
 <acme:pagination page="${page}" pageNum="${pageNum}"
 	requestURI="volume/display.do?volumeId=${volume.id}&pageNewspaper=" />
 	
-<display:table name="${newspapers}" id="newspaper"
+<display:table name="${newspapers}" id="newspaperList"
 	requestURI="volume/display.do" pagesize="${pagesize}">
 	
 	<display:column>
 		<jstl:if
-			test="${newspaper.pictureUrl!=\"\" and newspaper.pictureUrl!=null}">
-			<img src="${newspaper.pictureUrl}" class="newspaperImg" />
+			test="${newspaperList.pictureUrl!=\"\" and newspaperList.pictureUrl!=null}">
+			<img src="${newspaperList.pictureUrl}" class="newspaperImg" />
 		</jstl:if>
 	</display:column>
 	
-	<display:column property="title" title="${titleNewspaper}" sortable="true" />
+	<display:column property="title" title="${titleNewspaper}"  />
 	<display:column property="publicationDate" title="${titlePublication}"
 		format="${formatMoment}" sortable="true" />
 		
 	<display:column title="${titlePublic}" sortable="true">
-		<jstl:if test="${newspaper.publicNewspaper}">
+		<jstl:if test="${newspaperList.publicNewspaper}">
 			<i class="material-icons">public</i>
 		</jstl:if>
-		<jstl:if test="${!newspaper.publicNewspaper}">
+		<jstl:if test="${!newspaperList.publicNewspaper}">
 			<i class="material-icons">not_interested</i>
 		</jstl:if>
 	</display:column>
 	
 	<display:column>
-		<acme:button url="newspaper/display.do?newspaperId=${newspaper.id}"
+		<acme:button url="newspaper/display.do?newspaperId=${newspaperList.id}"
 			code="volume.newspaper.details" />
 	</display:column>
 		
