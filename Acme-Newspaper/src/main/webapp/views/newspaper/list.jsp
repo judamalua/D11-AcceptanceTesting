@@ -57,10 +57,10 @@
 			<img src="${newspaper.pictureUrl}" class="newspaperImg" />
 		</jstl:if>
 	</display:column>
-	<display:column property="title" title="${titleName}" sortable="true" />
+	<display:column property="title" title="${titleName}" />
 	<display:column property="publicationDate" title="${titlePublication}"
-		format="${formatMoment}" sortable="true" />
-	<display:column title="${titlePublic}" sortable="true">
+		format="${formatMoment}"/>
+	<display:column title="${titlePublic}" >
 		<jstl:if test="${newspaper.publicNewspaper}">
 			<i class="material-icons">public</i>
 		</jstl:if>

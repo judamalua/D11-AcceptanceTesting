@@ -31,6 +31,7 @@
 
 <jstl:if test="${pageNum!=0}">
 	<!-- Pagination -->
+	<div id="pagination">
 	<ul class="pagination"> 
 	<jstl:set var = "leftArrow" value = "waves-effect"/>
 	<jstl:if test="${page==0}">
@@ -58,4 +59,5 @@
 		<li class="${rightArrow}"><jstl:if test="${rightArrow == \"waves-effect\"}"><a href="${requestURI}${page+1}"></jstl:if><i class="material-icons">chevron_right</i><jstl:if test="${rightArrow == \"waves-effect\"}"></a></jstl:if></li>
 		<br/>
 	</ul>
+	</div>
 </jstl:if>

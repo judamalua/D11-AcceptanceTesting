@@ -48,10 +48,9 @@
 <!-- Table -->
 <display:table name="articles" id="article" requestURI="${requestUri}">
 
-	<display:column property="title" title="${titleTitle}" sortable="true" />
+	<display:column property="title" title="${titleTitle}" />
 
-	<display:column property="summary" title="${summaryTitle}"
-		sortable="true" />
+	<display:column property="summary" title="${summaryTitle}"/>
 
 	<display:column title="${displayTitle}">
 		<acme:button url="article/display.do?articleId=${article.id}"

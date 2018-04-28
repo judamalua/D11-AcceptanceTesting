@@ -72,8 +72,7 @@ ${article.body}
 
 <display:table name="${followUps}" id="followUp"
 	requestURI="article/display.do" pagesize="${pagesize}">
-	<display:column title="${titleFollowUp}" property="title"
-		sortable="true" />
+	<display:column title="${titleFollowUp}" property="title" />
 	<display:column property="publicationDate" format="${formatMoment}"
 		title="${titlePublicationFollowUp}" />
 	<display:column property="summary" title="${titleSummaryFollowUp}" />
@@ -96,6 +95,6 @@ ${article.body}
 	</jstl:if>
 </security:authorize>
 <br />
-<security:authorize access="hasRole('ADMIN')">
-	<acme:button url="newspaper/admin/delete.do" code="newspaper.delete" />
-</security:authorize>
+<%-- <security:authorize access="hasRole('ADMIN')"> --%>
+<%-- 	<acme:button url="newspaper/admin/delete.do" code="newspaper.delete" /> --%>
+<%-- </security:authorize> --%>

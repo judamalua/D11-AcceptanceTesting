@@ -38,9 +38,9 @@
 <display:table name="volumes" id="volume"
 	requestURI="${requestUri}page=${page}">
 
-	<display:column property="title" title="${titleTitle}" sortable="true" />
-	<display:column property="description" title="${titleDescription}" sortable="true" />
-	<display:column property="year" title="${titleYear}" sortable="true" />
+	<display:column property="title" title="${titleTitle}"  />
+	<display:column property="description" title="${titleDescription}"/>
+	<display:column property="year" title="${titleYear}"  />
 
 	<display:column>
 		<acme:button url="volume/display.do?volumeId=${volume.id}"

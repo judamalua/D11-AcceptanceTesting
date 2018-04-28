@@ -42,7 +42,7 @@
 		requestURI="messageFolder/list.do" >
 
 		<spring:message code="messageFolder.name" var="name" />
-		<display:column title="${name}" property="name" sortable="true" />
+		<display:column title="${name}" property="name"/>
 
 		<spring:message code="messageFolder.messageFolderChildren"
 			var="messageFolderChildren" />

@@ -31,25 +31,25 @@
 	requestURI="message/list.do">
 	
 	<spring:message code="message.priority" var="priority"/>
-	<display:column property="priority" title="${priority}" sortable="false"/>
+	<display:column property="priority" title="${priority}"/>
 
 	<spring:message code="message.subject" var="subject"/>
-	<display:column property="subject" title="${subject}" sortable="false"/>
+	<display:column property="subject" title="${subject}" />
 	
 
 	<spring:message code="message.body" var="body"/>
-	<display:column property="body" title="${body}" sortable="false"/>
+	<display:column property="body" title="${body}" />
 
 	<spring:message code="message.receptionDate" var="receptionDate" />
-	<display:column property="receptionDate" title="${receptionDate}" sortable="true" format="${formatDate}"/>
+	<display:column property="receptionDate" title="${receptionDate}"  format="${formatDate}"/>
 	
 	<spring:message code="message.sender" var="sender"/>
-	<display:column property="sender.email" title="${sender}" sortable="false"/>
+	<display:column property="sender.email" title="${sender}"/>
 	
 	<jstl:if test="${messageFolder.name == \"out box\" && messageFolder.isDefault == true}">
 	
 		<spring:message code="message.receiver" var="receiver"/>
-		<display:column property="receiver.email" title="${receiver}" sortable="false"/>
+		<display:column property="receiver.email" title="${receiver}"/>
 	
 	</jstl:if>
 	

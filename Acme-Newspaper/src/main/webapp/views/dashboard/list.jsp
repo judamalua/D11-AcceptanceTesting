@@ -89,16 +89,16 @@
 		</div>
 
 		<div class="collapsible-body">
-			<span> <display:table id="newspaper"
+			<span> <display:table id="newspaperPercent"
 					name="newspaperWith10PercentMoreArticlesThanAverage"
 					requestURI="dashboard/admin/list.do" pagesize="${pagesize}">
 					<spring:message var="titleNewspaper"
 						code="dashboard.newspaper.title" />
-					<display:column title="${titleNewspaper}">${newspaper.title}</display:column>
+					<display:column title="${titleNewspaper}">${newspaperPercent.title}</display:column>
 					<spring:message var="titleNumArticles"
 						code="dashboard.newspaper.numArticles" />
-					<display:column title="${titleNumArticles}">${fn:length(newspaper.articles)}</display:column>
-
+					<display:column title="${titleNumArticles}">${fn:length(newspaperPercent.articles)}</display:column>
+					
 				</display:table>
 			</span>
 		</div>
@@ -111,15 +111,15 @@
 		</div>
 
 		<div class="collapsible-body">
-			<span> <display:table id="newspaper"
+			<span> <display:table id="newspaperArticles"
 					name="newspaperWith10PercentLessArticlesThanAverage"
 					requestURI="dashboard/admin/list.do" pagesize="${pagesize}">
 					<spring:message var="titleNewspaper"
 						code="dashboard.newspaper.title" />
-					<display:column title="${titleNewspaper}">${newspaper.title}</display:column>
+					<display:column title="${titleNewspaper}">${newspaperArticles.title}</display:column>
 					<spring:message var="titleNumArticles"
 						code="dashboard.newspaper.numArticles" />
-					<display:column title="${titleNumArticles}">${fn:length(newspaper.articles)}</display:column>
+					<display:column title="${titleNumArticles}">${fn:length(newspaperArticles.articles)}</display:column>
 
 				</display:table>
 			</span>

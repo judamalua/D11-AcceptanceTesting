@@ -27,6 +27,7 @@ import services.ConfigurationService;
 import services.NewspaperService;
 import services.UserService;
 import domain.Actor;
+import domain.Admin;
 import domain.Article;
 import domain.Configuration;
 import domain.CreditCard;
@@ -88,16 +89,17 @@ public class ArticleController extends AbstractController {
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
 				if (!newspaper.getPublicNewspaper())
-					if (writer.getId() != actor.getId()) {
-						Assert.isTrue(actor instanceof Customer);
-						for (final CreditCard creditCard : newspaper.getCreditCards()) {
-							validCustomer = creditCard.getCustomer().equals(actor);
-							if (validCustomer)
-								break;
-						}
+					if (writer.getId() != actor.getId())
+						if (!(actor instanceof Admin)) {
+							Assert.isTrue(actor instanceof Customer);
+							for (final CreditCard creditCard : newspaper.getCreditCards()) {
+								validCustomer = creditCard.getCustomer().equals(actor);
+								if (validCustomer)
+									break;
+							}
 
-						Assert.isTrue(validCustomer);
-					}
+							Assert.isTrue(validCustomer);
+						}
 			} else
 				Assert.isTrue(newspaper.getPublicNewspaper());
 
