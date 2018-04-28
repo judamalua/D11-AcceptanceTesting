@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+	
+	<definition name="advertisment/edit" extends="master.page">	
+		<put-attribute name="title" value="Create/Edit an advertisment" />
+		<put-attribute name="body" value="/views/advertisment/edit.jsp" />
+	</definition>
+	
+	<definition name="advertisment/advertise" extends="master.page">	
+		<put-attribute name="title" value="Add an advertisment to the newspaper" />
+		<put-attribute name="body" value="/views/advertisment/advertise.jsp" />
+	</definition>
+	
+	<definition name="advertisment/list" extends="master.page">	
+		<put-attribute name="title" value="List of advertisments" />
+		<put-attribute name="body" value="/views/advertisment/list.jsp" />
+	</definition>
+	
+</tiles-definitions>
