@@ -97,11 +97,14 @@ public class ArticleController extends AbstractController {
 								if (validCustomer)
 									break;
 							}
-
 							Assert.isTrue(validCustomer);
 						}
-			} else
+				if (!actor.equals(writer))
+					Assert.isTrue(article.getFinalMode());
+			} else {
 				Assert.isTrue(newspaper.getPublicNewspaper());
+				Assert.isTrue(article.getFinalMode());
+			}
 
 			followUps = this.articleService.findFollowUpsByArticle(pageable, articleId);
 
@@ -130,6 +133,7 @@ public class ArticleController extends AbstractController {
 		final Page<Article> articles;
 		Pageable pageable;
 		Configuration configuration;
+
 		try {
 			configuration = this.configurationService.findConfiguration();
 			pageable = new PageRequest(page, configuration.getPageSize());
@@ -143,7 +147,7 @@ public class ArticleController extends AbstractController {
 			result.addObject("requestUri", "article/search.do");
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;

@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.AdvertisementService;
 import services.ConfigurationService;
-import services.UserService;
 import controllers.AbstractController;
 import domain.Advertisement;
 import domain.Configuration;
@@ -25,9 +24,6 @@ public class AdvertisementAdminController extends AbstractController {
 	// Services -------------------------------------------------------
 	@Autowired
 	private AdvertisementService	advertisementService;
-
-	@Autowired
-	private UserService				userService;
 
 	@Autowired
 	private ConfigurationService	configurationService;

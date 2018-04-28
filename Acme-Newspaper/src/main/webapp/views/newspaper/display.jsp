@@ -97,7 +97,7 @@
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 	<display:column title="${titleArticle}" sortable="true">
 		<jstl:if
-			test="${((ownArticle!=null and ownArticle[article_rowNum-1])  or (subscriber and newspaper.publicNewspaper))}">
+			test="${article.finalMode and (((ownArticle!=null and ownArticle[article_rowNum-1])  or (subscriber and !newspaper.publicNewspaper) or newspaper.publicNewspaper ))}">
 			<a href="article/display.do?articleId=${article.id}">${article.title}</a>
 		</jstl:if>
 		<jstl:if
