@@ -193,28 +193,28 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#jMenu").jMenu();
-
-		$(function() {
-			$(function() {
-				$('#pagination').materializePagination({
-					align : 'center',
-					lastPage : 5,
-					firstPage : 1,
-					urlParameter : 'page',
-					useUrlParameter : true,
-					onClickCallback : function(requestedPage) {
-						$.ajax({
-							  type: "POST",
-							  url: url,
-							  data: data,
-							  success: success,
-							  dataType: dataType
-							});
-					}
-				});
-			});
-		});
 	});
+// 		$(function() {
+// 			$(function() {
+// 				$('#pagination').materializePagination({
+// 					align : 'center',
+// 					lastPage : 5,
+// 					firstPage : 1,
+// 					urlParameter : 'page',
+// 					useUrlParameter : true,
+// 					onClickCallback : function(requestedPage) {
+// 						$.ajax({
+// 							  type: "POST",
+// 							  url: url,
+// 							  data: data,
+// 							  success: success,
+// 							  dataType: dataType
+// 							});
+// 					}
+// 				});
+// 			});
+// 		});
+// 	});
 
 	function askSubmission(msg, form) {
 		if (confirm(msg))

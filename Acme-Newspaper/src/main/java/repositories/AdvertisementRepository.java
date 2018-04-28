@@ -1,6 +1,8 @@
 
 package repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,5 +20,8 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
 	 */
 	@Query("select count(a)/(select count(ad) from Advertisement ad) from Advertisement a where a.taboo=true")
 	String getRatioTabooAdvertisements();
+
+	@Query("select a from Advertisement a where a.taboo=true")
+	Page<Advertisement> findTabooAdvertisements(Pageable pageable);
 
 }

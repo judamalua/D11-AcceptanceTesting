@@ -22,9 +22,9 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <!-- Variable declaration -->
-<spring:message code="advertisment.title" var="titleTitle" />
-<spring:message code="advertisment.bannerURL" var="bannerURLTitle" />
-<spring:message code="advertisment.additionalInfoLink"
+<spring:message code="advertisement.title" var="titleTitle" />
+<spring:message code="advertisement.bannerURL" var="bannerURLTitle" />
+<spring:message code="advertisement.additionalInfoLink"
 	var="additionalInfoLinkTitle" />
 
 <!-- Pagination -->
@@ -32,7 +32,7 @@
 	pageNum="${pageNum}" />
 
 <!-- Table -->
-<display:table name="advertisments" id="advertisment"
+<display:table name="advertisements" id="advertisement"
 	requestURI="${requestUri}">
 
 	<display:column property="title" title="${titleTitle}" sortable="true" />
@@ -48,15 +48,15 @@
 	<security:authorize access="hasRole('AGENT')">
 		<display:column>
 			<acme:button
-				url="advertisment/agent/edit.do?advertismentId=${advertisment.id}"
-				code="advertisment.edit" />
+				url="advertisement/agent/edit.do?advertisementId=${advertisement.id}"
+				code="advertisement.edit" />
 		</display:column>
 	</security:authorize>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<acme:button
-				url="advertisment/admin/delete.do?advertismentId=${advertisment.id}"
-				code="advertisment.delete" />
+				url="advertisement/admin/delete.do?advertisementId=${advertisement.id}"
+				code="advertisement.delete" />
 		</display:column>
 	</security:authorize>
 </display:table>

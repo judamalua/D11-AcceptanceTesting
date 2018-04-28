@@ -9,6 +9,8 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -84,8 +86,8 @@ public class AdvertisementService {
 
 	public void delete(final Advertisement advertisment) {
 
-		assert advertisment != null;
-		assert advertisment.getId() != 0;
+		Assert.isTrue(advertisment != null);
+		Assert.isTrue(advertisment.getId() != 0);
 
 		Assert.isTrue(this.advertismentRepository.exists(advertisment.getId()));
 
@@ -126,12 +128,12 @@ public class AdvertisementService {
 
 	}
 
-	public void advertise(final Advertisement advertisment, final Newspaper newspaper) {
+	public void advertise(final Advertisement advertisement, final Newspaper newspaper) {
 		Assert.isTrue(newspaper.getPublicationDate() != null); //Tests that the newspaper is published
-		final Advertisement savedAdvertisment;
+		final Advertisement savedAdvertisement;
 
-		savedAdvertisment = this.save(advertisment);
-		newspaper.getAdvertisements().add(savedAdvertisment);
+		savedAdvertisement = this.save(advertisement);
+		newspaper.getAdvertisements().add(savedAdvertisement);
 		this.newspaperService.save(newspaper);
 	}
 
@@ -139,6 +141,14 @@ public class AdvertisementService {
 		String result;
 
 		result = this.advertismentRepository.getRatioTabooAdvertisements();
+
+		return result;
+	}
+
+	public Page<Advertisement> findTabooAdvertisements(final Pageable pageable) {
+		Page<Advertisement> result;
+
+		result = this.advertismentRepository.findTabooAdvertisements(pageable);
 
 		return result;
 	}
