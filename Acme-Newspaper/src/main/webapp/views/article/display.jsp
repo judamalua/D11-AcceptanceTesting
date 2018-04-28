@@ -78,8 +78,10 @@ ${article.body}
 	<display:column property="summary" title="${titleSummaryFollowUp}" />
 	<display:column property="text" title="${titleTextFollowUp}" />
 	<display:column>
-		<acme:button url="followUp/display.do?followUpId=${followUp.id}"
-			code="followUp.display" />
+		<jstl:if test="${isLogged}">
+			<acme:button url="followUp/display.do?followUpId=${followUp.id}"
+				code="followUp.display" />
+		</jstl:if>
 	</display:column>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>

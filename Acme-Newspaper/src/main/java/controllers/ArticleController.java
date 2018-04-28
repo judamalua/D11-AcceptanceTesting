@@ -75,9 +75,11 @@ public class ArticleController extends AbstractController {
 		boolean validCustomer = false;
 		boolean newspaperPublished = false;
 		boolean owner = false;
+		boolean isLogged = false;
 
 		try {
 
+			isLogged = this.actorService.getLogged();
 			result = new ModelAndView("article/display");
 			article = this.articleService.findOne(articleId);
 			Assert.notNull(article);
@@ -111,6 +113,7 @@ public class ArticleController extends AbstractController {
 				owner = actor.equals(writer);
 
 			result.addObject("newspaperPublished", newspaperPublished);
+			result.addObject("isLogged", isLogged);
 			result.addObject("writer", writer);
 			result.addObject("owner", owner);
 			result.addObject("article", article);

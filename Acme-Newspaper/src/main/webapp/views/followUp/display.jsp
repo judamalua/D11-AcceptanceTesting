@@ -64,5 +64,5 @@
 
 
 <security:authorize access="hasRole('ADMIN')">
-	<acme:button url="followUp/admin/delete.do" code="followUp.delete" />
+	<acme:button url="followUp/admin/delete.do?followUpId=${followUp.id}" code="followUp.delete" />
 </security:authorize>
