@@ -28,7 +28,7 @@
 	var="additionalInfoLinkTitle" />
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestUri}" page="${page}"
+<acme:pagination requestURI="${requestUri}?newspaperId=${newspaper.id}&page=" page="${page}"
 	pageNum="${pageNum}" />
 
 <!-- Table -->
@@ -59,4 +59,21 @@
 				code="advertisement.delete" />
 		</display:column>
 	</security:authorize>
+	
+	<!-- To add an ad to a newspaper -->
+	<jstl:if test="${newspaper != null}">
+		<display:column>
+			<jstl:if test="${!isAdvetised[advertisementList_rowNum]}">
+				<acme:button
+					url="advertisement/agent/advertise.do?advertisementId=${advertisementList.id}&newspaperId=${newspaper.id}"
+					code="advertisement.advertise" />
+			</jstl:if>
+			<jstl:if test="${isAdvetised[advertisementList_rowNum]}">
+				<acme:button
+					url="advertisement/agent/unadvertise.do?advertisementId=${advertisementList.id}&newspaperId=${newspaper.id}"
+					code="advertisement.unadvertise" />
+			</jstl:if>
+		</display:column>
+		
+	</jstl:if>
 </display:table>

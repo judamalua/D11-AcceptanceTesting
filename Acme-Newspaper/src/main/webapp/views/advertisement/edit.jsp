@@ -19,39 +19,60 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<spring:message code="request.creditcard.expirationYear.placeholder"
+	var="expirationYearPlaceholder" />
+<spring:message code="request.creditcard.info" var="creditCardInfo" />
 <!-- Form -->
 <p>
 	<em><spring:message code="form.required.params" /></em>
 </p>
-<div class="row">
-	<form:form action="article/user/edit.do" modelAttribute="article">
 
+<div class="row">
+
+	<form:form id="form" action="advertisement/agent/edit.do"
+		modelAttribute="advertisement">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
-		<input type="hidden" name="newspaperId" value="${newspaperId}"  />
+		<form:hidden path="agent" />
 
-		<acme:textbox code="article.title" path="title" required="true" />
-		<acme:textarea code="article.summary" path="summary" required="true" />
-		
-		<div class="form-group">
-			<div class="row">
-				<div class="input-field col s9">
-					<form:textarea path="body" class="widgEditor"/>
-					<form:errors path="body" cssClass="error" />
-				</div>
-			</div>
-		</div>
-		
+		<acme:textbox code="advertisement.title" path="title" required="true" />
+		<acme:textbox code="advertisement.bannerURL" path="bannerURL"
+			required="true" />
+		<acme:textbox code="advertisement.additionalInfoLink"
+			path="additionalInfoLink" required="true" />
+
 		<div class="cleared-div">
-			<acme:checkbox code="article.finalMode" path="finalMode"
-				id="finalMode" />
+			<h4>
+				<jstl:out value="${creditCardInfo}" />
+			</h4>
 		</div>
-		<acme:submit name="save" code="article.save" />
-		<jstl:if test="${article.id!=0}">
-			<acme:delete clickCode="article.confirm.delete" name="delete"
-				code="article.delete" />
-		</jstl:if>
-		<acme:cancel url="newspaper/display.do?newspaperId=${newspaperId}" code="article.cancel" />
+		<jstl:if test="${advertisement.id == 0}">
+			<div class="cardForm">
+				<acme:textbox code="advertisement.holderName" path="holderName"
+					required="true" />
 
+				<acme:textbox code="advertisement.brandName" path="brandName"
+					required="true" />
+
+				<acme:textbox code="advertisement.number" path="number"
+					required="true" />
+
+				<acme:textbox code="advertisement.expirationMonth"
+					path="expirationMonth" required="true" placeholder="MM" />
+
+				<acme:textbox code="advertisement.expirationYear"
+					path="expirationYear" required="true"
+					placeholder="${expirationYearPlaceholder}" />
+
+				<acme:textbox code="advertisement.cvv" path="cvv" required="true" />
+
+			</div>
+		</jstl:if>
+
+		<button type="submit" name="save" class="btn">
+			<spring:message code="advertisement.save" />
+		</button>
+
+		<acme:cancel url="advertisement/agent/list.do" code="advertisement.cancel" />
 	</form:form>
 </div>

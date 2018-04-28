@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.AdvertisementRepository;
 import domain.Advertisement;
@@ -29,6 +31,9 @@ public class AdvertisementService {
 	private AdvertisementRepository	advertisementRepository;
 
 	// Supporting services --------------------------------------------------
+
+	@Autowired
+	private Validator				validator;
 
 	@Autowired
 	private ActorService			actorService;
@@ -79,6 +84,13 @@ public class AdvertisementService {
 
 		advertisement.setAgent((Agent) this.actorService.findActorByPrincipal());
 		result = this.save(advertisement);
+		final Collection<Newspaper> newspapers = this.newspaperService.findNewspaperByAdvertisement(advertisement.getId());
+
+		for (final Newspaper newspaper : newspapers) {
+			newspaper.getAdvertisements().remove(advertisement);
+			newspaper.getAdvertisements().add(result);
+			this.newspaperService.save(newspaper);
+		}
 
 		return result;
 
@@ -90,11 +102,16 @@ public class AdvertisementService {
 		Assert.isTrue(advertisement.getId() != 0);
 
 		Assert.isTrue(this.advertisementRepository.exists(advertisement.getId()));
+		final Collection<Newspaper> newspapers = this.newspaperService.findNewspaperByAdvertisement(advertisement.getId());
+
+		for (final Newspaper newspaper : newspapers) {
+			newspaper.getAdvertisements().remove(advertisement);
+			this.newspaperService.save(newspaper);
+		}
 
 		this.advertisementRepository.delete(advertisement);
 
 	}
-
 	/**
 	 * This method checks that the Credit Card of the Request hasn't expired, checking its expiration
 	 * year and expiration month.
@@ -130,10 +147,17 @@ public class AdvertisementService {
 
 	public void advertise(final Advertisement advertisement, final Newspaper newspaper) {
 		Assert.isTrue(newspaper.getPublicationDate() != null); //Tests that the newspaper is published
-		final Advertisement savedAdvertisement;
+		Assert.isTrue(this.actorService.findActorByPrincipal().getId() == advertisement.getAgent().getId());
 
-		savedAdvertisement = this.save(advertisement);
-		newspaper.getAdvertisements().add(savedAdvertisement);
+		newspaper.getAdvertisements().add(advertisement);
+		this.newspaperService.save(newspaper);
+	}
+
+	public void unadvertise(final Advertisement advertisement, final Newspaper newspaper) {
+		Assert.isTrue(newspaper.getPublicationDate() != null); //Tests that the newspaper is published
+		Assert.isTrue(this.actorService.findActorByPrincipal().getId() == advertisement.getAgent().getId());
+
+		newspaper.getAdvertisements().remove(advertisement);
 		this.newspaperService.save(newspaper);
 	}
 
@@ -149,6 +173,32 @@ public class AdvertisementService {
 		Page<Advertisement> result;
 
 		result = this.advertisementRepository.findTabooAdvertisements(pageable);
+
+		return result;
+	}
+
+	public Page<Advertisement> findByPrincipalPage(final Pageable pageable) {
+		Page<Advertisement> result;
+		result = this.advertisementRepository.findByAgentPage(this.actorService.findActorByPrincipal().getId(), pageable);
+		return result;
+	}
+
+	public Advertisement reconstruct(final Advertisement advertisement, final BindingResult binding) {
+		Advertisement result;
+
+		if (advertisement.getId() == 0) {
+
+			result = advertisement;
+			result.setTaboo(false);
+
+		} else {
+			result = this.advertisementRepository.findOne(advertisement.getId());
+			result.setTitle(advertisement.getTitle());
+			result.setBannerURL(advertisement.getBannerURL());
+			result.setAdditionalInfoLink(advertisement.getAdditionalInfoLink());
+		}
+
+		this.validator.validate(result, binding);
 
 		return result;
 	}
