@@ -22,7 +22,6 @@
 	<spring:message code="chirp.author" var="authour" />
 	<display:column title="${author}" sortable="false" > <jstl:out value="${authors[chirp_rowNum-1]}"/></display:column>
 	
-	
 	<spring:message code="chirp.moment.format" var="momentFormat" />
 	<spring:message code="chirp.moment" var="chirpMoment" />
 	<display:column property="moment" title="${chirpMoment}"

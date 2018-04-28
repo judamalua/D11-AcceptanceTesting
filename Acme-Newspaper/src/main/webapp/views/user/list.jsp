@@ -14,18 +14,6 @@
 <spring:message code="master.page.birthDate.format" var="formatBirthDate" />
 
 <!-- Pagination -->
-<%-- <span class="pagebanner"> 
-	<jstl:forEach begin="1" end="${pageNum}" var="index">
-		<a href="user/list.do?anonymous=${anonymous}&page=${index-1}">
-			<jstl:out value="${index}" />
-		</a>
-		<jstl:if test="${index!=pageNum}">,</jstl:if>
-	</jstl:forEach>
-	<br />
-</span>
-
- --%>
-<!-- Pagination -->
 
 <acme:pagination requestURI = "${requestURI}?page=" pageNum = "${pageNum}" page = "${page}"/>
 
@@ -33,10 +21,10 @@
 	class="displaytag">
 
 	<spring:message code="user.name" var="name" />
-	<display:column property="name" title="${name}" sortable="true" />
+	<display:column property="name" title="${name}"  />
 
 	<spring:message code="user.surname" var="surname" />
-	<display:column property="surname" title="${surname}" sortable="true" />
+	<display:column property="surname" title="${surname}"  />
 
 	<spring:message code="user.postalAddress" var="postalAddress" />
 	<display:column property="postalAddress" title="${postalAddress}"
@@ -47,11 +35,10 @@
 		sortable="false" />
 
 	<spring:message code="user.email" var="email" />
-	<display:column property="email" title="${email}" sortable="false" />
+	<display:column property="email" title="${email}"  />
 
 	<spring:message code="user.birthDate" var="birthDate" />
-	<display:column property="birthDate" title="${birthDate}"
-		sortable="true" format="${formatBirthDate}" />
+	<display:column property="birthDate" title="${birthDate}" format="${formatBirthDate}" />
 		
 	<display:column>
 		<security:authorize access="hasRole('USER')">

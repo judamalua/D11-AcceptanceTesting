@@ -156,6 +156,14 @@ public class ChirpService {
 		return result;
 	}
 
+	public Page<Chirp> getAllTabooChirps(final Pageable pageable) {
+		Page<Chirp> result;
+
+		result = this.chirpRepository.getAllTabooChirps(pageable);
+
+		return result;
+	}
+
 	public Page<Chirp> findFollowedUsersChirps(final int userId, final Pageable pageable) {
 		return this.chirpRepository.findFollowedUsersChirps(userId, pageable);
 	}

@@ -5,19 +5,17 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@javax.persistence.Index(columnList = "name, isDefault")
+})
 public class MessageFolder extends DomainEntity {
-
-	// Constructors -----------------------------------------------------------
-	//	public MessageFolder() {
-	//		super();
-	//		this.messageFolderChildren = new ArrayList<>();
-	//	}
 
 	// Attributes -------------------------------------------------------------
 	private String	name;
