@@ -42,19 +42,19 @@
 </div>
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestUri}?search=${search}&page=" pageNum="${pageNum}"
-	page="${page}" />
+<acme:pagination requestURI="${requestUri}?search=${search}&page="
+	pageNum="${pageNum}" page="${page}" />
 
 <!-- Table -->
 <display:table name="articles" id="article" requestURI="${requestUri}">
 
 	<display:column property="title" title="${titleTitle}" />
 
-	<display:column property="summary" title="${summaryTitle}"/>
+	<display:column property="summary" title="${summaryTitle}" />
 
-	<display:column title="${displayTitle}">
-		<acme:button url="article/display.do?articleId=${article.id}"
-			code="article.display" />
+	<display:column title="${newspaper.publicNewspaper}">
+			<acme:button url="article/display.do?articleId=${article.id}"
+				code="article.display" />
 	</display:column>
 	<display:column>
 		<security:authorize access="hasRole('ADMIN')">
