@@ -38,7 +38,7 @@
 <acme:pagination page="${page}" pageNum="${pageNum}" requestURI="${requestURI}"/>
 
 <jstl:if test="${not empty messageFolders}">
-	<display:table name="messageFolders" id="messageFolder"
+	<display:table name="messageFolders" id="messageFolderList"
 		requestURI="messageFolder/list.do" >
 
 		<spring:message code="messageFolder.name" var="name" />
@@ -47,7 +47,7 @@
 		<spring:message code="messageFolder.messageFolderChildren"
 			var="messageFolderChildren" />
 		<display:column title="${messageFolderChildren}">
-			<a href="messageFolder/list.do?messageFolderId=${messageFolder.id}">
+			<a href="messageFolder/list.do?messageFolderId=${messageFolderList.id}">
 				<button class = "btn">
 					<spring:message code="messageFolder.messageFolderChildrenLink" />
 				</button>
@@ -56,15 +56,15 @@
 
 		<spring:message code="messageFolder.messages" var="messages" />
 		<display:column title="${messages}">
-			<a href="message/list.do?messageFolderId=${messageFolder.id}">
+			<a href="message/list.do?messageFolderId=${messageFolderList.id}">
 				<button class = "btn">
 					<spring:message code="messageFolder.messagesLink" />
 				</button>
 			</a>
 		</display:column>
 		<display:column>
-			<jstl:if test="${!messageFolder.isDefault}">
-				<a href="messageFolder/edit.do?messageFolderId=${messageFolder.id}">
+			<jstl:if test="${!messageFolderList.isDefault}">
+				<a href="messageFolder/edit.do?messageFolderId=${messageFolderList.id}">
 					<button class = "btn">
 						<spring:message code="messageFolder.edit" />
 					</button>

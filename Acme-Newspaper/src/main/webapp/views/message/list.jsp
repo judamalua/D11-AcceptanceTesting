@@ -27,7 +27,7 @@
 
 <display:table 
 	name="messages"
-	id="message"
+	id="messageList"
 	requestURI="message/list.do">
 	
 	<spring:message code="message.priority" var="priority"/>
@@ -54,13 +54,13 @@
 	</jstl:if>
 	
 	<display:column >
-		<a href="message/delete.do?messageId=${message.id}&messageFolderId=${messageFolder.id}">
+		<a href="message/delete.do?messageId=${messageList.id}&messageFolderId=${messageFolder.id}">
 			<button class = "btn">
 				<spring:message code="message.delete"/>
 			</button>
 		</a>
 		
-		<a href="message/move.do?messageId=${message.id}">
+		<a href="message/move.do?messageId=${messageList.id}">
 			<button class = "btn">
 				<spring:message code="message.move"/>
 			</button>

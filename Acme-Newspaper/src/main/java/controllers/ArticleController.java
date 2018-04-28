@@ -75,9 +75,11 @@ public class ArticleController extends AbstractController {
 		boolean validCustomer = false;
 		boolean newspaperPublished = false;
 		boolean owner = false;
+		boolean isLogged = false;
 
 		try {
 
+			isLogged = this.actorService.getLogged();
 			result = new ModelAndView("article/display");
 			article = this.articleService.findOne(articleId);
 			Assert.notNull(article);
@@ -97,11 +99,18 @@ public class ArticleController extends AbstractController {
 								if (validCustomer)
 									break;
 							}
-
 							Assert.isTrue(validCustomer);
 						}
-			} else
+				if (!actor.equals(writer)) {
+					Assert.isTrue(article.getFinalMode());
+					Assert.isTrue(newspaper.getPublicationDate() != null);
+				}
+
+			} else {
 				Assert.isTrue(newspaper.getPublicNewspaper());
+				Assert.isTrue(newspaper.getPublicationDate() != null);
+				Assert.isTrue(article.getFinalMode());
+			}
 
 			followUps = this.articleService.findFollowUpsByArticle(pageable, articleId);
 
@@ -111,6 +120,7 @@ public class ArticleController extends AbstractController {
 				owner = actor.equals(writer);
 
 			result.addObject("newspaperPublished", newspaperPublished);
+			result.addObject("isLogged", isLogged);
 			result.addObject("writer", writer);
 			result.addObject("owner", owner);
 			result.addObject("article", article);
@@ -130,6 +140,7 @@ public class ArticleController extends AbstractController {
 		final Page<Article> articles;
 		Pageable pageable;
 		Configuration configuration;
+
 		try {
 			configuration = this.configurationService.findConfiguration();
 			pageable = new PageRequest(page, configuration.getPageSize());
@@ -143,7 +154,7 @@ public class ArticleController extends AbstractController {
 			result.addObject("requestUri", "article/search.do");
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;

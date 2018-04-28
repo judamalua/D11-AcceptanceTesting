@@ -17,7 +17,7 @@
 
 <acme:pagination requestURI = "${requestURI}?page=" pageNum = "${pageNum}" page = "${page}"/>
 
-<display:table name="users" id="user" requestURI="${requestURI}"
+<display:table name="users" id="userList" requestURI="${requestURI}"
 	class="displaytag">
 
 	<spring:message code="user.name" var="name" />
@@ -27,12 +27,10 @@
 	<display:column property="surname" title="${surname}"  />
 
 	<spring:message code="user.postalAddress" var="postalAddress" />
-	<display:column property="postalAddress" title="${postalAddress}"
-		sortable="true" />
+	<display:column property="postalAddress" title="${postalAddress}"/>
 
 	<spring:message code="user.phoneNumber" var="phoneNumber" />
-	<display:column property="phoneNumber" title="${phoneNumber}"
-		sortable="false" />
+	<display:column property="phoneNumber" title="${phoneNumber}"/>
 
 	<spring:message code="user.email" var="email" />
 	<display:column property="email" title="${email}"  />
@@ -42,14 +40,14 @@
 		
 	<display:column>
 		<security:authorize access="hasRole('USER')">
-		<jstl:if test="${!principal.users.contains(user) && principal.id != user.id && followersView}">
+		<jstl:if test="${!principal.users.contains(userList) && principal.id != userList.id && followersView}">
 			<acme:button
-				url="actor/user/follow.do?userId=${user.id}&followersView=true"
+				url="actor/user/follow.do?userId=${userList.id}&followersView=true"
 				code="user.follow" />
 		</jstl:if>
-		<jstl:if test="${!principal.users.contains(user) && principal.id != user.id && !followedView && !followersView}">
+		<jstl:if test="${!principal.users.contains(user) && principal.id != userList.id && !followedView && !followersView}">
 			<acme:button
-				url="actor/user/follow.do?userId=${user.id}"
+				url="actor/user/follow.do?userId=${userList.id}"
 				code="user.follow" />
 		</jstl:if>
 		</security:authorize>
@@ -57,26 +55,26 @@
 	
 	<display:column>
 		<security:authorize access="hasRole('USER')">
-		<jstl:if test="${principal.users.contains(user) && principal.id != user.id && followedView}">
+		<jstl:if test="${principal.users.contains(userList) && principal.id != userList.id && followedView}">
 			<acme:button
-				url="actor/user/follow.do?userId=${user.id}&followedView=true"
+				url="actor/user/follow.do?userId=${userList.id}&followedView=true"
 				code="user.unfollow" />
 		</jstl:if>
-		<jstl:if test="${principal.users.contains(user) && principal.id != user.id && followersView}">
+		<jstl:if test="${principal.users.contains(userList) && principal.id != userList.id && followersView}">
 			<acme:button
-				url="actor/user/follow.do?userId=${user.id}&followersView=true"
+				url="actor/user/follow.do?userId=${userList.id}&followersView=true"
 				code="user.unfollow" />
 		</jstl:if>
-		<jstl:if test="${principal.users.contains(user) && principal.id != user.id && !followedView && !followersView}">
+		<jstl:if test="${principal.users.contains(userList) && principal.id != userList.id && !followedView && !followersView}">
 			<acme:button
-				url="actor/user/follow.do?userId=${user.id}"
+				url="actor/user/follow.do?userId=${userList.id}"
 				code="user.unfollow" />
 		</jstl:if>
 		</security:authorize>
 	</display:column>
 
 	<display:column>
-		<a href="user/display.do?actorId=${user.id}">
+		<a href="user/display.do?actorId=${userList.id}">
 			<button class="btn">
 				<spring:message code="user.display" />
 			</button>

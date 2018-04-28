@@ -27,21 +27,21 @@
 
 <!-- Table -->
 
-<display:table name="${ownFollowUps}" id="followUp"
+<display:table name="${ownFollowUps}" id="followUpList"
 	requestURI="${requestUri}">
 
-	<display:column property="title" title="${titleName}" sortable="true" />
+	<display:column property="title" title="${titleName}" />
 	<display:column property="publicationDate" title="${titlePublication}"
-		format="${formatMoment}" sortable="true" />
+		format="${formatMoment}" />
 	<display:column>
-		<acme:button url="followUp/display.do?followUpId=${followUp.id}"
+		<acme:button url="followUp/display.do?followUpId=${followUpList.id}"
 			code="followUp.details" />
 	</display:column>
 
 
 	<display:column>
 				<acme:button
-					url="followUp/user/edit.do?followUpId=${followUp.id}"
+					url="followUp/user/edit.do?followUpId=${followUpList.id}"
 					code="followUp.edit" />
 	</display:column>
 
