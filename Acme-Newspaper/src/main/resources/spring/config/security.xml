@@ -99,6 +99,7 @@
   		<security:intercept-url pattern="/volume/display.do" access="permitAll" requires-channel="https"  />
   		<security:intercept-url pattern="/volume/user/create.do" access="hasRole('USER')" requires-channel="https"  />
   		<security:intercept-url pattern="/volume/user/edit.do" access="hasRole('USER')" requires-channel="https"  />
+  		<security:intercept-url pattern="/volume/customer/subscribe.do" access="hasRole('CUSTOMER')" requires-channel="https"  />
   		
   		<security:intercept-url pattern="/message/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/messageFolder/*" access="isAuthenticated()" /> 

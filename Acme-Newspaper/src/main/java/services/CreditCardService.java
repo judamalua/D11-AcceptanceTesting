@@ -206,4 +206,13 @@ public class CreditCardService {
 
 		return result;
 	}
+
+	public CreditCard getCreditCardUserVolume(final int volumeId, final int customerId) {
+		CreditCard result;
+
+		result = this.creditCardRepository.getCreditCardUserVolume(volumeId, customerId);
+
+		return result;
+	}
+
 }

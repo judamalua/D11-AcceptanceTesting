@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.VolumeRepository;
+import domain.CreditCard;
 import domain.Newspaper;
 import domain.User;
 import domain.Volume;
@@ -36,6 +38,12 @@ public class VolumeService {
 
 	@Autowired
 	private UserService			userService;
+
+	@Autowired
+	private CreditCardService	creditCardService;
+
+	@Autowired
+	private NewspaperService	newspaperService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -149,6 +157,34 @@ public class VolumeService {
 		result = this.userService.findPublishedNewspapersByUser(user.getId());
 
 		return result;
+	}
+
+	public CreditCard subscribe(final CreditCard creditCard, final Volume volume) {
+		Assert.notNull(volume);
+
+		Collection<Newspaper> newspapers;
+		Collection<Volume> volumes;
+		CreditCard result;
+
+		newspapers = this.volumeRepository.getSubscribableNewspapersFromVolume(volume.getId());
+
+		if (creditCard.getVolumes() != null)
+			creditCard.getVolumes().add(volume);
+		else {
+			volumes = new ArrayList<Volume>();
+			volumes.add(volume);
+			creditCard.setVolumes(volumes);
+		}
+
+		result = this.creditCardService.save(creditCard);
+
+		for (final Newspaper n : newspapers) {
+			n.getCreditCards().add(result);
+			this.newspaperService.save(n);
+		}
+
+		return result;
+
 	}
 
 }
