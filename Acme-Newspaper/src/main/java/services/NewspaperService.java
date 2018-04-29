@@ -203,6 +203,7 @@ public class NewspaperService {
 		}
 
 		this.validator.validate(result, binding);
+		this.newspaperRepository.flush();
 
 		return result;
 	}
@@ -360,4 +361,11 @@ public class NewspaperService {
 
 		return result;
 	}
+
+	public Collection<Newspaper> findNewspaperByAdvertisement(final int advertisementId) {
+		Collection<Newspaper> result;
+		result = this.newspaperRepository.findNewspaperByAdvertisement(advertisementId);
+		return result;
+	}
+
 }

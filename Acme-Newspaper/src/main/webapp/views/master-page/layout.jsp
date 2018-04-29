@@ -148,15 +148,19 @@
 					{
 						"orderable" : false,
 						targets : [
-								1,2
+								1, 2, 3
 						]
 					}
 				]
-			
 		});
 
 		$('#chirpList').DataTable({
 			paging : false,
+			"order" : [
+						[
+							1, 'desc'
+						]
+					],
 			"columnDefs" : [
 				{
 					"orderable" : false,

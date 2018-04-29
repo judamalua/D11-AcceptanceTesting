@@ -97,7 +97,7 @@ public class AdminService {
 	public Admin reconstruct(final UserCustomerAdminForm userAdminForm, final BindingResult binding) {
 		Admin result;
 		final MessageFolder inbox, outbox, notificationbox, trashbox, spambox;
-		final Collection<MessageFolder> messageFolders;
+		final Collection<MessageFolder> messageFolders, savedMessageFolders;
 
 		if (userAdminForm.getId() == 0) {
 
@@ -140,7 +140,7 @@ public class AdminService {
 			messageFolders.add(spambox);
 			messageFolders.add(notificationbox);
 
-			final Collection<MessageFolder> savedMessageFolders = new ArrayList<MessageFolder>();
+			savedMessageFolders = new ArrayList<MessageFolder>();
 
 			for (final MessageFolder mf : messageFolders)
 				savedMessageFolders.add(this.messageFolderService.saveDefaultMessageFolder(mf));
@@ -158,6 +158,7 @@ public class AdminService {
 			result.setBirthDate(userAdminForm.getBirthDate());
 		}
 		this.validator.validate(result, binding);
+		this.adminRepository.flush();
 
 		return result;
 	}

@@ -113,4 +113,7 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 
 	@Query("select n from Volume v join v.newspapers n where v.id = ?1")
 	Collection<Newspaper> findNewspapersByVolume(Integer volumeId);
+
+	@Query("select n from Newspaper n join n.advertisements a where a.id=?1")
+	Collection<Newspaper> findNewspaperByAdvertisement(int advertisementId);
 }

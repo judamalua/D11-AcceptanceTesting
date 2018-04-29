@@ -72,7 +72,7 @@ public class AdvertisementAdminController extends AbstractController {
 			result.addObject("requestUri", "advertisement/admin/list.do?");
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;

@@ -56,6 +56,9 @@
                     <li class="divider"></li>
                     <li><a href="chirp/user/list.do"><spring:message
                                 code="master.page.chirp.yourlist" /></a></li>
+                     <li class="divider"></li>
+                    <li><a href="volume/user/list.do"><spring:message
+                                code="master.page.volume.user.list" /></a></li>
                 </ul>
 
                 <!-- Dropdown Trigger -->
@@ -93,11 +96,27 @@
                             code="master.page.admin" /><i class="material-icons right">arrow_drop_down</i></a></li>
             </security:authorize>
             
+            <security:authorize access="hasRole('AGENT')">
+                <!-- Dropdown Structure -->
+                <ul id="dropdownAgentFunctions" class="dropdown-content">
+                    <li><a href="advertisement/agent/list.do"><spring:message
+                                code="master.page.listAdvertisment" /></a></li>
+                </ul>
+
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-button" href="#!"
+                    data-activates="dropdownAgentFunctions"><spring:message
+                            code="master.page.agent" /><i class="material-icons right">arrow_drop_down</i></a></li>
+            </security:authorize>
+            
             <security:authorize access="hasRole('CUSTOMER')">
                 <!-- Dropdown Structure -->
                 <ul id="dropdownCustomerFunctions" class="dropdown-content">
                     <li><a class="fNiv" href="newspaper/customer/list.do"> <spring:message
                             code="master.page.subscribedList" /></a></li>
+                    <li class="divider"></li>
+                    <li><a class="fNiv" href="volume/customer/list.do"> <spring:message
+                            code="master.page.volume.customer.list" /></a></li>
                     <li class="divider"></li>
                 </ul>
 
