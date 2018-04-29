@@ -191,4 +191,12 @@ public class CustomerService {
 
 		return result;
 	}
+
+	public Collection<Customer> getCustomersSubscribedToVolume(final int volumeId) {
+		Collection<Customer> result;
+
+		result = this.customerRepository.getCustomersSubscribedToVolume(volumeId);
+
+		return result;
+	}
 }

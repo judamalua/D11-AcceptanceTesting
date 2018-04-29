@@ -1362,6 +1362,7 @@
 		<property name="user" ref="User1"/>
 		<property name="newspapers">
 			<list>
+				<ref bean="Newspaper3" />
 			</list>
 		</property>
 	</bean>

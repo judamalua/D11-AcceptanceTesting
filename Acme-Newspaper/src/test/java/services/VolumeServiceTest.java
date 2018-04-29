@@ -141,27 +141,60 @@ public class VolumeServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void subscribeVolume() {
+	public void driverSubscribeVolume() {
+
+		final Object testingData[][] = {//Brand name, Holder name, CVV, Expiration month, Expiration year, Number, username, EntityId,ExpectedException
+			{
+				//No customer authenticated
+				"Brand name", "Holder name", 555, 12, 20, "4800134737642547", null, "Volume2", IllegalArgumentException.class
+			}, {
+				//Expired credit card
+				"Brand name", "Holder name", 555, 03, 18, "4800134737642547", "customer2", "Volume2", IllegalArgumentException.class
+			}, {
+				//Positive test
+				"Brand name", "Holder name", 555, 12, 20, "4800134737642547", "customer2", "Volume2", null
+			}, {
+				//Positive test
+				"Brand name", "Holder name", 555, 12, 20, "4800134737642547", "customer2", "Volume1", null
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.templateSubscribeVolume((String) testingData[i][0], (String) testingData[i][1], (Integer) testingData[i][2], (Integer) testingData[i][3], (Integer) testingData[i][4], (String) testingData[i][5], (String) testingData[i][6],
+				(String) testingData[i][7], (Class<?>) testingData[i][8]);
+	}
+
+	protected void templateSubscribeVolume(final String brandName, final String holderName, final Integer cvv, final Integer expMonth, final Integer expYear, final String number, final String username, final String entityId, final Class<?> expected) {
 		CreditCard creditCard;
 		Volume volume;
 		Integer volumeId;
+		Class<?> caught;
 
-		super.authenticate("customer2");
+		caught = null;
 
-		volumeId = super.getEntityId("Volume2");
-		volume = this.volumeService.findOne(volumeId);
-		creditCard = this.creditCardService.create();
+		try {
+			super.authenticate(username);
 
-		creditCard.setBrandName("VISA");
-		creditCard.setHolderName("Holder name");
-		creditCard.setCvv(555);
-		creditCard.setExpirationMonth(12);
-		creditCard.setExpirationYear(20);
-		creditCard.setNumber("4800134737642547");
+			volumeId = super.getEntityId(entityId);
+			volume = this.volumeService.findOne(volumeId);
+			creditCard = this.creditCardService.create();
 
-		this.volumeService.subscribe(creditCard, volume);
+			creditCard.setBrandName(brandName);
+			creditCard.setHolderName(holderName);
+			creditCard.setCvv(cvv);
+			creditCard.setExpirationMonth(expMonth);
+			creditCard.setExpirationYear(expYear);
+			creditCard.setNumber(number);
 
-		this.volumeService.flush();
+			this.volumeService.subscribe(creditCard, volume);
+
+			this.volumeService.flush();
+
+			super.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+		super.checkExceptions(expected, caught);
 	}
 
 }
