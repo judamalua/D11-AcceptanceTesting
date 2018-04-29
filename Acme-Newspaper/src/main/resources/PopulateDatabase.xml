@@ -251,6 +251,14 @@
 		<property name="moment" value="2018/04/08 00:00" />
 		<property name="taboo" value="false" />
 	</bean>
+	<bean id="Chirp14" class="domain.Chirp">
+		<property name="title"
+			value="This is a chirp for an acceptance test" />
+		<property name="description"
+			value="So I did not think a lot about what to write" />
+		<property name="moment" value="2018/04/08 14:37" />
+		<property name="taboo" value="false" />
+	</bean>
 
 
 	<!-- %%%%%% domain.Customer %%%%%% -->
@@ -412,6 +420,7 @@
 				<ref bean="Chirp11" />
 				<ref bean="Chirp12" />
 				<ref bean="Chirp13" />
+				<ref bean="Chirp14" />
 			</list>
 		</property>
 		<property name="name" value="User 2" />

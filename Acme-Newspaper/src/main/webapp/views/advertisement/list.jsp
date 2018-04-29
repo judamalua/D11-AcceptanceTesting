@@ -64,12 +64,12 @@
 	<!-- To add an ad to a newspaper -->
 	<jstl:if test="${newspaper != null}">
 		<display:column>
-			<jstl:if test="${!isAdvetised[advertisementList_rowNum]}">
+			<jstl:if test="${!isAdvertised[advertisementList_rowNum-1]}">
 				<acme:button
 					url="advertisement/agent/advertise.do?advertisementId=${advertisementList.id}&newspaperId=${newspaper.id}"
 					code="advertisement.advertise" />
 			</jstl:if>
-			<jstl:if test="${isAdvetised[advertisementList_rowNum]}">
+			<jstl:if test="${isAdvertised[advertisementList_rowNum-1]}">
 				<acme:button
 					url="advertisement/agent/unadvertise.do?advertisementId=${advertisementList.id}&newspaperId=${newspaper.id}"
 					code="advertisement.unadvertise" />

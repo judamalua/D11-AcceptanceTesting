@@ -106,6 +106,7 @@ public class NewspaperController extends AbstractController {
 		Pageable pageable;
 		Configuration configuration;
 		Boolean subscriber;
+		Random random;
 
 		try {
 
@@ -137,7 +138,7 @@ public class NewspaperController extends AbstractController {
 				result.addObject("ownArticle", ownArticles);
 			}
 
-			final Random random = new Random();
+			random = new Random();
 			if (newspaper.getAdvertisements().size() > 0)
 				result.addObject("advertisement", newspaper.getAdvertisements().toArray()[random.nextInt(newspaper.getAdvertisements().size())]);
 			else
@@ -185,6 +186,7 @@ public class NewspaperController extends AbstractController {
 		result.addObject("page", page);
 		result.addObject("pageNum", newspapers.getTotalPages());
 		result.addObject("requestUri", "newspaper/search.do?search=" + search);
+
 		return result;
 	}
 }
