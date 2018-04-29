@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.VolumeRepository;
+import domain.Actor;
 import domain.CreditCard;
 import domain.Newspaper;
 import domain.User;
@@ -50,8 +51,11 @@ public class VolumeService {
 
 	public Volume create() {
 		Volume result;
+		User user;
 
+		user = (User) this.actorService.findActorByPrincipal();
 		result = new Volume();
+		result.setUser(user);
 
 		return result;
 	}
@@ -75,11 +79,44 @@ public class VolumeService {
 	public Volume save(final Volume volume) {
 		Assert.notNull(volume);
 
+		Actor principal;
 		Volume result;
+
+		principal = this.actorService.findActorByPrincipal();
+		if (principal instanceof User)
+			Assert.isTrue(principal.equals(volume.getUser()));
 
 		result = this.volumeRepository.save(volume);
 
 		return result;
+	}
+
+	public CreditCard subscribe(final CreditCard creditCard, final Volume volume) {
+		Assert.notNull(volume);
+
+		Collection<Newspaper> newspapers;
+		Collection<Volume> volumes;
+		CreditCard result;
+
+		newspapers = this.volumeRepository.getSubscribableNewspapersFromVolume(volume.getId());
+
+		if (creditCard.getVolumes() != null)
+			creditCard.getVolumes().add(volume);
+		else {
+			volumes = new ArrayList<Volume>();
+			volumes.add(volume);
+			creditCard.setVolumes(volumes);
+		}
+
+		result = this.creditCardService.save(creditCard);
+
+		for (final Newspaper n : newspapers) {
+			n.getCreditCards().add(result);
+			this.newspaperService.save(n);
+		}
+
+		return result;
+
 	}
 
 	public void delete(final Volume volume) {
@@ -179,32 +216,8 @@ public class VolumeService {
 		return result;
 	}
 
-	public CreditCard subscribe(final CreditCard creditCard, final Volume volume) {
-		Assert.notNull(volume);
-
-		Collection<Newspaper> newspapers;
-		Collection<Volume> volumes;
-		CreditCard result;
-
-		newspapers = this.volumeRepository.getSubscribableNewspapersFromVolume(volume.getId());
-
-		if (creditCard.getVolumes() != null)
-			creditCard.getVolumes().add(volume);
-		else {
-			volumes = new ArrayList<Volume>();
-			volumes.add(volume);
-			creditCard.setVolumes(volumes);
-		}
-
-		result = this.creditCardService.save(creditCard);
-
-		for (final Newspaper n : newspapers) {
-			n.getCreditCards().add(result);
-			this.newspaperService.save(n);
-		}
-
-		return result;
-
+	public void flush() {
+		this.volumeRepository.flush();
 	}
 
 }
