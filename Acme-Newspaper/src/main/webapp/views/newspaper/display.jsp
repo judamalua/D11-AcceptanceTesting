@@ -41,13 +41,6 @@
 
 <!-- Display -->
 
-<jstl:if test="${advertisement != null}">
-	<a href="${advertisement.additionalInfoLink}"> <img
-		class="sponsorshipBannerUrl" src="${advertisement.bannerUrl}"
-		alt="${advertisement.title}" />
-	</a>
-</jstl:if>
-
 <jstl:if test="${newspaper.pictureUrl != \"\"}">
 	<div class="parallax-container">
 		<div class="parallax">
@@ -55,6 +48,21 @@
 		</div>
 	</div>
 </jstl:if>
+<jstl:if test="${advertisement != null}">
+	<a href="${advertisement.additionalInfoLink}"> <img
+		class="sponsorshipBannerUrl" src="${advertisement.bannerURL}"
+		alt="${advertisement.title}" />
+	</a>
+</jstl:if>
+</br>
+<security:authorize access="hasRole('AGENT')">
+	<a href="advertisement/agent/list.do?newspaperId=${newspaper.id}">
+		<button class="btn">
+			<spring:message code="newspaper.advertisement.advetise" />
+		</button>
+	</a>
+</security:authorize>
+<br/>
 <h2>
 	<jstl:out value="${newspaper.title}" />
 </h2>

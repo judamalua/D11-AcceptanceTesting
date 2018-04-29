@@ -41,12 +41,13 @@
 		<acme:textbox code="advertisement.additionalInfoLink"
 			path="additionalInfoLink" required="true" />
 
-		<div class="cleared-div">
-			<h4>
-				<jstl:out value="${creditCardInfo}" />
-			</h4>
-		</div>
+
 		<jstl:if test="${advertisement.id == 0}">
+			<div class="cleared-div">
+				<h4>
+					<jstl:out value="${creditCardInfo}" />
+				</h4>
+			</div>
 			<div class="cardForm">
 				<acme:textbox code="advertisement.holderName" path="holderName"
 					required="true" />
@@ -72,7 +73,11 @@
 		<button type="submit" name="save" class="btn">
 			<spring:message code="advertisement.save" />
 		</button>
-
-		<acme:cancel url="advertisement/agent/list.do" code="advertisement.cancel" />
+		<jstl:if test="${advertisement.id != 0}">
+			<acme:delete clickCode="advertisement.confirm.delete" name="delete"
+				code="advertisement.delete" />
+		</jstl:if>
+		<acme:cancel url="advertisement/agent/list.do"
+			code="advertisement.cancel" />
 	</form:form>
 </div>
