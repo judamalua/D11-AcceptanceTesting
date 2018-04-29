@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -22,6 +23,7 @@ public class MessageFolder extends DomainEntity {
 	private boolean	isDefault;
 
 
+	@SafeHtml
 	@NotBlank
 	public String getName() {
 		return this.name;

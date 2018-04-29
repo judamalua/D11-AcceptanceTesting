@@ -71,10 +71,10 @@ public class AdvertisementAgentController extends AbstractController {
 				final Newspaper newspaper = this.newspaperService.findOne(newspaperId);
 				Assert.isTrue(newspaper.getPublicationDate() != null);
 				result.addObject("newspaper", newspaper);
-				final Collection<Boolean> isAdvetised = new ArrayList<Boolean>();
+				final Collection<Boolean> isAdvertised = new ArrayList<Boolean>();
 				for (final Advertisement ad : advertisements.getContent())
-					isAdvetised.add(newspaper.getAdvertisements().contains(ad));
-				result.addObject("isAdvertised", isAdvetised);
+					isAdvertised.add(newspaper.getAdvertisements().contains(ad));
+				result.addObject("isAdvertised", isAdvertised);
 			}
 
 		} catch (final Throwable oops) {
@@ -197,10 +197,10 @@ public class AdvertisementAgentController extends AbstractController {
 			result.addObject("requestUri", "advertisement/agent/list.do");
 			Assert.isTrue(newspaper.getPublicationDate() != null);
 			result.addObject("newspaper", newspaper);
-			final Collection<Boolean> isAdvetised = new ArrayList<Boolean>();
+			final Collection<Boolean> isAdvertised = new ArrayList<Boolean>();
 			for (final Advertisement ad : advertisements.getContent())
-				isAdvetised.add(newspaper.getAdvertisements().contains(ad));
-			result.addObject("isAdvertised", isAdvetised);
+				isAdvertised.add(newspaper.getAdvertisements().contains(ad));
+			result.addObject("isAdvertised", isAdvertised);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -216,7 +216,7 @@ public class AdvertisementAgentController extends AbstractController {
 		Configuration configuration;
 
 		try {
-			//HOLA MANU TE SUBO ESTO
+			//PERROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 			final Newspaper newspaper = this.newspaperService.findOne(newspaperId);
 			final Advertisement advertisement = this.advertisementService.findOne(advertisementId);
 			this.advertisementService.unadvertise(advertisement, newspaper);
@@ -232,10 +232,10 @@ public class AdvertisementAgentController extends AbstractController {
 			result.addObject("requestUri", "advertisement/agent/list.do");
 			Assert.isTrue(newspaper.getPublicationDate() != null);
 			result.addObject("newspaper", newspaper);
-			final Collection<Boolean> isAdvetised = new ArrayList<Boolean>();
+			final Collection<Boolean> isAdvertised = new ArrayList<Boolean>();
 			for (final Advertisement ad : advertisements.getContent())
-				isAdvetised.add(newspaper.getAdvertisements().contains(ad));
-			result.addObject("isAdvertised", isAdvetised);
+				isAdvertised.add(newspaper.getAdvertisements().contains(ad));
+			result.addObject("isAdvertised", isAdvertised);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
