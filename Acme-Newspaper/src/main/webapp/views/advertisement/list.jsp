@@ -28,8 +28,9 @@
 	var="additionalInfoLinkTitle" />
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestUri}?newspaperId=${newspaper.id}&page=" page="${page}"
-	pageNum="${pageNum}" />
+<acme:pagination
+	requestURI="${requestUri}?newspaperId=${newspaper.id}&page="
+	page="${page}" pageNum="${pageNum}" />
 
 <!-- Table -->
 <display:table name="advertisements" id="advertisementList"
@@ -38,11 +39,11 @@
 	<display:column property="title" title="${titleTitle}" />
 
 	<display:column title="${bannerURLTitle}">
-		<img src="${bannerURL}" />
+		<img class="newspaperImg" src="${advertisementList.bannerURL}" />
 	</display:column>
 
 	<display:column title="${additionalInfoLinkTitle}">
-		<a href="${additionalInfoLink}">${additionalInfoLink}</a>
+		<a href="${advertisementList.additionalInfoLink}">${advertisementList.additionalInfoLink}</a>
 	</display:column>
 
 	<security:authorize access="hasRole('AGENT')">
@@ -59,7 +60,7 @@
 				code="advertisement.delete" />
 		</display:column>
 	</security:authorize>
-	
+
 	<!-- To add an ad to a newspaper -->
 	<jstl:if test="${newspaper != null}">
 		<display:column>
@@ -74,6 +75,9 @@
 					code="advertisement.unadvertise" />
 			</jstl:if>
 		</display:column>
-		
+
 	</jstl:if>
 </display:table>
+
+<acme:button url="advertisement/agent/create.do"
+	code="advertisement.create" />

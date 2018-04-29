@@ -83,7 +83,7 @@ public class AdvertisementService {
 		this.checkCreditCardExpired(advertisement);
 
 		advertisement.setAgent((Agent) this.actorService.findActorByPrincipal());
-		result = this.save(advertisement);
+		result = this.advertisementRepository.save(advertisement);
 		final Collection<Newspaper> newspapers = this.newspaperService.findNewspaperByAdvertisement(advertisement.getId());
 
 		for (final Newspaper newspaper : newspapers) {
