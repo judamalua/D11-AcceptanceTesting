@@ -52,6 +52,16 @@
 				url="advertisement/agent/edit.do?advertisementId=${advertisementList.id}"
 				code="advertisement.edit" />
 		</display:column>
+		<display:column class="col s3">
+			<acme:button
+				url="newspaper/agent/list.do?advertisementId=${advertisementList.id}&hasAdvertisment=true"
+				code="advertisement.newspaperList" />
+		</display:column>
+		<display:column class="col s3">
+			<acme:button
+				url="newspaper/agent/list.do?advertisementId=${advertisementList.id}&hasAdvertisment=false"
+				code="advertisement.newspaperNoList" />
+		</display:column>
 	</security:authorize>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column class="col s3">

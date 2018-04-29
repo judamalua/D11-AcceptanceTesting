@@ -34,16 +34,16 @@ public class AdvertisementAgentController extends AbstractController {
 	// Services -------------------------------------------------------
 
 	@Autowired
-	AdvertisementService	advertisementService;
+	private AdvertisementService	advertisementService;
 
 	@Autowired
-	NewspaperService		newspaperService;
+	private NewspaperService		newspaperService;
 
 	@Autowired
-	ActorService			actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	ConfigurationService	configurationService;
+	private ConfigurationService	configurationService;
 
 
 	// Listing ---------------------------------------------------------------		

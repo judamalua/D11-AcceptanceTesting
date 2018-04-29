@@ -95,6 +95,7 @@
   		<security:intercept-url pattern="/advertisement/agent/delete.do" access="hasRole('AGENT')" />
   		<security:intercept-url pattern="/advertisement/agent/advertise.do" access="hasRole('AGENT')" />
   		<security:intercept-url pattern="/advertisement/agent/unadvertise.do" access="hasRole('AGENT')" />
+  		<security:intercept-url pattern="/newspaper/agent/list.do" access="hasRole('AGENT')" />
   		
 		<security:intercept-url pattern="/newspaper/customer/list.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/newspaper/customer/subscribe.do" access="hasRole('CUSTOMER')" /> 

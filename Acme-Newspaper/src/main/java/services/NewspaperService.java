@@ -368,4 +368,13 @@ public class NewspaperService {
 		return result;
 	}
 
+	public Page<Newspaper> findNewspapersWithAdvertisements(final int advertisementId, final boolean hasAdvertisment, final Pageable pageable) {
+		Page<Newspaper> result;
+		if (hasAdvertisment)
+			result = this.newspaperRepository.findNewspaperByAdvertisementPage(advertisementId, pageable);
+		else
+			result = this.newspaperRepository.findNewspaperByNoAdvertisementPage(advertisementId, pageable);
+		return result;
+	}
+
 }

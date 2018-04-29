@@ -65,34 +65,37 @@ public class NewspaperController extends AbstractController {
 
 	@RequestMapping("/list")
 	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) throws IllegalArgumentException, IllegalAccessException, IOException {
-		final ModelAndView result;
-		final Page<Newspaper> newspapers;
-		final Pageable pageable;
-		final Configuration configuration;
-		final Collection<Boolean> ownNewspapers;
+		ModelAndView result;
+		Page<Newspaper> newspapers;
+		Pageable pageable;
+		Configuration configuration;
+		Collection<Boolean> ownNewspapers;
 		Actor actor;
 		User publisher;
+		try {
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
+			ownNewspapers = new ArrayList<>();
+			result = new ModelAndView("newspaper/list");
 
-		configuration = this.configurationService.findConfiguration();
-		pageable = new PageRequest(page, configuration.getPageSize());
-		ownNewspapers = new ArrayList<>();
-		result = new ModelAndView("newspaper/list");
+			newspapers = this.newspaperService.findPublicPublicatedNewspapers(pageable);
 
-		newspapers = this.newspaperService.findPublicPublicatedNewspapers(pageable);
+			if (this.actorService.getLogged()) {
+				actor = this.actorService.findActorByPrincipal();
+				for (final Newspaper newspaper : newspapers.getContent()) {
+					publisher = this.userService.findUserByNewspaper(newspaper.getId());
+					ownNewspapers.add(actor.equals(publisher));
+				}
 
-		if (this.actorService.getLogged()) {
-			actor = this.actorService.findActorByPrincipal();
-			for (final Newspaper newspaper : newspapers.getContent()) {
-				publisher = this.userService.findUserByNewspaper(newspaper.getId());
-				ownNewspapers.add(actor.equals(publisher));
+				result.addObject("ownNewspaper", ownNewspapers);
 			}
-
-			result.addObject("ownNewspaper", ownNewspapers);
+			result.addObject("newspapers", newspapers.getContent());
+			result.addObject("page", page);
+			result.addObject("pageNum", newspapers.getTotalPages());
+			result.addObject("requestUri", "newspaper/list.do?");
+		} catch (final Throwable throwable) {
+			result = new ModelAndView("redirect:/misc/403");
 		}
-		result.addObject("newspapers", newspapers.getContent());
-		result.addObject("page", page);
-		result.addObject("pageNum", newspapers.getTotalPages());
-		result.addObject("requestUri", "newspaper/list.do?");
 		return result;
 	}
 	@RequestMapping("/display")
@@ -158,35 +161,37 @@ public class NewspaperController extends AbstractController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search(@RequestParam(value = "search", defaultValue = "") final String search, @RequestParam(defaultValue = "0") final int page) {
-		final ModelAndView result;
-		final Page<Newspaper> newspapers;
-		final Pageable pageable;
-		final Configuration configuration;
-		final Collection<Boolean> ownNewspapers;
+		ModelAndView result;
+		Page<Newspaper> newspapers;
+		Pageable pageable;
+		Configuration configuration;
+		Collection<Boolean> ownNewspapers;
 		Actor actor;
 		User publisher;
+		try {
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
+			ownNewspapers = new ArrayList<>();
+			result = new ModelAndView("newspaper/list");
 
-		configuration = this.configurationService.findConfiguration();
-		pageable = new PageRequest(page, configuration.getPageSize());
-		ownNewspapers = new ArrayList<>();
-		result = new ModelAndView("newspaper/list");
+			newspapers = this.newspaperService.findPublicPublicatedNewspapersWithSearch(pageable, search);
 
-		newspapers = this.newspaperService.findPublicPublicatedNewspapersWithSearch(pageable, search);
+			if (this.actorService.getLogged()) {
+				actor = this.actorService.findActorByPrincipal();
+				for (final Newspaper newspaper : newspapers.getContent()) {
+					publisher = this.userService.findUserByNewspaper(newspaper.getId());
+					ownNewspapers.add(actor.equals(publisher));
+				}
 
-		if (this.actorService.getLogged()) {
-			actor = this.actorService.findActorByPrincipal();
-			for (final Newspaper newspaper : newspapers.getContent()) {
-				publisher = this.userService.findUserByNewspaper(newspaper.getId());
-				ownNewspapers.add(actor.equals(publisher));
+				result.addObject("ownNewspaper", ownNewspapers);
 			}
-
-			result.addObject("ownNewspaper", ownNewspapers);
+			result.addObject("newspapers", newspapers.getContent());
+			result.addObject("page", page);
+			result.addObject("pageNum", newspapers.getTotalPages());
+			result.addObject("requestUri", "newspaper/search.do?search=" + search);
+		} catch (final Throwable throwable) {
+			result = new ModelAndView("redirect:/misc/403");
 		}
-		result.addObject("newspapers", newspapers.getContent());
-		result.addObject("page", page);
-		result.addObject("pageNum", newspapers.getTotalPages());
-		result.addObject("requestUri", "newspaper/search.do?search=" + search);
-
 		return result;
 	}
 }
