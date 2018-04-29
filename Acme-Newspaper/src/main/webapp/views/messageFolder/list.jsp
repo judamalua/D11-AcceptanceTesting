@@ -9,7 +9,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <jstl:if test="${father!=null}">
 	<jstl:if test="${ father.messageFolderFather==null}">
@@ -28,13 +28,12 @@
 		</h2>
 	</jstl:if>
 </jstl:if>
-	<jstl:if test="${ father.messageFolderFather==null}">
+	<jstl:if test="${father==null}">
 			<jstl:set value="messageFolder/list.do?page=" var="requestURI"/>
 	</jstl:if>
-		<jstl:if test="${ father.messageFolderFather!=null}">
-			<jstl:set value="messageFolder/list.do?messageFolderId=${father.id}&page="/>
+		<jstl:if test="${ father!=null}">
+			<jstl:set value="messageFolder/list.do?messageFolderId=${father.id}&page=" var="requestURI"/>
 	</jstl:if>
-
 <acme:pagination page="${page}" pageNum="${pageNum}" requestURI="${requestURI}"/>
 
 <jstl:if test="${not empty messageFolders}">

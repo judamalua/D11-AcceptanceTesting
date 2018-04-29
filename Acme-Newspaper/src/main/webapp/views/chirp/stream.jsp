@@ -35,7 +35,9 @@
 	<spring:message code="chirp.description" var="description" />
 	<display:column property="description" title="${description}" />
 
-	<spring:message code="chirp.delete" var="titleDelete" />
+	<security:authorize access="hasRole('ADMIN')">
+		<spring:message code="chirp.delete" var="titleDelete" />
+	</security:authorize>
 
 	<display:column title="${titleDelete}">
 		<security:authorize access="hasRole('ADMIN')">
