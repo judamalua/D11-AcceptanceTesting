@@ -159,6 +159,26 @@ public class VolumeService {
 		return result;
 	}
 
+	public Page<Volume> findVolumesByCustomer(final int customerId, final Pageable pageable) {
+		Page<Volume> result;
+
+		Assert.notNull(pageable);
+
+		result = this.volumeRepository.findVolumesByCustomer(customerId, pageable);
+
+		return result;
+	}
+
+	public Page<Volume> findVolumesByUser(final int customerId, final Pageable pageable) {
+		Page<Volume> result;
+
+		Assert.notNull(pageable);
+
+		result = this.volumeRepository.findVolumesByUser(customerId, pageable);
+
+		return result;
+	}
+
 	public CreditCard subscribe(final CreditCard creditCard, final Volume volume) {
 		Assert.notNull(volume);
 

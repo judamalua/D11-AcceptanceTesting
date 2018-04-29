@@ -46,15 +46,7 @@
 		<acme:button url="volume/display.do?volumeId=${volumeList.id}"
 			code="volume.display" />
 	</display:column>
-
-<!-- 
-	<display:column>
-		<security:authorize access="hasRole('CUSTOMER')">
-				<acme:button url="volume/customer/subscribe.do?volumeId=${volume.id}"
-			code="volume.subscribe" />
-		</security:authorize>
-	</display:column>
- -->	
+	
 	<display:column>
 		<jstl:if test="${volumeList.user.id == userId}">
 				<acme:button url="volume/user/edit.do?volumeId=${volumeList.id}"

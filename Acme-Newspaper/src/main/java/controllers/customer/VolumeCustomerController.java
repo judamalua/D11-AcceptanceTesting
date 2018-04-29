@@ -4,6 +4,9 @@ package controllers.customer;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -14,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.ConfigurationService;
 import services.CreditCardService;
 import services.VolumeService;
 import controllers.AbstractController;
+import domain.Configuration;
 import domain.CreditCard;
 import domain.Customer;
 import domain.Volume;
@@ -27,14 +32,46 @@ public class VolumeCustomerController extends AbstractController {
 
 	// Services -------------------------------------------------------
 	@Autowired
-	private VolumeService		volumeService;
+	private VolumeService			volumeService;
 
 	@Autowired
-	private CreditCardService	creditCardService;
+	private CreditCardService		creditCardService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
+	@Autowired
+	private ConfigurationService	configurationService;
+
+
+	// List ---------------------------------------------------------
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) {
+		ModelAndView result;
+		Page<Volume> volumes;
+		Pageable pageable;
+		Configuration configuration;
+		Customer customer;
+
+		try {
+			customer = (Customer) this.actorService.findActorByPrincipal();
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
+			result = new ModelAndView("volume/list");
+
+			volumes = this.volumeService.findVolumesByCustomer(customer.getId(), pageable);
+
+			result.addObject("volumes", volumes.getContent());
+			result.addObject("page", page);
+			result.addObject("pageNum", volumes.getTotalPages());
+			result.addObject("requestUri", "volume/customer/list.do?");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
+
+		return result;
+
+	}
 
 	// Subscribe ---------------------------------------------------------
 

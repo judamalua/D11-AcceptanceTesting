@@ -56,6 +56,9 @@
                     <li class="divider"></li>
                     <li><a href="chirp/user/list.do"><spring:message
                                 code="master.page.chirp.yourlist" /></a></li>
+                     <li class="divider"></li>
+                    <li><a href="volume/user/list.do"><spring:message
+                                code="master.page.volume.user.list" /></a></li>
                 </ul>
 
                 <!-- Dropdown Trigger -->
@@ -98,6 +101,9 @@
                 <ul id="dropdownCustomerFunctions" class="dropdown-content">
                     <li><a class="fNiv" href="newspaper/customer/list.do"> <spring:message
                             code="master.page.subscribedList" /></a></li>
+                    <li class="divider"></li>
+                    <li><a class="fNiv" href="volume/customer/list.do"> <spring:message
+                            code="master.page.volume.customer.list" /></a></li>
                     <li class="divider"></li>
                 </ul>
 
