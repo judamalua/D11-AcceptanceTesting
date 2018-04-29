@@ -24,4 +24,7 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
 	@Query("select a from Advertisement a where a.taboo=true")
 	Page<Advertisement> findTabooAdvertisements(Pageable pageable);
 
+	@Query("select a from Advertisement a where a.agent.id=?1")
+	Page<Advertisement> findByAgentPage(int agentId, Pageable pageable);
+
 }

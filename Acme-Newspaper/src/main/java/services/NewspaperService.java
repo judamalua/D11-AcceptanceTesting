@@ -360,4 +360,11 @@ public class NewspaperService {
 
 		return result;
 	}
+
+	public Collection<Newspaper> findNewspaperByAdvertisement(final int advertisementId) {
+		Collection<Newspaper> result;
+		result = this.newspaperRepository.findNewspaperByAdvertisement(advertisementId);
+		return result;
+	}
+
 }
