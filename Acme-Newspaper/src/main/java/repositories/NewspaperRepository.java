@@ -120,6 +120,6 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	@Query("select n from Newspaper n join n.advertisements a where a.id=?1")
 	Page<Newspaper> findNewspaperByAdvertisementPage(int advertisementId, Pageable pageable);
 
-	@Query("select n from Newspaper n join n.advertisements a where a.id!=?1")
+	@Query("select n from Newspaper n join n.advertisements a where (n.publicationDate!=null or n.publicationDate!='') and (not(a.id=?1))")
 	Page<Newspaper> findNewspaperByNoAdvertisementPage(int advertisementId, Pageable pageable);
 }
