@@ -145,7 +145,17 @@
 				}
 			]
 		});
-
+		$('#advertisementList').DataTable({
+			paging : false,
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							1,2,3
+					]
+				}
+			]
+		});
 		$('#volumeList').DataTable({
 			paging : false,
 			"columnDefs" : [
