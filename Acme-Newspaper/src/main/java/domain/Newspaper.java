@@ -19,6 +19,7 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -68,6 +69,8 @@ public class Newspaper extends DomainEntity {
 	public void setDescription(final String description) {
 		this.description = description;
 	}
+
+	@URL
 	@SafeHtml
 	public String getPictureUrl() {
 		return this.pictureUrl;

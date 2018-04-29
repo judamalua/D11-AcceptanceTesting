@@ -180,6 +180,8 @@ public class FollowUpService {
 			result.setSummary(followUp.getSummary());
 		}
 		this.validator.validate(result, binding);
+		this.followUpRepository.flush();
+
 		return result;
 	}
 	/**

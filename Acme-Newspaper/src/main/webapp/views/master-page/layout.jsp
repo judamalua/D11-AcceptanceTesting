@@ -89,6 +89,22 @@
 				}
 			]
 		});
+		$('#newspaperVolumeList').DataTable({
+			paging : false,
+			"order" : [
+				[
+					2, 'desc'
+				]
+			],
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							0, 4
+					]
+				}
+			]
+		});
 
 		$('#userList').DataTable({
 			paging : false,
@@ -129,14 +145,24 @@
 				}
 			]
 		});
-
+		$('#advertisementList').DataTable({
+			paging : false,
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							1,2,3
+					]
+				}
+			]
+		});
 		$('#volumeList').DataTable({
 			paging : false,
 			"columnDefs" : [
 				{
 					"orderable" : false,
 					targets : [
-							3, 4, 5
+							1, 3, 4
 					]
 				}
 			]
@@ -148,15 +174,19 @@
 					{
 						"orderable" : false,
 						targets : [
-								1,2
+								1, 2, 3
 						]
 					}
 				]
-			
 		});
 
 		$('#chirpList').DataTable({
 			paging : false,
+			"order" : [
+						[
+							1, 'desc'
+						]
+					],
 			"columnDefs" : [
 				{
 					"orderable" : false,

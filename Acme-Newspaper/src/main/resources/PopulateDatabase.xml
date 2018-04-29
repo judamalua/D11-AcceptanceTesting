@@ -362,6 +362,8 @@
 				<ref bean="Newspaper4" />
 				<ref bean="Newspaper5" />
 				<ref bean="Newspaper6" />
+				<ref bean="Newspaper7" />
+				<ref bean="Newspaper8" />
 			</list>
 		</property>
 		<property name="chirps">
@@ -1146,6 +1148,17 @@
 			</list>
 		</property>
 	</bean>
+	<bean id="Article12" class="domain.Article">
+		<property name="title" value="Long life performance testing" />
+		<property name="summary" value="Nah just joking" />
+		<property name="body" value="Coding is better" />
+		<property name="finalMode" value="true" />
+		<property name="taboo" value="false" />
+		<property name="followUps">
+			<list>
+			</list>
+		</property>
+	</bean>
 
 	<!-- %%%%%% domain.FollowUp %%%%%% -->
 	<bean id="FollowUp1" class="domain.FollowUp">
@@ -1350,6 +1363,49 @@
 		<property name="articles">
 			<list>
 				<ref bean="Article10" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper7" class="domain.Newspaper">
+		<property name="title" value="Performance testing is better than acceptance testing!" />
+		<property name="description"
+			value="I hate butterflies" />
+		<property name="pictureUrl"
+			value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Morpho_didius_Male_Dos_MHNT.jpg/250px-Morpho_didius_Male_Dos_MHNT.jpg" />
+		<property name="publicNewspaper" value="true" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="advertisements">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+				<ref bean="Article12" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Newspaper8" class="domain.Newspaper">
+		<property name="title" value="This is a newspaper used for Acceptance testing" />
+		<property name="description"
+			value="Have fun!" />
+		<property name="pictureUrl"
+			value="https://www.lainformacion.com/files/article_main/uploads/2017/09/15/59bc19492035b.jpeg" />
+		<property name="publicNewspaper" value="true" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="advertisements">
+			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
 			</list>
 		</property>
 	</bean>

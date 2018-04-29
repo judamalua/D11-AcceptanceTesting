@@ -49,7 +49,7 @@ public class ChirpAdminController extends AbstractController {
 			result = new ModelAndView("redirect:list.do");
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;
@@ -82,7 +82,7 @@ public class ChirpAdminController extends AbstractController {
 			result.addObject("requestUri", "chirp/admin/list.do?");
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;

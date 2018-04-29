@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -17,6 +18,7 @@ import security.Authority;
 import security.UserAccount;
 import domain.Actor;
 import domain.Agent;
+import domain.MessageFolder;
 import forms.UserCustomerAdminForm;
 
 @Service
@@ -26,15 +28,18 @@ public class AgentService {
 	// Managed repository --------------------------------------------------
 
 	@Autowired
-	private AgentRepository	agentRepository;
+	private AgentRepository			agentRepository;
 
 	// Supporting services --------------------------------------------------
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private Validator		validator;
+	private MessageFolderService	messageFolderService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -113,6 +118,8 @@ public class AgentService {
 	public Agent reconstruct(final UserCustomerAdminForm userAdminForm, final BindingResult binding) {
 		Agent result;
 		Actor actor;
+		final MessageFolder inbox, outbox, notificationbox, trashbox, spambox;
+		final Collection<MessageFolder> messageFolders, savedMessageFolders;
 
 		if (userAdminForm.getId() == 0) {
 
@@ -126,6 +133,41 @@ public class AgentService {
 			result.setPhoneNumber(userAdminForm.getPhoneNumber());
 			result.setEmail(userAdminForm.getEmail());
 			result.setBirthDate(userAdminForm.getBirthDate());
+
+			inbox = this.messageFolderService.create();
+			inbox.setIsDefault(true);
+			inbox.setMessageFolderFather(null);
+			inbox.setName("in box");
+			outbox = this.messageFolderService.create();
+			outbox.setIsDefault(true);
+			outbox.setMessageFolderFather(null);
+			outbox.setName("out box");
+			notificationbox = this.messageFolderService.create();
+			notificationbox.setIsDefault(true);
+			notificationbox.setMessageFolderFather(null);
+			notificationbox.setName("notification box");
+			trashbox = this.messageFolderService.create();
+			trashbox.setIsDefault(true);
+			trashbox.setMessageFolderFather(null);
+			trashbox.setName("trash box");
+			spambox = this.messageFolderService.create();
+			spambox.setIsDefault(true);
+			spambox.setMessageFolderFather(null);
+			spambox.setName("spam box");
+
+			messageFolders = new ArrayList<MessageFolder>();
+			messageFolders.add(inbox);
+			messageFolders.add(outbox);
+			messageFolders.add(trashbox);
+			messageFolders.add(spambox);
+			messageFolders.add(notificationbox);
+
+			savedMessageFolders = new ArrayList<MessageFolder>();
+
+			for (final MessageFolder mf : messageFolders)
+				savedMessageFolders.add(this.messageFolderService.saveDefaultMessageFolder(mf));
+
+			result.setMessageFolders(savedMessageFolders);
 
 		} else {
 			actor = this.actorService.findActorByPrincipal();
@@ -142,6 +184,7 @@ public class AgentService {
 
 		}
 		this.validator.validate(result, binding);
+		this.agentRepository.flush();
 
 		return result;
 	}

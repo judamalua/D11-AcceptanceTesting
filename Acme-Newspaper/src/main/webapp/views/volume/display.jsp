@@ -71,31 +71,31 @@
 <acme:pagination page="${page}" pageNum="${pageNum}"
 	requestURI="volume/display.do?volumeId=${volume.id}&pageNewspaper=" />
 	
-<display:table name="${newspapers}" id="newspaperList"
+<display:table name="${newspapers}" id="newspaperVolumeList"
 	requestURI="volume/display.do" pagesize="${pagesize}">
 	
 	<display:column>
 		<jstl:if
-			test="${newspaperList.pictureUrl!=\"\" and newspaperList.pictureUrl!=null}">
-			<img src="${newspaperList.pictureUrl}" class="newspaperImg" />
+			test="${newspaperVolumeList.pictureUrl!=\"\" and newspaperVolumeList.pictureUrl!=null}">
+			<img src="${newspaperVolumeList.pictureUrl}" class="newspaperImg" />
 		</jstl:if>
 	</display:column>
 	
 	<display:column property="title" title="${titleNewspaper}"  />
 	<display:column property="publicationDate" title="${titlePublication}"
-		format="${formatMoment}" sortable="true" />
+		format="${formatMoment}"/>
 		
-	<display:column title="${titlePublic}" sortable="true">
-		<jstl:if test="${newspaperList.publicNewspaper}">
+	<display:column title="${titlePublic}">
+		<jstl:if test="${newspaperVolumeList.publicNewspaper}">
 			<i class="material-icons">public</i>
 		</jstl:if>
-		<jstl:if test="${!newspaperList.publicNewspaper}">
+		<jstl:if test="${!newspaperVolumeList.publicNewspaper}">
 			<i class="material-icons">not_interested</i>
 		</jstl:if>
 	</display:column>
 	
 	<display:column>
-		<acme:button url="newspaper/display.do?newspaperId=${newspaperList.id}"
+		<acme:button url="newspaper/display.do?newspaperId=${newspaperVolumeList.id}"
 			code="volume.newspaper.details" />
 	</display:column>
 		

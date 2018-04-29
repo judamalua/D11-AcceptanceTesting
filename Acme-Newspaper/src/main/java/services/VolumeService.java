@@ -172,6 +172,7 @@ public class VolumeService {
 		}
 
 		this.validator.validate(result, binding);
+		this.volumeRepository.flush();
 
 		return result;
 	}

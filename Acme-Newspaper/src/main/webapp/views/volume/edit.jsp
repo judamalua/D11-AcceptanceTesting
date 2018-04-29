@@ -34,18 +34,18 @@
 		<acme:textarea code="volume.description" path="description"
 			required="true" />
 		<acme:textbox code="volume.year" path="year" required="true" />
-		
-		<acme:select code="volume.newspapers" path="newspapers"
-		items="${elegibleNewspapers}" itemLabel="title" multiple="true" />
-		
-		<br/>
-		
-		<acme:submit name="save" code="volume.save" />
-		<jstl:if test="${volume.id!=0}">
-			<acme:delete clickCode="volume.confirm.delete" name="delete"
-				code="volume.delete" />
-		</jstl:if>
-		<acme:cancel url="volume/list.do" code="volume.cancel" />
 
+		<acme:select code="volume.newspapers" path="newspapers"
+			items="${elegibleNewspapers}" itemLabel="title" multiple="true" />
+
+		<br />
+		<div class="cleared-div">
+			<acme:submit name="save" code="volume.save" />
+			<jstl:if test="${volume.id!=0}">
+				<acme:delete clickCode="volume.confirm.delete" name="delete"
+					code="volume.delete" />
+			</jstl:if>
+			<acme:cancel url="volume/list.do" code="volume.cancel" />
+		</div>
 	</form:form>
 </div>
