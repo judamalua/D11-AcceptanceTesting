@@ -45,7 +45,7 @@
 				url="actor/user/follow.do?userId=${userList.id}&followersView=true"
 				code="user.follow" />
 		</jstl:if>
-		<jstl:if test="${!principal.users.contains(user) && principal.id != userList.id && !followedView && !followersView}">
+		<jstl:if test="${!principal.users.contains(userList) && principal.id != userList.id && !followedView && !followersView}">
 			<acme:button
 				url="actor/user/follow.do?userId=${userList.id}"
 				code="user.follow" />

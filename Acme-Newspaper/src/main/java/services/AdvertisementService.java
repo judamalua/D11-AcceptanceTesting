@@ -199,6 +199,7 @@ public class AdvertisementService {
 		}
 
 		this.validator.validate(result, binding);
+		this.advertisementRepository.flush();
 
 		return result;
 	}

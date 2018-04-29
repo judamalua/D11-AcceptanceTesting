@@ -212,7 +212,7 @@ public class NewspaperUserController extends AbstractController {
 
 			this.newspaperService.delete(newspaper);
 
-			result = new ModelAndView("redirect:/newspaper/list.do");
+			result = new ModelAndView("redirect:/newspaper/user/list.do?published=false");
 
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(newspaper, "newspaper.commit.error");

@@ -295,6 +295,7 @@ public class MessageFolderService {
 		}
 		this.validator.validate(result, binding);
 		this.messageFolderRepository.flush();
+
 		return result;
 	}
 }

@@ -87,8 +87,8 @@ public class CreditCardService {
 
 	public void delete(final CreditCard creditCard) {
 
-		assert creditCard != null;
-		assert creditCard.getId() != 0;
+		Assert.notNull(creditCard);
+		Assert.isTrue(creditCard.getId() != 0);
 
 		Assert.isTrue(this.creditCardRepository.exists(creditCard.getId()));
 
@@ -180,16 +180,23 @@ public class CreditCardService {
 	}
 
 	public void subscribe(final CreditCard creditCard, final Newspaper newspaper) {
+
 		Assert.isTrue(newspaper.getPublicationDate() != null); //Tests that the newspaper is published
 		Assert.isTrue(newspaper.getPublicNewspaper() == false); //Tests that the newspaper is private
 		Assert.isTrue(this.creditCardRepository.creditCardSubscribed(newspaper.getId(), this.actorService.findActorByPrincipal().getId()) == null);//Tests that the user is not already subscribed
-		final CreditCard savedCard = this.save(creditCard);
+
+		CreditCard savedCard;
+
+		savedCard = this.save(creditCard);
 		newspaper.getCreditCards().add(savedCard);
 		this.newspaperService.save(newspaper);
 	}
 
 	public CreditCard creditCardSubscribed(final int newspaperId, final int customerId) {
-		final CreditCard result = this.creditCardRepository.creditCardSubscribed(newspaperId, customerId);
+		final CreditCard result;
+
+		result = this.creditCardRepository.creditCardSubscribed(newspaperId, customerId);
+
 		return result;
 	}
 

@@ -145,6 +145,8 @@ public class ChirpService {
 		}
 
 		this.validator.validate(result, binding);
+		this.chirpRepository.flush();
+
 		return result;
 	}
 

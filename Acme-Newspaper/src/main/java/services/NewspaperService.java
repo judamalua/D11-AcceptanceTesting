@@ -203,6 +203,7 @@ public class NewspaperService {
 		}
 
 		this.validator.validate(result, binding);
+		this.newspaperRepository.flush();
 
 		return result;
 	}

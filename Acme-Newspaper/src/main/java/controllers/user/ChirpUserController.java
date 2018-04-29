@@ -109,11 +109,6 @@ public class ChirpUserController extends AbstractController {
 
 			result = new ModelAndView("chirp/list");
 			user = (User) this.actorService.findActorByPrincipal();
-			//			for (User follow: user.getUsers()){
-			//				for(Chirp chirpF : follow.getChirps()){
-			//					chirps.put(chirpF, follow.getName());
-			//				}
-			//			}
 			configuration = this.configurationService.findConfiguration();
 
 			pageable = new PageRequest(page, configuration.getPageSize());

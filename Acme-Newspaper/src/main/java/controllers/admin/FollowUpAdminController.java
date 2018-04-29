@@ -42,7 +42,7 @@ public class FollowUpAdminController extends AbstractController {
 			result = new ModelAndView("redirect:/article/display.do?articleId=" + article.getId());
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;

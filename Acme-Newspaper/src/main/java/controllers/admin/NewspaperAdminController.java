@@ -37,7 +37,7 @@ public class NewspaperAdminController extends AbstractController {
 
 			result = new ModelAndView("redirect:/newspaper/list.do");
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;
@@ -59,7 +59,7 @@ public class NewspaperAdminController extends AbstractController {
 			result.addObject("requestUri", "newspaper/admin/list.do?");
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;

@@ -96,6 +96,7 @@
 
 <display:table name="${articles}" id="articleList"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
+
 	<display:column title="${titleArticle}">
 		<security:authorize access="hasRole('CUSTOMER')">
 			<jstl:if
@@ -115,8 +116,11 @@
 				<jstl:out value="${articleList.title}" />
 			</jstl:if>
 		</security:authorize>
+
 	</display:column>
+
 	<display:column title="${titleSummaryArticle}">
+
 		<jstl:if test="${(fn:length(articleList.summary))<=40}">
 			<jstl:out value="${articleList.summary}" />
 		</jstl:if>
@@ -124,23 +128,25 @@
 			<jstl:out value="${fn:substring(articleList.summary,0,40)}..." />
 		</jstl:if>
 	</display:column>
-	<security:authorize access="hasRole('ADMIN')">
-		<display:column>
+
+	<display:column>
+		<security:authorize access="hasRole('ADMIN')">
 			<acme:button
 				url="article/admin/delete.do?articleId=${articleList.id}"
 				code="article.delete" />
-		</display:column>
-	</security:authorize>
-	<security:authorize access="hasRole('USER')">
+		</security:authorize>
+	</display:column>
 
-		<display:column>
+	<display:column>
+		<security:authorize access="hasRole('USER')">
 			<jstl:if
 				test="${fn:length(ownArticle)>0 and ownArticle[articleList_rowNum-1] and !articleList.finalMode   and newspaper.publicationDate==null}">
 				<acme:button url="article/user/edit.do?articleId=${articleList.id}"
 					code="article.edit" />
 			</jstl:if>
-		</display:column>
-	</security:authorize>
+		</security:authorize>
+	</display:column>
+
 </display:table>
 <security:authorize access="hasRole('USER')">
 	<jstl:if test="${newspaper.publicationDate==null}">

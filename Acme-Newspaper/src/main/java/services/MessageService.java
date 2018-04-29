@@ -238,6 +238,7 @@ public class MessageService {
 			result.setMessageFolder(message.getMessageFolder());
 		}
 		this.validator.validate(result, binding);
+		this.messageRepository.flush();
 
 		return result;
 	}
