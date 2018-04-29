@@ -89,6 +89,22 @@
 				}
 			]
 		});
+		$('#newspaperVolumeList').DataTable({
+			paging : false,
+			"order" : [
+				[
+					2, 'desc'
+				]
+			],
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							0, 4
+					]
+				}
+			]
+		});
 
 		$('#userList').DataTable({
 			paging : false,
@@ -136,7 +152,7 @@
 				{
 					"orderable" : false,
 					targets : [
-							3, 4, 5
+							1, 3, 4
 					]
 				}
 			]

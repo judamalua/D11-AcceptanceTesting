@@ -64,7 +64,7 @@ public class AdvertisementAdminController extends AbstractController {
 
 			advertisements = this.advertisementService.findTabooAdvertisements(pageable);
 
-			result = new ModelAndView("chirp/list");
+			result = new ModelAndView("advertisement/list");
 
 			result.addObject("advertisements", advertisements.getContent());
 			result.addObject("page", page);

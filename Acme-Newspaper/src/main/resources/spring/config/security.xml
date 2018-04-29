@@ -87,6 +87,7 @@
   		<security:intercept-url pattern="/chirp/admin/list.do" access="hasRole('ADMIN')" />
   		<security:intercept-url pattern="/newspaper/admin/list.do" access="hasRole('ADMIN')" />
   		<security:intercept-url pattern="/article/admin/list.do" access="hasRole('ADMIN')" />
+  		<security:intercept-url pattern="/advertisement/admin/**" access="hasRole('ADMIN')" />
   		
   		<security:intercept-url pattern="/advertisement/agent/list.do" access="hasRole('AGENT')" />
   		<security:intercept-url pattern="/advertisement/agent/create.do" access="hasRole('AGENT')" />

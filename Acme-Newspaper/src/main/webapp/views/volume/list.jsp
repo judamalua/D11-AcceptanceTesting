@@ -35,7 +35,7 @@
 	
 	
 <!-- Table -->
-<display:table name="volumes" id="volumeList"
+<display:table name="${volumes}" id="volumeList"
 	requestURI="${requestUri}page=${page}">
 
 	<display:column property="title" title="${titleTitle}"  />
