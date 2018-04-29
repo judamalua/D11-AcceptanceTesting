@@ -36,25 +36,25 @@
 <display:table name="advertisements" id="advertisementList"
 	requestURI="${requestUri}">
 
-	<display:column property="title" title="${titleTitle}" />
+	<display:column property="title" title="${titleTitle}" class="col s3"/>
 
-	<display:column title="${bannerURLTitle}">
-		<img class="newspaperImg" src="${advertisementList.bannerURL}" />
+	<display:column title="${bannerURLTitle}" class="col s3">
+		<img class="materialboxed" width="100" src="${advertisementList.bannerURL}" />
 	</display:column>
 
-	<display:column title="${additionalInfoLinkTitle}">
+	<display:column title="${additionalInfoLinkTitle}" class="col s3">
 		<a href="${advertisementList.additionalInfoLink}">${advertisementList.additionalInfoLink}</a>
 	</display:column>
 
 	<security:authorize access="hasRole('AGENT')">
-		<display:column>
+		<display:column class="col s3">
 			<acme:button
 				url="advertisement/agent/edit.do?advertisementId=${advertisementList.id}"
 				code="advertisement.edit" />
 		</display:column>
 	</security:authorize>
 	<security:authorize access="hasRole('ADMIN')">
-		<display:column>
+		<display:column class="col s3">
 			<acme:button
 				url="advertisement/admin/delete.do?advertisementId=${advertisementList.id}"
 				code="advertisement.delete" />
@@ -63,8 +63,8 @@
 
 	<!-- To add an ad to a newspaper -->
 	<jstl:if test="${newspaper != null}">
-		<display:column>
-			<jstl:if test="${!isAdvertised[advertisementList_rowNum-1]}">
+		<display:column class="col s3">
+			<jstl:if test="${!isAdvertised[advertisementList_rowNum-1]}" >
 				<acme:button
 					url="advertisement/agent/advertise.do?advertisementId=${advertisementList.id}&newspaperId=${newspaper.id}"
 					code="advertisement.advertise" />

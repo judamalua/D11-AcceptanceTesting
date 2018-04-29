@@ -54,6 +54,8 @@ public class AdvertisementAgentController extends AbstractController {
 		final Page<Advertisement> advertisements;
 		final Pageable pageable;
 		Configuration configuration;
+		Collection<Boolean> isAdvertised;
+		Newspaper newspaper;
 
 		try {
 			result = new ModelAndView("advertisement/list");
@@ -68,10 +70,10 @@ public class AdvertisementAgentController extends AbstractController {
 			result.addObject("requestUri", "advertisement/agent/list.do");
 
 			if (newspaperId != null) {
-				final Newspaper newspaper = this.newspaperService.findOne(newspaperId);
+				newspaper = this.newspaperService.findOne(newspaperId);
 				Assert.isTrue(newspaper.getPublicationDate() != null);
 				result.addObject("newspaper", newspaper);
-				final Collection<Boolean> isAdvertised = new ArrayList<Boolean>();
+				isAdvertised = new ArrayList<Boolean>();
 				for (final Advertisement ad : advertisements.getContent())
 					isAdvertised.add(newspaper.getAdvertisements().contains(ad));
 				result.addObject("isAdvertised", isAdvertised);
@@ -177,30 +179,14 @@ public class AdvertisementAgentController extends AbstractController {
 	@RequestMapping("/advertise")
 	public ModelAndView advertise(@RequestParam(required = true) final Integer newspaperId, @RequestParam(required = true) final Integer advertisementId, @RequestParam(required = false, defaultValue = "0") final Integer page) {
 		ModelAndView result;
-		final Page<Advertisement> advertisements;
-		final Pageable pageable;
-		Configuration configuration;
+		Newspaper newspaper;
+		Advertisement advertisement;
 
 		try {
-			final Newspaper newspaper = this.newspaperService.findOne(newspaperId);
-			final Advertisement advertisement = this.advertisementService.findOne(advertisementId);
+			newspaper = this.newspaperService.findOne(newspaperId);
+			advertisement = this.advertisementService.findOne(advertisementId);
 			this.advertisementService.advertise(advertisement, newspaper);
-			result = new ModelAndView("advertisement/list");
-			configuration = this.configurationService.findConfiguration();
-			pageable = new PageRequest(page, configuration.getPageSize());
-
-			advertisements = this.advertisementService.findByPrincipalPage(pageable);
-
-			result.addObject("advertisements", advertisements.getContent());
-			result.addObject("page", page);
-			result.addObject("pageNum", advertisements.getTotalPages());
-			result.addObject("requestUri", "advertisement/agent/list.do");
-			Assert.isTrue(newspaper.getPublicationDate() != null);
-			result.addObject("newspaper", newspaper);
-			final Collection<Boolean> isAdvertised = new ArrayList<Boolean>();
-			for (final Advertisement ad : advertisements.getContent())
-				isAdvertised.add(newspaper.getAdvertisements().contains(ad));
-			result.addObject("isAdvertised", isAdvertised);
+			result = new ModelAndView("redirect:/advertisement/agent/list.do?newspaperId=" + newspaperId);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -211,31 +197,14 @@ public class AdvertisementAgentController extends AbstractController {
 	@RequestMapping("/unadvertise")
 	public ModelAndView unadvertise(@RequestParam(required = true) final Integer newspaperId, @RequestParam(required = true) final Integer advertisementId, @RequestParam(required = false, defaultValue = "0") final Integer page) {
 		ModelAndView result;
-		final Page<Advertisement> advertisements;
-		final Pageable pageable;
-		Configuration configuration;
+		Newspaper newspaper;
+		Advertisement advertisement;
 
 		try {
-			//PERROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-			final Newspaper newspaper = this.newspaperService.findOne(newspaperId);
-			final Advertisement advertisement = this.advertisementService.findOne(advertisementId);
+			newspaper = this.newspaperService.findOne(newspaperId);
+			advertisement = this.advertisementService.findOne(advertisementId);
 			this.advertisementService.unadvertise(advertisement, newspaper);
-			result = new ModelAndView("advertisement/list");
-			configuration = this.configurationService.findConfiguration();
-			pageable = new PageRequest(page, configuration.getPageSize());
-
-			advertisements = this.advertisementService.findByPrincipalPage(pageable);
-
-			result.addObject("advertisements", advertisements.getContent());
-			result.addObject("page", page);
-			result.addObject("pageNum", advertisements.getTotalPages());
-			result.addObject("requestUri", "advertisement/agent/list.do");
-			Assert.isTrue(newspaper.getPublicationDate() != null);
-			result.addObject("newspaper", newspaper);
-			final Collection<Boolean> isAdvertised = new ArrayList<Boolean>();
-			for (final Advertisement ad : advertisements.getContent())
-				isAdvertised.add(newspaper.getAdvertisements().contains(ad));
-			result.addObject("isAdvertised", isAdvertised);
+			result = new ModelAndView("redirect:/advertisement/agent/list.do?newspaperId=" + newspaperId);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
