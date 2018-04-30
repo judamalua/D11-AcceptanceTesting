@@ -65,7 +65,7 @@ public class AdvertisementAdminController extends AbstractController {
 			if (taboo)
 				advertisements = this.advertisementService.findTabooAdvertisements(pageable);
 			else
-				advertisements = this.advertisementService.findAll(pageable);
+				advertisements = this.advertisementService.findNotTaboo(pageable);
 
 			result = new ModelAndView("advertisement/list");
 
