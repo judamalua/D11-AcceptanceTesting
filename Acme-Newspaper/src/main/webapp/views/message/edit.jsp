@@ -24,9 +24,6 @@
 		<div class="row">
 
 			<div class="input-field col s3">
-				<form:label path="priority">
-					<spring:message code="message.priority" />
-				</form:label>
 				<form:select path="priority">
 
 					<form:option title="${low}" value="LOW" />
@@ -34,6 +31,7 @@
 					<form:option title="${high}" value="HIGH" />
 				</form:select>
 				<form:errors cssClass="error" path="priority" />
+				<label for = "priority" ><spring:message code = "message.priority"/></label>
 			</div>
 		</div>
 	</div>
