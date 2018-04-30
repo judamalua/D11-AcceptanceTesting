@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
@@ -154,13 +153,9 @@ public class VolumeService {
 		User user;
 
 		if (volume.getId() == 0) {
-			Collection<Newspaper> newspapers;
-
 			user = (User) this.actorService.findActorByPrincipal();
 			result = volume;
-			newspapers = new HashSet<Newspaper>();
 
-			result.setNewspapers(newspapers);
 			result.setUser(user);
 
 		} else {
