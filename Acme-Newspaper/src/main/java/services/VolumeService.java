@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -151,12 +152,15 @@ public class VolumeService {
 	public Volume reconstruct(final Volume volume, final BindingResult binding) {
 		Volume result;
 		User user;
+		Integer year;
 
 		if (volume.getId() == 0) {
 			user = (User) this.actorService.findActorByPrincipal();
 			result = volume;
+			year = Calendar.getInstance().get(Calendar.YEAR);
 
 			result.setUser(user);
+			result.setYear(year);
 
 		} else {
 			result = this.findOne(volume.getId());

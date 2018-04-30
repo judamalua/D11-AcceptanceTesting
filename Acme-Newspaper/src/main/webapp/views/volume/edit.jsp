@@ -33,7 +33,6 @@
 		<acme:textbox code="volume.title" path="title" required="true" />
 		<acme:textarea code="volume.description" path="description"
 			required="true" />
-		<acme:textbox code="volume.year" path="year" required="true" />
 
 		<acme:select code="volume.newspapers" path="newspapers"
 			items="${elegibleNewspapers}" itemLabel="title" multiple="true" />
