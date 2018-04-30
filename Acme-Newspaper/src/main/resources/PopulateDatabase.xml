@@ -601,7 +601,7 @@
 				<ref bean="MessageFolder43" />
 				<ref bean="MessageFolder44" />
 				<ref bean="MessageFolder45" />
-				<ref bean="MessageFolder61" />
+				<ref bean="MessageFolder71" />
 			</list>
 		</property>
 	</bean>
