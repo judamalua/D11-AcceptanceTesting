@@ -601,6 +601,7 @@
 				<ref bean="MessageFolder43" />
 				<ref bean="MessageFolder44" />
 				<ref bean="MessageFolder45" />
+				<ref bean="MessageFolder61" />
 			</list>
 		</property>
 	</bean>
@@ -938,6 +939,10 @@
 	<bean id="MessageFolder70" class="domain.MessageFolder">
 		<property name="name" value="spam box" />
 		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder71" class="domain.MessageFolder">
+		<property name="name" value="family box" />
+		<property name="isDefault" value="false" />
 	</bean>
 	
 	<!-- %%%%%% domain.Message %%%%%% -->
