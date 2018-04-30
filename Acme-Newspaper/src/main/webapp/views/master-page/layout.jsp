@@ -8,7 +8,8 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -19,11 +20,12 @@
 <html>
 <head>
 
-<base href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/" />
+<base
+	href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<link rel="shortcut icon" href="favicon.ico"/> 
+<link rel="shortcut icon" href="favicon.ico" />
 
 
 
@@ -35,32 +37,205 @@
 <script src="scripts/cookieAjax.js"></script>
 <script src="scripts/businessNameAjax.js"></script>
 <script type="text/javascript">
-window.onload = function() {
-	  initialize();
+	window.onload = function() {
+		initialize();
 	};
-
 </script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
 
+		$('#messageFolderList').DataTable({
+			paging : false,
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							1, 2, 3
+					]
+				}
+			]
+		});
+
+		$('#messageList').DataTable({
+			paging : false,
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							1, 2, 6
+					]
+				}
+			]
+		});
+
+		$('#newspaperList').DataTable({
+			paging : false,
+			"order" : [
+				[
+					2, 'desc'
+				]
+			],
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							0, 4, 5, 6, 7
+					]
+				}
+			]
+		});
+		$('#newspaperVolumeList').DataTable({
+			paging : false,
+			"order" : [
+				[
+					2, 'desc'
+				]
+			],
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							0, 4
+					]
+				}
+			]
+		});
+
+		$('#userList').DataTable({
+			paging : false,
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							3, 6,7,8
+					]
+				}
+			]
+		});
+		
+		$('#articleListActor').DataTable({
+			paging : false,
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							1
+					]
+				}
+			]
+		});
+		$('#chirpListActor').DataTable({
+			paging : false,
+			"order" : [
+						[
+							2, 'desc'
+						]
+					],
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							1
+					]
+				}
+			]
+		});
+		$('#advertisementList').DataTable({
+			paging : false,
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							1,2,3
+					]
+				}
+			]
+		});
+		$('#volumeList').DataTable({
+			paging : false,
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							1, 3, 4
+					]
+				}
+			]
+		});
+
+		$('#articleList').DataTable({
+			paging : false,
+			"columnDefs" : [
+					{
+						"orderable" : false,
+						targets : [
+								1, 2, 3
+						]
+					}
+				]
+		});
+
+		$('#chirpList').DataTable({
+			paging : false,
+			"order" : [
+						[
+							1, 'desc'
+						]
+					],
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							2, 3, 4
+					]
+				}
+			]
+		});
+
+		$('#followUpList').DataTable({
+			paging : false,
+			"columnDefs" : [
+				{
+					"orderable" : false,
+					targets : [
+							2, 3, 4, 5
+					]
+				}
+			]
+		});
+
+		$('#newspaperPercent').DataTable();
+
+		$('#newspaperArticle').DataTable();
+	});
+</script>
 <!-- Text editor -->
 <link rel="stylesheet" href="styles/widgEditor.css" />
 <script src="scripts/widgEditor.js"></script>
 
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/css/bootstrap.min.css"> --> <!-- BOOTSTRAP 2.0.4 -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/css/bootstrap.min.css"> -->
+<!-- BOOTSTRAP 2.0.4 -->
 
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">MATERIALIZE -->
-	<link rel="stylesheet" href="styles/materialize.min.css" />
+<link rel="stylesheet" href="styles/materialize.min.css" />
 <!-- <script type="text/javascript"
 	src="scripts/locales/bootstrap-datetimepicker.es.js" charset="UTF-8"></script> -->
 
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/js/bootstrap.min.js"></script> --> <!-- BOOTSTRAP 2.0.4 -->
-	<script src="scripts/materialize.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/2.0.4/js/bootstrap.min.js"></script> -->
+<!-- BOOTSTRAP 2.0.4 -->
+<script src="scripts/materialize.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> MATERIALIZE -->
 
 <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> MATERIALIZE ICONS -->
-	
+<script src="scripts/materialize-pagination.js"></script>
+
 <link rel="stylesheet" href="styles/icon.css" />
 <link rel="stylesheet" href="styles/common.css" type="text/css">
 <link rel="stylesheet" href="styles/jmenu.css" media="screen"
@@ -78,20 +253,42 @@ window.onload = function() {
 	$(document).ready(function() {
 		$("#jMenu").jMenu();
 	});
+// 		$(function() {
+// 			$(function() {
+// 				$('#pagination').materializePagination({
+// 					align : 'center',
+// 					lastPage : 5,
+// 					firstPage : 1,
+// 					urlParameter : 'page',
+// 					useUrlParameter : true,
+// 					onClickCallback : function(requestedPage) {
+// 						$.ajax({
+// 							  type: "POST",
+// 							  url: url,
+// 							  data: data,
+// 							  success: success,
+// 							  dataType: dataType
+// 							});
+// 					}
+// 				});
+// 			});
+// 		});
+// 	});
 
 	function askSubmission(msg, form) {
 		if (confirm(msg))
 			form.submit();
 	}
-	
-	function relativeRedir(loc) {	
+
+	function relativeRedir(loc) {
 		var b = document.getElementsByTagName('base');
 		if (b && b[0] && b[0].href) {
-  			if (b[0].href.substr(b[0].href.length - 1) == '/' && loc.charAt(0) == '/')
-    		loc = loc.substr(1);
-  			loc = b[0].href + loc;
+			if (b[0].href.substr(b[0].href.length - 1) == '/' && loc.charAt(0) == '/')
+				loc = loc.substr(1);
+			loc = b[0].href + loc;
 		}
 		window.location.replace(loc);
+
 	}
 </script>
 
@@ -102,8 +299,8 @@ window.onload = function() {
 	<div>
 		<tiles:insertAttribute name="header" />
 	</div>
-	<div class = "body">
-	
+	<div class="body">
+
 		<h1>
 			<tiles:insertAttribute name="title" />
 		</h1>
@@ -111,11 +308,11 @@ window.onload = function() {
 			<br />
 			<span class="message"><spring:message code="${message}" /></span>
 		</jstl:if>
-		<tiles:insertAttribute name="body" />	
+		<tiles:insertAttribute name="body" />
 	</div>
-	
-		<tiles:insertAttribute name="footer" />
-	
+
+	<tiles:insertAttribute name="footer" />
+
 
 </body>
 </html>

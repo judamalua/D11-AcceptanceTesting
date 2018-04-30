@@ -16,6 +16,7 @@ import org.springframework.validation.Validator;
 
 import repositories.NewspaperRepository;
 import domain.Actor;
+import domain.Advertisement;
 import domain.Article;
 import domain.CreditCard;
 import domain.Newspaper;
@@ -178,14 +179,17 @@ public class NewspaperService {
 		Newspaper result;
 		Collection<Article> articles;
 		final Collection<CreditCard> creditCards;
+		final Collection<Advertisement> advertisements;
 
 		if (newspaper.getId() == 0) {
 
 			result = newspaper;
 			articles = new HashSet<>();
 			creditCards = new HashSet<>();
+			advertisements = new HashSet<>();
 
 			result.setArticles(articles);
+			result.setAdvertisements(advertisements);
 			result.setCreditCards(creditCards);
 			result.setTaboo(false);
 
@@ -199,6 +203,7 @@ public class NewspaperService {
 		}
 
 		this.validator.validate(result, binding);
+		this.newspaperRepository.flush();
 
 		return result;
 	}
@@ -329,4 +334,47 @@ public class NewspaperService {
 
 		return result;
 	}
+
+	public Page<Newspaper> findNewspapersByVolume(final Integer volumeId, final Pageable pageable) {
+		Page<Newspaper> result;
+
+		Assert.notNull(pageable);
+
+		result = this.newspaperRepository.findNewspapersByVolume(volumeId, pageable);
+
+		return result;
+	}
+
+	public Collection<Newspaper> findNewspapersByVolume(final Integer volumeId) {
+		Collection<Newspaper> result;
+
+		result = this.newspaperRepository.findNewspapersByVolume(volumeId);
+
+		return result;
+	}
+
+	public String getRatioNewspapersAtLeastOneAdvertisementVsNoOne() {
+
+		String result;
+
+		result = this.newspaperRepository.getRatioNewspapersAtLeastOneAdvertisementVsNoOne();
+
+		return result;
+	}
+
+	public Collection<Newspaper> findNewspaperByAdvertisement(final int advertisementId) {
+		Collection<Newspaper> result;
+		result = this.newspaperRepository.findNewspaperByAdvertisement(advertisementId);
+		return result;
+	}
+
+	public Page<Newspaper> findNewspapersWithAdvertisements(final int advertisementId, final boolean hasAdvertisment, final Pageable pageable) {
+		Page<Newspaper> result;
+		if (hasAdvertisment)
+			result = this.newspaperRepository.findNewspaperByAdvertisementPage(advertisementId, pageable);
+		else
+			result = this.newspaperRepository.findNewspaperByNoAdvertisementPage(advertisementId, pageable);
+		return result;
+	}
+
 }

@@ -156,7 +156,7 @@ public class UserService {
 		User result;
 		Actor actor;
 		final MessageFolder inbox, outbox, notificationbox, trashbox, spambox;
-		final Collection<MessageFolder> messageFolders;
+		final Collection<MessageFolder> messageFolders, savedMessageFolders;
 
 		if (userAdminForm.getId() == 0) {
 
@@ -205,7 +205,7 @@ public class UserService {
 			messageFolders.add(spambox);
 			messageFolders.add(notificationbox);
 
-			final Collection<MessageFolder> savedMessageFolders = new ArrayList<MessageFolder>();
+			savedMessageFolders = new ArrayList<MessageFolder>();
 
 			for (final MessageFolder mf : messageFolders)
 				savedMessageFolders.add(this.messageFolderService.saveDefaultMessageFolder(mf));
@@ -230,6 +230,7 @@ public class UserService {
 
 		}
 		this.validator.validate(result, binding);
+		this.userRepository.flush();
 
 		return result;
 	}
@@ -485,6 +486,14 @@ public class UserService {
 		String result;
 
 		result = this.userRepository.getAverageRatioPrivateNewspaperPerPublisher();
+
+		return result;
+	}
+
+	public Collection<Newspaper> findPublishedNewspapersByUser(final int userId) {
+		Collection<Newspaper> result;
+
+		result = this.userRepository.findPublishedNewspapersByUser(userId);
 
 		return result;
 	}

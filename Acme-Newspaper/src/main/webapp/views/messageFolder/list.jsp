@@ -9,7 +9,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <jstl:if test="${father!=null}">
 	<jstl:if test="${ father.messageFolderFather==null}">
@@ -28,26 +28,25 @@
 		</h2>
 	</jstl:if>
 </jstl:if>
-	<jstl:if test="${ father.messageFolderFather==null}">
+	<jstl:if test="${father==null}">
 			<jstl:set value="messageFolder/list.do?page=" var="requestURI"/>
 	</jstl:if>
-		<jstl:if test="${ father.messageFolderFather!=null}">
-			<jstl:set value="messageFolder/list.do?messageFolderId=${father.id}&page="/>
+		<jstl:if test="${ father!=null}">
+			<jstl:set value="messageFolder/list.do?messageFolderId=${father.id}&page=" var="requestURI"/>
 	</jstl:if>
-
 <acme:pagination page="${page}" pageNum="${pageNum}" requestURI="${requestURI}"/>
 
 <jstl:if test="${not empty messageFolders}">
-	<display:table name="messageFolders" id="messageFolder"
+	<display:table name="messageFolders" id="messageFolderList"
 		requestURI="messageFolder/list.do" >
 
 		<spring:message code="messageFolder.name" var="name" />
-		<display:column title="${name}" property="name" sortable="true" />
+		<display:column title="${name}" property="name"/>
 
 		<spring:message code="messageFolder.messageFolderChildren"
 			var="messageFolderChildren" />
 		<display:column title="${messageFolderChildren}">
-			<a href="messageFolder/list.do?messageFolderId=${messageFolder.id}">
+			<a href="messageFolder/list.do?messageFolderId=${messageFolderList.id}">
 				<button class = "btn">
 					<spring:message code="messageFolder.messageFolderChildrenLink" />
 				</button>
@@ -56,15 +55,15 @@
 
 		<spring:message code="messageFolder.messages" var="messages" />
 		<display:column title="${messages}">
-			<a href="message/list.do?messageFolderId=${messageFolder.id}">
+			<a href="message/list.do?messageFolderId=${messageFolderList.id}">
 				<button class = "btn">
 					<spring:message code="messageFolder.messagesLink" />
 				</button>
 			</a>
 		</display:column>
 		<display:column>
-			<jstl:if test="${!messageFolder.isDefault}">
-				<a href="messageFolder/edit.do?messageFolderId=${messageFolder.id}">
+			<jstl:if test="${!messageFolderList.isDefault}">
+				<a href="messageFolder/edit.do?messageFolderId=${messageFolderList.id}">
 					<button class = "btn">
 						<spring:message code="messageFolder.edit" />
 					</button>

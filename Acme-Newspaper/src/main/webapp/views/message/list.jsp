@@ -27,40 +27,40 @@
 
 <display:table 
 	name="messages"
-	id="message"
+	id="messageList"
 	requestURI="message/list.do">
 	
 	<spring:message code="message.priority" var="priority"/>
-	<display:column property="priority" title="${priority}" sortable="false"/>
+	<display:column property="priority" title="${priority}"/>
 
 	<spring:message code="message.subject" var="subject"/>
-	<display:column property="subject" title="${subject}" sortable="false"/>
+	<display:column property="subject" title="${subject}" />
 	
 
 	<spring:message code="message.body" var="body"/>
-	<display:column property="body" title="${body}" sortable="false"/>
+	<display:column property="body" title="${body}" />
 
 	<spring:message code="message.receptionDate" var="receptionDate" />
-	<display:column property="receptionDate" title="${receptionDate}" sortable="true" format="${formatDate}"/>
+	<display:column property="receptionDate" title="${receptionDate}"  format="${formatDate}"/>
 	
 	<spring:message code="message.sender" var="sender"/>
-	<display:column property="sender.email" title="${sender}" sortable="false"/>
+	<display:column property="sender.email" title="${sender}"/>
 	
 	<jstl:if test="${messageFolder.name == \"out box\" && messageFolder.isDefault == true}">
 	
 		<spring:message code="message.receiver" var="receiver"/>
-		<display:column property="receiver.email" title="${receiver}" sortable="false"/>
+		<display:column property="receiver.email" title="${receiver}"/>
 	
 	</jstl:if>
 	
 	<display:column >
-		<a href="message/delete.do?messageId=${message.id}&messageFolderId=${messageFolder.id}">
+		<a href="message/delete.do?messageId=${messageList.id}&messageFolderId=${messageFolder.id}">
 			<button class = "btn">
 				<spring:message code="message.delete"/>
 			</button>
 		</a>
 		
-		<a href="message/move.do?messageId=${message.id}">
+		<a href="message/move.do?messageId=${messageList.id}">
 			<button class = "btn">
 				<spring:message code="message.move"/>
 			</button>

@@ -87,10 +87,30 @@
   		<security:intercept-url pattern="/chirp/admin/list.do" access="hasRole('ADMIN')" />
   		<security:intercept-url pattern="/newspaper/admin/list.do" access="hasRole('ADMIN')" />
   		<security:intercept-url pattern="/article/admin/list.do" access="hasRole('ADMIN')" />
+  		<security:intercept-url pattern="/advertisement/admin/**" access="hasRole('ADMIN')" />
+  		
+  		<security:intercept-url pattern="/advertisement/agent/list.do" access="hasRole('AGENT')" />
+  		<security:intercept-url pattern="/advertisement/agent/create.do" access="hasRole('AGENT')" />
+  		<security:intercept-url pattern="/advertisement/agent/edit.do" access="hasRole('AGENT')" />
+  		<security:intercept-url pattern="/advertisement/agent/delete.do" access="hasRole('AGENT')" />
+  		<security:intercept-url pattern="/advertisement/agent/advertise.do" access="hasRole('AGENT')" />
+  		<security:intercept-url pattern="/advertisement/agent/unadvertise.do" access="hasRole('AGENT')" />
+  		<security:intercept-url pattern="/newspaper/agent/list.do" access="hasRole('AGENT')" />
   		
 		<security:intercept-url pattern="/newspaper/customer/list.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/newspaper/customer/subscribe.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/newspaper/customer/ajaxCard.do" access="hasRole('CUSTOMER')" /> 
+  		
+  		<security:intercept-url pattern="/actor/agent/register.do" access="isAnonymous()" requires-channel="https" /> 
+  		<security:intercept-url pattern="/actor/agent/edit.do" access="hasRole('AGENT')" requires-channel="https" /> 
+  		
+  		<security:intercept-url pattern="/volume/list.do" access="permitAll" requires-channel="https"  />
+  		<security:intercept-url pattern="/volume/display.do" access="permitAll" requires-channel="https"  />
+  		<security:intercept-url pattern="/volume/user/create.do" access="hasRole('USER')" requires-channel="https"  />
+  		<security:intercept-url pattern="/volume/user/edit.do" access="hasRole('USER')" requires-channel="https"  />
+  		<security:intercept-url pattern="/volume/customer/subscribe.do" access="hasRole('CUSTOMER')" requires-channel="https"  />
+  		<security:intercept-url pattern="/volume/customer/list.do" access="hasRole('CUSTOMER')" requires-channel="https"  />
+  		<security:intercept-url pattern="/volume/user/list.do" access="hasRole('USER')" requires-channel="https"  />
   		
   		<security:intercept-url pattern="/message/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/messageFolder/*" access="isAuthenticated()" /> 

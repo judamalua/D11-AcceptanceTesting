@@ -109,7 +109,11 @@ public class NewspaperCustomerController extends AbstractController {
 				this.creditCardService.subscribe(creditCard, newspaper);
 				result = new ModelAndView("redirect:/newspaper/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(creditCard, newspaper, "request.commit.error");
+
+				if (oops.getMessage().contains("CreditCard expiration Date error"))
+					result = this.createEditModelAndView(creditCard, newspaper, "request.creditcard.expiration.error");
+				else
+					result = this.createEditModelAndView(creditCard, newspaper, "request.commit.error");
 			}
 
 		return result;

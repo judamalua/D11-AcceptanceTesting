@@ -15,7 +15,7 @@ import domain.FollowUp;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
-	@Query("select a from Article a where a.taboo = TRUE and a.finalMode = TRUE")
+	@Query("select a from Newspaper n join n.articles a where a.taboo = TRUE and a.finalMode = TRUE and (n.publicationDate!=null or n.publicationDate!='')")
 	Collection<Article> getAllTabooArticles();
 
 	/**
@@ -38,6 +38,6 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	@Query("select a from Article a join a.followUps fs where fs =?1")
 	Article getArticleByFollowUp(FollowUp followUp);
 
-	@Query("select a from Newspaper n join n.articles a where a.title like ?1 or a.summary like ?1 or a.body like ?1 and n.publicNewspaper=true and (n.publicationDate!='' or n.publicationDate!=null)")
+	@Query("select a from Newspaper n join n.articles a where (a.title like ?1 or a.summary like ?1 or a.body like ?1) and n.publicNewspaper=true and a.finalMode=true and (n.publicationDate!='' or n.publicationDate!=null)")
 	Page<Article> findPublicPublicatedArticlesWithSearch(String search, Pageable pageable);
 }

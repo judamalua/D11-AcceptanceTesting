@@ -29,6 +29,7 @@ public class ChirpService {
 	@Autowired
 	private ChirpRepository	chirpRepository;
 
+	// Supporting services --------------------------------------------------
 	@Autowired
 	private UserService		userService;
 	@Autowired
@@ -37,8 +38,6 @@ public class ChirpService {
 	@Autowired
 	private Validator		validator;
 
-
-	// Supporting services --------------------------------------------------
 
 	// Simple CRUD methods --------------------------------------------------
 
@@ -146,6 +145,8 @@ public class ChirpService {
 		}
 
 		this.validator.validate(result, binding);
+		this.chirpRepository.flush();
+
 		return result;
 	}
 
@@ -153,6 +154,14 @@ public class ChirpService {
 		Collection<Chirp> result;
 
 		result = this.chirpRepository.getAllTabooChirps();
+
+		return result;
+	}
+
+	public Page<Chirp> getAllTabooChirps(final Pageable pageable) {
+		Page<Chirp> result;
+
+		result = this.chirpRepository.getAllTabooChirps(pageable);
 
 		return result;
 	}

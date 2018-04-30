@@ -27,6 +27,7 @@ import services.ConfigurationService;
 import services.NewspaperService;
 import services.UserService;
 import domain.Actor;
+import domain.Admin;
 import domain.Article;
 import domain.Configuration;
 import domain.CreditCard;
@@ -74,9 +75,11 @@ public class ArticleController extends AbstractController {
 		boolean validCustomer = false;
 		boolean newspaperPublished = false;
 		boolean owner = false;
+		boolean isLogged = false;
 
 		try {
 
+			isLogged = this.actorService.getLogged();
 			result = new ModelAndView("article/display");
 			article = this.articleService.findOne(articleId);
 			Assert.notNull(article);
@@ -88,18 +91,26 @@ public class ArticleController extends AbstractController {
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
 				if (!newspaper.getPublicNewspaper())
-					if (writer.getId() != actor.getId()) {
-						Assert.isTrue(actor instanceof Customer);
-						for (final CreditCard creditCard : newspaper.getCreditCards()) {
-							validCustomer = creditCard.getCustomer().equals(actor);
-							if (validCustomer)
-								break;
+					if (writer.getId() != actor.getId())
+						if (!(actor instanceof Admin)) {
+							Assert.isTrue(actor instanceof Customer);
+							for (final CreditCard creditCard : newspaper.getCreditCards()) {
+								validCustomer = creditCard.getCustomer().equals(actor);
+								if (validCustomer)
+									break;
+							}
+							Assert.isTrue(validCustomer);
 						}
+				if (!actor.equals(writer)) {
+					Assert.isTrue(article.getFinalMode());
+					Assert.isTrue(newspaper.getPublicationDate() != null);
+				}
 
-						Assert.isTrue(validCustomer);
-					}
-			} else
+			} else {
 				Assert.isTrue(newspaper.getPublicNewspaper());
+				Assert.isTrue(newspaper.getPublicationDate() != null);
+				Assert.isTrue(article.getFinalMode());
+			}
 
 			followUps = this.articleService.findFollowUpsByArticle(pageable, articleId);
 
@@ -109,6 +120,7 @@ public class ArticleController extends AbstractController {
 				owner = actor.equals(writer);
 
 			result.addObject("newspaperPublished", newspaperPublished);
+			result.addObject("isLogged", isLogged);
 			result.addObject("writer", writer);
 			result.addObject("owner", owner);
 			result.addObject("article", article);
@@ -128,6 +140,7 @@ public class ArticleController extends AbstractController {
 		final Page<Article> articles;
 		Pageable pageable;
 		Configuration configuration;
+
 		try {
 			configuration = this.configurationService.findConfiguration();
 			pageable = new PageRequest(page, configuration.getPageSize());
@@ -141,7 +154,7 @@ public class ArticleController extends AbstractController {
 			result.addObject("requestUri", "article/search.do");
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 
 		return result;

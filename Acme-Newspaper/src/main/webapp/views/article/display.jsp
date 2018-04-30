@@ -70,21 +70,24 @@ ${article.body}
 <acme:pagination page="${page}" pageNum="${pageNum}"
 	requestURI="article/display.do?articleId=${article.id}&page=" />
 
-<display:table name="${followUps}" id="followUp"
+<display:table name="${followUps}" id="followUpList"
 	requestURI="article/display.do" pagesize="${pagesize}">
-	<display:column title="${titleFollowUp}" property="title"
-		sortable="true" />
+	<display:column title="${titleFollowUp}" property="title" />
 	<display:column property="publicationDate" format="${formatMoment}"
 		title="${titlePublicationFollowUp}" />
 	<display:column property="summary" title="${titleSummaryFollowUp}" />
 	<display:column property="text" title="${titleTextFollowUp}" />
 	<display:column>
-		<acme:button url="followUp/display.do?followUpId=${followUp.id}"
-			code="followUp.display" />
+
+		<jstl:if test="${isLogged}">
+			<acme:button url="followUp/display.do?followUpId=${followUp.id}"
+				code="followUp.display" />
+		</jstl:if>
+
 	</display:column>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<acme:button url="followUp/admin/delete.do?followUpId=${followUp.id}"
+			<acme:button url="followUp/admin/delete.do?followUpId=${followUpList.id}"
 				code="followUp.delete" />
 		</display:column>
 	</security:authorize>
@@ -96,6 +99,6 @@ ${article.body}
 	</jstl:if>
 </security:authorize>
 <br />
-<security:authorize access="hasRole('ADMIN')">
-	<acme:button url="newspaper/admin/delete.do" code="newspaper.delete" />
-</security:authorize>
+<%-- <security:authorize access="hasRole('ADMIN')"> --%>
+<%-- 	<acme:button url="newspaper/admin/delete.do" code="newspaper.delete" /> --%>
+<%-- </security:authorize> --%>

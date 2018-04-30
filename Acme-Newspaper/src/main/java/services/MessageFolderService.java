@@ -83,6 +83,7 @@ public class MessageFolderService {
 	public MessageFolder save(final MessageFolder messageFolder) {
 
 		Assert.notNull(messageFolder);
+		this.actorService.checkUserLogin();
 		this.checkMessageFolder(messageFolder);
 
 		Actor actor;
@@ -291,8 +292,11 @@ public class MessageFolderService {
 		} else {
 			result = this.messageFolderRepository.findOne(messageFolder.getId());
 			result.setName(messageFolder.getName());
+			result.setMessageFolderFather(messageFolder.getMessageFolderFather());
 		}
 		this.validator.validate(result, binding);
+		this.messageFolderRepository.flush();
+
 		return result;
 	}
 }

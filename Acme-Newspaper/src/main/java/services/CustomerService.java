@@ -112,7 +112,7 @@ public class CustomerService {
 	public Customer reconstruct(final UserCustomerAdminForm userCustomerAdminForm, final BindingResult binding) {
 		Customer result;
 		final MessageFolder inbox, outbox, notificationbox, trashbox, spambox;
-		final Collection<MessageFolder> messageFolders;
+		final Collection<MessageFolder> messageFolders, savedMessageFolders;
 
 		if (userCustomerAdminForm.getId() == 0) {
 
@@ -155,7 +155,7 @@ public class CustomerService {
 			messageFolders.add(spambox);
 			messageFolders.add(notificationbox);
 
-			final Collection<MessageFolder> savedMessageFolders = new ArrayList<MessageFolder>();
+			savedMessageFolders = new ArrayList<MessageFolder>();
 
 			for (final MessageFolder mf : messageFolders)
 				savedMessageFolders.add(this.messageFolderService.saveDefaultMessageFolder(mf));
@@ -173,6 +173,7 @@ public class CustomerService {
 			result.setBirthDate(userCustomerAdminForm.getBirthDate());
 		}
 		this.validator.validate(result, binding);
+		this.customerRepository.flush();
 
 		return result;
 	}
@@ -188,6 +189,14 @@ public class CustomerService {
 		String result;
 
 		result = this.customerRepository.getRatioSubscribersPrivateNewspaperVSTotalCustomers();
+
+		return result;
+	}
+
+	public Collection<Customer> getCustomersSubscribedToVolume(final int volumeId) {
+		Collection<Customer> result;
+
+		result = this.customerRepository.getCustomersSubscribedToVolume(volumeId);
 
 		return result;
 	}

@@ -19,6 +19,7 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -50,7 +51,7 @@ public class Newspaper extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
 	@Past
 	public Date getPublicationDate() {
 		return this.publicationDate;
@@ -68,6 +69,8 @@ public class Newspaper extends DomainEntity {
 	public void setDescription(final String description) {
 		this.description = description;
 	}
+
+	@URL
 	@SafeHtml
 	public String getPictureUrl() {
 		return this.pictureUrl;
@@ -95,10 +98,12 @@ public class Newspaper extends DomainEntity {
 
 
 	// Relationships ----------------------------------------------------------
-	private Collection<CreditCard>	creditCards;
-	private Collection<Article>		articles;
+	private Collection<CreditCard>		creditCards;
+	private Collection<Article>			articles;
+	private Collection<Advertisement>	advertisements;
 
 
+	@NotNull
 	@Valid
 	@ManyToMany
 	public Collection<CreditCard> getCreditCards() {
@@ -118,6 +123,17 @@ public class Newspaper extends DomainEntity {
 
 	public void setArticles(final Collection<Article> articles) {
 		this.articles = articles;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToMany
+	public Collection<Advertisement> getAdvertisements() {
+		return this.advertisements;
+	}
+
+	public void setAdvertisements(final Collection<Advertisement> advertisements) {
+		this.advertisements = advertisements;
 	}
 
 }

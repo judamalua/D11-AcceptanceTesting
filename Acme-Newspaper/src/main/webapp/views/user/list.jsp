@@ -14,55 +14,40 @@
 <spring:message code="master.page.birthDate.format" var="formatBirthDate" />
 
 <!-- Pagination -->
-<%-- <span class="pagebanner"> 
-	<jstl:forEach begin="1" end="${pageNum}" var="index">
-		<a href="user/list.do?anonymous=${anonymous}&page=${index-1}">
-			<jstl:out value="${index}" />
-		</a>
-		<jstl:if test="${index!=pageNum}">,</jstl:if>
-	</jstl:forEach>
-	<br />
-</span>
-
- --%>
-<!-- Pagination -->
 
 <acme:pagination requestURI = "${requestURI}?page=" pageNum = "${pageNum}" page = "${page}"/>
 
-<display:table name="users" id="user" requestURI="${requestURI}"
+<display:table name="users" id="userList" requestURI="${requestURI}"
 	class="displaytag">
 
 	<spring:message code="user.name" var="name" />
-	<display:column property="name" title="${name}" sortable="true" />
+	<display:column property="name" title="${name}"  />
 
 	<spring:message code="user.surname" var="surname" />
-	<display:column property="surname" title="${surname}" sortable="true" />
+	<display:column property="surname" title="${surname}"  />
 
 	<spring:message code="user.postalAddress" var="postalAddress" />
-	<display:column property="postalAddress" title="${postalAddress}"
-		sortable="true" />
+	<display:column property="postalAddress" title="${postalAddress}"/>
 
 	<spring:message code="user.phoneNumber" var="phoneNumber" />
-	<display:column property="phoneNumber" title="${phoneNumber}"
-		sortable="false" />
+	<display:column property="phoneNumber" title="${phoneNumber}"/>
 
 	<spring:message code="user.email" var="email" />
-	<display:column property="email" title="${email}" sortable="false" />
+	<display:column property="email" title="${email}"  />
 
 	<spring:message code="user.birthDate" var="birthDate" />
-	<display:column property="birthDate" title="${birthDate}"
-		sortable="true" format="${formatBirthDate}" />
+	<display:column property="birthDate" title="${birthDate}" format="${formatBirthDate}" />
 		
 	<display:column>
 		<security:authorize access="hasRole('USER')">
-		<jstl:if test="${!principal.users.contains(user) && principal.id != user.id && followersView}">
+		<jstl:if test="${!principal.users.contains(userList) && principal.id != userList.id && followersView}">
 			<acme:button
-				url="actor/user/follow.do?userId=${user.id}&followersView=true"
+				url="actor/user/follow.do?userId=${userList.id}&followersView=true"
 				code="user.follow" />
 		</jstl:if>
-		<jstl:if test="${!principal.users.contains(user) && principal.id != user.id && !followedView && !followersView}">
+		<jstl:if test="${!principal.users.contains(userList) && principal.id != userList.id && !followedView && !followersView}">
 			<acme:button
-				url="actor/user/follow.do?userId=${user.id}"
+				url="actor/user/follow.do?userId=${userList.id}"
 				code="user.follow" />
 		</jstl:if>
 		</security:authorize>
@@ -70,26 +55,26 @@
 	
 	<display:column>
 		<security:authorize access="hasRole('USER')">
-		<jstl:if test="${principal.users.contains(user) && principal.id != user.id && followedView}">
+		<jstl:if test="${principal.users.contains(userList) && principal.id != userList.id && followedView}">
 			<acme:button
-				url="actor/user/follow.do?userId=${user.id}&followedView=true"
+				url="actor/user/follow.do?userId=${userList.id}&followedView=true"
 				code="user.unfollow" />
 		</jstl:if>
-		<jstl:if test="${principal.users.contains(user) && principal.id != user.id && followersView}">
+		<jstl:if test="${principal.users.contains(userList) && principal.id != userList.id && followersView}">
 			<acme:button
-				url="actor/user/follow.do?userId=${user.id}&followersView=true"
+				url="actor/user/follow.do?userId=${userList.id}&followersView=true"
 				code="user.unfollow" />
 		</jstl:if>
-		<jstl:if test="${principal.users.contains(user) && principal.id != user.id && !followedView && !followersView}">
+		<jstl:if test="${principal.users.contains(userList) && principal.id != userList.id && !followedView && !followersView}">
 			<acme:button
-				url="actor/user/follow.do?userId=${user.id}"
+				url="actor/user/follow.do?userId=${userList.id}"
 				code="user.unfollow" />
 		</jstl:if>
 		</security:authorize>
 	</display:column>
 
 	<display:column>
-		<a href="user/display.do?actorId=${user.id}">
+		<a href="user/display.do?actorId=${userList.id}">
 			<button class="btn">
 				<spring:message code="user.display" />
 			</button>

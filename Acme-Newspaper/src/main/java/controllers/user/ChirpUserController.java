@@ -41,9 +41,9 @@ public class ChirpUserController extends AbstractController {
 
 
 	/**
-	 * List the chirps of created Rendezvouses
+	 * List the chirps
 	 * 
-	 * @return a ModelAndView object with all the chirps of the created Rendezvouses
+	 * @return a ModelAndView object with all the chirps
 	 * @author Alejandro
 	 */
 	@RequestMapping(value = "/stream")
@@ -59,15 +59,9 @@ public class ChirpUserController extends AbstractController {
 
 			result = new ModelAndView("chirp/stream");
 			user = (User) this.actorService.findActorByPrincipal();
-			//			for (User follow: user.getUsers()){
-			//				for(Chirp chirpF : follow.getChirps()){
-			//					chirps.put(chirpF, follow.getName());
-			//				}
-			//			}
 			configuration = this.configurationService.findConfiguration();
 
 			pageable = new PageRequest(page, configuration.getPageSize());
-			;
 			chirpList = this.chirpService.findFollowedUsersChirps(user.getId(), pageable);
 
 			authors = this.mapUsers(chirpList.getContent());
@@ -115,15 +109,9 @@ public class ChirpUserController extends AbstractController {
 
 			result = new ModelAndView("chirp/list");
 			user = (User) this.actorService.findActorByPrincipal();
-			//			for (User follow: user.getUsers()){
-			//				for(Chirp chirpF : follow.getChirps()){
-			//					chirps.put(chirpF, follow.getName());
-			//				}
-			//			}
 			configuration = this.configurationService.findConfiguration();
 
 			pageable = new PageRequest(page, configuration.getPageSize());
-			;
 			chirpList = this.chirpService.findUserChirps(user.getId(), pageable);
 
 			authors = this.mapUsers(chirpList.getContent());

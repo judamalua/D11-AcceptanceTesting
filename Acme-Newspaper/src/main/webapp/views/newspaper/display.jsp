@@ -40,6 +40,7 @@
 
 
 <!-- Display -->
+
 <jstl:if test="${newspaper.pictureUrl != \"\"}">
 	<div class="parallax-container">
 		<div class="parallax">
@@ -47,6 +48,21 @@
 		</div>
 	</div>
 </jstl:if>
+<jstl:if test="${advertisement != null}">
+	<a href="${advertisement.additionalInfoLink}"> <img
+		class="sponsorshipBannerUrl" src="${advertisement.bannerURL}"
+		alt="${advertisement.title}" />
+	</a>
+</jstl:if>
+</br>
+<security:authorize access="hasRole('AGENT')">
+	<a href="advertisement/agent/list.do?newspaperId=${newspaper.id}">
+		<button class="btn">
+			<spring:message code="newspaper.advertisement.advetise" />
+		</button>
+	</a>
+</security:authorize>
+<br/>
 <h2>
 	<jstl:out value="${newspaper.title}" />
 </h2>
@@ -85,50 +101,60 @@
 </h4>
 <acme:pagination page="${page}" pageNum="${pageNum}"
 	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&pageArticle=" />
-<display:table name="${articles}" id="article"
+
+<display:table name="${articles}" id="articleList"
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
-	<display:column title="${titleArticle}" sortable="true">
-		<jstl:if
-			test="${((ownArticle!=null and ownArticle[article_rowNum-1])  or (subscriber and newspaper.publicNewspaper))}">
-			<a href="article/display.do?articleId=${article.id}">${article.title}</a>
-		</jstl:if>
-		<jstl:if
-			test="${!subscriber and !newspaper.publicNewspaper and !(ownArticle!=null and ownArticle[article_rowNum-1])}">
-			<jstl:out value="${article.title}" />
-		</jstl:if>
-		<security:authorize access="!hasRole('USER')">
+
+	<display:column title="${titleArticle}">
+		<security:authorize access="hasRole('CUSTOMER')">
+			<jstl:if
+				test="${((ownArticle!=null and ownArticle[articleList_rowNum-1])  or (subscriber and !newspaper.publicNewspaper) or newspaper.publicNewspaper )}">
+				<a href="article/display.do?articleId=${articleList.id}">${articleList.title}</a>
+			</jstl:if>
+			<jstl:if
+				test="${(!subscriber) and !newspaper.publicNewspaper and !(ownArticle!=null and ownArticle[articleList_rowNum-1])}">
+				<jstl:out value="${articleList.title}" />
+			</jstl:if>
+		</security:authorize>
+		<security:authorize access="!hasRole('CUSTOMER')">
 			<jstl:if test="${newspaper.publicNewspaper}">
-				<a href="article/display.do?articleId=${article.id}">${article.title}</a>
+				<a href="article/display.do?articleId=${articleList.id}">${articleList.title}</a>
 			</jstl:if>
 			<jstl:if test="${!newspaper.publicNewspaper}">
-				<jstl:out value="${article.title}" />
+				<jstl:out value="${articleList.title}" />
+			</jstl:if>
+		</security:authorize>
+
+	</display:column>
+
+	<display:column title="${titleSummaryArticle}">
+
+		<jstl:if test="${(fn:length(articleList.summary))<=40}">
+			<jstl:out value="${articleList.summary}" />
+		</jstl:if>
+		<jstl:if test="${(fn:length(articleList.summary))>40}">
+			<jstl:out value="${fn:substring(articleList.summary,0,40)}..." />
+		</jstl:if>
+	</display:column>
+
+	<display:column>
+		<security:authorize access="hasRole('ADMIN')">
+			<acme:button
+				url="article/admin/delete.do?articleId=${articleList.id}"
+				code="article.delete" />
+		</security:authorize>
+	</display:column>
+
+	<display:column>
+		<security:authorize access="hasRole('USER')">
+			<jstl:if
+				test="${fn:length(ownArticle)>0 and ownArticle[articleList_rowNum-1] and !articleList.finalMode   and newspaper.publicationDate==null}">
+				<acme:button url="article/user/edit.do?articleId=${articleList.id}"
+					code="article.edit" />
 			</jstl:if>
 		</security:authorize>
 	</display:column>
-	<display:column title="${titleSummaryArticle}" >
-		<jstl:if test="${(fn:length(article.summary))<=40}">
-			<jstl:out value="${article.summary}" />
-		</jstl:if>
-		<jstl:if test="${(fn:length(article.summary))>40}">
-			<jstl:out value="${fn:substring(article.summary,0,40)}..." />
-		</jstl:if>
-	</display:column>
-	<security:authorize access="hasRole('ADMIN')">
-		<display:column>
-			<acme:button url="article/admin/delete.do?articleId=${article.id}"
-				code="article.delete" />
-		</display:column>
-	</security:authorize>
-	<security:authorize access="hasRole('USER')">
 
-		<display:column>
-			<jstl:if
-				test="${fn:length(ownArticle)>0 and ownArticle[article_rowNum-1] and !article.finalMode   and newspaper.publicationDate==null}">
-				<acme:button url="article/user/edit.do?articleId=${article.id}"
-					code="article.edit" />
-			</jstl:if>
-		</display:column>
-	</security:authorize>
 </display:table>
 <security:authorize access="hasRole('USER')">
 	<jstl:if test="${newspaper.publicationDate==null}">

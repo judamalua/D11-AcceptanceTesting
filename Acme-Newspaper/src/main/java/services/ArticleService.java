@@ -138,6 +138,7 @@ public class ArticleService {
 			result.setFinalMode(article.getFinalMode());
 		}
 		this.validator.validate(result, binding);
+		this.articleRepository.flush();
 
 		return result;
 	}

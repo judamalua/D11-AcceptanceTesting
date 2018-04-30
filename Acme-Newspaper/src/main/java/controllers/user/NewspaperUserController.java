@@ -73,6 +73,7 @@ public class NewspaperUserController extends AbstractController {
 				newspapers = this.userService.findNotPublishedNewspapersByUser(actor.getId(), pageable);
 
 			for (final Newspaper newspaper : newspapers.getContent()) {
+				allFinalMode = true;
 				if (newspaper.getArticles().size() == 0)
 					allFinalMode = false;
 				for (final Article article : newspaper.getArticles())
@@ -211,7 +212,7 @@ public class NewspaperUserController extends AbstractController {
 
 			this.newspaperService.delete(newspaper);
 
-			result = new ModelAndView("redirect:/newspaper/list.do");
+			result = new ModelAndView("redirect:/newspaper/user/list.do?published=false");
 
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(newspaper, "newspaper.commit.error");

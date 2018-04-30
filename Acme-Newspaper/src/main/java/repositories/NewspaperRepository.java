@@ -30,7 +30,7 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	@Query("select n from Newspaper n join n.creditCards c where c.customer.id = ?1")
 	Page<Newspaper> findNotSubscribedNewspapersByCustomer(int customerId, Pageable pageable);
 
-	@Query("select n from Newspaper n where n.taboo = TRUE and n.publicNewspaper = TRUE")
+	@Query("select n from Newspaper n where n.taboo = TRUE and n.publicNewspaper = TRUE and (n.publicationDate!=null or n.publicationDate!='')")
 	Collection<Newspaper> getAllTabooNewspapers();
 
 	/**
@@ -96,6 +96,30 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	@Query("select count(n1)/(select count(n) from Newspaper n) from Newspaper n1 where n1.publicNewspaper = FALSE")
 	String getAverageRatioPrivateVSPublicNewspaperPublisher();
 
+	/**
+	 * Level C query 1
+	 * 
+	 * @return The ratio of newspapers that have at least one advertisement versus the newspapers that haven’t any.
+	 * @author MJ
+	 */
+	@Query("select count(na)/(select count(n) from Newspaper n),((select count(n) from Newspaper n)-count(na))/(select count(n) from Newspaper n)  from Newspaper na where na.advertisements.size>0")
+	String getRatioNewspapersAtLeastOneAdvertisementVsNoOne();
+
 	@Query("select n from Newspaper n where ((n.publicationDate!=null or n.publicationDate!='') and (n.title like ?1 or n.description like ?1))")
 	Page<Newspaper> findPublicPublicatedNewspapersWithSearch(String search, Pageable pageable);
+
+	@Query("select n from Volume v join v.newspapers n where v.id = ?1")
+	Page<Newspaper> findNewspapersByVolume(Integer volumeId, Pageable pageable);
+
+	@Query("select n from Volume v join v.newspapers n where v.id = ?1")
+	Collection<Newspaper> findNewspapersByVolume(Integer volumeId);
+
+	@Query("select n from Newspaper n join n.advertisements a where a.id=?1")
+	Collection<Newspaper> findNewspaperByAdvertisement(int advertisementId);
+
+	@Query("select n from Newspaper n join n.advertisements a where a.id=?1")
+	Page<Newspaper> findNewspaperByAdvertisementPage(int advertisementId, Pageable pageable);
+
+	@Query("select n from Newspaper n join n.advertisements a where (n.publicationDate!=null or n.publicationDate!='') and (not(a.id=?1))")
+	Page<Newspaper> findNewspaperByNoAdvertisementPage(int advertisementId, Pageable pageable);
 }
