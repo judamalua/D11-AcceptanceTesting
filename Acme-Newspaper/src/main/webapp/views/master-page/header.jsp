@@ -107,7 +107,7 @@
 				<!-- Dropdown Structure -->
 				<ul id="dropdownAgentFunctions" class="dropdown-content">
 					<li><a href="advertisement/agent/list.do"><spring:message
-								code="master.page.listAdvertisment" /></a></li>
+								code="master.page.listAdvertisement" /></a></li>
 				</ul>
 
 				<!-- Dropdown Trigger -->

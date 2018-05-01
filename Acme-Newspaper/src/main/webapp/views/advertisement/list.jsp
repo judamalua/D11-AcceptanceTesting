@@ -54,12 +54,12 @@
 		</display:column>
 		<display:column class="col s3">
 			<acme:button
-				url="newspaper/agent/list.do?advertisementId=${advertisementList.id}&hasAdvertisment=true"
+				url="newspaper/agent/list.do?advertisementId=${advertisementList.id}&hasAdvertisement=true"
 				code="advertisement.newspaperList" />
 		</display:column>
 		<display:column class="col s3">
 			<acme:button
-				url="newspaper/agent/list.do?advertisementId=${advertisementList.id}&hasAdvertisment=false"
+				url="newspaper/agent/list.do?advertisementId=${advertisementList.id}&hasAdvertisement=false"
 				code="advertisement.newspaperNoList" />
 		</display:column>
 	</security:authorize>

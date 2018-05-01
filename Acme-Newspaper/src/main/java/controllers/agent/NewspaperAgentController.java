@@ -46,7 +46,7 @@ public class NewspaperAgentController extends AbstractController {
 	// Listing  ---------------------------------------------------------------		
 
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam(defaultValue = "0") final int page, final int advertisementId, final boolean hasAdvertisment) {
+	public ModelAndView list(@RequestParam(defaultValue = "0") final int page, final int advertisementId, final boolean hasAdvertisement) {
 		ModelAndView result;
 		Page<Newspaper> newspapers;
 		Pageable pageable;
@@ -59,12 +59,12 @@ public class NewspaperAgentController extends AbstractController {
 			pageable = new PageRequest(page, configuration.getPageSize());
 			result = new ModelAndView("newspaper/list");
 
-			newspapers = this.newspaperService.findNewspapersWithAdvertisements(advertisementId, hasAdvertisment, pageable);
+			newspapers = this.newspaperService.findNewspapersWithAdvertisements(advertisementId, hasAdvertisement, pageable);
 
 			result.addObject("newspapers", newspapers.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", newspapers.getTotalPages());
-			result.addObject("requestUri", "newspaper/agent/list.do?advertismentId=" + advertisementId + "&hasAdvertisment=" + hasAdvertisment + "&");
+			result.addObject("requestUri", "newspaper/agent/list.do?advertisementId=" + advertisementId + "&hasAdvertisement=" + hasAdvertisement + "&");
 		} catch (final Throwable throwable) {
 			result = new ModelAndView("redirect:/misc/403");
 		}

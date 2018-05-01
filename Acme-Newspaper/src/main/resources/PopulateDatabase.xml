@@ -1336,8 +1336,8 @@
 		<property name="advertisements">
 			<list>
 				<ref bean="Advertisement1" />
-				<ref bean="Advertisement1" />
 				<ref bean="Advertisement2" />
+				<ref bean="Advertisement3" />
 			</list>
 		</property>
 		<property name="articles">
@@ -1445,7 +1445,7 @@
 			value="This is a new newspaper!" />
 		<property name="description" value="Hot news for all!" />
 		<property name="pictureUrl"
-			value="https://www.lainformacion.com/files/article_main/uploads/2017/09/15/59bc19492035b.jpeg" />
+			value="http://sirse.info/wp-content/uploads/2016/09/DiarioPeriodico-541x311-800x500_c.jpg" />
 		<property name="publicNewspaper" value="true" />
 		<property name="publicationDate" value="2018/01/04" />
 		<property name="taboo" value="false" />
@@ -1604,7 +1604,7 @@
 	</bean>
 	
 		<bean id="Advertisement5" class="domain.Advertisement">
-		<property name="title" value="Superlopez" />
+		<property name="title" value="Kas" />
 		<property name="bannerURL"
 			value="https://s1.dia.es/medias/ha9/h22/9336861294622.jpg" />
 		<property name="additionalInfoLink"

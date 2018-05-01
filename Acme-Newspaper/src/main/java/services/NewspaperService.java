@@ -368,9 +368,9 @@ public class NewspaperService {
 		return result;
 	}
 
-	public Page<Newspaper> findNewspapersWithAdvertisements(final int advertisementId, final boolean hasAdvertisment, final Pageable pageable) {
+	public Page<Newspaper> findNewspapersWithAdvertisements(final int advertisementId, final boolean hasAdvertisement, final Pageable pageable) {
 		Page<Newspaper> result;
-		if (hasAdvertisment)
+		if (hasAdvertisement)
 			result = this.newspaperRepository.findNewspaperByAdvertisementPage(advertisementId, pageable);
 		else
 			result = this.newspaperRepository.findNewspaperByNoAdvertisementPage(advertisementId, pageable);
