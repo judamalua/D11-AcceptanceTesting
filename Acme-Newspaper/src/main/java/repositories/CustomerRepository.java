@@ -18,7 +18,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	 * @return The ratio of subscribers per private newspaper versus the total number of customers.
 	 * @author Antonio
 	 */
-	@Query("select (select avg(n.creditCards.size)/count(n) from Newspaper n where n.publicNewspaper = FALSE)/count(c) from Customer c")
+	@Query("select (select avg(n.creditCards.size)*1.0/count(n)*1.0 from Newspaper n where n.publicNewspaper = FALSE)*1.0/count(c)*1.0 from Customer c")
 	String getRatioSubscribersPrivateNewspaperVSTotalCustomers();
 
 	@Query("select c.customer from CreditCard c join c.volumes v where v.id = ?1")
