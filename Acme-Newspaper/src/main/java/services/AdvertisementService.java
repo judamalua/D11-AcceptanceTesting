@@ -65,6 +65,29 @@ public class AdvertisementService {
 		return result;
 
 	}
+	public Page<Advertisement> findAll(final Pageable pageable) {
+
+		Page<Advertisement> result;
+
+		Assert.notNull(this.advertisementRepository);
+		result = this.advertisementRepository.findAll(pageable);
+		Assert.notNull(result);
+
+		return result;
+
+	}
+
+	public Page<Advertisement> findNotTaboo(final Pageable pageable) {
+
+		Page<Advertisement> result;
+
+		Assert.notNull(this.advertisementRepository);
+		result = this.advertisementRepository.findNotTaboo(pageable);
+		Assert.notNull(result);
+
+		return result;
+
+	}
 
 	public Advertisement findOne(final int advertisementId) {
 

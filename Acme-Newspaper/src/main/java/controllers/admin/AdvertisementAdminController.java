@@ -51,7 +51,7 @@ public class AdvertisementAdminController extends AbstractController {
 	// List taboo ---------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam(required = false, defaultValue = "0") final Integer page) {
+	public ModelAndView edit(@RequestParam(required = false, defaultValue = "0") final Integer page, @RequestParam(required = false, defaultValue = "true") final Boolean taboo) {
 		ModelAndView result;
 		Page<Advertisement> advertisements;
 		Configuration configuration;
@@ -62,7 +62,10 @@ public class AdvertisementAdminController extends AbstractController {
 
 			pageable = new PageRequest(page, configuration.getPageSize());
 
-			advertisements = this.advertisementService.findTabooAdvertisements(pageable);
+			if (taboo)
+				advertisements = this.advertisementService.findTabooAdvertisements(pageable);
+			else
+				advertisements = this.advertisementService.findNotTaboo(pageable);
 
 			result = new ModelAndView("advertisement/list");
 
