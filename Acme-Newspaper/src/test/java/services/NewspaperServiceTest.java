@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Advertisement;
 import domain.Article;
 import domain.Configuration;
 import domain.CreditCard;
@@ -56,6 +57,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setCreditCards(new HashSet<CreditCard>());
 		newspaper.setDescription("New description");
 		newspaper.setPictureUrl("");
+		newspaper.setAdvertisements(new HashSet<Advertisement>());
 		newspaper.setTaboo(false);
 
 		newspaper = this.newspaperService.save(newspaper);
@@ -77,6 +79,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setCreditCards(new HashSet<CreditCard>());
 		newspaper.setDescription("New description");
 		newspaper.setPictureUrl("");
+		newspaper.setAdvertisements(new HashSet<Advertisement>());
 
 		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
@@ -99,6 +102,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setDescription("");
 		newspaper.setPictureUrl("");
 		newspaper.setTaboo(false);
+		newspaper.setAdvertisements(new HashSet<Advertisement>());
 
 		this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
@@ -120,6 +124,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setDescription("New");
 		newspaper.setPictureUrl("");
 		newspaper.setTaboo(false);
+		newspaper.setAdvertisements(new HashSet<Advertisement>());
 
 		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
