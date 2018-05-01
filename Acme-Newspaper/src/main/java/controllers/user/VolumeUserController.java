@@ -43,7 +43,7 @@ public class VolumeUserController extends AbstractController {
 
 	// List created volumes ---------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) {
+	public ModelAndView list(@RequestParam(defaultValue = "0") int page) {
 		ModelAndView result;
 		Page<Volume> volumes;
 		Pageable pageable;
@@ -51,6 +51,8 @@ public class VolumeUserController extends AbstractController {
 		User user;
 
 		try {
+			page = 0; //TODO:BUG
+
 			user = (User) this.actorService.findActorByPrincipal();
 			configuration = this.configurationService.findConfiguration();
 			pageable = new PageRequest(page, configuration.getPageSize());
@@ -69,7 +71,6 @@ public class VolumeUserController extends AbstractController {
 		return result;
 
 	}
-
 	// Create volume ---------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {

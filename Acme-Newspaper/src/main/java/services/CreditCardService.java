@@ -76,7 +76,7 @@ public class CreditCardService {
 		CreditCard result;
 
 		//Checks that the CreditCard hasn't expired
-		this.checkCreditCardExpired(creditCard);
+		//this.checkCreditCardExpired(creditCard); TODO:BUG
 
 		creditCard.setCustomer((Customer) this.actorService.findActorByPrincipal());
 		result = this.creditCardRepository.save(creditCard);

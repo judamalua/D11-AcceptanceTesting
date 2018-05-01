@@ -114,21 +114,21 @@ public class MessageService {
 		Assert.isTrue(this.messageRepository.exists(message.getId()));
 
 		Actor actor;
-		MessageFolder messageFolder;
-		MessageFolder trashBox;
+		//		MessageFolder messageFolder;
+		//		MessageFolder trashBox;
 
 		actor = this.actorService.findActorByPrincipal();
 		Assert.notNull(actor);
 
 		Assert.isTrue(actor.getMessageFolders().contains(message.getMessageFolder()));
 
-		messageFolder = message.getMessageFolder();
-		if (messageFolder.getName().equals("trash box") && messageFolder.getIsDefault() == true)
-			this.messageRepository.delete(message);
-		else {
-			trashBox = this.messageFolderService.findMessageFolder("trash box", actor);
-			this.actorService.moveMessage(message, trashBox);
-		}
+		//		messageFolder = message.getMessageFolder();
+		//		if (messageFolder.getName().equals("trash box") && messageFolder.getIsDefault() == true)
+		this.messageRepository.delete(message);//TODO: BUG
+		//		else {
+		//			trashBox = this.messageFolderService.findMessageFolder("trash box", actor);
+		//			this.actorService.moveMessage(message, trashBox);
+		//		}
 
 	}
 	// Other business methods --------------------------------------------------

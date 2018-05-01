@@ -147,8 +147,7 @@
 
 	<display:column>
 		<security:authorize access="hasRole('USER')">
-			<jstl:if
-				test="${fn:length(ownArticle)>0 and ownArticle[articleList_rowNum-1] and !articleList.finalMode   and newspaper.publicationDate==null}">
+			<jstl:if test="${fn:length(ownArticle)>0 and ownArticle[articleList_rowNum-1]  and newspaper.publicationDate==null}"><!-- TODO: BUG: and !articleList.finalMode -->
 				<acme:button url="article/user/edit.do?articleId=${articleList.id}"
 					code="article.edit" />
 			</jstl:if>

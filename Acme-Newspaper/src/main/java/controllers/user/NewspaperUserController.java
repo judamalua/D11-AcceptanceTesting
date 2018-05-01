@@ -51,7 +51,7 @@ public class NewspaperUserController extends AbstractController {
 	// Listing ---------------------------------------------------------------		
 
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam final Boolean published, @RequestParam(required = false, defaultValue = "0") final Integer page) {
+	public ModelAndView list(@RequestParam final Boolean published, @RequestParam(required = false, defaultValue = "0") Integer page) {
 		ModelAndView result;
 		Page<Newspaper> newspapers;
 		final Pageable pageable;
@@ -61,6 +61,8 @@ public class NewspaperUserController extends AbstractController {
 		boolean allFinalMode = true;
 
 		try {
+			page = 1;//TODO: BUG
+
 			result = new ModelAndView("newspaper/list");
 			actor = this.actorService.findActorByPrincipal();
 			configuration = this.configurationService.findConfiguration();

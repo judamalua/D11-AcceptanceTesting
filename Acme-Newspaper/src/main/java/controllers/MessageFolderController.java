@@ -87,7 +87,7 @@ public class MessageFolderController extends AbstractController {
 		try {
 			actor = this.actorService.findActorByPrincipal();
 			messageFolder = this.messageFolderService.findOne(messageFolderId);
-			Assert.isTrue(!messageFolder.getIsDefault());
+			//Assert.isTrue(!messageFolder.getIsDefault());TODO: BUG
 			Assert.isTrue(actor.getMessageFolders().contains(messageFolder));
 			result = this.createEditModelAndView(messageFolder);
 		} catch (final Throwable oops) {

@@ -64,7 +64,7 @@ public class NewspaperController extends AbstractController {
 	// Listing  ---------------------------------------------------------------		
 
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam(defaultValue = "0") final int page) throws IllegalArgumentException, IllegalAccessException, IOException {
+	public ModelAndView list(@RequestParam(defaultValue = "0") int page) throws IllegalArgumentException, IllegalAccessException, IOException {
 		ModelAndView result;
 		Page<Newspaper> newspapers;
 		Pageable pageable;
@@ -73,6 +73,8 @@ public class NewspaperController extends AbstractController {
 		Actor actor;
 		User publisher;
 		try {
+			page = 0;//TODO:BUG
+
 			configuration = this.configurationService.findConfiguration();
 			pageable = new PageRequest(page, configuration.getPageSize());
 			ownNewspapers = new ArrayList<>();

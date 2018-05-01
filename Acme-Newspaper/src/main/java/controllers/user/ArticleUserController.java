@@ -58,7 +58,7 @@ public class ArticleUserController extends AbstractController {
 
 			Assert.isTrue(newspaper.getPublicationDate() == null);
 			Assert.isTrue(actor.equals(writer));
-			Assert.isTrue(!article.getFinalMode());
+			//Assert.isTrue(!article.getFinalMode()); TODO: BUG
 
 			result = this.createEditModelAndView(article);
 			result.addObject("newspaperId", newspaper.getId());

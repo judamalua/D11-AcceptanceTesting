@@ -7,6 +7,8 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -54,6 +56,18 @@ public class AdminService {
 
 		Assert.notNull(this.adminRepository);
 		result = this.adminRepository.findAll();
+		Assert.notNull(result);
+
+		return result;
+
+	}
+
+	public Page<Admin> findAll(final Pageable pageable) {
+
+		Page<Admin> result;
+
+		Assert.notNull(this.adminRepository);
+		result = this.adminRepository.findAll(pageable);
 		Assert.notNull(result);
 
 		return result;

@@ -62,13 +62,13 @@
 			</a>
 		</display:column>
 		<display:column>
-			<jstl:if test="${!messageFolderList.isDefault}">
+<%-- 			<jstl:if test="${!messageFolderList.isDefault}"> --%>
 				<a href="messageFolder/edit.do?messageFolderId=${messageFolderList.id}">
 					<button class = "btn">
 						<spring:message code="messageFolder.edit" />
 					</button>
 				</a>
-			</jstl:if>
+<%-- 			</jstl:if> --%>
 		</display:column>
 
 

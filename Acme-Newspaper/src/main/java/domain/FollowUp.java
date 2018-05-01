@@ -39,7 +39,6 @@ public class FollowUp extends DomainEntity {
 	private boolean	taboo;
 
 
-	@SafeHtml
 	@NotBlank
 	public String getTitle() {
 		return this.title;

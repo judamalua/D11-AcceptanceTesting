@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AdminService;
 import services.ConfigurationService;
 import services.UserService;
 import controllers.AbstractController;
+import domain.Admin;
 import domain.Chirp;
 import domain.Configuration;
 import domain.User;
@@ -40,6 +42,8 @@ public class ActorUserController extends AbstractController {
 	private ActorService			actorService;
 	@Autowired
 	private UserService				userService;
+	@Autowired
+	private AdminService			adminService;
 	@Autowired
 	private ConfigurationService	configurationService;
 
@@ -119,7 +123,8 @@ public class ActorUserController extends AbstractController {
 	@RequestMapping("/list-followers")
 	public ModelAndView listFollowers(@RequestParam(defaultValue = "0") final int page) {
 		ModelAndView result;
-		Page<User> users;
+		//Page<User> users;
+		Page<Admin> users;
 		Pageable pageable;
 		Configuration configuration;
 		User principal;
@@ -131,7 +136,8 @@ public class ActorUserController extends AbstractController {
 			result = new ModelAndView("user/list");
 			configuration = this.configurationService.findConfiguration();
 			pageable = new PageRequest(page, configuration.getPageSize());
-			users = this.userService.findFollowers(principal.getId(), pageable);
+			//users = this.userService.findFollowers(principal.getId(), pageable); TODO: BUG
+			users = this.adminService.findAll(pageable);
 
 			result.addObject("users", users.getContent());
 			result.addObject("page", page);
