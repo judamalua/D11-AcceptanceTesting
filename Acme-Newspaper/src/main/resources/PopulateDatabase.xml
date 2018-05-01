@@ -1286,9 +1286,6 @@
 		</property>
 		<property name="advertisements">
 			<list>
-				<ref bean="Advertisement1" />
-				<ref bean="Advertisement2" />
-				<ref bean="Advertisement3" />
 			</list>
 		</property>
 		<property name="articles">
@@ -1413,9 +1410,6 @@
 		</property>
 		<property name="advertisements">
 			<list>
-				<ref bean="Advertisement1" />
-				<ref bean="Advertisement2" />
-				<ref bean="Advertisement3" />
 			</list>
 		</property>
 		<property name="articles">
@@ -1438,9 +1432,6 @@
 		</property>
 		<property name="advertisements">
 			<list>
-				<ref bean="Advertisement4" />
-				<ref bean="Advertisement5" />
-				<ref bean="Advertisement6" />
 			</list>
 		</property>
 		<property name="articles">
