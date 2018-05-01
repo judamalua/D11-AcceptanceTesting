@@ -114,7 +114,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="UserAccount11" class="security.UserAccount">
 		<property name="username" value="agent1" />
 		<property name="password" value="83a87fd756ab57199c0bb6d5e11168cb" />
@@ -126,7 +126,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="UserAccount12" class="security.UserAccount">
 		<property name="username" value="agent2" />
 		<property name="password" value="b1a4a6b01cc297d4677c4ca6656e14d7" />
@@ -138,7 +138,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="UserAccount13" class="security.UserAccount">
 		<property name="username" value="customer2" />
 		<property name="password" value="5ce4d191fd14ac85a1469fb8c29b7a7b" />
@@ -252,10 +252,8 @@
 		<property name="taboo" value="false" />
 	</bean>
 	<bean id="Chirp14" class="domain.Chirp">
-		<property name="title"
-			value="This is a chirp for an acceptance test" />
-		<property name="description"
-			value="So I did not think a lot about what to write" />
+		<property name="title" value="This is a chirp for an acceptance test" />
+		<property name="description" value="So I did not think a lot about what to write" />
 		<property name="moment" value="2018/04/08 14:37" />
 		<property name="taboo" value="false" />
 	</bean>
@@ -280,7 +278,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="Customer2" class="domain.Customer">
 		<property name="name" value="Customer 2" />
 		<property name="surname" value="Customer" />
@@ -299,8 +297,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	
+
+
 	<!-- %%%%%% domain.Agent %%%%%% -->
 	<bean id="Agent1" class="domain.Agent">
 		<property name="name" value="Agent 1" />
@@ -601,6 +599,7 @@
 				<ref bean="MessageFolder43" />
 				<ref bean="MessageFolder44" />
 				<ref bean="MessageFolder45" />
+				<ref bean="MessageFolder71" />
 			</list>
 		</property>
 	</bean>
@@ -870,7 +869,7 @@
 		<property name="name" value="spam box" />
 		<property name="isDefault" value="true" />
 	</bean>
-	
+
 	<bean id="MessageFolder56" class="domain.MessageFolder">
 		<property name="name" value="in box" />
 		<property name="isDefault" value="true" />
@@ -893,7 +892,7 @@
 		<property name="name" value="spam box" />
 		<property name="isDefault" value="true" />
 	</bean>
-	
+
 	<bean id="MessageFolder61" class="domain.MessageFolder">
 		<property name="name" value="in box" />
 		<property name="isDefault" value="true" />
@@ -916,7 +915,7 @@
 		<property name="name" value="spam box" />
 		<property name="isDefault" value="true" />
 	</bean>
-	
+
 	<bean id="MessageFolder66" class="domain.MessageFolder">
 		<property name="name" value="in box" />
 		<property name="isDefault" value="true" />
@@ -939,7 +938,11 @@
 		<property name="name" value="spam box" />
 		<property name="isDefault" value="true" />
 	</bean>
-	
+	<bean id="MessageFolder71" class="domain.MessageFolder">
+		<property name="name" value="family box" />
+		<property name="isDefault" value="false" />
+	</bean>
+
 	<!-- %%%%%% domain.Message %%%%%% -->
 	<bean id="Message1" class="domain.Message">
 		<property name="priority" value="LOW" />
@@ -1250,6 +1253,12 @@
 		</property>
 		<property name="advertisements">
 			<list>
+				<ref bean="Advertisement1" />
+				<ref bean="Advertisement2" />
+				<ref bean="Advertisement3" />
+				<ref bean="Advertisement4" />
+				<ref bean="Advertisement5" />
+				<ref bean="Advertisement6" />
 			</list>
 		</property>
 		<property name="articles">
@@ -1300,6 +1309,9 @@
 		</property>
 		<property name="advertisements">
 			<list>
+				<ref bean="Advertisement4" />
+				<ref bean="Advertisement5" />
+				<ref bean="Advertisement6" />
 			</list>
 		</property>
 		<property name="articles">
@@ -1322,6 +1334,9 @@
 		</property>
 		<property name="advertisements">
 			<list>
+				<ref bean="Advertisement7" />
+				<ref bean="Advertisement1" />
+				<ref bean="Advertisement2" />
 			</list>
 		</property>
 		<property name="articles">
@@ -1344,6 +1359,9 @@
 		</property>
 		<property name="advertisements">
 			<list>
+				<ref bean="Advertisement3" />
+				<ref bean="Advertisement4" />
+				<ref bean="Advertisement5" />
 			</list>
 		</property>
 		<property name="articles">
@@ -1367,6 +1385,9 @@
 		</property>
 		<property name="advertisements">
 			<list>
+				<ref bean="Advertisement6" />
+				<ref bean="Advertisement1" />
+				<ref bean="Advertisement2" />
 			</list>
 		</property>
 		<property name="articles">
@@ -1376,9 +1397,9 @@
 		</property>
 	</bean>
 	<bean id="Newspaper7" class="domain.Newspaper">
-		<property name="title" value="Performance testing is better than acceptance testing!" />
-		<property name="description"
-			value="I hate butterflies" />
+		<property name="title"
+			value="Performance testing is better than acceptance testing!" />
+		<property name="description" value="I hate butterflies" />
 		<property name="pictureUrl"
 			value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Morpho_didius_Male_Dos_MHNT.jpg/250px-Morpho_didius_Male_Dos_MHNT.jpg" />
 		<property name="publicNewspaper" value="true" />
@@ -1398,9 +1419,9 @@
 		</property>
 	</bean>
 	<bean id="Newspaper8" class="domain.Newspaper">
-		<property name="title" value="This is a newspaper used for Acceptance testing" />
-		<property name="description"
-			value="Have fun!" />
+		<property name="title"
+			value="This is a newspaper used for Acceptance testing" />
+		<property name="description" value="Have fun!" />
 		<property name="pictureUrl"
 			value="https://www.lainformacion.com/files/article_main/uploads/2017/09/15/59bc19492035b.jpeg" />
 		<property name="publicNewspaper" value="true" />
@@ -1421,28 +1442,189 @@
 
 	<!-- %%%%%% domain.Volume %%%%%% -->
 	<bean id="Volume1" class="domain.Volume">
-		<property name="title" value="Test Volume 1" />
-		<property name="description" value="Test Volume descripcion 1" />
+		<property name="title" value="My volume" />
+		<property name="description" value="This is my personal volume of newspapers" />
 		<property name="year" value="2018" />
-		<property name="user" ref="User1"/>
+		<property name="user" ref="User1" />
 		<property name="newspapers">
 			<list>
 				<ref bean="Newspaper3" />
+				<ref bean="Newspaper4" />
 			</list>
 		</property>
 	</bean>
 
 	<bean id="Volume2" class="domain.Volume">
-		<property name="title" value="Test Volume 2" />
-		<property name="description" value="Test Volume descripcion 2" />
+		<property name="title" value="News news news!" />
+		<property name="description" value="Come and see the news!" />
 		<property name="year" value="2018" />
-		<property name="user" ref="User1"/>
+		<property name="user" ref="User1" />
 		<property name="newspapers">
 			<list>
 				<ref bean="Newspaper1" />
-				<ref bean="Newspaper3" />
+				<ref bean="Newspaper2" />
 			</list>
 		</property>
+	</bean>
+	<bean id="Volume3" class="domain.Volume">
+		<property name="title" value="The best volume" />
+		<property name="description" value="See the best volume of acme newspaper!" />
+		<property name="year" value="2018" />
+		<property name="user" ref="User1" />
+		<property name="newspapers">
+			<list>
+				<ref bean="Newspaper5" />
+				<ref bean="Newspaper1" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Volume4" class="domain.Volume">
+		<property name="title" value="Extra extra!" />
+		<property name="description" value="Hot news!" />
+		<property name="year" value="2018" />
+		<property name="user" ref="User1" />
+		<property name="newspapers">
+			<list>
+				<ref bean="Newspaper3" />
+				<ref bean="Newspaper6" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Volume5" class="domain.Volume">
+		<property name="title" value="Newspapers copilation" />
+		<property name="description" value="See the copilation of newspapers!" />
+		<property name="year" value="2018" />
+		<property name="user" ref="User1" />
+		<property name="newspapers">
+			<list>
+				<ref bean="Newspaper2" />
+				<ref bean="Newspaper4" />
+			</list>
+		</property>
+	</bean>
+	<bean id="Volume6" class="domain.Volume">
+		<property name="title" value="Best selling" />
+		<property name="description" value="here the best selling newspapers!" />
+		<property name="year" value="2018" />
+		<property name="user" ref="User1" />
+		<property name="newspapers">
+			<list>
+				<ref bean="Newspaper1" />
+				<ref bean="Newspaper2" />
+			</list>
+		</property>
+	</bean>
+	<!-- %%%%%% domain.Advertisement %%%%%% -->
+	<bean id="Advertisement1" class="domain.Advertisement">
+		<property name="title" value="Superlopez" />
+		<property name="bannerURL"
+			value="http://nadiaorenes.es/blog/wp-content/uploads/2014/12/superlopez-271x300.jpg" />
+		<property name="additionalInfoLink"
+			value="https://es-es.facebook.com/Superlopez-270750483064415/" />
+		<property name="holderName" value="Agent1" />
+		<property name="brandName" value="Mastercard" />
+		<property name="number" value="1111111111111117" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="18" />
+		<property name="cvv" value="123" />
+		<property name="taboo" value="false" />
+		<property name="agent" ref="Agent1" />
+	</bean>
+	
+		<bean id="Advertisement2" class="domain.Advertisement">
+		<property name="title" value="Cocacola" />
+		<property name="bannerURL"
+			value="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Coca-Cola_bottle_cap.svg/1200px-Coca-Cola_bottle_cap.svg.png" />
+		<property name="additionalInfoLink"
+			value="https://www.cocacola.es/home/" />
+		<property name="holderName" value="Agent1" />
+		<property name="brandName" value="Mastercard" />
+		<property name="number" value="1111111111111117" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="18" />
+		<property name="cvv" value="123" />
+		<property name="taboo" value="false" />
+		<property name="agent" ref="Agent1" />
+	</bean>
+	
+		<bean id="Advertisement3" class="domain.Advertisement">
+		<property name="title" value="Red bull" />
+		<property name="bannerURL"
+			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />
+		<property name="additionalInfoLink"
+			value="https://www.redbull.com/es-es/" />
+		<property name="holderName" value="Agent1" />
+		<property name="brandName" value="Mastercard" />
+		<property name="number" value="1111111111111117" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="18" />
+		<property name="cvv" value="123" />
+		<property name="taboo" value="false" />
+		<property name="agent" ref="Agent1" />
+	</bean>
+	
+		<bean id="Advertisement4" class="domain.Advertisement">
+		<property name="title" value="Pepsi" />
+		<property name="bannerURL"
+			value="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Pepsi_logo_2014.svg/1200px-Pepsi_logo_2014.svg.png" />
+		<property name="additionalInfoLink"
+			value="http://www.pepsi.com/es-es" />
+		<property name="holderName" value="Agent1" />
+		<property name="brandName" value="Mastercard" />
+		<property name="number" value="1111111111111117" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="18" />
+		<property name="cvv" value="123" />
+		<property name="taboo" value="false" />
+		<property name="agent" ref="Agent1" />
+	</bean>
+	
+		<bean id="Advertisement5" class="domain.Advertisement">
+		<property name="title" value="Superlopez" />
+		<property name="bannerURL"
+			value="https://s1.dia.es/medias/ha9/h22/9336861294622.jpg" />
+		<property name="additionalInfoLink"
+			value="https://www.pepsico.es/brands/kas/" />
+		<property name="holderName" value="Agent1" />
+		<property name="brandName" value="Mastercard" />
+		<property name="number" value="1111111111111117" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="18" />
+		<property name="cvv" value="123" />
+		<property name="taboo" value="false" />
+		<property name="agent" ref="Agent1" />
+	</bean>
+	
+		<bean id="Advertisement6" class="domain.Advertisement">
+		<property name="title" value="Ñam ñam" />
+		<property name="bannerURL"
+			value="http://www.espaciomediterraneo.com/uploads/tiendas/2654_namnam.jpg" />
+		<property name="additionalInfoLink"
+			value="https://www.yelp.es/biz/%C3%B1am-%C3%B1am-sevilla-2" />
+		<property name="holderName" value="Agent1" />
+		<property name="brandName" value="Mastercard" />
+		<property name="number" value="1111111111111117" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="18" />
+		<property name="cvv" value="123" />
+		<property name="taboo" value="false" />
+		<property name="agent" ref="Agent1" />
+	</bean>
+	
+		<bean id="Advertisement7" class="domain.Advertisement">
+		<property name="title" value="Sex" />
+		<property name="bannerURL"
+			value="http://www.uwyo.edu/reslife-dining/_files/re-design-images/dining-logos/rendezvouslogo_2016.png" />
+		<property name="additionalInfoLink"
+			value="https://www.frantastique.com/es/gramatica-frances/les-rendez-vous" />
+		<property name="holderName" value="Agent1" />
+		<property name="brandName" value="Mastercard" />
+		<property name="number" value="1111111111111117" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="18" />
+		<property name="cvv" value="123" />
+		<property name="taboo" value="true" />
+		<property name="agent" ref="Agent1" />
 	</bean>
 	<!-- %%%%%% domain.Configuration %%%%%% -->
 	<bean id="Configuration1" class="domain.Configuration">
