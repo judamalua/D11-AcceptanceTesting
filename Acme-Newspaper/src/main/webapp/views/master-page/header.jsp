@@ -94,7 +94,7 @@
 					<li class="divider"></li>
 					<li><a href="advertisement/admin/list.do?taboo=false"><spring:message
 								code="master.page.advertisement.list" /></a></li>
-				
+
 				</ul>
 
 				<!-- Dropdown Trigger -->
@@ -136,32 +136,36 @@
 			<security:authorize access="isAnonymous()">
 				<li><a class="fNiv" href="security/login.do"> <spring:message
 							code="master.page.login" /></a></li>
-				<li><a class="fNiv" href="actor/register.do"> <spring:message
-							code="master.page.registerUser" /></a></li>
-				<li><a class="fNiv" href="actor/customer/register.do"> <spring:message
-							code="master.page.registerCustomer" /></a></li>
-				<li><a class="fNiv" href="actor/agent/register.do"> <spring:message
-							code="master.page.registerAgent" /></a></li>
-				<li><a class="fNiv" href="user/list.do"> <spring:message
-							code="master.page.userList" />
-				</a></li>
 				<li><a href="newspaper/list.do"><spring:message
 							code="master.page.newspaperList" /></a></li>
 				<li><a href="volume/list.do"><spring:message
 							code="master.page.volumeList" /></a></li>
 				<li><a href="article/search.do"><spring:message
 							code="master.page.articleSearch" /></a></li>
+				<li><a class="fNiv" href="user/list.do"> <spring:message
+								code="master.page.userList" />
+					</a></li>
+				<ul id="dropdownRegisterActor" class="dropdown-content">
+					<li><a class="fNiv" href="actor/register.do"> <spring:message
+								code="master.page.registerUser" /></a></li>
+					<li><a class="fNiv" href="actor/customer/register.do"> <spring:message
+								code="master.page.registerCustomer" /></a></li>
+					<li><a class="fNiv" href="actor/agent/register.do"> <spring:message
+								code="master.page.registerAgent" /></a></li>
+				</ul>
+				<!-- Dropdown Trigger -->
+				<li><a class="dropdown-button" href="#!"
+					data-activates="dropdownRegisterActor"><spring:message
+							code="master.page.register" /><i class="material-icons right">arrow_drop_down</i></a></li>
+
 
 			</security:authorize>
 
 			<security:authorize access="isAuthenticated()">
 				<li><a class="fNiv" href="user/list.do"> <spring:message
 							code="master.page.userList" /></a></li>
-
 				<li><a class="fNiv" href="newspaper/list.do"><spring:message
 							code="master.page.newspaperList" /></a></li>
-				</a>
-				</li>
 				<li><a href="volume/list.do"><spring:message
 							code="master.page.volumeList" /></a></li>
 				<li><a href="article/search.do"><spring:message
