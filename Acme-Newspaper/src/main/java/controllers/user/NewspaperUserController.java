@@ -61,7 +61,7 @@ public class NewspaperUserController extends AbstractController {
 		boolean allFinalMode = true;
 
 		try {
-			page = 1;//TODO: BUG
+			page = 0;//TODO: BUG
 
 			result = new ModelAndView("newspaper/list");
 			actor = this.actorService.findActorByPrincipal();
