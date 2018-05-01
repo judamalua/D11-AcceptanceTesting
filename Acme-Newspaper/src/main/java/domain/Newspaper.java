@@ -40,7 +40,7 @@ public class Newspaper extends DomainEntity {
 	private boolean	taboo;
 
 
-	@SafeHtml
+	//TODO BUG @SafeHtml
 	@NotBlank
 	public String getTitle() {
 		return this.title;

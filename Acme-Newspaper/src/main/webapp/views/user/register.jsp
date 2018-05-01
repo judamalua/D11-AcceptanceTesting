@@ -9,7 +9,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<script type="text/javascript" src="scripts/checkboxTermsAndConditions.js"></script>
 
 <div class="row">
 <p><em><spring:message code = "form.required.params"/></em></p>

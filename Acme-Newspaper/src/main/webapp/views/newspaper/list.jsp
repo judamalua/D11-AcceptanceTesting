@@ -32,7 +32,7 @@
 	pattern="yyyy-MM-dd HH:mm" />
 
 <div class="row">
-	<form action="newspaper/search.do" method="get">
+	<form action="newspaper/list.do" method="get">
 		<div class="input-field col s3">
 			<input id="page" type="hidden" name="page" value="0" /> <input
 				id="search" type="search" name="search" > <label
