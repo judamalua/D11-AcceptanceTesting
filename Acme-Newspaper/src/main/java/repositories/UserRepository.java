@@ -83,7 +83,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	 * @return The ratio of users who have ever written an article.
 	 * @author Antonio
 	 */
-	@Query("select (select count(u1) from User u1 join u1.newspapers n where n.articles.size>0)/(count(u)*1.0) from User u")
+	@Query("select (select count(distinct u1)*1.0 from User u1 join u1.newspapers n where n.articles.size>0)/( count(u)*1.0) from User u")
 	String getRatioCreatedArticles();
 
 	/**
