@@ -45,17 +45,6 @@ public class MessageFolderServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testCreateNotLoggedNegative() {
-		final MessageFolder messageFolder;
-
-		messageFolder = this.messageFolderService.create();
-		Assert.notNull(messageFolder);
-		Assert.isNull(messageFolder.getMessageFolderFather());
-		Assert.isTrue(!messageFolder.getIsDefault());
-		Assert.isNull(messageFolder.getName());
-	}
-
 	@Test
 	public void testFindAll() {
 		super.authenticate("admin1");

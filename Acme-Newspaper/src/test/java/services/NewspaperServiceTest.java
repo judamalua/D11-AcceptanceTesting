@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Advertisement;
 import domain.Article;
 import domain.Configuration;
 import domain.CreditCard;
@@ -47,9 +49,12 @@ public class NewspaperServiceTest extends AbstractTest {
 	public void testCreateANewspaper() {
 		Newspaper newspaper;
 		Newspaper savedNewspaper;
+		Collection<Advertisement> advertisements;
 
 		super.authenticate("User1");
 		newspaper = this.newspaperService.create();
+
+		advertisements = new HashSet<>();
 
 		newspaper.setTitle("Title");
 		newspaper.setArticles(new HashSet<Article>());
@@ -57,6 +62,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setDescription("New description");
 		newspaper.setPictureUrl("");
 		newspaper.setTaboo(false);
+		newspaper.setAdvertisements(advertisements);
 
 		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
@@ -69,14 +75,18 @@ public class NewspaperServiceTest extends AbstractTest {
 	public void testCreateATabooNewspaperPositive() {
 		Newspaper newspaper;
 		Newspaper savedNewspaper;
+		final Collection<Advertisement> advertisements;
 		super.authenticate("User1");
 		newspaper = this.newspaperService.create();
+
+		advertisements = new HashSet<>();
 
 		newspaper.setTitle("sex");
 		newspaper.setArticles(new HashSet<Article>());
 		newspaper.setCreditCards(new HashSet<CreditCard>());
 		newspaper.setDescription("New description");
 		newspaper.setPictureUrl("");
+		newspaper.setAdvertisements(advertisements);
 
 		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());

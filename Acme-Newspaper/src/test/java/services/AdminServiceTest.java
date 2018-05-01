@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +18,7 @@ import security.Authority;
 import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Admin;
+import domain.MessageFolder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -64,6 +67,7 @@ public class AdminServiceTest extends AbstractTest {
 			Admin newAdmin;
 			UserAccount usAcc;
 			Authority auth;
+			Collection<MessageFolder> messageFolders;
 
 			super.authenticate(login);
 
@@ -71,10 +75,11 @@ public class AdminServiceTest extends AbstractTest {
 
 			usAcc = new UserAccount();
 			usAcc.setUsername(userAdmin);
-			usAcc.setPassword("admin");
+			usAcc.setPassword(passwordAdmi);
 			auth = new Authority();
 			auth.setAuthority("ADMIN");
 			usAcc.addAuthority(auth);
+			messageFolders = new HashSet<>();
 
 			newAdmin.setUserAccount(usAcc);
 
@@ -84,6 +89,7 @@ public class AdminServiceTest extends AbstractTest {
 			newAdmin.setEmail(email);
 			newAdmin.setPhoneNumber(phoneNumber);
 			newAdmin.setPostalAddress(address);
+			newAdmin.setMessageFolders(messageFolders);
 
 			this.adminService.save(newAdmin);
 			this.adminService.flush();
