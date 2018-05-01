@@ -186,7 +186,7 @@ public class NewspaperUserController extends AbstractController {
 				actor = this.actorService.findActorByPrincipal();
 
 				Assert.isTrue(actor.equals(publisher));
-				result = new ModelAndView("redirect:/newspaper/user/list.do?published=false");
+				result = new ModelAndView("redirect:/newspaper/user/list.do?published=true"); //TODO BUG
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(newspaper, "newspaper.commit.error");
@@ -214,7 +214,7 @@ public class NewspaperUserController extends AbstractController {
 
 			this.newspaperService.delete(newspaper);
 
-			result = new ModelAndView("redirect:/newspaper/user/list.do?published=false");
+			result = new ModelAndView("redirect:/"); //TODO BUG newspaper/user/list.do?published=false
 
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(newspaper, "newspaper.commit.error");

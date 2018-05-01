@@ -106,11 +106,8 @@
 	requestURI="newspaper/display.do" pagesize="${pagesize}">
 
 	<display:column title="${titleArticle}">
-		<security:authorize access="hasRole('CUSTOMER')">
-			<jstl:if
-				test="${((ownArticle!=null and ownArticle[articleList_rowNum-1])  or (subscriber and !newspaper.publicNewspaper) or newspaper.publicNewspaper )}">
-				<a href="article/display.do?articleId=${articleList.id}">${articleList.title}</a>
-			</jstl:if>
+		<security:authorize access="hasRole('CUSTOMER')">	
+			<a href="article/display.do?articleId=${articleList.id}">${articleList.title}</a>	
 			<jstl:if
 				test="${(!subscriber) and !newspaper.publicNewspaper and !(ownArticle!=null and ownArticle[articleList_rowNum-1])}">
 				<jstl:out value="${articleList.title}" />
@@ -121,7 +118,7 @@
 				<a href="article/display.do?articleId=${articleList.id}">${articleList.title}</a>
 			</jstl:if>
 			<jstl:if test="${!newspaper.publicNewspaper}">
-				<jstl:out value="${articleList.title}" />
+				<a href="article/display.do?articleId=${articleList.id}">${articleList.title}</a>
 			</jstl:if>
 		</security:authorize>
 

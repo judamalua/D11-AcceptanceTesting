@@ -176,7 +176,7 @@ public class NewspaperController extends AbstractController {
 			ownNewspapers = new ArrayList<>();
 			result = new ModelAndView("newspaper/list");
 
-			newspapers = this.newspaperService.findPublicPublicatedNewspapersWithSearch(pageable, search);
+			newspapers = this.newspaperService.findPublicPublicatedNewspapers(pageable); //TODO BUG
 
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
