@@ -370,6 +370,7 @@
 				<ref bean="Newspaper6" />
 				<ref bean="Newspaper7" />
 				<ref bean="Newspaper8" />
+				<ref bean="Newspaper9" />
 			</list>
 		</property>
 		<property name="chirps">
@@ -1309,7 +1310,7 @@
 		</property>
 		<property name="advertisements">
 			<list>
-				<ref bean="Advertisement4" />
+				<ref bean="Advertisement1" />
 				<ref bean="Advertisement5" />
 				<ref bean="Advertisement6" />
 			</list>
@@ -1334,9 +1335,9 @@
 		</property>
 		<property name="advertisements">
 			<list>
-				<ref bean="Advertisement7" />
 				<ref bean="Advertisement1" />
 				<ref bean="Advertisement2" />
+				<ref bean="Advertisement3" />
 			</list>
 		</property>
 		<property name="articles">
@@ -1359,7 +1360,7 @@
 		</property>
 		<property name="advertisements">
 			<list>
-				<ref bean="Advertisement3" />
+				<ref bean="Advertisement1" />
 				<ref bean="Advertisement4" />
 				<ref bean="Advertisement5" />
 			</list>
@@ -1432,6 +1433,29 @@
 		</property>
 		<property name="advertisements">
 			<list>
+			</list>
+		</property>
+		<property name="articles">
+			<list>
+			</list>
+		</property>
+	</bean>
+		<bean id="Newspaper9" class="domain.Newspaper">
+		<property name="title"
+			value="This is a new newspaper!" />
+		<property name="description" value="Hot news for all!" />
+		<property name="pictureUrl"
+			value="http://sirse.info/wp-content/uploads/2016/09/DiarioPeriodico-541x311-800x500_c.jpg" />
+		<property name="publicNewspaper" value="true" />
+		<property name="publicationDate" value="2018/01/04" />
+		<property name="taboo" value="false" />
+		<property name="creditCards">
+			<list>
+			</list>
+		</property>
+		<property name="advertisements">
+			<list>
+				<ref bean="Advertisement1"/>
 			</list>
 		</property>
 		<property name="articles">
@@ -1580,7 +1604,7 @@
 	</bean>
 	
 		<bean id="Advertisement5" class="domain.Advertisement">
-		<property name="title" value="Superlopez" />
+		<property name="title" value="Kas" />
 		<property name="bannerURL"
 			value="https://s1.dia.es/medias/ha9/h22/9336861294622.jpg" />
 		<property name="additionalInfoLink"
