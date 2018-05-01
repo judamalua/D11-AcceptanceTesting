@@ -141,7 +141,10 @@ public class AdvertisementAgentController extends AbstractController {
 				result = new ModelAndView("redirect:/advertisement/agent/list.do");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(advertisement, "advertisement.commit.error");
+				if (oops.getMessage() == "CreditCard expiration Date error")
+					result = this.createEditModelAndView(advertisement, "advertisement.creditcard.expiration.error");
+				else
+					result = this.createEditModelAndView(advertisement, "advertisement.commit.error");
 			}
 
 		return result;
