@@ -50,8 +50,9 @@
 
 	<acme:submit name="save" code="followUp.save"/>
 	<acme:cancel url="followUp/user/list-created.do" code="followUp.cancel"/>
+	<jstl:if test="${followUp.id!=0}">
 	<acme:delete clickCode="followUp.confirm.delete" name="delete" code="followUp.delete" />
-	
+	</jstl:if>
 	
 		
 </form:form>
