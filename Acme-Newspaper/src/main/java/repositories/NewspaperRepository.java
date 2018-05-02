@@ -33,6 +33,9 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	@Query("select n from Newspaper n where n.taboo = true and (n.publicationDate!=null and n.publicationDate!='')")
 	Collection<Newspaper> getAllTabooNewspapers();
 
+	@Query("select n from Newspaper n where n.taboo = true and (n.publicationDate!=null and n.publicationDate!='')")
+	Page<Newspaper> getAllTabooNewspapers(Pageable pageable);
+
 	/**
 	 * Level C query 3
 	 * 
