@@ -19,8 +19,9 @@ public class TextRazorTest {
 		client.addExtractor("topics");
 		client.addExtractor("dependency-trees");
 		client.addExtractor("entailments");
+		client.setCleanupHTML(true);
 
-		final AnalyzedText response = client.analyze("Me encanta el pop, no puedo vivir sin el pop.");
+		final AnalyzedText response = client.analyzeUrl("https://www.coca-colacompany.com/");
 		for (final Entailment entity : response.getResponse().getEntailments())
 			System.out.println("Matched Entity: " + entity.getEntailedWords() + " score:" + entity.getScore());
 

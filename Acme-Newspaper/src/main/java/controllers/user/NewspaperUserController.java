@@ -4,6 +4,9 @@ package controllers.user;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,11 +22,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AdvertisementService;
 import services.ConfigurationService;
 import services.NewspaperService;
 import services.UserService;
+
+import com.textrazor.AnalysisException;
+import com.textrazor.NetworkException;
+import com.textrazor.TextRazor;
+import com.textrazor.annotations.AnalyzedText;
+import com.textrazor.annotations.Entailment;
+import com.textrazor.annotations.Word;
+
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Advertisement;
 import domain.Article;
 import domain.Configuration;
 import domain.Newspaper;
@@ -36,16 +49,19 @@ public class NewspaperUserController extends AbstractController {
 	// Services -------------------------------------------------------
 
 	@Autowired
-	NewspaperService		newspaperService;
+	public NewspaperService		newspaperService;
 
 	@Autowired
-	ActorService			actorService;
+	public ActorService			actorService;
 
 	@Autowired
-	UserService				userService;
+	public UserService			userService;
 
 	@Autowired
-	ConfigurationService	configurationService;
+	public AdvertisementService	advertisementService;
+
+	@Autowired
+	public ConfigurationService	configurationService;
 
 
 	// Listing ---------------------------------------------------------------		
@@ -138,6 +154,18 @@ public class NewspaperUserController extends AbstractController {
 		Newspaper newspaper;
 		Actor actor;
 		User publisher;
+		final TextRazor client;
+		AnalyzedText response, responseNewspaper;
+		final Collection<Advertisement> advertisements;
+		Collection<Entailment> entailments;
+		Collection<Word> words;
+		Map<String, Double> entailmentScore;
+		Map<String, Double> wordScore;
+		Collection<String> entailedWords;
+		String allStrings;
+		Double maxScore;
+		Advertisement maxAdvertisement = null;
+
 		try {
 			actor = this.actorService.findActorByPrincipal();
 
@@ -148,10 +176,80 @@ public class NewspaperUserController extends AbstractController {
 			Assert.isTrue(newspaper.getPublicationDate() == null);
 			Assert.isTrue(newspaper.getArticles().size() > 0);
 
+			client = new TextRazor("2a7775eb6f2695154d305aad841da8856f2c633f5a0541d3208dad40");
+
+			client.addExtractor("words");
+			client.addExtractor("entailments");
+			client.setCleanupHTML(true);
+
+			entailmentScore = new HashMap<>();
+			wordScore = new HashMap<>();
+			entailedWords = new HashSet<>();
+			maxScore = Double.MIN_VALUE;
+			allStrings = "";
+
 			newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
 
 			for (final Article article : newspaper.getArticles())
 				Assert.isTrue(article.getFinalMode());
+
+			advertisements = this.advertisementService.findAll();
+
+			for (final Advertisement advertisement : advertisements)
+				try {
+					response = client.analyzeUrl(advertisement.getAdditionalInfoLink());
+					entailments = response.getResponse().getEntailments();
+
+					if (entailments != null)
+						for (final Entailment entailment : entailments) {
+							System.out.println("Matched Entailments: " + entailment.getEntailedWords() + " score:" + entailment.getScore());
+							for (final String entailedWord : entailedWords)
+								if (entailmentScore.containsKey(entailedWord))
+									entailmentScore.put(entailedWord, entailmentScore.get(entailedWord) + entailment.getScore());
+								else
+									entailmentScore.put(entailedWord, entailment.getScore());
+						}
+					else {
+						words = response.getResponse().getWords();
+						for (final Word word : words) {
+							System.out.println("Matched word: " + word.getLemma() + " score:" + word.getLemma());
+							if (wordScore.containsKey(word.getLemma()))
+								wordScore.put(word.getLemma(), wordScore.get(word.getLemma()) + 1.);
+							else
+								wordScore.put(word.getLemma(), 1.);
+						}
+					}
+					allStrings += newspaper.getTitle() + " " + newspaper.getDescription();
+
+					for (final Article article : newspaper.getArticles())
+						allStrings += " " + article.getTitle() + " " + article.getSummary() + " " + article.getBody();
+
+					responseNewspaper = client.analyze(allStrings);
+
+					if (entailments != null)
+						for (final Entailment entailment : responseNewspaper.getResponse().getEntailments()) {
+							System.out.println("Matched Entailments: " + entailment.getEntailedWords() + " score:" + entailment.getScore());
+							for (final String entailedWord : entailedWords)
+								if (entailmentScore.containsKey(entailedWord) && maxScore < entailmentScore.get(entailedWord)) {
+									maxScore = entailmentScore.get(entailedWord);
+									maxAdvertisement = advertisement;
+								}
+						}
+					else
+						for (final Word word : responseNewspaper.getResponse().getWords()) {
+							System.out.println("Matched word: " + word.getLemma() + " score:" + word.getLemma());
+
+							if (wordScore.containsKey(word.getLemma()) && maxScore < entailmentScore.get(word.getLemma())) {
+								maxScore = wordScore.get(word.getLemma());
+								maxAdvertisement = advertisement;
+							}
+						}
+
+				} catch (final NetworkException e) {
+				} catch (final AnalysisException e) {
+				}
+
+			newspaper.getAdvertisements().add(maxAdvertisement);
 
 			this.newspaperService.save(newspaper);
 
