@@ -191,7 +191,7 @@ public class NewspaperController extends AbstractController {
 			result.addObject("newspapers", newspapers.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", newspapers.getTotalPages());
-			result.addObject("requestUri", "newspaper/search.do?search=" + search);
+			result.addObject("requestUri", "newspaper/search.do?search=" + search + "&");
 			result.addObject("search", search);
 			result.addObject("generalView", true);
 

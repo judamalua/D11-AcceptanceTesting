@@ -247,6 +247,7 @@ public class NewspaperService {
 
 		return result;
 	}
+
 	//Dashboard queries ------------------------
 	/**
 	 * Level C query 3

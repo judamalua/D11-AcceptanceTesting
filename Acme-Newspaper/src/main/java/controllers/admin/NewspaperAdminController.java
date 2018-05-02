@@ -52,16 +52,16 @@ public class NewspaperAdminController extends AbstractController {
 	// List taboo ---------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam(required = false, defaultValue = "0") final Integer page) {
+	public ModelAndView list(@RequestParam(required = false, defaultValue = "0") final Integer page) {
 		ModelAndView result;
 		Page<Newspaper> newspapers;
 		Configuration configuration;
 		Pageable pageable;
 
 		try {
-
 			configuration = this.configurationService.findConfiguration();
 			pageable = new PageRequest(page, configuration.getPageSize());
+
 			newspapers = this.newspaperService.getAllTabooNewspapers(pageable);
 
 			result = new ModelAndView("newspaper/list");
@@ -69,7 +69,7 @@ public class NewspaperAdminController extends AbstractController {
 			result.addObject("newspapers", newspapers.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", newspapers.getTotalPages());
-			result.addObject("requestUri", "newspaper/admin/list.do");
+			result.addObject("requestUri", "newspaper/admin/list.do?");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -77,5 +77,4 @@ public class NewspaperAdminController extends AbstractController {
 
 		return result;
 	}
-
 }

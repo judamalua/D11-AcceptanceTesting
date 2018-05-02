@@ -1,9 +1,10 @@
 
 package controllers.admin;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ArticleService;
+import services.ConfigurationService;
 import services.NewspaperService;
 import controllers.AbstractController;
 import domain.Article;
+import domain.Configuration;
 import domain.Newspaper;
 
 @Controller
@@ -23,10 +26,13 @@ public class ArticleAdminController extends AbstractController {
 	// Services -------------------------------------------------------
 
 	@Autowired
-	ArticleService		articleService;
+	private ArticleService			articleService;
 
 	@Autowired
-	NewspaperService	newspaperService;
+	private NewspaperService		newspaperService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Delete ---------------------------------------------------------
@@ -54,16 +60,24 @@ public class ArticleAdminController extends AbstractController {
 
 	// List taboo ---------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView edit() {
+	public ModelAndView list(@RequestParam(required = false, defaultValue = "0") final Integer page) {
 		ModelAndView result;
-		Collection<Article> articles;
+		Page<Article> articles;
+		Configuration configuration;
+		Pageable pageable;
 
 		try {
-			articles = this.articleService.getAllTabooArticles();
+
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
+
+			articles = this.articleService.getAllTabooArticles(pageable);
 
 			result = new ModelAndView("article/list");
 
-			result.addObject("articles", articles);
+			result.addObject("articles", articles.getContent());
+			result.addObject("page", page);
+			result.addObject("pageNum", articles.getTotalPages());
 			result.addObject("requestUri", "article/admin/list.do?");
 
 		} catch (final Throwable oops) {

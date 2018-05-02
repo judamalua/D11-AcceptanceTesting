@@ -31,34 +31,39 @@
 <fmt:formatDate var="currentDate" value="${now}"
 	pattern="yyyy-MM-dd HH:mm" />
 
-<div class="row">
-	<form action="article/search.do" method="get">
-		<div class="input-field col s3">
-			<input id="page" type="hidden" name="page" value="0" /> <input
-				id="search" type="search" name="search" value = "${search}"/> <label for="search"><i
-				class="material-icons">search</i></label> <i class="material-icons">close</i>
-		</div>
-	</form>
-</div>
+<jstl:if test="${generalView}">
+	<div class="row">
+		<form action="article/search.do" method="get">
+			<div class="input-field col s3">
+				<input id="page" type="hidden" name="page" value="0" /> <input
+					id="search" type="search" name="search" value="${search}" /> <label
+					for="search"><i class="material-icons">search</i></label> <i
+					class="material-icons">close</i>
+			</div>
+		</form>
+	</div>
+</jstl:if>
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestUri}?search=${search}&page="
+<acme:pagination requestURI="${requestUri}search=${search}&page="
 	pageNum="${pageNum}" page="${page}" />
 
 <!-- Table -->
-<display:table name="articles" id="articleList" requestURI="${requestUri}">
+<display:table name="articles" id="articleList"
+	requestURI="${requestUri}">
 
 	<display:column property="title" title="${titleTitle}" />
 
 	<display:column property="summary" title="${summaryTitle}" />
 
 	<display:column title="${newspaper.publicNewspaper}">
-			<acme:button url="article/display.do?articleId=${articleList.id}"
-				code="article.display" />
+		<acme:button url="article/display.do?articleId=${articleList.id}"
+			code="article.display" />
 	</display:column>
 	<display:column>
 		<security:authorize access="hasRole('ADMIN')">
-			<acme:button url="article/admin/delete.do?articleId=${articleList.id}"
+			<acme:button
+				url="article/admin/delete.do?articleId=${articleList.id}"
 				code="article.delete" />
 		</security:authorize>
 	</display:column>
