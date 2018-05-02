@@ -52,6 +52,8 @@
       </div>
     </div>
   </div>
+  <spring:message code="configuration.businessNameInfo" />
+  <br/>
   
 	
 	<acme:submit name="save" code="configuration.save"/>
