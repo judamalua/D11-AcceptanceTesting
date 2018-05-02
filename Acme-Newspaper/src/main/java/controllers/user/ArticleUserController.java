@@ -73,13 +73,18 @@ public class ArticleUserController extends AbstractController {
 		ModelAndView result;
 		Article article;
 		Newspaper newspaper;
+		User publisher;
+		User actor;
 
 		try {
 			this.actorService.checkUserLogin();
+			actor = (User) this.actorService.findActorByPrincipal();
 			article = this.articleService.create();
 			newspaper = this.newspaperService.findOne(newspaperId);
+			publisher = this.userService.findUserByNewspaper(newspaperId);
 
 			Assert.isTrue(newspaper.getPublicationDate() == null);
+			Assert.isTrue(actor.equals(publisher));
 
 			result = this.createEditModelAndView(article);
 			result.addObject("newspaperId", newspaperId);
