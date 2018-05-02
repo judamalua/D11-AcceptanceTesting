@@ -19,11 +19,13 @@ import repositories.UserRepository;
 import security.Authority;
 import security.UserAccount;
 import domain.Actor;
+import domain.Admin;
 import domain.Article;
 import domain.Chirp;
 import domain.MessageFolder;
 import domain.Newspaper;
 import domain.User;
+import domain.Volume;
 import forms.UserCustomerAdminForm;
 
 @Service
@@ -42,6 +44,9 @@ public class UserService {
 
 	@Autowired
 	private MessageFolderService	messageFolderService;
+
+	@Autowired
+	private VolumeService			volumeService;
 
 	@Autowired
 	private ActorService			actorService;
@@ -104,23 +109,30 @@ public class UserService {
 	}
 
 	public User save(final User user) {
-		assert user != null;
+		Assert.isTrue(user != null);
+
 		Actor actor = null;
 
 		if (user.getId() != 0)
 			actor = this.actorService.findActorByPrincipal();
 
-		if (actor instanceof User && user.getId() != 0)
+		if (!(actor instanceof Admin) && actor instanceof User && user.getId() != 0)
 			Assert.isTrue(user.equals(actor));
 
 		User result;
+		Collection<Volume> volumes;
 
 		result = this.userRepository.save(user);
+		volumes = this.volumeService.findVolumesByUser(user.getId());
+
+		for (final Volume volume : volumes) {
+			volume.setUser(result);
+			this.volumeService.save(volume);
+		}
 
 		return result;
 
 	}
-
 	public void delete(final User user) {
 
 		assert user != null;

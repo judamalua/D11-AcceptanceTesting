@@ -81,8 +81,8 @@ public class VolumeService {
 
 		Actor principal;
 		Volume result;
-		Collection<CreditCard> creditCards;
-		Collection<Newspaper> newspapers;
+		final Collection<CreditCard> creditCards;
+		final Collection<Newspaper> newspapers;
 
 		principal = this.actorService.findActorByPrincipal();
 		if (principal instanceof User)
@@ -95,12 +95,12 @@ public class VolumeService {
 			creditCards = this.creditCardService.getCreditCardsByVolume(volume.getId());
 			newspapers = volume.getNewspapers();
 
-			for (final Newspaper n : newspapers) {
-				for (final CreditCard c : creditCards)
+			for (final Newspaper n : newspapers)
+				for (final CreditCard c : creditCards) {
 					if (!n.getCreditCards().contains(c))
 						n.getCreditCards().add(c);
-				this.newspaperService.save(n);
-			}
+					this.newspaperService.save(n);
+				}
 		}
 
 		return result;
@@ -229,6 +229,23 @@ public class VolumeService {
 		result = this.volumeRepository.findVolumesByUser(customerId, pageable);
 
 		return result;
+	}
+
+	public Collection<Volume> findVolumesByUser(final int userId) {
+		Collection<Volume> result;
+
+		result = this.volumeRepository.findVolumesByUser(userId);
+
+		return result;
+	}
+
+	public Collection<Volume> findVolumesByNewspaper(final int newspaperId) {
+		Collection<Volume> result;
+
+		result = this.volumeRepository.findVolumesByNewspaper(newspaperId);
+
+		return result;
+
 	}
 
 	public void flush() {

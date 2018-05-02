@@ -39,10 +39,16 @@ public interface VolumeRepository extends JpaRepository<Volume, Integer> {
 	@Query("select n from Volume v join v.newspapers n where v.id = ?1 and n.publicNewspaper = FALSE")
 	Collection<Newspaper> getSubscribableNewspapersFromVolume(int volumeId);
 
+	@Query("select distinct v from Volume v join v.newspapers n where n.id=?1")
+	Collection<Volume> findVolumesByNewspaper(int newspaperId);
+
 	@Query("select v from CreditCard c join c.volumes v where c.customer.id = ?1 ")
 	Page<Volume> findVolumesByCustomer(int customerId, Pageable pageable);
 
 	@Query("select v from Volume v where v.user.id = ?1")
-	Page<Volume> findVolumesByUser(int customerId, Pageable pageable);
+	Page<Volume> findVolumesByUser(int userId, Pageable pageable);
+
+	@Query("select v from Volume v where v.user.id = ?1")
+	Collection<Volume> findVolumesByUser(int userId);
 
 }

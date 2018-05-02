@@ -30,7 +30,7 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	@Query("select n from Newspaper n join n.creditCards c where c.customer.id = ?1")
 	Page<Newspaper> findNotSubscribedNewspapersByCustomer(int customerId, Pageable pageable);
 
-	@Query("select n from Newspaper n where n.taboo = TRUE and n.publicNewspaper = TRUE and (n.publicationDate!=null and n.publicationDate!='')")
+	@Query("select n from Newspaper n where n.taboo = true and (n.publicationDate!=null and n.publicationDate!='')")
 	Collection<Newspaper> getAllTabooNewspapers();
 
 	/**
