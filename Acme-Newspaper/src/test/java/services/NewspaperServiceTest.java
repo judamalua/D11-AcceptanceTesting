@@ -61,6 +61,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setCreditCards(new HashSet<CreditCard>());
 		newspaper.setDescription("New description");
 		newspaper.setPictureUrl("");
+		newspaper.setAdvertisements(new HashSet<Advertisement>());
 		newspaper.setTaboo(false);
 		newspaper.setAdvertisements(advertisements);
 
@@ -75,18 +76,15 @@ public class NewspaperServiceTest extends AbstractTest {
 	public void testCreateATabooNewspaperPositive() {
 		Newspaper newspaper;
 		Newspaper savedNewspaper;
-		final Collection<Advertisement> advertisements;
 		super.authenticate("User1");
 		newspaper = this.newspaperService.create();
-
-		advertisements = new HashSet<>();
 
 		newspaper.setTitle("sex");
 		newspaper.setArticles(new HashSet<Article>());
 		newspaper.setCreditCards(new HashSet<CreditCard>());
 		newspaper.setDescription("New description");
 		newspaper.setPictureUrl("");
-		newspaper.setAdvertisements(advertisements);
+		newspaper.setAdvertisements(new HashSet<Advertisement>());
 
 		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
@@ -109,6 +107,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setDescription("");
 		newspaper.setPictureUrl("");
 		newspaper.setTaboo(false);
+		newspaper.setAdvertisements(new HashSet<Advertisement>());
 
 		this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());
@@ -130,6 +129,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setDescription("New");
 		newspaper.setPictureUrl("");
 		newspaper.setTaboo(false);
+		newspaper.setAdvertisements(new HashSet<Advertisement>());
 
 		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());

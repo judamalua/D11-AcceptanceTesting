@@ -21,6 +21,7 @@ import domain.Article;
 import domain.CreditCard;
 import domain.Newspaper;
 import domain.User;
+import domain.Volume;
 
 @Service
 @Transactional
@@ -41,6 +42,9 @@ public class NewspaperService {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private VolumeService		volumeService;
 
 
 	// Simple CRUD methods --------------------------------------------------
@@ -82,6 +86,7 @@ public class NewspaperService {
 		Newspaper result;
 		User publisher;
 		final boolean taboo;
+		final Collection<Volume> volumes;
 
 		// Comprobación palabras de spam
 		if (this.actorService.findActorByPrincipal() instanceof User) {
@@ -100,6 +105,17 @@ public class NewspaperService {
 		publisher.getNewspapers().add(result);
 		this.userService.save(publisher);
 
+		if (newspaper.getId() != 0) {
+
+			volumes = this.volumeService.findVolumesByNewspaper(newspaper.getId());
+
+			for (final Volume volume : volumes) {
+				volume.getNewspapers().remove(newspaper);
+				volume.getNewspapers().add(result);
+				this.volumeService.save(volume);
+			}
+		}
+
 		return result;
 
 	}
@@ -109,6 +125,7 @@ public class NewspaperService {
 		Assert.isTrue(newspaper.getId() != 0);
 		User publisher;
 		Actor actor;
+		Collection<Volume> volumes;
 
 		actor = this.actorService.findActorByPrincipal();
 		if (actor instanceof User)
@@ -119,6 +136,13 @@ public class NewspaperService {
 
 		publisher.getNewspapers().remove(newspaper);
 		this.userService.save(publisher);
+
+		volumes = this.volumeService.findVolumesByNewspaper(newspaper.getId());
+
+		for (final Volume volume : volumes) {
+			volume.getNewspapers().remove(newspaper);
+			this.volumeService.save(volume);
+		}
 
 		this.newspaperRepository.delete(newspaper);
 

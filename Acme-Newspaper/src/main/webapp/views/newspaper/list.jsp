@@ -31,20 +31,24 @@
 <fmt:formatDate var="currentDate" value="${now}"
 	pattern="yyyy-MM-dd HH:mm" />
 
+
+<jstl:if test = "${generalView}">
 <div class="row">
 	<form action="newspaper/list.do" method="get">
 		<div class="input-field col s3">
 			<input id="page" type="hidden" name="page" value="0" /> <input
-				id="search" type="search" name="search" > <label
+				id="search" type="search" name="search" value = "${search}" > <label
 				 for="search"><i class="material-icons">search</i></label>
 			<i class="material-icons">close</i>
 		</div>
 	</form>
 </div>
+</jstl:if>
 
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestUri}page=" pageNum="${pageNum}"
+
+<acme:pagination requestURI="${requestUri}&page=" pageNum="${pageNum}"
 	page="${page}" />
 
 <!-- Table -->

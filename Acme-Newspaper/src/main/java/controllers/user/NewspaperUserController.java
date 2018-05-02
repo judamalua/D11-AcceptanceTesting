@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AdvertisementService;
 import services.ConfigurationService;
 import services.NewspaperService;
 import services.UserService;
@@ -36,16 +37,19 @@ public class NewspaperUserController extends AbstractController {
 	// Services -------------------------------------------------------
 
 	@Autowired
-	NewspaperService		newspaperService;
+	public NewspaperService		newspaperService;
 
 	@Autowired
-	ActorService			actorService;
+	public ActorService			actorService;
 
 	@Autowired
-	UserService				userService;
+	public UserService			userService;
 
 	@Autowired
-	ConfigurationService	configurationService;
+	public AdvertisementService	advertisementService;
+
+	@Autowired
+	public ConfigurationService	configurationService;
 
 
 	// Listing ---------------------------------------------------------------		
@@ -87,7 +91,7 @@ public class NewspaperUserController extends AbstractController {
 			result.addObject("newspapers", newspapers.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", newspapers.getTotalPages());
-			result.addObject("requestUri", "newspaper/user/list.do?published=" + published + "&");
+			result.addObject("requestUri", "newspaper/user/list.do?published=" + published);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -140,6 +144,7 @@ public class NewspaperUserController extends AbstractController {
 		Newspaper newspaper;
 		Actor actor;
 		User publisher;
+
 		try {
 			actor = this.actorService.findActorByPrincipal();
 

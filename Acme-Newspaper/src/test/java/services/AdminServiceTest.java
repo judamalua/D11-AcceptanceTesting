@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -67,7 +66,6 @@ public class AdminServiceTest extends AbstractTest {
 			Admin newAdmin;
 			UserAccount usAcc;
 			Authority auth;
-			Collection<MessageFolder> messageFolders;
 
 			super.authenticate(login);
 
@@ -79,7 +77,6 @@ public class AdminServiceTest extends AbstractTest {
 			auth = new Authority();
 			auth.setAuthority("ADMIN");
 			usAcc.addAuthority(auth);
-			messageFolders = new HashSet<>();
 
 			newAdmin.setUserAccount(usAcc);
 
@@ -89,7 +86,7 @@ public class AdminServiceTest extends AbstractTest {
 			newAdmin.setEmail(email);
 			newAdmin.setPhoneNumber(phoneNumber);
 			newAdmin.setPostalAddress(address);
-			newAdmin.setMessageFolders(messageFolders);
+			newAdmin.setMessageFolders(new HashSet<MessageFolder>());
 
 			this.adminService.save(newAdmin);
 			this.adminService.flush();

@@ -80,7 +80,7 @@ ${article.body}
 	<display:column>
 
 		<jstl:if test="${isLogged}">
-			<acme:button url="followUp/display.do?followUpId=${followUp.id}"
+			<acme:button url="followUp/display.do?followUpId=${followUpList.id}"
 				code="followUp.display" />
 		</jstl:if>
 
