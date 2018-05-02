@@ -240,6 +240,13 @@ public class NewspaperService {
 		return result;
 	}
 
+	public Page<Newspaper> getAllTabooNewspapers(final Pageable pageable) {
+		Page<Newspaper> result;
+
+		result = this.newspaperRepository.getAllTabooNewspapers(pageable);
+
+		return result;
+	}
 	//Dashboard queries ------------------------
 	/**
 	 * Level C query 3
