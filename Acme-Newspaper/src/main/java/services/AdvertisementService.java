@@ -105,10 +105,11 @@ public class AdvertisementService {
 		//Checks that the CreditCard hasn't expired
 		this.checkCreditCardExpired(advertisement);
 
+		advertisement.setTaboo(this.actorService.checkSpamWords(advertisement.getTitle()));
+
 		advertisement.setAgent((Agent) this.actorService.findActorByPrincipal());
 		result = this.advertisementRepository.save(advertisement);
 		final Collection<Newspaper> newspapers = this.newspaperService.findNewspaperByAdvertisement(advertisement.getId());
-
 		for (final Newspaper newspaper : newspapers) {
 			newspaper.getAdvertisements().remove(advertisement);
 			newspaper.getAdvertisements().add(result);

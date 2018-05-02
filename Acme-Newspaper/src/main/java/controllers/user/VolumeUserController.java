@@ -61,7 +61,8 @@ public class VolumeUserController extends AbstractController {
 			result.addObject("volumes", volumes.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", volumes.getTotalPages());
-			result.addObject("requestUri", "volume/customer/list.do?");
+			result.addObject("requestUri", "volume/user/list.do?");
+			result.addObject("userId", user.getId());
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
 		}
