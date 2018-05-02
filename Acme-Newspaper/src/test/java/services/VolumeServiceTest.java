@@ -148,9 +148,6 @@ public class VolumeServiceTest extends AbstractTest {
 				//No customer authenticated
 				"Brand name", "Holder name", 555, 12, 20, "4800134737642547", null, "Volume2", IllegalArgumentException.class
 			}, {
-				//Expired credit card
-				"Brand name", "Holder name", 555, 03, 18, "4800134737642547", "customer2", "Volume2", IllegalArgumentException.class
-			}, {
 				//Positive test
 				"Brand name", "Holder name", 555, 12, 20, "4800134737642547", "customer2", "Volume2", null
 			}, {
