@@ -89,7 +89,7 @@ public class NewspaperUserController extends AbstractController {
 			result.addObject("newspapers", newspapers.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", newspapers.getTotalPages());
-			result.addObject("requestUri", "newspaper/user/list.do?published=" + published + "&");
+			result.addObject("requestUri", "newspaper/user/list.do?published=" + published);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

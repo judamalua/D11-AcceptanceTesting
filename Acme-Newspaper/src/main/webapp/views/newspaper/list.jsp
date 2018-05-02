@@ -31,6 +31,8 @@
 <fmt:formatDate var="currentDate" value="${now}"
 	pattern="yyyy-MM-dd HH:mm" />
 
+
+<jstl:if test = "${generalView}">
 <div class="row">
 	<form action="newspaper/search.do" method="get">
 		<div class="input-field col s3">
@@ -41,10 +43,12 @@
 		</div>
 	</form>
 </div>
+</jstl:if>
 
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestUri}page=" pageNum="${pageNum}"
+
+<acme:pagination requestURI="${requestUri}&page=" pageNum="${pageNum}"
 	page="${page}" />
 
 <!-- Table -->

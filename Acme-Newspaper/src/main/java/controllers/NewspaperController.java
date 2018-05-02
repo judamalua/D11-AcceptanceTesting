@@ -93,6 +93,7 @@ public class NewspaperController extends AbstractController {
 			result.addObject("page", page);
 			result.addObject("pageNum", newspapers.getTotalPages());
 			result.addObject("requestUri", "newspaper/list.do?");
+			result.addObject("generalView", true);
 		} catch (final Throwable throwable) {
 			result = new ModelAndView("redirect:/misc/403");
 		}
@@ -190,6 +191,7 @@ public class NewspaperController extends AbstractController {
 			result.addObject("pageNum", newspapers.getTotalPages());
 			result.addObject("requestUri", "newspaper/search.do?search=" + search);
 			result.addObject("search", search);
+			result.addObject("generalView", true);
 
 		} catch (final Throwable throwable) {
 			result = new ModelAndView("redirect:/misc/403");
