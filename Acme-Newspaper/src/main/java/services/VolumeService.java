@@ -166,7 +166,6 @@ public class VolumeService {
 			result = this.findOne(volume.getId());
 			result.setDescription(volume.getDescription());
 			result.setTitle(volume.getTitle());
-			//result.setYear(volume.getYear());
 			result.setNewspapers(volume.getNewspapers());
 		}
 
