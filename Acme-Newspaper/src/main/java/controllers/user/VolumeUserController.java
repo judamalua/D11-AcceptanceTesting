@@ -2,6 +2,7 @@
 package controllers.user;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,9 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.ConfigurationService;
+import services.CreditCardService;
+import services.NewspaperService;
 import services.VolumeService;
 import controllers.AbstractController;
 import domain.Configuration;
+import domain.CreditCard;
 import domain.Newspaper;
 import domain.User;
 import domain.Volume;
@@ -36,6 +40,12 @@ public class VolumeUserController extends AbstractController {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private CreditCardService		creditCardService;
+
+	@Autowired
+	private NewspaperService		newspaperService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -118,6 +128,8 @@ public class VolumeUserController extends AbstractController {
 		ModelAndView result;
 		Volume savedVolume;
 		User user;
+		final Collection<CreditCard> creditCards;
+		final Collection<Newspaper> newspapers;
 
 		try {
 			volume = this.volumeService.reconstruct(volume, binding);
@@ -131,6 +143,19 @@ public class VolumeUserController extends AbstractController {
 				user = (User) this.actorService.findActorByPrincipal();
 
 				Assert.isTrue(user.equals(volume.getUser()));
+
+				if (volume.getId() != 0) {
+					//If newspapers are added, the subscribers (customers) must be automatically subscribed to these new newspapers.
+					creditCards = this.creditCardService.getCreditCardsByVolume(volume.getId());
+					newspapers = volume.getNewspapers();
+
+					for (final Newspaper n : new HashSet<>(newspapers)) {
+						for (final CreditCard c : creditCards)
+							if (!n.getCreditCards().contains(c))
+								n.getCreditCards().add(c);
+						this.newspaperService.save(n);
+					}
+				}
 
 				savedVolume = this.volumeService.save(volume);
 

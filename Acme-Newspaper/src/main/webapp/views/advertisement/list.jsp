@@ -29,7 +29,7 @@
 
 <!-- Pagination -->
 <acme:pagination
-	requestURI="${requestUri}?newspaperId=${newspaper.id}&page="
+	requestURI="${requestUri}newspaperId=${newspaper.id}&page="
 	page="${page}" pageNum="${pageNum}" />
 
 <!-- Table -->

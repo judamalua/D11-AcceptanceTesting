@@ -67,7 +67,7 @@ public class AdvertisementAgentController extends AbstractController {
 			result.addObject("advertisements", advertisements.getContent());
 			result.addObject("page", page);
 			result.addObject("pageNum", advertisements.getTotalPages());
-			result.addObject("requestUri", "advertisement/agent/list.do");
+			result.addObject("requestUri", "advertisement/agent/list.do?");
 
 			if (newspaperId != null) {
 				newspaper = this.newspaperService.findOne(newspaperId);

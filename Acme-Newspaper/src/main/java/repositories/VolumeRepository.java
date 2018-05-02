@@ -33,7 +33,7 @@ public interface VolumeRepository extends JpaRepository<Volume, Integer> {
 	 * @return The ratio of subscriptions to volumes versus subscriptions to newspapers.
 	 * @author MJ
 	 */
-	@Query("select count(cd)*1.0/(select count(nw)*1.0 from Newspaper nw), (count(v)*1.0/(select count(vl)*1.0 from Volume vl)) from Newspaper n join n.creditCards cd, CreditCard c join c.volumes v ")
+	@Query("select count(cd)*1.0/(select count(nw)*1.0 from Newspaper nw), (count(v)*1.0/(select count(vl)*1.0 from Volume vl)) from Newspaper n join n.creditCards cd, CreditCard c join c.volumes v")
 	String getRatioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers();
 
 	@Query("select n from Volume v join v.newspapers n where v.id = ?1 and n.publicNewspaper = FALSE")
