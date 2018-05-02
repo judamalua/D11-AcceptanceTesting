@@ -44,7 +44,7 @@
 
 
 <!-- Pagination -->
-<acme:pagination requestURI="${requestUri}page=" pageNum="${pageNum}"
+<acme:pagination requestURI="${requestUri}&page=" pageNum="${pageNum}"
 	page="${page}" />
 
 <!-- Table -->
