@@ -50,7 +50,7 @@
 </jstl:if>
 <jstl:if test="${advertisement != null}">
 	<a href="${advertisement.additionalInfoLink}"> <img
-		class="sponsorshipBannerUrl" src="${advertisement.bannerURL}"
+		class="serviceImg" src="${advertisement.bannerURL}"
 		alt="${advertisement.title}" />
 	</a>
 </jstl:if>
