@@ -87,8 +87,8 @@ public class VolumeUserController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		Volume volume;
-
 		try {
+
 			volume = this.volumeService.create();
 			result = this.createEditModelAndView(volume);
 		} catch (final Throwable oops) {
