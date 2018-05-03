@@ -73,6 +73,8 @@ public class AdvertisementAdminController extends AbstractController {
 			result.addObject("page", page);
 			result.addObject("pageNum", advertisements.getTotalPages());
 			result.addObject("requestUri", "advertisement/admin/list.do?");
+			result.addObject("taboo", taboo);
+			result.addObject("adminList", true);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

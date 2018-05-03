@@ -28,10 +28,16 @@
 	var="additionalInfoLinkTitle" />
 
 <!-- Pagination -->
-<acme:pagination
-	requestURI="${requestUri}newspaperId=${newspaper.id}&page="
-	page="${page}" pageNum="${pageNum}" />
-
+<jstl:if test="${!adminList}">
+	<acme:pagination
+		requestURI="${requestUri}newspaperId=${newspaper.id}&page="
+		page="${page}" pageNum="${pageNum}" />
+</jstl:if>
+<jstl:if test="${adminList}">
+	<acme:pagination
+		requestURI="${requestUri}taboo=${taboo}&page="
+		page="${page}" pageNum="${pageNum}" />
+</jstl:if>
 <!-- Table -->
 <display:table name="advertisements" id="advertisementList"
 	requestURI="${requestUri}">
