@@ -149,6 +149,7 @@ public class VolumeService {
 
 		} else {
 			result = this.findOne(volume.getId());
+
 			result.setDescription(volume.getDescription());
 			result.setTitle(volume.getTitle());
 			result.setNewspapers(volume.getNewspapers());
