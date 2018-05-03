@@ -33,7 +33,6 @@
 		modelAttribute="advertisement">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
-		<form:hidden path="agent" />
 
 		<acme:textbox code="advertisement.title" path="title" required="true" />
 		<acme:textbox code="advertisement.bannerURL" path="bannerURL"
