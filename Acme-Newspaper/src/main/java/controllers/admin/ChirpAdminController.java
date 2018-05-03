@@ -79,7 +79,7 @@ public class ChirpAdminController extends AbstractController {
 			result.addObject("page", page);
 			result.addObject("pageNum", chirps.getTotalPages());
 			result.addObject("authors", authors);
-			result.addObject("requestUri", "chirp/admin/list.do?");
+			result.addObject("requestURI", "chirp/admin/list.do?");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
