@@ -1440,9 +1440,8 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="Newspaper9" class="domain.Newspaper">
-		<property name="title"
-			value="This is a new newspaper!" />
+	<bean id="Newspaper9" class="domain.Newspaper">
+		<property name="title" value="This is a new newspaper!" />
 		<property name="description" value="Hot news for all!" />
 		<property name="pictureUrl"
 			value="http://sirse.info/wp-content/uploads/2016/09/DiarioPeriodico-541x311-800x500_c.jpg" />
@@ -1455,7 +1454,7 @@
 		</property>
 		<property name="advertisements">
 			<list>
-				<ref bean="Advertisement1"/>
+				<ref bean="Advertisement1" />
 			</list>
 		</property>
 		<property name="articles">
@@ -1554,13 +1553,12 @@
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
 	</bean>
-	
-		<bean id="Advertisement2" class="domain.Advertisement">
+
+	<bean id="Advertisement2" class="domain.Advertisement">
 		<property name="title" value="Cocacola" />
 		<property name="bannerURL"
 			value="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Coca-Cola_bottle_cap.svg/1200px-Coca-Cola_bottle_cap.svg.png" />
-		<property name="additionalInfoLink"
-			value="https://www.cocacola.es/home/" />
+		<property name="additionalInfoLink" value="https://www.coca-colacompany.com/" />
 		<property name="holderName" value="Agent1" />
 		<property name="brandName" value="Mastercard" />
 		<property name="number" value="1111111111111117" />
@@ -1570,13 +1568,12 @@
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
 	</bean>
-	
-		<bean id="Advertisement3" class="domain.Advertisement">
+
+	<bean id="Advertisement3" class="domain.Advertisement">
 		<property name="title" value="Red bull" />
 		<property name="bannerURL"
 			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />
-		<property name="additionalInfoLink"
-			value="https://www.redbull.com/es-es/" />
+		<property name="additionalInfoLink" value="http://energydrink.redbull.com/" />
 		<property name="holderName" value="Agent1" />
 		<property name="brandName" value="Mastercard" />
 		<property name="number" value="1111111111111117" />
@@ -1586,13 +1583,12 @@
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
 	</bean>
-	
-		<bean id="Advertisement4" class="domain.Advertisement">
+
+	<bean id="Advertisement4" class="domain.Advertisement">
 		<property name="title" value="Pepsi" />
 		<property name="bannerURL"
 			value="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Pepsi_logo_2014.svg/1200px-Pepsi_logo_2014.svg.png" />
-		<property name="additionalInfoLink"
-			value="http://www.pepsi.com/es-es" />
+		<property name="additionalInfoLink" value="https://en.wikipedia.org/wiki/Pepsi" />
 		<property name="holderName" value="Agent1" />
 		<property name="brandName" value="Mastercard" />
 		<property name="number" value="1111111111111117" />
@@ -1602,13 +1598,12 @@
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
 	</bean>
-	
-		<bean id="Advertisement5" class="domain.Advertisement">
+
+	<bean id="Advertisement5" class="domain.Advertisement">
 		<property name="title" value="Kas" />
 		<property name="bannerURL"
 			value="https://s1.dia.es/medias/ha9/h22/9336861294622.jpg" />
-		<property name="additionalInfoLink"
-			value="https://www.pepsico.es/brands/kas/" />
+		<property name="additionalInfoLink" value="https://en.wikipedia.org/wiki/Kas" />
 		<property name="holderName" value="Agent1" />
 		<property name="brandName" value="Mastercard" />
 		<property name="number" value="1111111111111117" />
@@ -1618,8 +1613,8 @@
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
 	</bean>
-	
-		<bean id="Advertisement6" class="domain.Advertisement">
+
+	<bean id="Advertisement6" class="domain.Advertisement">
 		<property name="title" value="Ñam ñam" />
 		<property name="bannerURL"
 			value="http://www.espaciomediterraneo.com/uploads/tiendas/2654_namnam.jpg" />
@@ -1634,13 +1629,13 @@
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
 	</bean>
-	
-		<bean id="Advertisement7" class="domain.Advertisement">
+
+	<bean id="Advertisement7" class="domain.Advertisement">
 		<property name="title" value="Sex" />
 		<property name="bannerURL"
 			value="http://www.uwyo.edu/reslife-dining/_files/re-design-images/dining-logos/rendezvouslogo_2016.png" />
 		<property name="additionalInfoLink"
-			value="https://www.frantastique.com/es/gramatica-frances/les-rendez-vous" />
+			value="https://es.wikipedia.org/wiki/Rendezvous" />
 		<property name="holderName" value="Agent1" />
 		<property name="brandName" value="Mastercard" />
 		<property name="number" value="1111111111111117" />
@@ -1650,6 +1645,7 @@
 		<property name="taboo" value="true" />
 		<property name="agent" ref="Agent1" />
 	</bean>
+	
 	<!-- %%%%%% domain.Configuration %%%%%% -->
 	<bean id="Configuration1" class="domain.Configuration">
 		<property name="cookies_eng"

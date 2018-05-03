@@ -18,6 +18,9 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	@Query("select a from Newspaper n join n.articles a where a.taboo = TRUE and a.finalMode = TRUE and (n.publicationDate!=null or n.publicationDate!='')")
 	Collection<Article> getAllTabooArticles();
 
+	@Query("select a from Newspaper n join n.articles a where a.taboo = TRUE and a.finalMode = TRUE and (n.publicationDate!=null or n.publicationDate!='')")
+	Page<Article> getAllTabooArticles(Pageable pageable);
+
 	/**
 	 * Level B query 1
 	 * 

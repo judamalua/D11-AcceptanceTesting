@@ -151,6 +151,14 @@ public class ArticleService {
 		return result;
 	}
 
+	public Page<Article> getAllTabooArticles(final Pageable pageable) {
+		Page<Article> result;
+
+		result = this.articleRepository.getAllTabooArticles(pageable);
+
+		return result;
+	}
+
 	//Dashboard queries ----------------------------------
 	/**
 	 * Level B query 1

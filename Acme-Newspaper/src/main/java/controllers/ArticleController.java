@@ -151,8 +151,9 @@ public class ArticleController extends AbstractController {
 			result.addObject("search", search);
 			result.addObject("page", page);
 			result.addObject("pageNum", articles.getTotalPages());
-			result.addObject("requestUri", "article/search.do");
+			result.addObject("requestUri", "article/search.do?");
 			result.addObject("search", search);
+			result.addObject("generalView", true);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
