@@ -13,7 +13,7 @@
 
 
 
-<acme:pagination requestURI="${requestURI}?page=" pageNum="${pageNum}"
+<acme:pagination requestURI="${requestURI}page=" pageNum="${pageNum}"
 	page="${page}" />
 
 <display:table name="chirps" id="chirpList" requestURI="${requestURI}"
