@@ -183,12 +183,15 @@ public class NewspaperUserController extends AbstractController {
 		else
 			try {
 
+				if (newspaper.getId() != 0) {
+					publisher = this.userService.findUserByNewspaper(newspaper.getId());
+					actor = this.actorService.findActorByPrincipal();
+
+					Assert.isTrue(actor.equals(publisher));
+				}
+
 				savedNewspaper = this.newspaperService.save(newspaper);
 
-				publisher = this.userService.findUserByNewspaper(savedNewspaper.getId());
-				actor = this.actorService.findActorByPrincipal();
-
-				Assert.isTrue(actor.equals(publisher));
 				result = new ModelAndView("redirect:/newspaper/user/list.do?published=false");
 
 			} catch (final Throwable oops) {

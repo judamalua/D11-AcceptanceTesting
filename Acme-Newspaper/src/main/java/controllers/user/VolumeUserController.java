@@ -142,7 +142,9 @@ public class VolumeUserController extends AbstractController {
 			try {
 				user = (User) this.actorService.findActorByPrincipal();
 
-				Assert.isTrue(user.equals(volume.getUser()));
+				Assert.isTrue(user.equals(volume.getUser()), "Not owner");
+
+				Assert.isTrue(user.getNewspapers().containsAll(volume.getNewspapers()));
 
 				if (volume.getId() != 0) {
 					//If newspapers are added, the subscribers (customers) must be automatically subscribed to these new newspapers.
@@ -161,7 +163,10 @@ public class VolumeUserController extends AbstractController {
 
 				result = new ModelAndView("redirect:/volume/display.do?volumeId=" + savedVolume.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(volume, "volume.commit.error");
+				if (oops.getMessage().contains("Not owner"))
+					result = new ModelAndView("redirect:/misc/403");
+				else
+					result = this.createEditModelAndView(volume, "volume.commit.error");
 			}
 
 		return result;
