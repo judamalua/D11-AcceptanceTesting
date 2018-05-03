@@ -75,7 +75,7 @@ public class MessageController extends AbstractController {
 			result.addObject("pageNum", messages.getTotalPages());
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 		return result;
 
