@@ -55,13 +55,16 @@ public class MessageController extends AbstractController {
 		Page<Message> messages;
 		final Pageable pageable;
 		Configuration configuration;
+		Actor actor;
 
 		try {
+			messageFolder = this.messageFolderService.findOne(messageFolderId);
+
+			actor = this.actorService.findActorByPrincipal();
+			Assert.isTrue(actor.getMessageFolders().contains(messageFolder));
 			configuration = this.configurationService.findConfiguration();
 
 			pageable = new PageRequest(page, configuration.getPageSize());
-
-			messageFolder = this.messageFolderService.findOne(messageFolderId);
 
 			messages = this.messageService.findMessagesByMessageFolderId(messageFolderId, pageable);
 

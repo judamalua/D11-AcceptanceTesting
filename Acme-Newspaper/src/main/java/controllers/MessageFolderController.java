@@ -52,6 +52,7 @@ public class MessageFolderController extends AbstractController {
 		Page<MessageFolder> messageFolders;
 		final Pageable pageable;
 		Configuration configuration;
+		Actor actor;
 
 		try {
 			result = new ModelAndView("messageFolder/list");
@@ -60,7 +61,9 @@ public class MessageFolderController extends AbstractController {
 			pageable = new PageRequest(page, configuration.getPageSize());
 
 			if (messageFolderId != null) {
+				actor = this.actorService.findActorByPrincipal();
 				messageFolder = this.messageFolderService.findOne(messageFolderId);
+				Assert.isTrue(actor.getMessageFolders().contains(messageFolder));
 				messageFolders = this.messageFolderService.findMessageFolderChildren(messageFolderId, pageable);
 			} else
 				messageFolders = this.messageFolderService.findRootMessageFolders(pageable);

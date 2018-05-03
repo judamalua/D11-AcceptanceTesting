@@ -144,6 +144,8 @@ public class VolumeUserController extends AbstractController {
 
 				Assert.isTrue(user.equals(volume.getUser()));
 
+				Assert.isTrue(user.getNewspapers().containsAll(volume.getNewspapers()));
+
 				if (volume.getId() != 0) {
 					//If newspapers are added, the subscribers (customers) must be automatically subscribed to these new newspapers.
 					creditCards = this.creditCardService.getCreditCardsByVolume(volume.getId());
@@ -161,6 +163,7 @@ public class VolumeUserController extends AbstractController {
 
 				result = new ModelAndView("redirect:/volume/display.do?volumeId=" + savedVolume.getId());
 			} catch (final Throwable oops) {
+
 				result = this.createEditModelAndView(volume, "volume.commit.error");
 			}
 
