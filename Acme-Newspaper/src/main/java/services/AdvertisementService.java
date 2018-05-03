@@ -214,6 +214,7 @@ public class AdvertisementService {
 
 			result = advertisement;
 			result.setTaboo(false);
+			result.setAgent((Agent) this.actorService.findActorByPrincipal());
 
 		} else {
 			result = this.advertisementRepository.findOne(advertisement.getId());
@@ -226,5 +227,9 @@ public class AdvertisementService {
 		this.advertisementRepository.flush();
 
 		return result;
+	}
+
+	public void flush() {
+		this.advertisementRepository.flush();
 	}
 }
