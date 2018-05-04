@@ -32,8 +32,8 @@
 
   <!-- Dropdown Structure -->
   <ul id='languageDropdown' class='dropdown-content'>
-    <li><a href="?language=es"><spring:message code = "master.page.es"/></a></li>
-    <li><a href="?language=en"><spring:message code = "master.page.en"/></a></li>
+    <li><a href="javascript:void(0);" onclick="changeLanguage(1);"><spring:message code = "master.page.es"/></a></li>
+    <li><a href="javascript:void(0);" onclick="changeLanguage(0);"><spring:message code = "master.page.en"/></a></li>
   </ul>
 </div>
 </div>
