@@ -4,6 +4,8 @@ package controllers.user;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,12 +24,22 @@ import services.ActorService;
 import services.AdvertisementService;
 import services.ConfigurationService;
 import services.NewspaperService;
+import services.TagService;
 import services.UserService;
+
+import com.textrazor.AnalysisException;
+import com.textrazor.NetworkException;
+import com.textrazor.TextRazor;
+import com.textrazor.annotations.Entailment;
+import com.textrazor.annotations.Response;
+import com.textrazor.annotations.Word;
+
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Article;
 import domain.Configuration;
 import domain.Newspaper;
+import domain.Tag;
 import domain.User;
 
 @Controller
@@ -47,6 +59,9 @@ public class NewspaperUserController extends AbstractController {
 
 	@Autowired
 	public AdvertisementService	advertisementService;
+
+	@Autowired
+	public TagService			tagService;
 
 	@Autowired
 	public ConfigurationService	configurationService;
@@ -142,6 +157,7 @@ public class NewspaperUserController extends AbstractController {
 		Newspaper newspaper;
 		Actor actor;
 		User publisher;
+		final Tag tag;
 
 		try {
 			actor = this.actorService.findActorByPrincipal();
@@ -152,11 +168,15 @@ public class NewspaperUserController extends AbstractController {
 			Assert.isTrue(actor.equals(publisher));
 			Assert.isTrue(newspaper.getPublicationDate() == null);
 			Assert.isTrue(newspaper.getArticles().size() > 0);
-
 			newspaper.setPublicationDate(new Date(System.currentTimeMillis() - 1));
 
 			for (final Article article : newspaper.getArticles())
 				Assert.isTrue(article.getFinalMode());
+
+			tag = this.getRelatedTag(newspaper);
+
+			if (tag != null)
+				newspaper.setTag(tag);
 
 			this.newspaperService.save(newspaper);
 
@@ -173,7 +193,7 @@ public class NewspaperUserController extends AbstractController {
 		ModelAndView result;
 		final User publisher;
 		final Actor actor;
-		Newspaper savedNewspaper;
+
 		try {
 			newspaper = this.newspaperService.reconstruct(newspaper, binding);
 		} catch (final Throwable oops) {
@@ -190,7 +210,7 @@ public class NewspaperUserController extends AbstractController {
 					Assert.isTrue(actor.equals(publisher));
 				}
 
-				savedNewspaper = this.newspaperService.save(newspaper);
+				this.newspaperService.save(newspaper);
 
 				result = new ModelAndView("redirect:/newspaper/user/list.do?published=false");
 
@@ -229,6 +249,73 @@ public class NewspaperUserController extends AbstractController {
 		return result;
 	}
 
+	private Tag getRelatedTag(final Newspaper newspaper) throws NetworkException, AnalysisException {
+
+		String allStrings = "";
+		final TextRazor client;
+		Response responseNewspaper;
+		Map<String, Double> entailmentScore;
+		Map<String, Double> wordScore;
+		Collection<domain.Tag> tags;
+		domain.Tag result = null;
+		Double maxScore;
+
+		client = new TextRazor("2a7775eb6f2695154d305aad841da8856f2c633f5a0541d3208dad40");
+
+		client.addExtractor("words");
+		client.addExtractor("entailments");
+		client.setCleanupHTML(true);
+		entailmentScore = new HashMap<>();
+		wordScore = new HashMap<>();
+		maxScore = Double.MIN_VALUE;
+
+		allStrings += newspaper.getTitle() + " " + newspaper.getDescription();
+
+		for (final Article article : newspaper.getArticles())
+			allStrings += " " + article.getTitle() + " " + article.getSummary() + " " + article.getBody();
+
+		responseNewspaper = client.analyze(allStrings).getResponse();
+
+		if (responseNewspaper.getEntailments() != null)
+			for (final Entailment entailment : responseNewspaper.getEntailments()) {
+				for (final String entailedWord : entailment.getEntailedWords())
+					if (entailedWord != null && entailmentScore.containsKey(entailedWord))
+						entailmentScore.put(entailedWord, entailmentScore.get(entailedWord) + 0.2);
+					else if (entailedWord != null)
+						entailmentScore.put(entailedWord, entailment.getScore());
+			}
+		else
+			for (final Word word : responseNewspaper.getWords())
+				if (word.getStem() != null && entailmentScore.containsKey(word.getStem()))
+					wordScore.put(word.getStem(), entailmentScore.get(word.getStem()) + 1.);
+				else if (word.getLemma() != null)
+					wordScore.put(word.getStem(), 1.);
+
+		tags = this.tagService.findAll();
+
+		for (final domain.Tag tag : tags)
+			if (entailmentScore.keySet().size() > 0 && entailmentScore.containsKey(tag.getName()) && entailmentScore.get(tag.getName()) > maxScore) {
+				result = tag;
+				maxScore = entailmentScore.get(tag.getName());
+			} else if (entailmentScore.keySet().size() > 0) {
+				for (final String keyword : tag.getKeywords().split(","))
+					if (keyword != null && entailmentScore.containsKey(keyword) && entailmentScore.get(keyword) > maxScore) {
+						result = tag;
+						maxScore = entailmentScore.get(tag.getName());
+					}
+			} else if (wordScore.containsKey(tag.getName()) && wordScore.get(tag.getName()) > maxScore) {
+				result = tag;
+				maxScore = wordScore.get(tag.getName());
+			} else
+				for (final String keyword : tag.getKeywords().split(","))
+					if (entailmentScore.containsKey(keyword) && entailmentScore.get(keyword) > maxScore) {
+						result = tag;
+						maxScore = wordScore.get(tag.getName());
+					}
+
+		return result;
+	}
+
 	// Ancillary methods --------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Newspaper newspaper) {
@@ -249,4 +336,5 @@ public class NewspaperUserController extends AbstractController {
 		return result;
 
 	}
+
 }

@@ -9,6 +9,7 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -101,6 +102,7 @@ public class Newspaper extends DomainEntity {
 	private Collection<CreditCard>		creditCards;
 	private Collection<Article>			articles;
 	private Collection<Advertisement>	advertisements;
+	private Tag							tag;
 
 
 	@NotNull
@@ -134,6 +136,15 @@ public class Newspaper extends DomainEntity {
 
 	public void setAdvertisements(final Collection<Advertisement> advertisements) {
 		this.advertisements = advertisements;
+	}
+
+	@ManyToOne
+	public Tag getTag() {
+		return this.tag;
+	}
+
+	public void setTag(final Tag tag) {
+		this.tag = tag;
 	}
 
 }

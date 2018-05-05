@@ -67,6 +67,9 @@
 		
 		<bean class="converters.VolumeToStringConverter" />
 		<bean class="converters.StringToVolumeConverter" />
+		
+		<bean class="converters.TagToStringConverter" />
+		<bean class="converters.StringToTagConverter" />
 	
 	</util:list>
 	

@@ -1,9 +1,12 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -135,7 +138,8 @@ public class Advertisement extends DomainEntity {
 
 
 	// Relationships ----------------------------------------------------------
-	private Agent	agent;
+	private Agent			agent;
+	private Collection<Tag>	tags;
 
 
 	@Valid
@@ -149,4 +153,15 @@ public class Advertisement extends DomainEntity {
 		this.agent = agent;
 
 	}
+
+	@NotNull
+	@ManyToMany
+	public Collection<Tag> getTags() {
+		return this.tags;
+	}
+
+	public void setTags(final Collection<Tag> tags) {
+		this.tags = tags;
+	}
+
 }

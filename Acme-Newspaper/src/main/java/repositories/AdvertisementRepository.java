@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,5 +31,8 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
 
 	@Query("select a from Advertisement a where a.agent.id=?1")
 	Page<Advertisement> findByAgentPage(int agentId, Pageable pageable);
+
+	@Query("select a from Advertisement a join a.tags t where t.id=?1")
+	Collection<Advertisement> findAdvertisementsTag(int tagId);
 
 }

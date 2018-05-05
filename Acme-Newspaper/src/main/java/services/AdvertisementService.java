@@ -232,4 +232,12 @@ public class AdvertisementService {
 	public void flush() {
 		this.advertisementRepository.flush();
 	}
+
+	public Collection<Advertisement> findAdvertisementsTag(final int tagId) {
+		Collection<Advertisement> result;
+
+		result = this.advertisementRepository.findAdvertisementsTag(tagId);
+
+		return result;
+	}
 }

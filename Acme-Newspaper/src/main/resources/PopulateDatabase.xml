@@ -1252,6 +1252,7 @@
 			<list>
 			</list>
 		</property>
+		<property name="tag" ref="Tag3" />
 		<property name="advertisements">
 			<list>
 				<ref bean="Advertisement1" />
@@ -1285,6 +1286,7 @@
 			<list>
 			</list>
 		</property>
+		<property name="tag" ref="Tag1" />
 		<property name="advertisements">
 			<list>
 			</list>
@@ -1308,6 +1310,7 @@
 			<list>
 			</list>
 		</property>
+		<property name="tag" ref="Tag2" />
 		<property name="advertisements">
 			<list>
 				<ref bean="Advertisement1" />
@@ -1329,6 +1332,7 @@
 		<property name="publicNewspaper" value="false" />
 		<property name="taboo" value="false" />
 		<property name="publicationDate" value="2018/01/09 00:00" />
+		<property name="tag" ref="Tag2" />
 		<property name="creditCards">
 			<list>
 			</list>
@@ -1354,6 +1358,7 @@
 		<property name="publicNewspaper" value="false" />
 		<property name="publicationDate" value="2012/11/03 00:00" />
 		<property name="taboo" value="false" />
+		<property name="tag" ref="Tag3" />
 		<property name="creditCards">
 			<list>
 			</list>
@@ -1380,6 +1385,7 @@
 		<property name="publicNewspaper" value="true" />
 		<property name="publicationDate" value="2018/04/08 00:00" />
 		<property name="taboo" value="false" />
+		<property name="tag" ref="Tag3" />
 		<property name="creditCards">
 			<list>
 			</list>
@@ -1405,6 +1411,7 @@
 			value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Morpho_didius_Male_Dos_MHNT.jpg/250px-Morpho_didius_Male_Dos_MHNT.jpg" />
 		<property name="publicNewspaper" value="true" />
 		<property name="taboo" value="false" />
+		<property name="tag" ref="Tag3" />
 		<property name="creditCards">
 			<list>
 			</list>
@@ -1431,6 +1438,7 @@
 			<list>
 			</list>
 		</property>
+		<property name="tag" ref="Tag3" />
 		<property name="advertisements">
 			<list>
 			</list>
@@ -1452,6 +1460,7 @@
 			<list>
 			</list>
 		</property>
+		<property name="tag" ref="Tag3" />
 		<property name="advertisements">
 			<list>
 				<ref bean="Advertisement1" />
@@ -1463,6 +1472,21 @@
 		</property>
 	</bean>
 
+	<!-- %%%%%% domain.Tag %%%%%% -->
+	<bean id="Tag1" class="domain.Tag">
+		<property name="name" value="Sport" />
+		<property name="keywords"
+			value="energy,sport,health,exercise,run,football,basketball,tennis,runner" />
+	</bean>
+	<bean id="Tag2" class="domain.Tag">
+		<property name="name" value="Food" />
+		<property name="keywords" value="hamburger,cañita,chips,fastfood,cookies" />
+	</bean>
+	<bean id="Tag3" class="domain.Tag">
+		<property name="name" value="Event" />
+		<property name="keywords"
+			value="concert,music,dance,sing,AC/DC,Metallica,Queen" />
+	</bean>
 	<!-- %%%%%% domain.Volume %%%%%% -->
 	<bean id="Volume1" class="domain.Volume">
 		<property name="title" value="My volume" />
@@ -1552,6 +1576,11 @@
 		<property name="cvv" value="123" />
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
+		<property name="tags">
+			<list>
+				<ref bean="Tag2" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="Advertisement2" class="domain.Advertisement">
@@ -1567,6 +1596,11 @@
 		<property name="cvv" value="123" />
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
+		<property name="tags">
+			<list>
+				<ref bean="Tag1" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="Advertisement3" class="domain.Advertisement">
@@ -1582,6 +1616,11 @@
 		<property name="cvv" value="123" />
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
+		<property name="tags">
+			<list>
+				<ref bean="Tag1" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="Advertisement4" class="domain.Advertisement">
@@ -1597,6 +1636,11 @@
 		<property name="cvv" value="123" />
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
+		<property name="tags">
+			<list>
+				<ref bean="Tag1" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="Advertisement5" class="domain.Advertisement">
@@ -1612,6 +1656,11 @@
 		<property name="cvv" value="123" />
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
+		<property name="tags">
+			<list>
+				<ref bean="Tag1" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="Advertisement6" class="domain.Advertisement">
@@ -1628,14 +1677,18 @@
 		<property name="cvv" value="123" />
 		<property name="taboo" value="false" />
 		<property name="agent" ref="Agent1" />
+		<property name="tags">
+			<list>
+				<ref bean="Tag2" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="Advertisement7" class="domain.Advertisement">
 		<property name="title" value="Sex" />
 		<property name="bannerURL"
 			value="http://www.uwyo.edu/reslife-dining/_files/re-design-images/dining-logos/rendezvouslogo_2016.png" />
-		<property name="additionalInfoLink"
-			value="https://es.wikipedia.org/wiki/Rendezvous" />
+		<property name="additionalInfoLink" value="https://es.wikipedia.org/wiki/Rendezvous" />
 		<property name="holderName" value="Agent1" />
 		<property name="brandName" value="Mastercard" />
 		<property name="number" value="1111111111111117" />
@@ -1644,8 +1697,13 @@
 		<property name="cvv" value="123" />
 		<property name="taboo" value="true" />
 		<property name="agent" ref="Agent1" />
+		<property name="tags">
+			<list>
+				<ref bean="Tag3" />
+			</list>
+		</property>
 	</bean>
-	
+
 	<!-- %%%%%% domain.Configuration %%%%%% -->
 	<bean id="Configuration1" class="domain.Configuration">
 		<property name="cookies_eng"

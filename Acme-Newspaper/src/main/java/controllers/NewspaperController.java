@@ -13,6 +13,7 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AdvertisementService;
 import services.ConfigurationService;
 import services.NewspaperService;
 import services.UserService;
 import domain.Actor;
+import domain.Advertisement;
 import domain.Article;
 import domain.Configuration;
 import domain.CreditCard;
@@ -50,6 +53,9 @@ public class NewspaperController extends AbstractController {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private AdvertisementService	advertisentService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -111,6 +117,7 @@ public class NewspaperController extends AbstractController {
 		Configuration configuration;
 		Boolean subscriber;
 		Random random;
+		final Collection<Advertisement> advertisements;
 
 		try {
 
@@ -143,9 +150,11 @@ public class NewspaperController extends AbstractController {
 			}
 
 			random = new Random();
-			if (newspaper.getAdvertisements().size() > 0)
-				result.addObject("advertisement", newspaper.getAdvertisements().toArray()[random.nextInt(newspaper.getAdvertisements().size())]);
-			else
+			if (newspaper.getAdvertisements().size() > 0 || newspaper.getTag() != null) {
+				advertisements = new HashSet<Advertisement>(this.advertisentService.findAdvertisementsTag(newspaper.getTag().getId()));
+				advertisements.addAll(newspaper.getAdvertisements());
+				result.addObject("advertisement", advertisements.toArray()[random.nextInt(advertisements.size())]);
+			} else
 				result.addObject("advertisement", null);
 			result.addObject("subscriber", subscriber);
 			result.addObject("newspaper", newspaper);
@@ -159,7 +168,6 @@ public class NewspaperController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search(@RequestParam(value = "search", defaultValue = "") final String search, @RequestParam(defaultValue = "0") final int page) {
 		ModelAndView result;
