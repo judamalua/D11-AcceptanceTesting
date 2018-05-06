@@ -138,6 +138,7 @@ public class Newspaper extends DomainEntity {
 		this.advertisements = advertisements;
 	}
 
+	@Valid
 	@ManyToOne
 	public Tag getTag() {
 		return this.tag;

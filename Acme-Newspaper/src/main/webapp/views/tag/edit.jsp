@@ -19,28 +19,31 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="tag/admin/edit.do"
-	modelAttribute="tag">
+<form:form action="tag/admin/edit.do" modelAttribute="tag">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	
-	<p><em><spring:message code = "configuration.all.fields.required"/></em></p>
 
-	
-	<acme:textbox code="tag.name" path="name"/>
-	
-	<acme:textarea code="tag.keywords" path="keywords"/>	
-	
-	<acme:submit name="save" code="configuration.save"/>
-	
+	<p>
+		<em><spring:message code="configuration.all.fields.required" /></em>
+	</p>
+
+	<acme:textbox code="tag.name" path="name" required="true" />
+
+	<spring:message code="tag.keywords.info" />
+	<acme:textarea code="tag.keywords" path="keywords" />
+
+	<acme:submit name="save" code="configuration.save" />
+
 	<jstl:if test="${tag.id!=0}">
-	<acme:delete clickCode="tag.delete.confirm" name="delete" code="tag.delete"/>
+		<acme:delete clickCode="tag.delete.confirm" name="delete"
+			code="tag.delete" />
 	</jstl:if>
 
-	<acme:cancel url="configuration/admin/list.do" code="configuration.cancel"/>
+	<acme:cancel url="configuration/admin/list.do"
+		code="configuration.cancel" />
 
 
 </form:form>

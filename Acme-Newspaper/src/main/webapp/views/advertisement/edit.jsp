@@ -40,7 +40,9 @@
 		<acme:textbox code="advertisement.additionalInfoLink"
 			path="additionalInfoLink" required="true" />
 
-
+		<acme:select items="${tags}" itemLabel="name"
+			code="advertisement.tags" path="tags" multiple="true" />
+		<br />
 		<jstl:if test="${advertisement.id == 0}">
 			<div class="cleared-div">
 				<h4>
@@ -68,15 +70,16 @@
 
 			</div>
 		</jstl:if>
-
-		<button type="submit" name="save" class="btn">
-			<spring:message code="advertisement.save" />
-		</button>
-		<jstl:if test="${advertisement.id != 0}">
-			<acme:delete clickCode="advertisement.confirm.delete" name="delete"
-				code="advertisement.delete" />
-		</jstl:if>
-		<acme:cancel url="advertisement/agent/list.do"
-			code="advertisement.cancel" />
+		<div class="cleared-div">
+			<button type="submit" name="save" class="btn">
+				<spring:message code="advertisement.save" />
+			</button>
+			<jstl:if test="${advertisement.id != 0}">
+				<acme:delete clickCode="advertisement.confirm.delete" name="delete"
+					code="advertisement.delete" />
+			</jstl:if>
+			<acme:cancel url="advertisement/agent/list.do"
+				code="advertisement.cancel" />
+		</div>
 	</form:form>
 </div>

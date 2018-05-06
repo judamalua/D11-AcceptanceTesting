@@ -101,15 +101,16 @@ public class AdvertisementService {
 
 	public Advertisement save(final Advertisement advertisement) {
 		Advertisement result;
+		final Collection<Newspaper> newspapers;
 
 		//Checks that the CreditCard hasn't expired
 		this.checkCreditCardExpired(advertisement);
 
 		advertisement.setTaboo(this.actorService.checkSpamWords(advertisement.getTitle()));
-
-		advertisement.setAgent((Agent) this.actorService.findActorByPrincipal());
+		//		if (advertisement.getId() == 0)
+		//			advertisement.setAgent((Agent) this.actorService.findActorByPrincipal());
 		result = this.advertisementRepository.save(advertisement);
-		final Collection<Newspaper> newspapers = this.newspaperService.findNewspaperByAdvertisement(advertisement.getId());
+		newspapers = this.newspaperService.findNewspaperByAdvertisement(advertisement.getId());
 		for (final Newspaper newspaper : newspapers) {
 			newspaper.getAdvertisements().remove(advertisement);
 			newspaper.getAdvertisements().add(result);
@@ -221,6 +222,7 @@ public class AdvertisementService {
 			result.setTitle(advertisement.getTitle());
 			result.setBannerURL(advertisement.getBannerURL());
 			result.setAdditionalInfoLink(advertisement.getAdditionalInfoLink());
+			result.setTags(advertisement.getTags());
 		}
 
 		this.validator.validate(result, binding);

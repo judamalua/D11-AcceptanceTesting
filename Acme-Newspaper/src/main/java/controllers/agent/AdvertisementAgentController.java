@@ -21,11 +21,13 @@ import services.ActorService;
 import services.AdvertisementService;
 import services.ConfigurationService;
 import services.NewspaperService;
+import services.TagService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Advertisement;
 import domain.Configuration;
 import domain.Newspaper;
+import domain.Tag;
 
 @Controller
 @RequestMapping("/advertisement/agent")
@@ -38,6 +40,9 @@ public class AdvertisementAgentController extends AbstractController {
 
 	@Autowired
 	private NewspaperService		newspaperService;
+
+	@Autowired
+	private TagService				tagService;
 
 	@Autowired
 	private ActorService			actorService;
@@ -226,9 +231,13 @@ public class AdvertisementAgentController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Advertisement advertisement, final String messageCode) {
 		ModelAndView result;
+		final Collection<Tag> tags;
+
+		tags = this.tagService.findAll();
 
 		result = new ModelAndView("advertisement/edit");
 		result.addObject("advertisement", advertisement);
+		result.addObject("tags", tags);
 		result.addObject("message", messageCode);
 
 		return result;

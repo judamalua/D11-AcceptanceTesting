@@ -101,6 +101,7 @@ public class TagService {
 			}
 			for (final Advertisement advertisement : advertisements) {
 				advertisement.getTags().remove(tag);
+				advertisement.getTags().add(result);
 				this.advertisementService.save(advertisement);
 			}
 		}
