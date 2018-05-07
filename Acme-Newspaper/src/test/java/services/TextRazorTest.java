@@ -7,26 +7,34 @@ import com.textrazor.TextRazor;
 import com.textrazor.account.AccountManager;
 import com.textrazor.account.model.Account;
 import com.textrazor.annotations.AnalyzedText;
+import com.textrazor.annotations.Entailment;
 import com.textrazor.annotations.Word;
 
 public class TextRazorTest {
 
 	public static void main(final String[] args) throws NetworkException, AnalysisException {
-		final AccountManager manager = new AccountManager("2a7775eb6f2695154d305aad841da8856f2c633f5a0541d3208dad40");
+		final AccountManager manager;
+		final AnalyzedText response;
+		final Account account;
+		final TextRazor client;
 
-		final Account account = manager.getAccount();
+		manager = new AccountManager("2a7775eb6f2695154d305aad841da8856f2c633f5a0541d3208dad40");
+
+		account = manager.getAccount();
 
 		System.out.println("Your current account plan is " + account.getPlan() + ", which includes " + account.getPlanDailyRequestsIncluded() + " daily requests, " + account.getRequestsUsedToday() + " used today");
 
-		final TextRazor client = new TextRazor("2a7775eb6f2695154d305aad841da8856f2c633f5a0541d3208dad40");
+		client = new TextRazor("2a7775eb6f2695154d305aad841da8856f2c633f5a0541d3208dad40");
 
-		client.addExtractor("entailments");
-		client.addExtractor("entities");
 		client.addExtractor("words");
-		client.setCleanupHTML(true);
+		client.addExtractor("entailments");
 
-		final AnalyzedText response = client.analyze("LONDON - Barclays misled shareholders and the public RBS about one of the biggest investments in the bank's history, a BBC Panrama investigation has found.");
-		for (final Word entity : response.getResponse().getWords())
-			System.out.println("Matched Entity: " + entity.getStem() + " score:");
+		response = client.analyze("I love pop, pop is the best music in the world.");
+		for (final Word word : response.getResponse().getWords())
+			System.out.println("Matched Word: " + word.getStem());
+
+		for (final Entailment entailment : response.getResponse().getEntailments())
+			System.out.println("Matched Entailment: " + entailment.getEntailedWords() + " score:" + entailment.getScore());
+
 	}
 }
