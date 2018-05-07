@@ -7,7 +7,7 @@ import com.textrazor.TextRazor;
 import com.textrazor.account.AccountManager;
 import com.textrazor.account.model.Account;
 import com.textrazor.annotations.AnalyzedText;
-import com.textrazor.annotations.Entailment;
+import com.textrazor.annotations.Word;
 
 public class TextRazorTest {
 
@@ -26,7 +26,7 @@ public class TextRazorTest {
 		client.setCleanupHTML(true);
 
 		final AnalyzedText response = client.analyze("LONDON - Barclays misled shareholders and the public RBS about one of the biggest investments in the bank's history, a BBC Panrama investigation has found.");
-		for (final Entailment entity : response.getResponse().getEntailments())
-			System.out.println("Matched Entity: " + entity.getEntailedWords() + " score:" + entity.getScore());
+		for (final Word entity : response.getResponse().getWords())
+			System.out.println("Matched Entity: " + entity.getStem() + " score:");
 	}
 }

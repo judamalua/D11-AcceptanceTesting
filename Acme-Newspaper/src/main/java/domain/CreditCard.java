@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
@@ -52,6 +53,8 @@ public class CreditCard extends DomainEntity {
 	public void setBrandName(final String brandName) {
 		this.brandName = brandName;
 	}
+
+	@Pattern(regexp = "^\\d+$")
 	@NotBlank
 	@CreditCardNumber
 	@SafeHtml
