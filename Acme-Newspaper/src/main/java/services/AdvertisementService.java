@@ -110,7 +110,7 @@ public class AdvertisementService {
 		//		if (advertisement.getId() == 0)
 		//			advertisement.setAgent((Agent) this.actorService.findActorByPrincipal());
 		result = this.advertisementRepository.save(advertisement);
-		newspapers = this.newspaperService.findNewspaperByAdvertisement(advertisement.getId());
+		newspapers = this.newspaperService.findNewspaperByAdvertisement(result.getId());
 		for (final Newspaper newspaper : newspapers) {
 			newspaper.getAdvertisements().remove(advertisement);
 			newspaper.getAdvertisements().add(result);
