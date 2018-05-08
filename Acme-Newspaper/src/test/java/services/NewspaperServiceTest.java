@@ -44,6 +44,12 @@ public class NewspaperServiceTest extends AbstractTest {
 
 	//******************************************Positive Methods*******************************************************************
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * Create a newspaper. A user who has created a newspaper is commonly referred to a publisher.
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testCreateANewspaper() {
 		Newspaper newspaper;
@@ -67,6 +73,12 @@ public class NewspaperServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * Create a newspaper. A user who has created a newspaper is commonly referred to a publisher.
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testCreateATabooNewspaperPositive() {
 		Newspaper newspaper;
@@ -89,6 +101,12 @@ public class NewspaperServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * Create a newspaper. A user who has created a newspaper is commonly referred to a publisher.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void testCreateANewspaperNegative() {
 		Newspaper newspaper;
@@ -111,6 +129,12 @@ public class NewspaperServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * Create a newspaper. A user who has created a newspaper is commonly referred to a publisher.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateANewspaperNotLoggedNegative() {
 		Newspaper newspaper;
@@ -131,6 +155,12 @@ public class NewspaperServiceTest extends AbstractTest {
 		Assert.notNull(savedNewspaper);
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * Create a newspaper. A user who has created a newspaper is commonly referred to a publisher.
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testEditANewspaperPositive() {
 		Newspaper newspaper;
@@ -152,6 +182,12 @@ public class NewspaperServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * Create a newspaper. A user who has created a newspaper is commonly referred to a publisher.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testEditANewspaperNotLoggedNegative() {
 		Newspaper newspaper;
@@ -170,6 +206,12 @@ public class NewspaperServiceTest extends AbstractTest {
 
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * Create a newspaper. A user who has created a newspaper is commonly referred to a publisher.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void testEditANewspaperNegative() {
 		Newspaper newspaper;
@@ -191,6 +233,12 @@ public class NewspaperServiceTest extends AbstractTest {
 
 	}
 
+	/**
+	 * Functional requirement number 4: An actor who is not authenticated must be able to:
+	 * List the newspapers that are published and browse their articles.
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void listPublicatedNotLoggedNewspapersPositive() {
 		Page<Newspaper> newspapers;
@@ -207,6 +255,12 @@ public class NewspaperServiceTest extends AbstractTest {
 
 	}
 
+	/**
+	 * Functional requirement number 4: An actor who is not authenticated must be able to:
+	 * List the newspapers that are published and browse their articles.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void listNotPublicatedNotLoggedNewspapersNegative() {
 		Page<Newspaper> newspapers;
@@ -223,6 +277,12 @@ public class NewspaperServiceTest extends AbstractTest {
 
 	}
 
+	/**
+	 * Functional requirement number 4: An actor who is not authenticated must be able to:
+	 * List the newspapers that are published and browse their articles.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void listSubscribedNotLoggedNewspapersNegative() {
 		Page<Newspaper> newspapers;
@@ -239,6 +299,14 @@ public class NewspaperServiceTest extends AbstractTest {
 
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * 
+	 * Publish a newspaper that he or she's created. Note that no newspapers can be published until each
+	 * of their articles of which is composed is saved in final mode.
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testPublishNewspaperPositive() {
 		Newspaper newspaper;
@@ -259,6 +327,15 @@ public class NewspaperServiceTest extends AbstractTest {
 		super.unauthenticate();
 
 	}
+
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * 
+	 * Publish a newspaper that he or she's created. Note that no newspapers can be published until each
+	 * of their articles of which is composed is saved in final mode.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testPublishNewspaperNotLogged() {
 		Newspaper newspaper, savedNewspaper;

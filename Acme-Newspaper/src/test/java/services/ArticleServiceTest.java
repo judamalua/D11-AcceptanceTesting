@@ -35,6 +35,14 @@ public class ArticleServiceTest extends AbstractTest {
 
 
 	//******************************************Positive Methods*******************************************************************
+
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * 
+	 * Write an article and attach it to any newspaper that has not been published, yet.
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testCreateAnArticle() {
 		Article article;
@@ -60,6 +68,13 @@ public class ArticleServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * 
+	 * Write an article and attach it to any newspaper that has not been published, yet.
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testCreateATabooArticlePositive() {
 		Article article;
@@ -85,6 +100,13 @@ public class ArticleServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * 
+	 * Write an article and attach it to any newspaper that has not been published, yet.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void testCreateAnArticleNegative() {
 		Article article;
@@ -110,6 +132,13 @@ public class ArticleServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * 
+	 * Write an article and attach it to any newspaper that has not been published, yet.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateAnArticleNotLoggedNegative() {
 		Article article;
@@ -133,6 +162,13 @@ public class ArticleServiceTest extends AbstractTest {
 
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * 
+	 * Write an article and attach it to any newspaper that has not been published, yet.
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testEditAnArticlePositive() {
 		Article article;
@@ -154,6 +190,13 @@ public class ArticleServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * 
+	 * Write an article and attach it to any newspaper that has not been published, yet.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testEditAnArticleNotLoggedNegative() {
 		Article article;
@@ -174,6 +217,13 @@ public class ArticleServiceTest extends AbstractTest {
 
 	}
 
+	/**
+	 * Functional requirement number 6: An actor who is authenticated as a user must be able to:
+	 * 
+	 * Write an article and attach it to any newspaper that has not been published, yet.
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = javax.validation.ConstraintViolationException.class)
 	public void testEditAnArticleNegative() {
 		Article article;
@@ -193,7 +243,6 @@ public class ArticleServiceTest extends AbstractTest {
 		Assert.notNull(savedNewspaper);
 
 		super.unauthenticate();
-
 	}
 
 }
