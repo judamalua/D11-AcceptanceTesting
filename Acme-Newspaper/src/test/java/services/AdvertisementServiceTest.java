@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.util.Assert;
 import utilities.AbstractTest;
 import domain.Advertisement;
 import domain.Newspaper;
+import domain.Tag;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -84,6 +87,7 @@ public class AdvertisementServiceTest extends AbstractTest {
 			advertisement.setCvv(cvv);
 			advertisement.setExpirationMonth(expirationMonth);
 			advertisement.setExpirationYear(expirationYear);
+			advertisement.setTags(new ArrayList<Tag>());
 
 			this.advertisementService.save(advertisement);
 
