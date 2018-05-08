@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
@@ -89,6 +90,7 @@ public class Advertisement extends DomainEntity {
 	}
 	@NotBlank
 	@CreditCardNumber
+	@Pattern(regexp = "^\\d{16}$")
 	@SafeHtml
 	public String getNumber() {
 		return this.number;

@@ -54,7 +54,7 @@ public class CreditCard extends DomainEntity {
 		this.brandName = brandName;
 	}
 
-	@Pattern(regexp = "^\\d+$")
+	@Pattern(regexp = "^\\d{16}$")
 	@NotBlank
 	@CreditCardNumber
 	@SafeHtml
