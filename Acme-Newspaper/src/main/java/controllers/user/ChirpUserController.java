@@ -75,7 +75,7 @@ public class ChirpUserController extends AbstractController {
 			result.addObject("pageNum", chirpList.getTotalPages());
 
 			result.addObject("authors", authors);
-			result.addObject("requestURI", "chirp/user/stream.do");
+			result.addObject("requestURI", "chirp/user/stream.do?");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
 		}
@@ -125,7 +125,7 @@ public class ChirpUserController extends AbstractController {
 			result.addObject("pageNum", chirpList.getTotalPages());
 
 			result.addObject("authors", authors);
-			result.addObject("requestURI", "chirp/user/list.do");
+			result.addObject("requestURI", "chirp/user/list.do?");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
 		}

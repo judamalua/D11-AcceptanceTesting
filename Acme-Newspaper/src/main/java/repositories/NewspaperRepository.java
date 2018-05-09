@@ -125,4 +125,11 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 
 	@Query("select distinct n from Newspaper n left outer join n.advertisements a where (a=null or a.id!=?1) and (n.publicationDate!=null and n.publicationDate!='')")
 	Page<Newspaper> findNewspaperByNoAdvertisementPage(int advertisementId, Pageable pageable);
+
+	@Query("select distinct n from Newspaper n join n.advertisements a where (a.agent.id=?1) and (n.publicationDate!=null and n.publicationDate!='')")
+	Page<Newspaper> findNewspapersWithAnyOwnAdvertisement(Integer agentId, Pageable pageable);
+
+	@Query("select distinct n from Newspaper n left outer join n.advertisements a where (a=null or a.agent.id!=?1 ) and (n.publicationDate!=null and n.publicationDate!='')")
+	Page<Newspaper> findNewspapersWithoutOwnAdvertisement(Integer agentId, Pageable pageable);
+
 }

@@ -110,12 +110,9 @@ public class TagAdminController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView deelte(Tag tag, final BindingResult binding) {
 		ModelAndView result;
-		try {
-			tag = this.tagService.reconstruct(tag, binding);
-		} catch (final Throwable oops) {
-		}
 
 		try {
+			tag = this.tagService.findOne(tag.getId());
 			this.tagService.delete(tag);
 			result = new ModelAndView("redirect:/tag/admin/list.do");
 

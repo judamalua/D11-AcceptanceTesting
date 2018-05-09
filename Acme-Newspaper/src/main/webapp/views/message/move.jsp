@@ -11,20 +11,19 @@
 
 <form action="message/move.do" method="post">
 
-	<input type="hidden" name="messageId" value="${messageId}" /> 
-	<select name="selectedMessageFolder">
-		<jstl:forEach var="messageFolder" items="${messageFolders}">
-			<option value="${messageFolder.id}">
-				<jstl:out value="${messageFolder.name}" />
-			</option>
-		</jstl:forEach>
-	</select> 
-	<input type="submit" name="save"
-		class = "btn"
-		value="<spring:message code="message.save" />"> 
-	<input
-		type="button" name="cancel"
-		class = "btn"
+	<input type="hidden" name="messageId" value="${messageId}" />
+	<div class="input-field col s2">
+		<select name="selectedMessageFolder">
+			<jstl:forEach var="messageFolder" items="${messageFolders}">
+				<option value="${messageFolder.id}">
+					<jstl:out value="${messageFolder.name}" />
+				</option>
+			</jstl:forEach>
+		</select>
+	</div>
+	<input type="submit" name="save" class="btn"
+		value="<spring:message code="message.save" />"> <input
+		type="button" name="cancel" class="btn"
 		value="<spring:message code="message.cancel" />"
 		onclick="javascript: relativeRedir('messageFolder/list.do')">
 

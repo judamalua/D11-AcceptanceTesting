@@ -70,4 +70,35 @@ public class NewspaperAgentController extends AbstractController {
 		}
 		return result;
 	}
+
+	// Listing  ---------------------------------------------------------------		
+
+	@RequestMapping("/list-newspaper")
+	public ModelAndView list(@RequestParam(defaultValue = "0") final int page, final boolean hasAdvertisement) {
+		ModelAndView result;
+		Page<Newspaper> newspapers;
+		Pageable pageable;
+		Configuration configuration;
+
+		try {
+
+			configuration = this.configurationService.findConfiguration();
+			pageable = new PageRequest(page, configuration.getPageSize());
+			result = new ModelAndView("newspaper/list");
+
+			if (hasAdvertisement)
+				newspapers = this.newspaperService.findNewspapersWithAnyOwnAdvertisement(pageable);
+			else
+				newspapers = this.newspaperService.findNewspapersWithoutOwnAdvertisement(pageable);
+
+			result.addObject("newspapers", newspapers.getContent());
+			result.addObject("page", page);
+			result.addObject("pageNum", newspapers.getTotalPages());
+			result.addObject("requestUri", "newspaper/agent/list-newspaper.do?hasAdvertisement=" + hasAdvertisement + "&");
+
+		} catch (final Throwable throwable) {
+			result = new ModelAndView("redirect:/misc/403");
+		}
+		return result;
+	}
 }

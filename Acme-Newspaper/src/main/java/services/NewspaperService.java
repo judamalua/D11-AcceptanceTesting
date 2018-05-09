@@ -409,4 +409,26 @@ public class NewspaperService {
 		return result;
 	}
 
+	public Page<Newspaper> findNewspapersWithAnyOwnAdvertisement(final Pageable pageable) {
+		Page<Newspaper> result;
+		Actor actor;
+
+		actor = this.actorService.findActorByPrincipal();
+
+		result = this.newspaperRepository.findNewspapersWithAnyOwnAdvertisement(actor.getId(), pageable);
+
+		return result;
+	}
+
+	public Page<Newspaper> findNewspapersWithoutOwnAdvertisement(final Pageable pageable) {
+		Page<Newspaper> result;
+		Actor actor;
+
+		actor = this.actorService.findActorByPrincipal();
+
+		result = this.newspaperRepository.findNewspapersWithoutOwnAdvertisement(actor.getId(), pageable);
+
+		return result;
+	}
+
 }

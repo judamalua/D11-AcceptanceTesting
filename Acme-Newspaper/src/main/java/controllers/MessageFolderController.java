@@ -131,11 +131,7 @@ public class MessageFolderController extends AbstractController {
 		ModelAndView result;
 
 		try {
-			messageFolder = this.messageFolderService.reconstruct(messageFolder, binding);
-		} catch (final Throwable oops) {
-			oops.printStackTrace();
-		}
-		try {
+			messageFolder = this.messageFolderService.findOne(messageFolder.getId());
 			Assert.isTrue(this.actorService.findActorByPrincipal().getMessageFolders().contains(messageFolder));
 			this.messageFolderService.delete(messageFolder);
 			result = new ModelAndView("redirect:list.do");

@@ -54,7 +54,7 @@ public class DashboardAdminController extends AbstractController {
 		String newspapersInfoFromUsers, articlesInfoFromUsers, articlesInfoFromNewspapers, ratioCreatedNewspapers, ratioCreatedArticles, chirpsInfoFromUsers, ratioUsersPostedAbove75PercentAverageChirpsPerUser, ratioPublicNewspapers, averageArticlesPerPrivateNewspapers, averageArticlesPerPublicNewspapers;
 		String averageFollowUpsPerArticle, averageFollowUpPerArticleOneWeek, averageFollowUpPerArticleTwoWeek, ratioSubscribersPrivateNewspaperVSTotalCustomers;
 		String averageRatioPrivateVSPublicNewspaperPublisher;
-		final String ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers, averageNewspapersPerVolume, ratioTabooAdvertisements, ratioNewspapersAtLeastOneAdvertisementVsNoOne;
+		final String ratioSubscriptionsToVolumesVsRatioSubscriptionsNewspapers, averageNewspapersPerVolume, ratioTabooAdvertisements, ratioNewspapersAtLeastOneAdvertisementVsNoOne;
 		Collection<Newspaper> newspaperWith10PercentMoreArticlesThanAverage, newspaperWith10PercentLessArticlesThanAverage;
 
 		try {
@@ -76,7 +76,7 @@ public class DashboardAdminController extends AbstractController {
 			chirpsInfoFromUsers = this.userService.getChirpsInfoFromUsers();
 			ratioUsersPostedAbove75PercentAverageChirpsPerUser = this.userService.getRatioUsersPostedAbove75PercentAverageChirpsPerUser();
 			averageNewspapersPerVolume = this.volumeService.getAverageNewspapersPerVolume();
-			ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers = this.volumeService.getRatioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers();
+			ratioSubscriptionsToVolumesVsRatioSubscriptionsNewspapers = this.volumeService.getRatioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers();
 
 			//A queries
 			ratioPublicNewspapers = this.newspaperService.getRatioPublicNewspapers();
@@ -118,7 +118,7 @@ public class DashboardAdminController extends AbstractController {
 			result.addObject("ratioUsersPostedAbove75PercentAverageChirpsPerUser", ratioUsersPostedAbove75PercentAverageChirpsPerUser);
 
 			result.addObject("averageNewspapersPerVolume", averageNewspapersPerVolume);
-			result.addObject("ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers", ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers.split(","));
+			result.addObject("ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers", ratioSubscriptionsToVolumesVsRatioSubscriptionsNewspapers.split(","));
 
 			//A queries
 			result.addObject("ratioPublicNewspapers", ratioPublicNewspapers);
