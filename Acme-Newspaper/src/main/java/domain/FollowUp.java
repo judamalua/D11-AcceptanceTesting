@@ -49,8 +49,8 @@ public class FollowUp extends DomainEntity {
 		this.title = title;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
 	@Past
 	@NotNull
 	public Date getPublicationDate() {

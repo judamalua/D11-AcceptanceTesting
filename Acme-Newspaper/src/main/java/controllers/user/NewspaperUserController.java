@@ -264,7 +264,6 @@ public class NewspaperUserController extends AbstractController {
 
 		client.addExtractor("words");
 		client.addExtractor("entailments");
-		client.setCleanupHTML(true);
 		entailmentScore = new HashMap<>();
 		wordScore = new HashMap<>();
 		maxScore = Double.MIN_VALUE;

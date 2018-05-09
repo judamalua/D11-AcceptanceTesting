@@ -4,11 +4,16 @@ package services;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Configuration;
 import domain.CreditCard;
 import domain.Volume;
 
@@ -23,15 +28,21 @@ public class VolumeServiceTest extends AbstractTest {
 	private VolumeService			volumeService;
 
 	@Autowired
-	private ActorService			actorService;
-
-	@Autowired
 	private ConfigurationService	configurationService;
 
 	@Autowired
 	private CreditCardService		creditCardService;
 
 
+	/**
+	 * This test checks many things, which are commented above of each row
+	 * 
+	 * Functional requirement:
+	 * An actor who is authenticated as a user must be able to:
+	 * Create a volume with as many published newspapers as he or she wishes.
+	 * Note that the newspapers in a volume can be added or removed at any time.
+	 * The same newspaper may be used to create different volumes.
+	 */
 	@Test
 	public void driverCreateVolume() {
 
@@ -94,6 +105,15 @@ public class VolumeServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
+	/**
+	 * This test checks that only the creator of the Volume can edit it
+	 * 
+	 * Functional requirement:
+	 * An actor who is authenticated as a user must be able to:
+	 * Create a volume with as many published newspapers as he or she wishes.
+	 * Note that the newspapers in a volume can be added or removed at any time.
+	 * The same newspaper may be used to create different volumes.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testBadUserEditsVolume() {
 		Volume volume;
@@ -111,7 +131,15 @@ public class VolumeServiceTest extends AbstractTest {
 		this.volumeService.flush();
 
 	}
-
+	/**
+	 * This test checks that only the creator of the Volume can delete it
+	 * 
+	 * Functional requirement:
+	 * An actor who is authenticated as a user must be able to:
+	 * Create a volume with as many published newspapers as he or she wishes.
+	 * Note that the newspapers in a volume can be added or removed at any time.
+	 * The same newspaper may be used to create different volumes.
+	 */
 	@Test
 	public void testDeleteVolume() {
 		Volume volume;
@@ -126,6 +154,15 @@ public class VolumeServiceTest extends AbstractTest {
 		this.volumeService.flush();
 	}
 
+	/**
+	 * This test checks that only the creator of the Volume can delete it
+	 * 
+	 * Functional requirement:
+	 * An actor who is authenticated as a user must be able to:
+	 * Create a volume with as many published newspapers as he or she wishes.
+	 * Note that the newspapers in a volume can be added or removed at any time.
+	 * The same newspaper may be used to create different volumes.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testNegativeDeleteVolume() {
 		Volume volume;
@@ -140,6 +177,15 @@ public class VolumeServiceTest extends AbstractTest {
 		this.volumeService.flush();
 	}
 
+	/**
+	 * This test checks many things, which are commented above of each row
+	 * 
+	 * Functional requirement:
+	 * An actor who is authenticated as a customer must be able to:
+	 * Subscribe to a volume by providing a credit card.
+	 * Note that subscribing to a volume implies subscribing automatically to all of the newspapers of which it is composed,
+	 * including newspapers that might be published after the subscription takes place.
+	 */
 	@Test
 	public void driverSubscribeVolume() {
 
@@ -147,6 +193,18 @@ public class VolumeServiceTest extends AbstractTest {
 			{
 				//No customer authenticated
 				"Brand name", "Holder name", 555, 12, 20, "4800134737642547", null, "Volume2", IllegalArgumentException.class
+			}, {
+				//Authenticated as user
+				"Brand name", "Holder name", 555, 12, 20, "4800134737642547", "user1", "Volume2", ClassCastException.class
+			}, {
+				//Authenticated as admin
+				"Brand name", "Holder name", 555, 12, 20, "4800134737642547", "admin1", "Volume2", ClassCastException.class
+			}, {
+				//Authenticated as agent
+				"Brand name", "Holder name", 555, 12, 20, "4800134737642547", "agent1", "Volume2", ClassCastException.class
+			}, {
+				//Credit card about to expire or expired
+				"Brand name", "Holder name", 555, 05, 18, "4800134737642547", "customer2", "Volume2", IllegalArgumentException.class
 			}, {
 				//Positive test
 				"Brand name", "Holder name", 555, 12, 20, "4800134737642547", "customer2", "Volume2", null
@@ -192,6 +250,50 @@ public class VolumeServiceTest extends AbstractTest {
 			caught = oops.getClass();
 		}
 		super.checkExceptions(expected, caught);
+	}
+
+	/**
+	 * This test cheks that any user can list the volumes in the system.
+	 * 
+	 * Functional requirement:
+	 * An actor who is not authenticated must be able to:
+	 * List the volumes in the system and browse their newspapers as long as
+	 * they are authorised (for instance, a private newspaper cannot be fully displayed
+	 * to unauthenticated actors).
+	 */
+	@Test
+	public void listNotLoggedVolumesPositive() {
+		Page<Volume> volumes;
+		Pageable pageable;
+		Configuration configuration;
+
+		configuration = this.configurationService.findConfiguration();
+
+		pageable = new PageRequest(0, configuration.getPageSize());
+
+		super.authenticate(null);
+
+		volumes = this.volumeService.findVolumes(pageable);
+
+		Assert.isTrue(volumes.getContent().size() > 0);
+
+		super.authenticate("user1");
+
+		volumes = this.volumeService.findVolumes(pageable);
+
+		Assert.isTrue(volumes.getContent().size() > 0);
+
+		super.authenticate("agent1");
+
+		volumes = this.volumeService.findVolumes(pageable);
+
+		Assert.isTrue(volumes.getContent().size() > 0);
+
+		super.authenticate("customer1");
+
+		volumes = this.volumeService.findVolumes(pageable);
+
+		Assert.isTrue(volumes.getContent().size() > 0);
 	}
 
 }

@@ -86,7 +86,7 @@ public class MessageController extends AbstractController {
 	})
 	public ModelAndView save(@RequestParam(value = "broadcast", required = false, defaultValue = "false") final Boolean broadcast, @ModelAttribute("modelMessage") Message message, final BindingResult binding) {
 		ModelAndView result;
-		MessageFolder messageFolderNotification, outBox;
+		MessageFolder messageFolderIn, outBox;
 		Actor actor;
 
 		try {
@@ -103,8 +103,8 @@ public class MessageController extends AbstractController {
 					message.setReceiver(null);
 					this.messageService.broadcastNotification(message);
 				} else {
-					messageFolderNotification = this.messageFolderService.findMessageFolder("notification box", message.getReceiver());
-					this.actorService.sendMessage(message, message.getSender(), message.getReceiver(), messageFolderNotification);
+					messageFolderIn = this.messageFolderService.findMessageFolder("in box", message.getReceiver());
+					this.actorService.sendMessage(message, message.getSender(), message.getReceiver(), messageFolderIn);
 				}
 				outBox = this.messageFolderService.findMessageFolder("out box", actor);
 				result = new ModelAndView("redirect:list.do?messageFolderId=" + outBox.getId());

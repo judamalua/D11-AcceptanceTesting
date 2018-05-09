@@ -141,11 +141,7 @@ public class ArticleUserController extends AbstractController {
 		Newspaper newspaper;
 
 		try {
-			article = this.articleService.reconstruct(article, binding);
-		} catch (final Throwable oops) {
-		}
-		try {
-
+			article = this.articleService.findOne(article.getId());
 			actor = (User) this.actorService.findActorByPrincipal();
 			newspaper = this.newspaperService.findOne(newspaperId);
 			Assert.isTrue(actor.getNewspapers().contains(newspaper));

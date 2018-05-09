@@ -32,6 +32,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 	public AdminService			adminService;
 
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testCreate() {
 		super.authenticate("user1");
@@ -45,6 +54,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testFindAll() {
 		super.authenticate("admin1");
@@ -56,6 +74,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testFindOne() {
 		super.authenticate("admin1");
@@ -66,6 +93,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindOneNotExistNegative() {
 		super.authenticate("admin1");
@@ -76,6 +112,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindOneNotLoggedNegative() {
 		final MessageFolder messageFolder;
@@ -84,6 +129,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 		Assert.notNull(messageFolder);
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testSave() {
 		super.authenticate("user1");
@@ -104,6 +158,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveNotLoggedNegative() {
 		final Actor actor;
@@ -122,6 +185,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveNotValidFatherNegative() {
 		super.authenticate("user1");
@@ -142,6 +214,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testDelete() {
 		super.authenticate("user1");
@@ -159,6 +240,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 		Assert.isTrue(!actor.getMessageFolders().contains(savedMessageFolder));
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteNotValidMessageFolder() {
 		super.authenticate("user1");
@@ -170,6 +260,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 		this.messageFolderService.delete(messageFolder);
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test
 	public void testFindMessageFolder() {
 		super.authenticate("admin1");
@@ -177,6 +276,15 @@ public class MessageFolderServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/**
+	 * Functional requirement number 13: An actor wo is authenticated must be able to:
+	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * one folder to another folder.
+	 * 
+	 * Manage his or her message folders, except for the system folders
+	 * 
+	 * @author MJ
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindNotValidMessageFolder() {
 		super.authenticate("admin1");

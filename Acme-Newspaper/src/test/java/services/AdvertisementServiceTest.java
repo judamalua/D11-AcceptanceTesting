@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.util.Assert;
 import utilities.AbstractTest;
 import domain.Advertisement;
 import domain.Newspaper;
+import domain.Tag;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -32,10 +35,10 @@ public class AdvertisementServiceTest extends AbstractTest {
 
 
 	/**
-	 * 4. An actor who is authenticated as an agent must be able to:
-	 * 2. Register an advertisement and place it in a newspaper.
-	 * 3. List the newspapers in which they have placed an advertisement.
-	 * 4. List the newspapers in which they have not placed any advertisements
+	 * An actor who is authenticated as an agent must be able to:
+	 * Register an advertisement and place it in a newspaper.
+	 * List the newspapers in which they have placed an advertisement.
+	 * List the newspapers in which they have not placed any advertisements
 	 */
 	@Test
 	public void driver() {
@@ -47,7 +50,7 @@ public class AdvertisementServiceTest extends AbstractTest {
 
 			}, {
 				//The credit card number must be valid
-				"agent1", "Newspaper3", "Newspaper3", "Advertisement1", "https://www.hola.jpg", "https://www.hola.jpg", "Valid Holder Name", "Valid Brand Name", "768", 123, 12, 20, javax.validation.ConstraintViolationException.class, true
+				"agent1", "Newspaper3", "Newspaper3", "Advertisement1", "https://www.hola.jpg", "https://www.hola.jpg", "Valid Holder Name", "Valid Brand Name", "011", 123, 12, 20, javax.validation.ConstraintViolationException.class, true
 			}, {
 				//The newspaper must be public
 				"agent1", "Newspaper7", "Newspaper7", "Advertisement1", "https://www.hola.jpg", "https://www.hola.jpg", "Valid Holder Name", "Valid Brand Name", "7111111111111111", 123, 12, 20, IllegalArgumentException.class, false
@@ -84,6 +87,7 @@ public class AdvertisementServiceTest extends AbstractTest {
 			advertisement.setCvv(cvv);
 			advertisement.setExpirationMonth(expirationMonth);
 			advertisement.setExpirationYear(expirationYear);
+			advertisement.setTags(new ArrayList<Tag>());
 
 			this.advertisementService.save(advertisement);
 

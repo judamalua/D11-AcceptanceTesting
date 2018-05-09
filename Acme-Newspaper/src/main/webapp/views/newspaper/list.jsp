@@ -58,7 +58,7 @@
 	<display:column>
 		<jstl:if
 			test="${newspaperList.pictureUrl!=\"\" and newspaperList.pictureUrl!=null}">
-			<img src="${newspaperList.pictureUrl}" class="newspaperImg" />
+			<img src="${newspaperList.pictureUrl}" class="newspaperImg materialboxed" />
 		</jstl:if>
 	</display:column>
 	<display:column property="title" title="${titleName}" />
