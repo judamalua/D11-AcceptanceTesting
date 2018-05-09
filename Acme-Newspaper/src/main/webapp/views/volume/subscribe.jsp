@@ -84,4 +84,10 @@
 	</form:form>
 
 </div>
-
+<script src="scripts/creditCardAjax.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		checkCreditCard();
+		initialize();
+	};
+</script>
