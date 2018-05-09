@@ -419,9 +419,9 @@
 				<div class="ratio element">
 					<div class="progress progress-striped active" aria-valuemin="0">
 						<div class="bar"
-							style="width: ${ratioNewspapersAtLeastOneAdvertisementVsNoOne[0]*100}%;">
+							style="width: ${ratioNewspapersAtLeastOneAdvertisementVsNoOne[0]}%;">
 							<jstl:out
-								value="${ratioNewspapersAtLeastOneAdvertisementVsNoOne[0]*100}%" />
+								value="${ratioNewspapersAtLeastOneAdvertisementVsNoOne[0] == \"null\" ? 0 : ratioNewspapersAtLeastOneAdvertisementVsNoOne[0]}%" />
 						</div>
 					</div>
 				</div>
@@ -433,9 +433,9 @@
 				<div class="ratio element">
 					<div class="progress progress-striped active" aria-valuemin="0">
 						<div class="bar"
-							style="width: ${ratioNewspapersAtLeastOneAdvertisementVsNoOne[1]*100}%;">
+							style="width: ${ratioNewspapersAtLeastOneAdvertisementVsNoOne[1]}%;">
 							<jstl:out
-								value="${ratioNewspapersAtLeastOneAdvertisementVsNoOne[1]*100}%" />
+								value="${(ratioNewspapersAtLeastOneAdvertisementVsNoOne[1] == \"null\" ? 0 : ratioNewspapersAtLeastOneAdvertisementVsNoOne[1])*100}%" />
 						</div>
 					</div>
 				</div>
@@ -477,9 +477,9 @@
 				<div class="ratio element">
 					<div class="progress progress-striped active" aria-valuemin="0">
 						<div class="bar"
-							style="width: ${ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers[0]*100}%;">
+							style="width: ${ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers[0]}%;">
 							<jstl:out
-								value="${ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers[0]*100}%" />
+								value="${(ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers[0] == \"null\" ? 0 : ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers[0])*100}%" />
 						</div>
 					</div>
 				</div>
@@ -491,9 +491,9 @@
 				<div class="ratio element">
 					<div class="progress progress-striped active" aria-valuemin="0">
 						<div class="bar"
-							style="width: ${ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers[1]*100}%;">
+							style="width: ${ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers[1]}%;">
 							<jstl:out
-								value="${ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers[1]*100}%" />
+								value="${(ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers[1] == \"null\" ? 0 : ratioSubscriptionsToVolumesVsRatioSubscriptiosNewspapers[1])*100}%" />
 						</div>
 					</div>
 				</div>
