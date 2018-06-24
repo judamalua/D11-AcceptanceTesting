@@ -33,8 +33,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -55,8 +55,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -75,8 +75,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -94,8 +94,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -113,8 +113,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -130,8 +130,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -159,8 +159,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -186,8 +186,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -215,8 +215,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -241,8 +241,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -261,8 +261,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders
@@ -277,8 +277,8 @@ public class MessageFolderServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Functional requirement number 13: An actor wo is authenticated must be able to:
-	 * Exange messages with other actors and manage them, wich includes deleting and moving them from
+	 * Functional requirement number 13: An actor who is authenticated must be able to:
+	 * Exchange messages with other actors and manage them, which includes deleting and moving them from
 	 * one folder to another folder.
 	 * 
 	 * Manage his or her message folders, except for the system folders

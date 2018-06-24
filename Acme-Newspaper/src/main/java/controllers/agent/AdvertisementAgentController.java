@@ -161,12 +161,9 @@ public class AdvertisementAgentController extends AbstractController {
 	public ModelAndView delete(@ModelAttribute("advertisement") Advertisement advertisement, final BindingResult binding) {
 		ModelAndView result;
 		final Actor actor;
-		try {
-			advertisement = this.advertisementService.reconstruct(advertisement, binding);
-		} catch (final Throwable oops) {
-		}
 
 		try {
+			advertisement = this.advertisementService.findOne(advertisement.getId());
 			actor = this.actorService.findActorByPrincipal();
 
 			Assert.isTrue(actor.getId() == advertisement.getAgent().getId());

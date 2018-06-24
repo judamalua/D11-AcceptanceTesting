@@ -108,6 +108,14 @@
 				<ul id="dropdownAgentFunctions" class="dropdown-content">
 					<li><a href="advertisement/agent/list.do"><spring:message
 								code="master.page.listAdvertisement" /></a></li>
+					<li class="divider"></li>
+					<li><a
+						href="newspaper/agent/list-newspaper.do?hasAdvertisement=true"><spring:message
+								code="master.page.newspapersWithAdvertisements" /></a></li>
+					<li class="divider"></li>
+					<li><a
+						href="newspaper/agent/list-newspaper.do?hasAdvertisement=false"><spring:message
+								code="master.page.newspapersWithoutAdvertisements" /></a></li>
 				</ul>
 
 				<!-- Dropdown Trigger -->
@@ -143,8 +151,8 @@
 				<li><a href="article/search.do"><spring:message
 							code="master.page.articleSearch" /></a></li>
 				<li><a class="fNiv" href="user/list.do"> <spring:message
-								code="master.page.userList" />
-					</a></li>
+							code="master.page.userList" />
+				</a></li>
 				<ul id="dropdownRegisterActor" class="dropdown-content">
 					<li><a class="fNiv" href="actor/register.do"> <spring:message
 								code="master.page.registerUser" /></a></li>
