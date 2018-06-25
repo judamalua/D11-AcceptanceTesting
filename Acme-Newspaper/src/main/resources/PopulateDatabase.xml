@@ -1723,6 +1723,55 @@
 		</property>
 	</bean>
 
+	<!-- %%%%%% domain.Review %%%%%% -->
+	<bean id="Review1" class="domain.Review">
+		<property name="ticker" value="Abde_10-15-20" />
+		<property name="title" value="review 1" />
+		<property name="description" value="That its the review 1" />
+		<property name="gauge" value="1" />
+		<property name="draf" value="true" />
+		<property name="moment" value="12/12/2018 12:12" />
+		<property name="admin" ref="Admin1" />
+		<property name="newspaper" ref="Newspaper1" />
+	</bean>
+
+	<bean id="Review2" class="domain.Review">
+		<property name="ticker" value="Abde_10-16-20" />
+		<property name="title" value="review 2" />
+		<property name="description" value="That its the review 2" />
+		<property name="gauge" value="1" />
+		<property name="draf" value="true" />
+		<property name="moment" value="12/12/2018 12:12" />
+		<property name="admin" ref="Admin1" />
+		<property name="newspaper" ref="Newspaper1" />
+	</bean>
+
+	<bean id="Review3" class="domain.Review">
+		<property name="ticker" value="Abde_10-16-20" />
+		<property name="title" value="review 1" />
+		<property name="description" value="That its the review 3" />
+		<property name="gauge" value="1" />
+		<property name="draf" value="true" />
+		<property name="moment" value="12/12/2018 12:12" />
+		<property name="admin" ref="Admin2" />
+		<property name="newspaper" ref="Newspaper2" />
+	</bean>
+
+	<bean id="Review4" class="domain.Review">
+		<property name="ticker" value="Abde_10-17-20" />
+		<property name="title" value="review 2" />
+		<property name="description" value="That its the review 2" />
+		<property name="gauge" value="1" />
+		<property name="draf" value="true" />
+		<property name="moment" value="12/12/2018 12:12" />
+		<property name="admin" ref="Admin2" />
+		<property name="newspaper" ref="Newspaper2" />
+	</bean>
+	
+
+	
+
+
 
 	<!-- = = = = = = DATATYPES = = = = = = = -->
 </beans>

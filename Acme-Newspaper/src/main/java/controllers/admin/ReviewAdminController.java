@@ -52,7 +52,7 @@ public class ReviewAdminController extends AbstractController {
 			review = this.reviewService.findOne(reviewId);
 			this.reviewService.delete(review);
 
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:listCreated.do");
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -99,8 +99,8 @@ public class ReviewAdminController extends AbstractController {
 		try {
 			review = this.reviewService.create();
 			newspaper = this.newspaperService.findOne(newspaperId);
-			review.setNewspaper(newspaper);
 			result = this.createEditModelAndView(review);
+			result.addObject("newspaperId", newspaperId);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");
@@ -112,65 +112,78 @@ public class ReviewAdminController extends AbstractController {
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAsDraf")
-	public ModelAndView saveAsDraf(Review review, final BindingResult binding) {
+	public ModelAndView saveAsDraf(Review review, final BindingResult binding, @RequestParam("newspaperId") final Integer newspaperId) {
 		ModelAndView result;
+		Newspaper newspaper;
 		try {
+			if (review.getNewspaper() == null) {
+				newspaper = this.newspaperService.findOne(newspaperId);
+				review.setNewspaper(newspaper);
+			}
 			review = this.reviewService.reconstruct(review, binding);
 		} catch (final Throwable oops) {//Not delete
 		}
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(review, "review.params.error");
-		} else {
+			result.addObject("newspaperId", newspaperId);
+		} else
 			try {
 				this.reviewService.saveAsDraf(review);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:listCreated.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(review, "review.commit.error");
 			}
-		}
-
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAsFinal")
-	public ModelAndView saveAsFinal(Review review, final BindingResult binding) {
+	public ModelAndView saveAsFinal(Review review, final BindingResult binding, @RequestParam("newspaperId") final Integer newspaperId) {
 		ModelAndView result;
+		Newspaper newspaper;
 
 		try {
+			if (review.getNewspaper() == null) {
+				newspaper = this.newspaperService.findOne(newspaperId);
+				review.setNewspaper(newspaper);
+			}
 			review = this.reviewService.reconstruct(review, binding);
 		} catch (final Throwable oops) {//Not delete
 		}
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			result = this.createEditModelAndView(review, "review.params.error");
-		} else {
+		else
 			try {
 				this.reviewService.saveAsFinal(review);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:listCreated.do.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(review, "review.commit.error");
 			}
-		}
 
 		return result;
 	}
 
 	//Editing
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam("reviewId") final Integer reviewId) {
+	public ModelAndView edit(@RequestParam("reviewId") final Integer reviewId, @RequestParam("newspaperId") final Integer newspaperId) {
 		ModelAndView result;
 		Review review;
 		Actor actor;
+		Integer newspId;
 
 		try {
 			actor = this.actorService.findActorByPrincipal();
 			review = this.reviewService.findOne(reviewId);
 			Assert.isTrue(actor.equals(review.getAdmin()));
-			Assert.isTrue(!review.isDraf());
+			Assert.isTrue(review.isDraf());
 			result = this.createEditModelAndView(review);
+			if (newspaperId == null) {
+				newspId = review.getNewspaper().getId();
+				result.addObject("newspaperId", newspId);
+			} else
+				result.addObject("newspaperId", newspaperId);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("rediect:/misc/403");
+			result = new ModelAndView("redirect:/misc/403");
 		}
 		return result;
 	}

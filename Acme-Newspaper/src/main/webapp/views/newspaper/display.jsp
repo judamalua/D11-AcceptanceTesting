@@ -164,18 +164,27 @@
 </security:authorize>
 
 
+<h4>
+	<spring:message code="newspaper.reviews.list" />
+</h4>
+<acme:pagination page="${page1}" pageNum="${pageNum1}"
+	requestURI="newspaper/display.do?newspaperId=${newspaper.id}&pageReview=" />
 <display:table name="${reviews}" id="review"
-	requestURI="review/list.do" pagesize="${pagesize}">
+	requestURI="newspaper/display.do" pagesize="${pagesize}">
 
-	<display:column>
-			<acme:button url="review/display.do?areviewId=${review.id}"
-				code="newspaper.details" />
-	</display:column>
+
+	<spring:message code="review.title" var="title" />
+	<display:column property="title" title="${title}" style ="background-color:${warnigColor};" />
+
+	<spring:message code="review.description" var="description" />
+	<display:column property="description" title="${description}"  />
+	
+
 
 </display:table>
 
 <security:authorize access="hasRole('ADMIN')">
-<acme:button url="review/admin/create.do" code="review.create" />
+<acme:button url="review/admin/create.do?newspaperId=${newspaper.id}" code="review.create" />
 </security:authorize>
 <br />
 

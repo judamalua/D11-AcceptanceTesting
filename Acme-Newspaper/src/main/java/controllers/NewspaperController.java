@@ -31,6 +31,7 @@ import services.ActorService;
 import services.AdvertisementService;
 import services.ConfigurationService;
 import services.NewspaperService;
+import services.ReviewService;
 import services.UserService;
 import domain.Actor;
 import domain.Advertisement;
@@ -39,6 +40,7 @@ import domain.Configuration;
 import domain.CreditCard;
 import domain.Customer;
 import domain.Newspaper;
+import domain.Review;
 import domain.User;
 
 @Controller
@@ -56,6 +58,9 @@ public class NewspaperController extends AbstractController {
 
 	@Autowired
 	private AdvertisementService	advertisentService;
+
+	@Autowired
+	private ReviewService			reviewService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -106,7 +111,7 @@ public class NewspaperController extends AbstractController {
 		return result;
 	}
 	@RequestMapping("/display")
-	public ModelAndView display(@RequestParam final Integer newspaperId, @RequestParam(required = true, defaultValue = "0") final Integer pageArticle) {
+	public ModelAndView display(@RequestParam final Integer newspaperId, @RequestParam(required = true, defaultValue = "0") final Integer pageArticle, @RequestParam(required = true, defaultValue = "0") final Integer pageReview) {
 		ModelAndView result;
 		Newspaper newspaper;
 		Actor actor;
@@ -114,10 +119,12 @@ public class NewspaperController extends AbstractController {
 		final Collection<Boolean> ownArticles;
 		final Page<Article> articles;
 		Pageable pageable;
+		Pageable pageable2;
 		Configuration configuration;
 		Boolean subscriber;
 		Random random;
 		final Collection<Advertisement> advertisements;
+		Page<Review> reviews;
 
 		try {
 
@@ -128,9 +135,11 @@ public class NewspaperController extends AbstractController {
 
 			configuration = this.configurationService.findConfiguration();
 			pageable = new PageRequest(pageArticle, configuration.getPageSize());
+			pageable2 = new PageRequest(pageReview, configuration.getPageSize());
 
 			ownArticles = new ArrayList<>();
 			articles = this.newspaperService.findArticlesByNewspaper(newspaperId, pageable);
+			reviews = this.reviewService.findReviewsByNewspaper(newspaperId, pageable2);
 
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
@@ -156,11 +165,15 @@ public class NewspaperController extends AbstractController {
 				result.addObject("advertisement", advertisements.toArray()[random.nextInt(advertisements.size())]);
 			} else
 				result.addObject("advertisement", null);
+
 			result.addObject("subscriber", subscriber);
 			result.addObject("newspaper", newspaper);
+			result.addObject("reviews", reviews.getContent());
 			result.addObject("articles", articles.getContent());
 			result.addObject("page", pageArticle);
 			result.addObject("pageNum", articles.getTotalPages());
+			result.addObject("page1", pageReview);
+			result.addObject("pageNum1", reviews.getTotalPages());
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403");

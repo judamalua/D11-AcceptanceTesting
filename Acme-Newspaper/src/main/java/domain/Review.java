@@ -1,17 +1,23 @@
 
 package domain;
 
+import java.util.Date;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -25,6 +31,7 @@ public class Review extends DomainEntity {
 	private Integer	gauge;
 	private String	ticker;
 	private boolean	draf;
+	private Date	moment;
 
 
 	@NotBlank
@@ -50,7 +57,6 @@ public class Review extends DomainEntity {
 	}
 
 	@NotNull
-	@SafeHtml
 	public Integer getGauge() {
 		return this.gauge;
 	}
@@ -61,7 +67,7 @@ public class Review extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml
-	@Pattern(regexp = "^[A-Z][a-z][0-9]{4}_[0-9]{2}-[0-9]{2}-[0-9]{2}")
+	@Pattern(regexp = "^\\w{4}_\\d{2}-\\d{2}-\\d{2}$")
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -79,7 +85,7 @@ public class Review extends DomainEntity {
 	@NotNull
 	@Valid
 	@ManyToOne
-	public Newspaper getNewspapers() {
+	public Newspaper getNewspaper() {
 		return this.newspaper;
 	}
 
@@ -98,16 +104,23 @@ public class Review extends DomainEntity {
 		this.admin = admin;
 	}
 
-	public Newspaper getNewspaper() {
-		return this.newspaper;
-	}
-
 	public boolean isDraf() {
 		return this.draf;
 	}
 
 	public void setDraf(final boolean draf) {
 		this.draf = draf;
+	}
+
+	@Future
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getMoment() {
+		return this.moment;
+	}
+
+	public void setMoment(final Date moment) {
+		this.moment = moment;
 	}
 
 }

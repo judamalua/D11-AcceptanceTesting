@@ -26,6 +26,8 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="draf" />
+	<input type="hidden" name="newspaperId" id="newspaperId" value="${newspaperId}"/>
+	
 
 	<p>
 		<em><spring:message code="configuration.all.fields.required" /></em>
@@ -34,6 +36,13 @@
 	<acme:textbox code="review.title" path="title" required="true" />
 	<acme:textbox code="review.description" path="description" required="true" />
 	
+	
+	<form:label path="moment">
+		<spring:message code="review.moment"/>
+	</form:label>
+	<form:input path="moment" placeholder="dd/MM/yyyy HH:mm"/>
+	<form:errors cssClass="error" path="moment"/>
+	<br/>
 	
 	<form:label path="gauge">
 		<spring:message code="review.gauge"/>
@@ -48,12 +57,20 @@
 	
 	
 
-	<acme:submit name="saveAsDraf" code="configuration.save" />
-	<acme:submit name="saveAsFinal" code="configuration.save" />
+	
+	<input 
+		type="submit"
+		name="saveAsDraf"
+		class = "btn"
+		value="<spring:message code="review.saveAsDraf" />"/>
+	<acme:submit name="saveAsFinal" code="review.saveAsFinal" />
 
 	<jstl:if test="${review.id!=0}">
-		<acme:delete clickCode="tag.delete.confirm" name="delete"
-			code="tag.delete" />
+		<a href="review/admin/delete.do?reviewId=${review.id}">
+			<button class="btn">
+				<spring:message code="review.delete" />
+			</button>
+		</a>
 	</jstl:if>
 
 	<acme:cancel url="configuration/admin/list.do"

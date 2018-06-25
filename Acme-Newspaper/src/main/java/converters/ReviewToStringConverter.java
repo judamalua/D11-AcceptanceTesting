@@ -12,14 +12,13 @@ import domain.Review;
 public class ReviewToStringConverter implements Converter<Review, String> {
 
 	@Override
-	public String convert(final Review Review) {
+	public String convert(final Review review) {
 		String result;
 
-		if (Review == null) {
+		if (review == null)
 			result = null;
-		} else {
-			result = String.valueOf(Review.getId());
-		}
+		else
+			result = String.valueOf(review.getId());
 
 		return result;
 	}

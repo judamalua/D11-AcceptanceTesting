@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -73,9 +74,8 @@ public class ReviewService {
 		Review result;
 
 		principal = this.actorService.findActorByPrincipal();
-		if (principal instanceof Admin) {
+		if (principal instanceof Admin)
 			Assert.isTrue(principal.equals(review.getAdmin()));
-		}
 		result = this.reviewRepository.save(review);
 
 		return result;
@@ -88,9 +88,8 @@ public class ReviewService {
 		Review result;
 
 		principal = this.actorService.findActorByPrincipal();
-		if (principal instanceof Admin) {
+		if (principal instanceof Admin)
 			Assert.isTrue(principal.equals(review.getAdmin()));
-		}
 		review.setDraf(false);
 		result = this.reviewRepository.save(review);
 
@@ -115,6 +114,10 @@ public class ReviewService {
 	public Review reconstruct(final Review review, final BindingResult binding) {
 		Review result;
 		Admin admin;
+		if (review.getMoment() == null) {
+			final Date moment = new Date();
+			review.setMoment(moment);
+		}
 
 		if (review.getId() == 0) {
 			admin = (Admin) this.actorService.findActorByPrincipal();
@@ -127,6 +130,7 @@ public class ReviewService {
 			result.setDescription(review.getDescription());
 			result.setTitle(review.getTitle());
 			result.setGauge(review.getGauge());
+			result.setMoment(review.getMoment());
 
 		}
 
@@ -188,18 +192,16 @@ public class ReviewService {
 		random = new Random();
 		alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 
-		for (int i = 0; i < 4; i++) {
-			res += alphabet.charAt(random.nextInt(alphabet.length()));
-		}
+		for (int i = 0; i < 4; i++)
+			res += "" + alphabet.charAt(random.nextInt(alphabet.length()));
 
 		res += "_";
-		res = (year < 10 ? "0" + year : year) + "-";
+		res += (year < 10 ? "0" + year : year) + "-";
 		res += (month < 10 ? "0" + month : month) + "-";
 		res += (day < 10 ? "0" + day : day);
 
-		if (this.getAllTickers().contains(res)) {
+		if (this.getAllTickers().contains(res))
 			res = this.generateTicker();
-		}
 
 		return res;
 	}

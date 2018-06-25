@@ -13,44 +13,55 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
+
 <!-- Pagination -->
 <acme:pagination requestURI = "review/admin/list.do?page=" pageNum = "${pageNum}" page = "${page}"/>
 
 
+<jstl:set var="warningColor" value="" />
 
-<jstl:if test="${review.gauge == 1}">
-		<jstl:set var="warningColor" value="#ff0000" />
-	</jstl:if>
-
-	<jstl:if test="${review.gauge == 2}">
-		<jstl:set var="warningColor" value="#00ff00" />
-	</jstl:if>
-
-	<jstl:if test="${review.gauge == 3}">
-		<jstl:set var="warningColor" value="#0000ff" />
-	</jstl:if>
 
 <display:table name="reviews" id="review" requestURI="review/admin/list.do?page=${page}"
 	class="displaytag">
 	
 	
+	<jstl:if test="${review.gauge ==1}">
+		<jstl:set var="warningColor" value="#ff0000" />
+	</jstl:if>
+
+	<jstl:if test="${review.gauge ==2}">
+		<jstl:set var="warningColor" value="#00ff00" />
+	</jstl:if>
+
+	<jstl:if test="${review.gauge ==3}">
+		<jstl:set var="warningColor" value="#0000ff" />
+	</jstl:if>
 	
+	<spring:message code="review.ticker" var="ticker" />
+	<display:column property="ticker" title="${ticker}" />
+	
+	<spring:message code="review.moment" var="moment" />
+	<display:column property="moment" title="${moment}" sortable="true"
+		format="${formatDate}" />
 
 	<spring:message code="review.title" var="title" />
-	<display:column property="title" title="${title}" style ="background-color:${warnigColor};" />
+	<display:column property="title" title="${title}" style ="background-color:${warningColor};" />
 
 	<spring:message code="review.description" var="description" />
 	<display:column property="description" title="${description}"  />
 	
 	<spring:message code="review.gauge" var="gauge" />
 	<display:column property="gauge" title="${gauge}"  />
+	
+	
+	
 
 
 <jstl:if test="${review.draf == true}">
 <display:column>
-		<a href="review/admin/edit.do?reviewId=${review.id}">
+		<a href="review/admin/edit.do?reviewId=${review.id}&&newspaperId=${review.newspaper.id}">
 			<button class="btn">
-				<spring:message code="tag.edit" />
+				<spring:message code="review.edit" />
 			</button>
 		</a>
 </display:column></jstl:if>
@@ -61,9 +72,11 @@
 				<spring:message code="review.delete" />
 			</button>
 		</a>
-	</display:column>
+</display:column>
 	
 	
 
 </display:table>
+
+
 
