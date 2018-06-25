@@ -70,6 +70,9 @@
 		
 		<bean class="converters.TagToStringConverter" />
 		<bean class="converters.StringToTagConverter" />
+		
+		<bean class="converters.LusitToStringConverter" />
+		<bean class="converters.StringToLusitConverter" />
 	
 	</util:list>
 	

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -85,15 +86,15 @@ public class TagAdminController extends AbstractController {
 	// Saving -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Tag tag, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("Tag") Tag tag, final BindingResult binding) {
 		ModelAndView result;
 		try {
 			tag = this.tagService.reconstruct(tag, binding);
 		} catch (final Throwable oops) {
 		}
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(tag, "tag.params.error");
-		else
+		} else {
 			try {
 				this.tagService.save(tag);
 				result = new ModelAndView("redirect:/tag/admin/list.do");
@@ -101,6 +102,7 @@ public class TagAdminController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(tag, "tag.commit.error");
 			}
+		}
 
 		return result;
 	}

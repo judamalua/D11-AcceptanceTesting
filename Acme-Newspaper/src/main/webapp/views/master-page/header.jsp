@@ -94,7 +94,12 @@
 					<li class="divider"></li>
 					<li><a href="advertisement/admin/list.do?taboo=false"><spring:message
 								code="master.page.advertisement.list" /></a></li>
-
+					<li class="divider"></li>
+					<li><a href="lusit/admin/list.do?finalMode=false"><spring:message
+								code="master.page.lusit.notFinal.list" /></a></li>
+					<li class="divider"></li>
+					<li><a href="lusit/admin/list.do?finalMode=true"><spring:message
+								code="master.page.lusit.final.list" /></a></li>
 				</ul>
 
 				<!-- Dropdown Trigger -->

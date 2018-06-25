@@ -13,6 +13,7 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -30,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.AdvertisementService;
 import services.ConfigurationService;
+import services.LusitService;
 import services.NewspaperService;
 import services.UserService;
 import domain.Actor;
@@ -38,6 +40,7 @@ import domain.Article;
 import domain.Configuration;
 import domain.CreditCard;
 import domain.Customer;
+import domain.Lusit;
 import domain.Newspaper;
 import domain.User;
 
@@ -56,6 +59,9 @@ public class NewspaperController extends AbstractController {
 
 	@Autowired
 	private AdvertisementService	advertisentService;
+
+	@Autowired
+	private LusitService			lusitService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -106,7 +112,7 @@ public class NewspaperController extends AbstractController {
 		return result;
 	}
 	@RequestMapping("/display")
-	public ModelAndView display(@RequestParam final Integer newspaperId, @RequestParam(required = true, defaultValue = "0") final Integer pageArticle) {
+	public ModelAndView display(@RequestParam final Integer newspaperId, @RequestParam(required = true, defaultValue = "0") final Integer pageArticle, @RequestParam(required = true, defaultValue = "0") final Integer pageLusit) {
 		ModelAndView result;
 		Newspaper newspaper;
 		Actor actor;
@@ -117,7 +123,8 @@ public class NewspaperController extends AbstractController {
 		Configuration configuration;
 		Boolean subscriber;
 		Random random;
-		final Collection<Advertisement> advertisements;
+		Collection<Advertisement> advertisements;
+		Page<Lusit> lusits;
 
 		try {
 
@@ -134,19 +141,26 @@ public class NewspaperController extends AbstractController {
 
 			if (this.actorService.getLogged()) {
 				actor = this.actorService.findActorByPrincipal();
+				if (actor instanceof User && !((User) actor).getNewspapers().contains(newspaper)) {
+					Assert.isTrue(newspaper.getPublicationDate().before(new Date()));
+				}
 
 				for (final Article article : articles.getContent()) {
 					writer = this.userService.findUserByArticle(article.getId());
 					ownArticles.add(writer.equals(actor));
 				}
 
-				if (actor instanceof Customer)
+				if (actor instanceof Customer) {
 					for (final CreditCard creditCard : newspaper.getCreditCards()) {
 						subscriber = creditCard.getCustomer().equals(actor);
-						if (subscriber)
+						if (subscriber) {
 							break;
+						}
 					}
+				}
 				result.addObject("ownArticle", ownArticles);
+			} else {
+				Assert.isTrue(newspaper.getPublicationDate().before(new Date()));
 			}
 
 			random = new Random();
@@ -154,10 +168,18 @@ public class NewspaperController extends AbstractController {
 				advertisements = new HashSet<Advertisement>(this.advertisentService.findAdvertisementsTag(newspaper.getTag().getId()));
 				advertisements.addAll(newspaper.getAdvertisements());
 				result.addObject("advertisement", advertisements.toArray()[random.nextInt(advertisements.size())]);
-			} else
+			} else {
 				result.addObject("advertisement", null);
+			}
+
+			pageable = new PageRequest(pageLusit, configuration.getPageSize());
+			lusits = this.lusitService.findLusitsByNewspaper(newspaperId, pageable);
+
 			result.addObject("subscriber", subscriber);
 			result.addObject("newspaper", newspaper);
+			result.addObject("lusits", lusits);
+			result.addObject("pageNumLusit", lusits.getTotalPages());
+			result.addObject("pageLusit", pageLusit);
 			result.addObject("articles", articles.getContent());
 			result.addObject("page", pageArticle);
 			result.addObject("pageNum", articles.getTotalPages());

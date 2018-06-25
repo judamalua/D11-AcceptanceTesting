@@ -150,6 +150,17 @@
 			</list>
 		</property>
 	</bean>
+	<bean id="UserAccount14" class="security.UserAccount">
+		<property name="username" value="admin2" />
+		<property name="password" value="c84258e9c39059a89ab77d846ddab909" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 	<!-- %%%%%% domain.Slider %%%%%% -->
 	<bean id="Slider1" class="domain.Slider">
 		<property name="title_en" value="Welcome to Acme-Newspaper!" />
@@ -603,6 +614,12 @@
 				<ref bean="MessageFolder71" />
 			</list>
 		</property>
+		<property name="lusits">
+			<list>
+			<ref bean="Lusit1" />
+			<ref bean="Lusit2" />
+			</list>
+		</property>
 	</bean>
 	<bean id="Admin2" class="domain.Admin">
 		<property name="name" value="Administrator 1" />
@@ -617,6 +634,32 @@
 				<ref bean="MessageFolder48" />
 				<ref bean="MessageFolder49" />
 				<ref bean="MessageFolder50" />
+			</list>
+		</property>
+		<property name="lusits">
+			<list>
+			</list>
+		</property>
+	</bean>
+		<bean id="Admin3" class="domain.Admin">
+		<property name="name" value="Administrator 2" />
+		<property name="surname" value="Administrator" />
+		<property name="email" value="administrator2@mail.com" />
+		<property name="birthDate" value="1987/04/11 00:00" />
+		<property name="userAccount" ref="UserAccount14" />
+		<property name="messageFolders">
+			<list>
+				<ref bean="MessageFolder72" />
+				<ref bean="MessageFolder73" />
+				<ref bean="MessageFolder74" />
+				<ref bean="MessageFolder75" />
+				<ref bean="MessageFolder76" />
+			</list>
+		</property>
+		<property name="lusits">
+			<list>
+			<ref bean="Lusit3" />
+			<ref bean="Lusit4" />
 			</list>
 		</property>
 	</bean>
@@ -942,6 +985,26 @@
 	<bean id="MessageFolder71" class="domain.MessageFolder">
 		<property name="name" value="family box" />
 		<property name="isDefault" value="false" />
+	</bean>
+	<bean id="MessageFolder72" class="domain.MessageFolder">
+		<property name="name" value="in box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder73" class="domain.MessageFolder">
+		<property name="name" value="out box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder74" class="domain.MessageFolder">
+		<property name="name" value="trash box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder75" class="domain.MessageFolder">
+		<property name="name" value="notification box" />
+		<property name="isDefault" value="true" />
+	</bean>
+	<bean id="MessageFolder76" class="domain.MessageFolder">
+		<property name="name" value="spam box" />
+		<property name="isDefault" value="true" />
 	</bean>
 
 	<!-- %%%%%% domain.Message %%%%%% -->
@@ -1273,6 +1336,12 @@
 				<ref bean="Article6" />
 			</list>
 		</property>
+		<property name="lusits">
+			<list>
+				<ref bean="Lusit1" />
+				<ref bean="Lusit3" />
+			</list>
+		</property>
 	</bean>
 	<bean id="Newspaper2" class="domain.Newspaper">
 		<property name="title" value="The Runner Journal" />
@@ -1294,6 +1363,10 @@
 		<property name="articles">
 			<list>
 				<ref bean="Article11" />
+			</list>
+		</property>
+		<property name="lusits">
+			<list>
 			</list>
 		</property>
 	</bean>
@@ -1323,6 +1396,10 @@
 				<ref bean="Article7" />
 			</list>
 		</property>
+		<property name="lusits">
+			<list>
+			</list>
+		</property>
 	</bean>
 	<bean id="Newspaper4" class="domain.Newspaper">
 		<property name="title" value="The big hamburger" />
@@ -1349,6 +1426,10 @@
 				<ref bean="Article8" />
 			</list>
 		</property>
+		<property name="lusits">
+			<list>
+			</list>
+		</property>
 	</bean>
 	<bean id="Newspaper5" class="domain.Newspaper">
 		<property name="title" value="Nessie" />
@@ -1373,6 +1454,10 @@
 		<property name="articles">
 			<list>
 				<ref bean="Article9" />
+			</list>
+		</property>
+		<property name="lusits">
+			<list>
 			</list>
 		</property>
 	</bean>
@@ -1402,6 +1487,10 @@
 				<ref bean="Article10" />
 			</list>
 		</property>
+		<property name="lusits">
+			<list>
+			</list>
+		</property>
 	</bean>
 	<bean id="Newspaper7" class="domain.Newspaper">
 		<property name="title"
@@ -1423,6 +1512,10 @@
 		<property name="articles">
 			<list>
 				<ref bean="Article12" />
+			</list>
+		</property>
+		<property name="lusits">
+			<list>
 			</list>
 		</property>
 	</bean>
@@ -1447,6 +1540,10 @@
 			<list>
 			</list>
 		</property>
+		<property name="lusits">
+			<list>
+			</list>
+		</property>
 	</bean>
 	<bean id="Newspaper9" class="domain.Newspaper">
 		<property name="title" value="This is a new newspaper!" />
@@ -1467,6 +1564,10 @@
 			</list>
 		</property>
 		<property name="articles">
+			<list>
+			</list>
+		</property>
+		<property name="lusits">
 			<list>
 			</list>
 		</property>
@@ -1560,6 +1661,36 @@
 				<ref bean="Newspaper2" />
 			</list>
 		</property>
+	</bean>
+	<!-- %%%%%% domain.Advertisement %%%%%% -->
+	<bean id="Lusit1" class="domain.Lusit">
+		<property name="ticker" value="180623-Adv3" />
+		<property name="title" value="Example1" />
+		<property name="description" value="Example 1" />
+		<property name="gauge" value="1" />
+		<property name="finalMode" value="true" />
+	</bean>
+	<bean id="Lusit2" class="domain.Lusit">
+		<property name="ticker" value="180623-Adv2" />
+		<property name="title" value="Example2" />
+		<property name="description" value="Example 2" />
+		<property name="gauge" value="2" />
+		<property name="finalMode" value="false" />
+		<property name="publicationDate" value="2018/07/05 00:30" />
+	</bean>
+	<bean id="Lusit3" class="domain.Lusit">
+		<property name="ticker" value="180623-Adv1" />
+		<property name="title" value="Example3" />
+		<property name="description" value="Example 3" />
+		<property name="gauge" value="2" />
+		<property name="finalMode" value="true" />
+	</bean>
+	<bean id="Lusit4" class="domain.Lusit">
+		<property name="ticker" value="180623-Adv4" />
+		<property name="title" value="Example4" />
+		<property name="description" value="Example 4" />
+		<property name="gauge" value="3" />
+		<property name="finalMode" value="false" />
 	</bean>
 	<!-- %%%%%% domain.Advertisement %%%%%% -->
 	<bean id="Advertisement1" class="domain.Advertisement">

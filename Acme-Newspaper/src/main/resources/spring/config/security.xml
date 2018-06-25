@@ -125,6 +125,8 @@
 		<security:intercept-url pattern="/law/termsAndConditions.do" access="permitAll" requires-channel="https" />
 		
 		<security:intercept-url pattern="/slider/admin/**" access="hasRole('ADMIN')" requires-channel="https"/>
+		
+		<security:intercept-url pattern="/lusit/admin/**" access="hasRole('ADMIN')" requires-channel="https"/>
 			
 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

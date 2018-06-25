@@ -20,6 +20,7 @@ import domain.Advertisement;
 import domain.Article;
 import domain.Configuration;
 import domain.CreditCard;
+import domain.Lusit;
 import domain.Newspaper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -64,6 +65,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setDescription("New description");
 		newspaper.setPictureUrl("");
 		newspaper.setAdvertisements(new HashSet<Advertisement>());
+		newspaper.setLusits(new HashSet<Lusit>());
 		newspaper.setTaboo(false);
 
 		newspaper = this.newspaperService.save(newspaper);
@@ -92,6 +94,7 @@ public class NewspaperServiceTest extends AbstractTest {
 		newspaper.setDescription("New description");
 		newspaper.setPictureUrl("");
 		newspaper.setAdvertisements(new HashSet<Advertisement>());
+		newspaper.setLusits(new HashSet<Lusit>());
 
 		newspaper = this.newspaperService.save(newspaper);
 		savedNewspaper = this.newspaperService.findOne(newspaper.getId());

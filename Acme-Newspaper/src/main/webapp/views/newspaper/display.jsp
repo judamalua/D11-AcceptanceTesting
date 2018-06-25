@@ -163,4 +163,27 @@
 	</jstl:if>
 </security:authorize>
 <br />
+<acme:pagination requestURI="newspaper/display.do?newspaperId=${newspaper.id}&pageArticle=${page}&pageLusit=" pageNum="${pageNumLusit}"
+	page="${pageLusit}" />
+
+<display:table name="lusits" id="lusit"
+	requestURI="newspaper/display.do" class="displaytag">
+
+	<jstl:if test="${lusit.gauge==1}">
+		<jstl:set var="cssClass" value="point1" />
+	</jstl:if>
+	<jstl:if test="${lusit.gauge==2}">
+		<jstl:set var="cssClass" value="point2" />
+	</jstl:if>
+	<jstl:if test="${lusit.gauge==2}">
+		<jstl:set var="cssClass" value="point3" />
+	</jstl:if>
+
+	<spring:message code="lusit.title" var="title" />
+	<display:column property="title" title="${title}" class="${cssClass}" />
+
+	<spring:message code="lusit.description" var="description" />
+	<display:column property="description" title="${description}"
+		class="${cssClass}" />
+</display:table>
 

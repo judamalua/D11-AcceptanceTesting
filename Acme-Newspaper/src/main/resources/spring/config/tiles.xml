@@ -46,6 +46,7 @@
 		<value>/views/messageFolder/tiles.xml</value>
 		<value>/views/advertisement/tiles.xml</value>
 		<value>/views/tag/tiles.xml</value>
+		<value>/views/lusit/tiles.xml</value>
 	</util:list>
 
 </beans>

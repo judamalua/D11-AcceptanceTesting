@@ -14,6 +14,7 @@ import org.springframework.validation.Validator;
 
 import repositories.AdminRepository;
 import domain.Admin;
+import domain.Lusit;
 import domain.MessageFolder;
 import forms.UserCustomerAdminForm;
 
@@ -33,6 +34,9 @@ public class AdminService {
 
 	@Autowired
 	private MessageFolderService	messageFolderService;
+
+	@Autowired
+	private LusitService			lusitService;
 
 	@Autowired
 	private Validator				validator;
@@ -82,14 +86,18 @@ public class AdminService {
 
 	}
 
-	public void delete(final Admin Admin) {
+	public void delete(final Admin admin) {
 
-		assert Admin != null;
-		assert Admin.getId() != 0;
+		assert admin != null;
+		assert admin.getId() != 0;
 
-		Assert.isTrue(this.adminRepository.exists(Admin.getId()));
+		Assert.isTrue(this.adminRepository.exists(admin.getId()));
 
-		this.adminRepository.delete(Admin);
+		for (final Lusit lusit : admin.getLusits()) {
+			this.lusitService.delete(lusit);
+		}
+
+		this.adminRepository.delete(admin);
 
 	}
 
@@ -142,8 +150,9 @@ public class AdminService {
 
 			savedMessageFolders = new ArrayList<MessageFolder>();
 
-			for (final MessageFolder mf : messageFolders)
+			for (final MessageFolder mf : messageFolders) {
 				savedMessageFolders.add(this.messageFolderService.saveDefaultMessageFolder(mf));
+			}
 
 			result.setMessageFolders(savedMessageFolders);
 

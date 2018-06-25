@@ -102,6 +102,7 @@ public class Newspaper extends DomainEntity {
 	private Collection<CreditCard>		creditCards;
 	private Collection<Article>			articles;
 	private Collection<Advertisement>	advertisements;
+	private Collection<Lusit>			lusits;
 	private Tag							tag;
 
 
@@ -146,6 +147,16 @@ public class Newspaper extends DomainEntity {
 
 	public void setTag(final Tag tag) {
 		this.tag = tag;
+	}
+
+	@NotNull
+	@OneToMany
+	public Collection<Lusit> getLusits() {
+		return this.lusits;
+	}
+
+	public void setLusits(final Collection<Lusit> lusits) {
+		this.lusits = lusits;
 	}
 
 }

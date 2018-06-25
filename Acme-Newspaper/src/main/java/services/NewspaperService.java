@@ -19,6 +19,7 @@ import domain.Actor;
 import domain.Advertisement;
 import domain.Article;
 import domain.CreditCard;
+import domain.Lusit;
 import domain.Newspaper;
 import domain.User;
 import domain.Volume;
@@ -42,6 +43,9 @@ public class NewspaperService {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private LusitService		lusitService;
 
 	@Autowired
 	private VolumeService		volumeService;
@@ -96,10 +100,11 @@ public class NewspaperService {
 
 		result = this.newspaperRepository.save(newspaper);
 
-		if (newspaper.getId() != 0)
+		if (newspaper.getId() != 0) {
 			publisher = this.userService.findUserByNewspaper(result.getId());
-		else
+		} else {
 			publisher = (User) this.actorService.findActorByPrincipal();
+		}
 
 		publisher.getNewspapers().remove(result);
 		publisher.getNewspapers().add(result);
@@ -128,14 +133,14 @@ public class NewspaperService {
 		Collection<Volume> volumes;
 
 		actor = this.actorService.findActorByPrincipal();
-		if (actor instanceof User)
+		if (actor instanceof User) {
 			Assert.isTrue(newspaper.getPublicationDate() == null);
+		}
 		Assert.isTrue(this.newspaperRepository.exists(newspaper.getId()));
 
-		publisher = this.userService.findUserByNewspaper(newspaper.getId());
-
-		publisher.getNewspapers().remove(newspaper);
-		this.userService.save(publisher);
+		for (final Lusit lusit : new HashSet<Lusit>(newspaper.getLusits())) {
+			this.lusitService.delete(lusit);
+		}
 
 		volumes = this.volumeService.findVolumesByNewspaper(newspaper.getId());
 
@@ -143,6 +148,11 @@ public class NewspaperService {
 			volume.getNewspapers().remove(newspaper);
 			this.volumeService.save(volume);
 		}
+
+		publisher = this.userService.findUserByNewspaper(newspaper.getId());
+
+		publisher.getNewspapers().remove(newspaper);
+		this.userService.save(publisher);
 
 		this.newspaperRepository.delete(newspaper);
 
@@ -185,6 +195,14 @@ public class NewspaperService {
 		Assert.notNull(pageable);
 
 		result = this.newspaperRepository.findPublicPublicatedNewspapers(pageable);
+
+		return result;
+	}
+
+	public Collection<Newspaper> findPublicPublicatedNewspapers() {
+		Collection<Newspaper> result;
+
+		result = this.newspaperRepository.findPublicPublicatedNewspapers();
 
 		return result;
 	}
@@ -402,10 +420,11 @@ public class NewspaperService {
 
 	public Page<Newspaper> findNewspapersWithAdvertisements(final int advertisementId, final boolean hasAdvertisement, final Pageable pageable) {
 		Page<Newspaper> result;
-		if (hasAdvertisement)
+		if (hasAdvertisement) {
 			result = this.newspaperRepository.findNewspaperByAdvertisementPage(advertisementId, pageable);
-		else
+		} else {
 			result = this.newspaperRepository.findNewspaperByNoAdvertisementPage(advertisementId, pageable);
+		}
 		return result;
 	}
 
@@ -427,6 +446,14 @@ public class NewspaperService {
 		actor = this.actorService.findActorByPrincipal();
 
 		result = this.newspaperRepository.findNewspapersWithoutOwnAdvertisement(actor.getId(), pageable);
+
+		return result;
+	}
+
+	public Newspaper findNewspaperByLusit(final Integer lusitId) {
+		Newspaper result;
+
+		result = this.newspaperRepository.findNewspaperByLusit(lusitId);
 
 		return result;
 	}

@@ -17,6 +17,7 @@ import security.Authority;
 import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Admin;
+import domain.Lusit;
 import domain.MessageFolder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -52,9 +53,10 @@ public class AdminServiceTest extends AbstractTest {
 			},
 
 		};
-		for (int i = 0; i < testingData.length; i++)
+		for (int i = 0; i < testingData.length; i++) {
 			this.templateCreateAdmin((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (Date) testingData[i][5], (String) testingData[i][6],
 				(String) testingData[i][7], (String) testingData[i][8], (Class<?>) testingData[i][9]);
+		}
 	}
 
 	protected void templateCreateAdmin(final String login, final String userAdmin, final String passwordAdmi, final String name, final String surname, final Date birthDate, final String email, final String phoneNumber, final String address,
@@ -87,6 +89,7 @@ public class AdminServiceTest extends AbstractTest {
 			newAdmin.setPhoneNumber(phoneNumber);
 			newAdmin.setPostalAddress(address);
 			newAdmin.setMessageFolders(new HashSet<MessageFolder>());
+			newAdmin.setLusits(new HashSet<Lusit>());
 
 			this.adminService.save(newAdmin);
 			this.adminService.flush();
