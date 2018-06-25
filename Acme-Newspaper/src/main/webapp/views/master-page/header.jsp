@@ -94,6 +94,9 @@
 					<li class="divider"></li>
 					<li><a href="advertisement/admin/list.do?taboo=false"><spring:message
 								code="master.page.advertisement.list" /></a></li>
+				    <li><a href="review/admin/listCreated.do"><spring:message
+								code="master.page.created.reviews" /></a></li>
+					<li class="divider"></li>
 
 				</ul>
 

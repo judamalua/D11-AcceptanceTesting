@@ -162,5 +162,20 @@
 			code="article.create" />
 	</jstl:if>
 </security:authorize>
+
+
+<display:table name="${reviews}" id="review"
+	requestURI="review/list.do" pagesize="${pagesize}">
+
+	<display:column>
+			<acme:button url="review/display.do?areviewId=${review.id}"
+				code="newspaper.details" />
+	</display:column>
+
+</display:table>
+
+<security:authorize access="hasRole('ADMIN')">
+<acme:button url="review/admin/create.do" code="review.create" />
+</security:authorize>
 <br />
 
