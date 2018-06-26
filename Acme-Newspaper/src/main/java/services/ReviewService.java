@@ -69,6 +69,7 @@ public class ReviewService {
 
 	public Review saveAsDraf(final Review review) {
 		Assert.notNull(review);
+		Assert.isTrue(review.isDraf());
 
 		Actor principal;
 		Review result;
@@ -83,6 +84,7 @@ public class ReviewService {
 
 	public Review saveAsFinal(final Review review) {
 		Assert.notNull(review);
+		Assert.isTrue(review.isDraf());
 
 		Actor principal;
 		Review result;

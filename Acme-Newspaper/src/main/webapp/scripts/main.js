@@ -4,8 +4,10 @@ function initialize() {
 	widgInit();
 }
 
+// true->exportar a zip
+// false-> exportar a war
 function getMainDomain() {
-	var development = true;
+	var development = false;
 	var domainName = "Acme-Newspaper";
 	if (development == true) {
 		return "/" + domainName + "/";

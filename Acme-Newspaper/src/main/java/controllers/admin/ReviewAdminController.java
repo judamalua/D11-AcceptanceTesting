@@ -125,7 +125,7 @@ public class ReviewAdminController extends AbstractController {
 		}
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(review, "review.params.error");
-			result.addObject("newspaperId", newspaperId);
+			result.addObject("newspaperId", review.getNewspaper().getId());
 		} else
 			try {
 				this.reviewService.saveAsDraf(review);
@@ -149,8 +149,11 @@ public class ReviewAdminController extends AbstractController {
 			review = this.reviewService.reconstruct(review, binding);
 		} catch (final Throwable oops) {//Not delete
 		}
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(review, "review.params.error");
+			result.addObject("newspaperId", review.getNewspaper().getId());
+		}
+
 		else
 			try {
 				this.reviewService.saveAsFinal(review);

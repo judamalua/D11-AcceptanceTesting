@@ -12,36 +12,40 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<spring:message code="master.page.moment.format" var="formatDate"/>
+<spring:message code="master.page.moment.format.out" var="formatDateOut"/>
+<spring:message code="language" var="language"/>
+
 
 
 <!-- Pagination -->
-<acme:pagination requestURI = "review/admin/list.do?page=" pageNum = "${pageNum}" page = "${page}"/>
+<acme:pagination requestURI = "review/admin/listCreated.do?page=" pageNum = "${pageNum}" page = "${page}"/>
 
 
 <jstl:set var="warningColor" value="" />
 
 
-<display:table name="reviews" id="review" requestURI="review/admin/list.do?page=${page}"
+<display:table name="reviews" id="review" requestURI="review/admin/listCreated.do?page=${page}"
 	class="displaytag">
 	
 	
 	<jstl:if test="${review.gauge ==1}">
-		<jstl:set var="warningColor" value="#ff0000" />
+		<jstl:set var="warningColor" value="lightyellow" />
 	</jstl:if>
 
 	<jstl:if test="${review.gauge ==2}">
-		<jstl:set var="warningColor" value="#00ff00" />
+		<jstl:set var="warningColor" value="moccasin" />
 	</jstl:if>
 
 	<jstl:if test="${review.gauge ==3}">
-		<jstl:set var="warningColor" value="#0000ff" />
+		<jstl:set var="warningColor" value="blue" />
 	</jstl:if>
 	
 	<spring:message code="review.ticker" var="ticker" />
 	<display:column property="ticker" title="${ticker}" />
 	
 	<spring:message code="review.moment" var="moment" />
-	<display:column property="moment" title="${moment}" sortable="true"
+	<display:column property="moment" title="${moment}" sortable="false"
 		format="${formatDate}" />
 
 	<spring:message code="review.title" var="title" />
